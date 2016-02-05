@@ -64,22 +64,6 @@
     </pluginRepository>
   </pluginRepositories>
   <build>
-    <sourceDirectory>D:\Users\Ofek\ProjectWorkspace\project\src\main\java</sourceDirectory>
-    <scriptSourceDirectory>D:\Users\Ofek\ProjectWorkspace\project\src\main\scripts</scriptSourceDirectory>
-    <testSourceDirectory>D:\Users\Ofek\ProjectWorkspace\project\src\test\java</testSourceDirectory>
-    <outputDirectory>D:\Users\Ofek\ProjectWorkspace\project\target\classes</outputDirectory>
-    <testOutputDirectory>D:\Users\Ofek\ProjectWorkspace\project\target\test-classes</testOutputDirectory>
-    <resources>
-      <resource>
-        <directory>D:\Users\Ofek\ProjectWorkspace\project\src\main\resources</directory>
-      </resource>
-    </resources>
-    <testResources>
-      <testResource>
-        <directory>D:\Users\Ofek\ProjectWorkspace\project\src\test\resources</directory>
-      </testResource>
-    </testResources>
-    <directory>D:\Users\Ofek\ProjectWorkspace\project\target</directory>
     <finalName>project-0.0.1-SNAPSHOT</finalName>
     <pluginManagement>
       <plugins>
@@ -218,7 +202,7 @@
               <goal>site</goal>
             </goals>
             <configuration>
-              <outputDirectory>D:\Users\Ofek\ProjectWorkspace\project\target\site</outputDirectory>
+           
               <reportPlugins>
                 <reportPlugin>
                   <groupId>org.apache.maven.plugins</groupId>
@@ -234,7 +218,7 @@
               <goal>deploy</goal>
             </goals>
             <configuration>
-              <outputDirectory>D:\Users\Ofek\ProjectWorkspace\project\target\site</outputDirectory>
+              
               <reportPlugins>
                 <reportPlugin>
                   <groupId>org.apache.maven.plugins</groupId>
@@ -245,7 +229,7 @@
           </execution>
         </executions>
         <configuration>
-          <outputDirectory>D:\Users\Ofek\ProjectWorkspace\project\target\site</outputDirectory>
+     
           <reportPlugins>
             <reportPlugin>
               <groupId>org.apache.maven.plugins</groupId>
@@ -257,6 +241,6 @@
     </plugins>
   </build>
   <reporting>
-    <outputDirectory>D:\Users\Ofek\ProjectWorkspace\project\target\site</outputDirectory>
+  
   </reporting>
 </project>
