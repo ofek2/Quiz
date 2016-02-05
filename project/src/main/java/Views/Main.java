@@ -9,7 +9,7 @@ public class Main{
 	{
 		view = new MainFrameView();
 		
-//		controller = new MainFrameController(view);
+		controller = new MainFrameController(view);
 		
 	}
 }
