@@ -18,21 +18,24 @@ public class QuizCreationController {
 	
 		this.view = view;
 		this.entity = entity;
-		
 		this.view.addBtnAddListener(new addBtnListener());
+		addQpanel();
 	}
-	
+	public void addQpanel()
+	{
+		qPanel qPview = new qPanel();
+		new qPanelController(qPview,view);
+		view.panel.add(qPview);
+		view.panel.revalidate();
+
+		view.panel.remove(view.addBtn);
+		view.panel.add(view.addBtn);
+		view.panel.revalidate();
+	}
 	class addBtnListener implements ActionListener
 	{
 		public void actionPerformed(ActionEvent e) {
-			qPanel qPview = new qPanel();
-			new qPanelController(qPview,view);
-			view.panel.add(qPview);
-			view.panel.revalidate();
-
-			view.panel.remove(view.addBtn);
-			view.panel.add(view.addBtn);
-			
+			addQpanel();
 		}
 		
 	}

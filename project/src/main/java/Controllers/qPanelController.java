@@ -9,6 +9,7 @@ import java.util.ResourceBundle;
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.TransformerException;
 
+import Views.MainFrameView;
 import Views.QuizCreationView;
 import Views.qPanel;
 import javafx.event.Event;
@@ -29,8 +30,9 @@ public class qPanelController{
 
 		public void actionPerformed(ActionEvent e) {
 			System.out.println("click");
-			parentView.panel.remove(parentView.panel.getComponentAt(view.getMousePosition()));
+			parentView.panel.remove(view);
 			parentView.panel.revalidate();
+			MainFrameController.view.repaint();
 			/*
 			try {
 				HtmlBuilder hb= new HtmlBuilder();
