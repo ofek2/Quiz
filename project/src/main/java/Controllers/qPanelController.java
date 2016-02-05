@@ -17,8 +17,10 @@ import project.HtmlBuilder;
 
 public class qPanelController{
 	private qPanel view;
-	public qPanelController(qPanel view) {
+	private QuizCreationView parentView;
+	public qPanelController(qPanel view,QuizCreationView parentView) {
 		this.view = view;
+		this.parentView=parentView;
 		this.view.removeBtnAddListener(new removeBtnListener());
 	}
 	
@@ -27,6 +29,9 @@ public class qPanelController{
 
 		public void actionPerformed(ActionEvent e) {
 			System.out.println("click");
+			parentView.panel.remove(parentView.panel.getComponentAt(view.getMousePosition()));
+			parentView.panel.revalidate();
+			/*
 			try {
 				HtmlBuilder hb= new HtmlBuilder();
 				hb.initiateHtml();
@@ -40,7 +45,7 @@ public class qPanelController{
 			} catch (TransformerException e1) {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
-			}
+			}*/
 		}
 		
 	}

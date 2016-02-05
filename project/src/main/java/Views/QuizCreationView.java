@@ -48,12 +48,6 @@ public class QuizCreationView extends ViewPanel {
 		add(jsp);
 		setVisible(true);
 		
-		qPanel qPanel = new qPanel();
-		new qPanelController(qPanel);
-		panel.add(qPanel);
-		qPanel.setMinimumSize(new Dimension(800, 250));		
-		qPanel.setAlignmentY(0.0f);
-		
 		addBtn = new JButton("Add question");
 		panel.add(addBtn);
 		addBtn.setAlignmentY(0.0f);
