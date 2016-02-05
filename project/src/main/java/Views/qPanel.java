@@ -18,7 +18,7 @@ public class qPanel extends ViewPanel {
 	private JLabel questionLbl;
 	private JComboBox<String> inputTypeCb;
 	private JComboBox<String> questionTypeCb;
-	private JButton btnTest;
+	private JButton btnRemove;
 	
 	/**
 	 * Create the panel.
@@ -33,6 +33,9 @@ public class qPanel extends ViewPanel {
 		questionLbl = new JLabel("Question 1.");
 		questionLbl.setFont(new Font("Serif", Font.BOLD, 20));
 		add(questionLbl, "2, 2");
+		
+		btnRemove = new JButton("X");
+		add(btnRemove, "50, 2");
 		
 		JLabel enterQuestionLbl = new JLabel("Enter question:");
 		enterQuestionLbl.setFont(new Font("Serif", Font.PLAIN, 13));
@@ -58,16 +61,13 @@ public class qPanel extends ViewPanel {
 		questionTypeCb.setSelectedIndex(0);
 		questionTypeCb.setMaximumSize(questionTypeCb.getPreferredSize());
 		add(questionTypeCb, "6, 10, fill, default");
-		
-		btnTest = new JButton("Test");
-		add(btnTest, "2, 14");
 		setMinimumSize(new Dimension(800, 250));
 		
 		setAlignmentY(0.0f);
 	}
-	public void testBtnAddListener(ActionListener listener)
+	public void removeBtnAddListener(ActionListener listener)
 	{
-		btnTest.addActionListener(listener);
+		btnRemove.addActionListener(listener);
 	}
 	private void layoutSettings() {
 		setLayout(new FormLayout(new ColumnSpec[] {

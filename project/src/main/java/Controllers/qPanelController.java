@@ -19,10 +19,10 @@ public class qPanelController{
 	private qPanel view;
 	public qPanelController(qPanel view) {
 		this.view = view;
-		this.view.testBtnAddListener(new testBtnListener());
+		this.view.removeBtnAddListener(new removeBtnListener());
 	}
 	
-	class testBtnListener implements ActionListener
+	class removeBtnListener implements ActionListener
 	{
 
 		public void actionPerformed(ActionEvent e) {
