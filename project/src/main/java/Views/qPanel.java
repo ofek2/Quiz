@@ -31,10 +31,8 @@ public class qPanel extends ViewPanel {
 	 * Create the panel.
 	 */
 	public qPanel() {
-		random = new Random();
-		int num= random.nextInt(100);
-		setBackground(Color.getHSBColor(num, num, num));
-		setSize(800, 250);
+
+		setSize(725, 250);
 		setMaximumSize(new Dimension(800,250));
 		layoutSettings();
 		
@@ -43,7 +41,7 @@ public class qPanel extends ViewPanel {
 		add(questionLbl, "2, 2");
 		
 		btnRemove = new JButton("X");
-		add(btnRemove, "50, 2");
+		add(btnRemove, "44, 2");
 		
 		JLabel enterQuestionLbl = new JLabel("Enter question:");
 		enterQuestionLbl.setFont(new Font("Serif", Font.PLAIN, 13));
@@ -84,7 +82,7 @@ public class qPanel extends ViewPanel {
 				FormSpecs.RELATED_GAP_COLSPEC,
 				FormSpecs.DEFAULT_COLSPEC,
 				FormSpecs.RELATED_GAP_COLSPEC,
-				ColumnSpec.decode("default:grow"),
+				ColumnSpec.decode("max(43dlu;default):grow"),
 				FormSpecs.RELATED_GAP_COLSPEC,
 				FormSpecs.DEFAULT_COLSPEC,
 				FormSpecs.RELATED_GAP_COLSPEC,
