@@ -74,7 +74,7 @@ public class qPanel extends ViewPanel {
 		add(enterQuestionLbl);
 		
 		
-		JLabel questionTypeLbl = new JLabel("Question type:");
+		JLabel questionTypeLbl = new JLabel("Answer type:");
 		questionTypeLbl.setBounds(8, 118, 95, 18);
 		questionTypeLbl.setFont(new Font("Serif", Font.PLAIN, 13));
 		add(questionTypeLbl);
