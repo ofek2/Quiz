@@ -19,6 +19,13 @@ import java.awt.Dimension;
 import java.util.Random;
 
 import javax.swing.JButton;
+import javax.swing.border.BevelBorder;
+import javax.swing.border.TitledBorder;
+import javax.swing.border.MatteBorder;
+import javax.swing.border.EtchedBorder;
+import javax.swing.border.CompoundBorder;
+import javax.swing.border.LineBorder;
+import javax.swing.border.SoftBevelBorder;
 
 public class qPanel extends ViewPanel {
 	private JLabel questionLbl;
@@ -31,6 +38,7 @@ public class qPanel extends ViewPanel {
 	 * Create the panel.
 	 */
 	public qPanel() {
+		setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
 
 		setSize(725, 250);
 		setMaximumSize(new Dimension(800,250));
