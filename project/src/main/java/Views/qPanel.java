@@ -5,6 +5,11 @@ import javax.swing.JPanel;
 import com.jgoodies.forms.layout.FormLayout;
 import com.jgoodies.forms.layout.ColumnSpec;
 import com.jgoodies.forms.layout.RowSpec;
+
+
+
+import project.checkBoxFieldPanel;
+
 import com.jgoodies.forms.layout.FormSpecs;
 
 import javax.swing.JLabel;
@@ -32,29 +37,35 @@ import java.awt.CardLayout;
 import javax.swing.JCheckBox;
 import javax.swing.JTextArea;
 import javax.swing.JScrollPane;
+import javax.swing.JSeparator;
+import javax.swing.SwingConstants;
+import javax.swing.JRadioButton;
+import javax.swing.JFormattedTextField;
+import javax.swing.JEditorPane;
+import javax.swing.BoxLayout;
 
 public class qPanel extends ViewPanel {
 	private JLabel questionLbl;
-	private JComboBox<String> inputTypeCb;
-	private JComboBox<String> questionTypeCb;
+	private JComboBox<String> answerTypeCb;
 	private JButton btnRemove;
 	private JTextField scoreField;
 	private JLabel lblScore;
-	private JPanel questionPanel;
 	private JPanel qAsText;
 	private JButton browseBtn;
 	private JTextArea textArea;
 	private int questionNumber;
 	private JCheckBox listenChkBox;
 	private JCheckBox chckbxHideQuestion;
+	private JPanel answerPanel;
+	private JPanel multipleChoicePanel;
 	/**
 	 * Create the panel.
 	 */
 	public qPanel() {
 		setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
 
-		setPreferredSize(new Dimension(725, 250));
-		setMaximumSize(new Dimension(725,250));
+		setPreferredSize(new Dimension(725, 300));
+		setMaximumSize(new Dimension(725,300));
 		
 		setLayout(null);
 		
@@ -68,34 +79,26 @@ public class qPanel extends ViewPanel {
 		btnRemove.setBounds(668, 9, 47, 34);
 		add(btnRemove);
 		
-		JLabel enterQuestionLbl = new JLabel("Enter question:");
-		enterQuestionLbl.setBounds(8, 67, 95, 18);
+		JLabel enterQuestionLbl = new JLabel("The question:");
+		enterQuestionLbl.setBounds(8, 68, 95, 18);
 		enterQuestionLbl.setFont(new Font("Serif", Font.PLAIN, 13));
 		add(enterQuestionLbl);
 		
 		
 		JLabel questionTypeLbl = new JLabel("Answer type:");
-		questionTypeLbl.setBounds(8, 118, 95, 18);
+		questionTypeLbl.setBounds(401, 69, 95, 18);
 		questionTypeLbl.setFont(new Font("Serif", Font.PLAIN, 13));
 		add(questionTypeLbl);
 		
-		inputTypeCb = new JComboBox<String>();
-		inputTypeCb.setBounds(134, 66, 160, 20);
-		inputTypeCb.addItem("As a text");
-		inputTypeCb.addItem("As an image");
-		inputTypeCb.setSelectedIndex(0);
-		inputTypeCb.setMaximumSize(inputTypeCb.getPreferredSize());
-		add(inputTypeCb);
 		
-		
-		questionTypeCb = new JComboBox<String>();
-		questionTypeCb.setBounds(134, 117, 160, 20);
-		questionTypeCb.addItem("Multiple Choice");
-		questionTypeCb.addItem("Free text");
-		questionTypeCb.addItem("Free drawing");
-		questionTypeCb.setSelectedIndex(0);
-		questionTypeCb.setMaximumSize(questionTypeCb.getPreferredSize());
-		add(questionTypeCb);
+		answerTypeCb = new JComboBox<String>();
+		answerTypeCb.setBounds(527, 68, 160, 20);
+		answerTypeCb.addItem("Multiple Choice");
+		answerTypeCb.addItem("Free text");
+		answerTypeCb.addItem("Free drawing");
+		answerTypeCb.setSelectedIndex(0);
+		answerTypeCb.setMaximumSize(answerTypeCb.getPreferredSize());
+		add(answerTypeCb);
 		setMinimumSize(new Dimension(800, 250));
 		
 		setAlignmentY(0.0f);
@@ -109,15 +112,9 @@ public class qPanel extends ViewPanel {
 		add(scoreField);
 		scoreField.setColumns(10);
 		
-		questionPanel = new JPanel();
-		questionPanel.setOpaque(false);
-
-		questionPanel.setBounds(321, 52, 376, 95);
-		add(questionPanel);
-		questionPanel.setLayout(new CardLayout(0, 0));
-		
 		qAsText = new JPanel();
-		questionPanel.add(qAsText, "As a text");
+		qAsText.setBounds(8, 96, 376, 191);
+		add(qAsText);
 		qAsText.setLayout(null);
 		qAsText.setOpaque(false);
 		
@@ -132,7 +129,7 @@ public class qPanel extends ViewPanel {
 		qAsText.add(listenChkBox);
 		
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(98, 11, 175, 75);
+		scrollPane.setBounds(98, 11, 175, 89);
 		qAsText.add(scrollPane);
 		
 		textArea = new JTextArea();
@@ -147,19 +144,28 @@ public class qPanel extends ViewPanel {
 		chckbxHideQuestion.setVisible(false);
 		chckbxHideQuestion.setBounds(287, 36, 97, 23);
 		qAsText.add(chckbxHideQuestion);
-		
-		JPanel qAsImg = new JPanel();
-		questionPanel.add(qAsImg, "As an image");
-		qAsImg.setLayout(null);
-		qAsImg.setOpaque(false);
 		browseBtn = new JButton("Browse..");
-		browseBtn.setBounds(131, 11, 89, 23);
-		qAsImg.add(browseBtn);
+		browseBtn.setBounds(131, 107, 89, 23);
+		qAsText.add(browseBtn);
 		
 		JLabel browseLabel = new JLabel("Browse an image:");
-		browseLabel.setBounds(10, 15, 104, 14);
-		qAsImg.add(browseLabel);
-	
+		browseLabel.setBounds(10, 111, 104, 14);
+		qAsText.add(browseLabel);
+		
+		JSeparator separator = new JSeparator();
+		separator.setOrientation(SwingConstants.VERTICAL);
+		separator.setBounds(389, 68, 2, 219);
+		add(separator);
+		
+		answerPanel = new JPanel();
+		answerPanel.setBounds(398, 98, 317, 191);
+		add(answerPanel);
+		answerPanel.setLayout(new CardLayout(0, 0));
+		
+		multipleChoicePanel = new JPanel();
+		answerPanel.add(multipleChoicePanel, "name_739422495432258");
+		multipleChoicePanel.setLayout(new BoxLayout(multipleChoicePanel, BoxLayout.X_AXIS));
+		multipleChoicePanel.add(new checkBoxFieldPanel());
 	
 	
 		
@@ -174,9 +180,9 @@ public class qPanel extends ViewPanel {
 	{
 		btnRemove.addActionListener(listener);
 	}
-	public void qTypeCBaddItemListener(ItemListener listener)
+	public void aTypeCBaddItemListener(ItemListener listener)
 	{
-		inputTypeCb.addItemListener(listener);
+		answerTypeCb.addItemListener(listener);
 	}
 	public void listenChkBoxAddListner(ActionListener listener)
 	{
@@ -188,10 +194,7 @@ public class qPanel extends ViewPanel {
 	public void setListenChkBox(JCheckBox listenChkBox) {
 		this.listenChkBox = listenChkBox;
 	}
-	public JPanel getQuestionPanel()
-	{
-		return questionPanel;
-	}
+	
 	public JLabel getQuestionLbl() {
 		return questionLbl;
 	}

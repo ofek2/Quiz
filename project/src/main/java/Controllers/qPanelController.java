@@ -26,7 +26,7 @@ public class qPanelController{
 		this.view = view;
 		this.parentView=parentView;
 		this.view.removeBtnAddListener(new removeBtnListener());
-		this.view.qTypeCBaddItemListener(new qTypeItemListener());
+		
 		this.view.listenChkBoxAddListner(new listenChkBoxListener());
 	}
 	
@@ -61,7 +61,7 @@ public class qPanelController{
 		}
 		
 	}
-	class qTypeItemListener implements ItemListener
+	/*class aTypeItemListener implements ItemListener
 	{
 
 		public void itemStateChanged(ItemEvent e) {
@@ -70,7 +70,7 @@ public class qPanelController{
 			
 		}
 		
-	}
+	}*/
 	class listenChkBoxListener implements ActionListener
 	{
 
