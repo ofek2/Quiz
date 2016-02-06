@@ -29,9 +29,9 @@ public class QuizCreationController {
 		view.panel.add(qPview);
 		view.panel.revalidate();
 		if(view.panel.getComponentCount()%2 == 0)
-			qPview.setBackground(Color.getHSBColor(127, 67, 69));
+			qPview.setBackground(Color.getHSBColor(0.55f, 0.69f, 1));
 		else
-			qPview.setBackground(Color.getHSBColor(127, 45, 79));
+			qPview.setBackground(Color.getHSBColor(0.55f, 0.27f, 1));
 		view.panel.remove(view.addBtn);
 		view.panel.add(view.addBtn);
 		view.panel.revalidate();
