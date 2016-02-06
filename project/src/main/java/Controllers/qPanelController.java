@@ -37,6 +37,11 @@ public class qPanelController{
 			parentView.panel.remove(view);
 			parentView.panel.revalidate();
 			MainFrameController.view.repaint();
+			QuizCreationController.qPanels.remove(view.getQuestionNumber()-1);
+			for (int i = view.getQuestionNumber()-1; i < QuizCreationController.qPanels.size(); i++) {
+				QuizCreationController.qPanels.get(i).setQuestionNumber(i+1);
+				QuizCreationController.qPanels.get(i).getQuestionLbl().setText("Question "+(i+1));
+			}
 			/*
 			try {
 				HtmlBuilder hb= new HtmlBuilder();

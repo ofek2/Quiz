@@ -14,7 +14,7 @@ import Views.qPanel;
 public class QuizCreationController {
 	private QuizCreationView view;
 	private QuizEntity entity;
-	private ArrayList<qPanel> qPanels;
+	protected static ArrayList<qPanel> qPanels;
 	
 	public QuizCreationController(QuizCreationView view,QuizEntity entity) {
 	
@@ -38,7 +38,11 @@ public class QuizCreationController {
 		view.panel.remove(view.addBtn);
 		view.panel.add(view.addBtn);
 		view.panel.revalidate();
+		qPview.setQuestionNumber(qPanels.size()+1);
 		qPanels.add(qPview);
+		QuizCreationController.qPanels.get(qPanels.size()-1).getQuestionLbl().setText("Question "+(qPanels.size()));
+		
+		
 	}
 	class addBtnListener implements ActionListener
 	{
