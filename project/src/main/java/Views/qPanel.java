@@ -125,6 +125,7 @@ public class qPanel extends ViewPanel {
 		JCheckBox chckbxNewCheckBox = new JCheckBox("Enable listening");
 		chckbxNewCheckBox.setFont(new Font("Tahoma", Font.PLAIN, 9));
 		chckbxNewCheckBox.setBounds(287, 10, 97, 23);
+		chckbxNewCheckBox.setOpaque(false);
 		qAsText.add(chckbxNewCheckBox);
 		
 		JPanel qAsImg = new JPanel();
