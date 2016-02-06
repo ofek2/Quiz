@@ -166,4 +166,16 @@ public class qPanel extends ViewPanel {
 	{
 		return questionPanel;
 	}
+	public JLabel getQuestionLbl() {
+		return questionLbl;
+	}
+	public void setQuestionLbl(JLabel questionLbl) {
+		this.questionLbl = questionLbl;
+	}
+	public int getQuestionNumber() {
+		return questionNumber;
+	}
+	public void setQuestionNumber(int questionNumber) {
+		this.questionNumber = questionNumber;
+	}
 }
