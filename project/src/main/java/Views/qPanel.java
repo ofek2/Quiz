@@ -128,6 +128,16 @@ public class qPanel extends ViewPanel {
 		chckbxNewCheckBox.setOpaque(false);
 		qAsText.add(chckbxNewCheckBox);
 		
+		JScrollPane scrollPane = new JScrollPane();
+		scrollPane.setBounds(98, 11, 175, 75);
+		qAsText.add(scrollPane);
+		
+		textArea = new JTextArea();
+		scrollPane.setViewportView(textArea);
+		textArea.setWrapStyleWord(true);
+		textArea.setLineWrap(true);
+		textArea.setFont(new Font("Times New Roman", Font.PLAIN, 12));
+		
 		JPanel qAsImg = new JPanel();
 		questionPanel.add(qAsImg, "As an image");
 		qAsImg.setLayout(null);
@@ -139,16 +149,6 @@ public class qPanel extends ViewPanel {
 		JLabel browseLabel = new JLabel("Browse an image:");
 		browseLabel.setBounds(10, 15, 104, 14);
 		qAsImg.add(browseLabel);
-		
-		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(422, 61, 175, 75);
-		add(scrollPane);
-		
-		textArea = new JTextArea();
-		scrollPane.setViewportView(textArea);
-		textArea.setWrapStyleWord(true);
-		textArea.setLineWrap(true);
-		textArea.setFont(new Font("Times New Roman", Font.PLAIN, 12));
 	
 		
 	
