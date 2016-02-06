@@ -25,7 +25,7 @@ public class qPanel extends ViewPanel {
 	 */
 	public qPanel() {
 		
-		//setBackground(Color.BLUE);
+		
 		setSize(800, 250);
 		setMaximumSize(new Dimension(800,250));
 		layoutSettings();
