@@ -30,6 +30,8 @@ import javax.swing.border.SoftBevelBorder;
 import javax.swing.JTextField;
 import java.awt.CardLayout;
 import javax.swing.JCheckBox;
+import javax.swing.JTextArea;
+import javax.swing.JScrollPane;
 
 public class qPanel extends ViewPanel {
 	private JLabel questionLbl;
@@ -40,8 +42,8 @@ public class qPanel extends ViewPanel {
 	private JLabel lblScore;
 	private JPanel questionPanel;
 	private JPanel qAsText;
-	private JTextField textField;
 	private JButton browseBtn;
+	private JTextArea textArea;
 	
 	/**
 	 * Create the panel.
@@ -107,7 +109,7 @@ public class qPanel extends ViewPanel {
 		questionPanel = new JPanel();
 		questionPanel.setOpaque(false);
 
-		questionPanel.setBounds(321, 52, 376, 69);
+		questionPanel.setBounds(321, 52, 376, 95);
 		add(questionPanel);
 		questionPanel.setLayout(new CardLayout(0, 0));
 		
@@ -115,10 +117,6 @@ public class qPanel extends ViewPanel {
 		questionPanel.add(qAsText, "As a text");
 		qAsText.setLayout(null);
 		qAsText.setOpaque(false);
-		textField = new JTextField();
-		textField.setBounds(99, 11, 182, 20);
-		qAsText.add(textField);
-		textField.setColumns(10);
 		
 		JLabel qLabel = new JLabel("Enter question:");
 		qLabel.setBounds(10, 14, 117, 14);
@@ -140,10 +138,17 @@ public class qPanel extends ViewPanel {
 		JLabel browseLabel = new JLabel("Browse an image:");
 		browseLabel.setBounds(10, 15, 104, 14);
 		qAsImg.add(browseLabel);
-		/*JPanel qAsAtext = new JPanel();
-		qAsAtext.setSize(310,60);
-		JPanel qAsAnImg= new JPanel();
-		qAsAnImg.setSize(310,60);*/
+		
+		JScrollPane scrollPane = new JScrollPane();
+		scrollPane.setBounds(422, 61, 175, 75);
+		add(scrollPane);
+		
+		textArea = new JTextArea();
+		scrollPane.setViewportView(textArea);
+		textArea.setWrapStyleWord(true);
+		textArea.setLineWrap(true);
+		textArea.setFont(new Font("Times New Roman", Font.PLAIN, 12));
+	
 		
 	
 		
