@@ -1,5 +1,6 @@
 package Controllers;
 
+import java.awt.Color;
 import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -27,7 +28,10 @@ public class QuizCreationController {
 		new qPanelController(qPview,view);
 		view.panel.add(qPview);
 		view.panel.revalidate();
-
+		if(view.panel.getComponentCount()%2 == 0)
+			qPview.setBackground(Color.getHSBColor(127, 67, 69));
+		else
+			qPview.setBackground(Color.getHSBColor(127, 45, 79));
 		view.panel.remove(view.addBtn);
 		view.panel.add(view.addBtn);
 		view.panel.revalidate();
