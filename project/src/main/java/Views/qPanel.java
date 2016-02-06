@@ -26,6 +26,7 @@ import javax.swing.border.EtchedBorder;
 import javax.swing.border.CompoundBorder;
 import javax.swing.border.LineBorder;
 import javax.swing.border.SoftBevelBorder;
+import javax.swing.JTextField;
 
 public class qPanel extends ViewPanel {
 	private JLabel questionLbl;
@@ -33,6 +34,8 @@ public class qPanel extends ViewPanel {
 	private JComboBox<String> questionTypeCb;
 	private JButton btnRemove;
 	public Random random;
+	private JTextField scoreField;
+	private JLabel lblScore;
 	
 	/**
 	 * Create the panel.
@@ -40,124 +43,67 @@ public class qPanel extends ViewPanel {
 	public qPanel() {
 		setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
 
-		setSize(725, 250);
-		setMaximumSize(new Dimension(800,250));
+		setPreferredSize(new Dimension(725, 250));
+		setMaximumSize(new Dimension(725,250));
 		layoutSettings();
+		setLayout(null);
 		
 		questionLbl = new JLabel("Question 1.");
+		questionLbl.setBounds(8, 8, 95, 27);
 		questionLbl.setFont(new Font("Serif", Font.BOLD, 20));
-		add(questionLbl, "2, 2");
+		add(questionLbl);
 		
 		btnRemove = new JButton("X");
-		add(btnRemove, "44, 2");
+		btnRemove.setFont(new Font("Serif", Font.PLAIN, 11));
+		btnRemove.setBounds(646, 10, 52, 34);
+		add(btnRemove);
 		
 		JLabel enterQuestionLbl = new JLabel("Enter question:");
+		enterQuestionLbl.setBounds(8, 67, 95, 18);
 		enterQuestionLbl.setFont(new Font("Serif", Font.PLAIN, 13));
-		add(enterQuestionLbl, "2, 6");
+		add(enterQuestionLbl);
 		
 		
 		JLabel questionTypeLbl = new JLabel("Question type:");
+		questionTypeLbl.setBounds(8, 118, 95, 18);
 		questionTypeLbl.setFont(new Font("Serif", Font.PLAIN, 13));
-		add(questionTypeLbl, "2, 10");
+		add(questionTypeLbl);
 		
 		inputTypeCb = new JComboBox<String>();
+		inputTypeCb.setBounds(134, 66, 160, 20);
 		inputTypeCb.addItem("As a text");
 		inputTypeCb.addItem("As an image");
 		inputTypeCb.addItem("As a sound");
 		inputTypeCb.setSelectedIndex(0);
 		inputTypeCb.setMaximumSize(inputTypeCb.getPreferredSize());
-		add(inputTypeCb, "6, 6, fill, default");
+		add(inputTypeCb);
 		
 		
 		questionTypeCb = new JComboBox<String>();
+		questionTypeCb.setBounds(134, 117, 160, 20);
 		questionTypeCb.addItem("Multiple Choice");
 		questionTypeCb.addItem("Free text");
 		questionTypeCb.setSelectedIndex(0);
 		questionTypeCb.setMaximumSize(questionTypeCb.getPreferredSize());
-		add(questionTypeCb, "6, 10, fill, default");
+		add(questionTypeCb);
 		setMinimumSize(new Dimension(800, 250));
 		
 		setAlignmentY(0.0f);
+		
+		lblScore = new JLabel("Score:");
+		lblScore.setBounds(459, 221, 73, 14);
+		add(lblScore);
+		
+		scoreField = new JTextField();
+		scoreField.setBounds(542, 218, 86, 20);
+		add(scoreField);
+		scoreField.setColumns(10);
 	}
 	public void removeBtnAddListener(ActionListener listener)
 	{
 		btnRemove.addActionListener(listener);
 	}
 	private void layoutSettings() {
-		setLayout(new FormLayout(new ColumnSpec[] {
-				FormSpecs.RELATED_GAP_COLSPEC,
-				FormSpecs.DEFAULT_COLSPEC,
-				FormSpecs.RELATED_GAP_COLSPEC,
-				FormSpecs.DEFAULT_COLSPEC,
-				FormSpecs.RELATED_GAP_COLSPEC,
-				ColumnSpec.decode("max(43dlu;default):grow"),
-				FormSpecs.RELATED_GAP_COLSPEC,
-				FormSpecs.DEFAULT_COLSPEC,
-				FormSpecs.RELATED_GAP_COLSPEC,
-				FormSpecs.DEFAULT_COLSPEC,
-				FormSpecs.RELATED_GAP_COLSPEC,
-				FormSpecs.DEFAULT_COLSPEC,
-				FormSpecs.RELATED_GAP_COLSPEC,
-				FormSpecs.DEFAULT_COLSPEC,
-				FormSpecs.RELATED_GAP_COLSPEC,
-				FormSpecs.DEFAULT_COLSPEC,
-				FormSpecs.RELATED_GAP_COLSPEC,
-				FormSpecs.DEFAULT_COLSPEC,
-				FormSpecs.RELATED_GAP_COLSPEC,
-				FormSpecs.DEFAULT_COLSPEC,
-				FormSpecs.RELATED_GAP_COLSPEC,
-				FormSpecs.DEFAULT_COLSPEC,
-				FormSpecs.RELATED_GAP_COLSPEC,
-				FormSpecs.DEFAULT_COLSPEC,
-				FormSpecs.RELATED_GAP_COLSPEC,
-				FormSpecs.DEFAULT_COLSPEC,
-				FormSpecs.RELATED_GAP_COLSPEC,
-				FormSpecs.DEFAULT_COLSPEC,
-				FormSpecs.RELATED_GAP_COLSPEC,
-				FormSpecs.DEFAULT_COLSPEC,
-				FormSpecs.RELATED_GAP_COLSPEC,
-				FormSpecs.DEFAULT_COLSPEC,
-				FormSpecs.RELATED_GAP_COLSPEC,
-				FormSpecs.DEFAULT_COLSPEC,
-				FormSpecs.RELATED_GAP_COLSPEC,
-				FormSpecs.DEFAULT_COLSPEC,
-				FormSpecs.RELATED_GAP_COLSPEC,
-				FormSpecs.DEFAULT_COLSPEC,
-				FormSpecs.RELATED_GAP_COLSPEC,
-				FormSpecs.DEFAULT_COLSPEC,
-				FormSpecs.RELATED_GAP_COLSPEC,
-				FormSpecs.DEFAULT_COLSPEC,
-				FormSpecs.RELATED_GAP_COLSPEC,
-				FormSpecs.DEFAULT_COLSPEC,
-				FormSpecs.RELATED_GAP_COLSPEC,
-				FormSpecs.DEFAULT_COLSPEC,
-				FormSpecs.RELATED_GAP_COLSPEC,
-				FormSpecs.DEFAULT_COLSPEC,
-				FormSpecs.RELATED_GAP_COLSPEC,
-				FormSpecs.DEFAULT_COLSPEC,
-				FormSpecs.RELATED_GAP_COLSPEC,
-				FormSpecs.DEFAULT_COLSPEC,},
-			new RowSpec[] {
-				FormSpecs.RELATED_GAP_ROWSPEC,
-				FormSpecs.DEFAULT_ROWSPEC,
-				FormSpecs.RELATED_GAP_ROWSPEC,
-				FormSpecs.DEFAULT_ROWSPEC,
-				FormSpecs.RELATED_GAP_ROWSPEC,
-				FormSpecs.DEFAULT_ROWSPEC,
-				FormSpecs.RELATED_GAP_ROWSPEC,
-				FormSpecs.DEFAULT_ROWSPEC,
-				FormSpecs.RELATED_GAP_ROWSPEC,
-				FormSpecs.DEFAULT_ROWSPEC,
-				FormSpecs.RELATED_GAP_ROWSPEC,
-				FormSpecs.DEFAULT_ROWSPEC,
-				FormSpecs.RELATED_GAP_ROWSPEC,
-				FormSpecs.DEFAULT_ROWSPEC,
-				FormSpecs.RELATED_GAP_ROWSPEC,
-				FormSpecs.DEFAULT_ROWSPEC,
-				FormSpecs.RELATED_GAP_ROWSPEC,
-				FormSpecs.DEFAULT_ROWSPEC,
-				FormSpecs.RELATED_GAP_ROWSPEC,
-				FormSpecs.DEFAULT_ROWSPEC,}));
 	}
 
 }
