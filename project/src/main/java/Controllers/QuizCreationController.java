@@ -32,6 +32,7 @@ public class QuizCreationController {
 			qPview.setBackground(Color.getHSBColor(0.55f, 0.69f, 1));
 		else
 			qPview.setBackground(Color.getHSBColor(0.0711f, 0.9916f, 1));
+		
 		view.panel.remove(view.addBtn);
 		view.panel.add(view.addBtn);
 		view.panel.revalidate();
