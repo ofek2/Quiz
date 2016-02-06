@@ -92,6 +92,7 @@ public class qPanel extends ViewPanel {
 		questionTypeCb.setBounds(134, 117, 160, 20);
 		questionTypeCb.addItem("Multiple Choice");
 		questionTypeCb.addItem("Free text");
+		questionTypeCb.addItem("Free drawing");
 		questionTypeCb.setSelectedIndex(0);
 		questionTypeCb.setMaximumSize(questionTypeCb.getPreferredSize());
 		add(questionTypeCb);
