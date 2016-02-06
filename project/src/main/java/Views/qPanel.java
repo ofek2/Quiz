@@ -105,6 +105,8 @@ public class qPanel extends ViewPanel {
 		scoreField.setColumns(10);
 		
 		questionPanel = new JPanel();
+		questionPanel.setOpaque(false);
+
 		questionPanel.setBounds(321, 52, 376, 69);
 		add(questionPanel);
 		questionPanel.setLayout(new CardLayout(0, 0));
@@ -112,7 +114,7 @@ public class qPanel extends ViewPanel {
 		qAsText = new JPanel();
 		questionPanel.add(qAsText, "As a text");
 		qAsText.setLayout(null);
-		
+		qAsText.setOpaque(false);
 		textField = new JTextField();
 		textField.setBounds(99, 11, 182, 20);
 		qAsText.add(textField);
@@ -130,7 +132,7 @@ public class qPanel extends ViewPanel {
 		JPanel qAsImg = new JPanel();
 		questionPanel.add(qAsImg, "As an image");
 		qAsImg.setLayout(null);
-		
+		qAsImg.setOpaque(false);
 		browseBtn = new JButton("Browse..");
 		browseBtn.setBounds(131, 11, 89, 23);
 		qAsImg.add(browseBtn);
