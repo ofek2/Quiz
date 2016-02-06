@@ -54,8 +54,8 @@ public class qPanel extends ViewPanel {
 		add(questionLbl);
 		
 		btnRemove = new JButton("X");
-		btnRemove.setFont(new Font("Serif", Font.PLAIN, 11));
-		btnRemove.setBounds(646, 10, 52, 34);
+		btnRemove.setFont(new Font("Serif", Font.BOLD, 10));
+		btnRemove.setBounds(668, 9, 47, 34);
 		add(btnRemove);
 		
 		JLabel enterQuestionLbl = new JLabel("Enter question:");
@@ -91,11 +91,11 @@ public class qPanel extends ViewPanel {
 		setAlignmentY(0.0f);
 		
 		lblScore = new JLabel("Score:");
-		lblScore.setBounds(459, 221, 73, 14);
+		lblScore.setBounds(134, 18, 52, 14);
 		add(lblScore);
 		
 		scoreField = new JTextField();
-		scoreField.setBounds(542, 218, 86, 20);
+		scoreField.setBounds(179, 15, 52, 20);
 		add(scoreField);
 		scoreField.setColumns(10);
 	}
