@@ -14,12 +14,14 @@ import Views.qPanel;
 public class QuizCreationController {
 	private QuizCreationView view;
 	private QuizEntity entity;
+	private ArrayList<qPanel> qPanels;
 	
 	public QuizCreationController(QuizCreationView view,QuizEntity entity) {
 	
 		this.view = view;
 		this.entity = entity;
 		this.view.addBtnAddListener(new addBtnListener());
+		qPanels = new ArrayList<qPanel>();
 		addQpanel();
 	}
 	public void addQpanel()
@@ -36,6 +38,7 @@ public class QuizCreationController {
 		view.panel.remove(view.addBtn);
 		view.panel.add(view.addBtn);
 		view.panel.revalidate();
+		qPanels.add(qPview);
 	}
 	class addBtnListener implements ActionListener
 	{
