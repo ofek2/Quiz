@@ -56,7 +56,7 @@ public class qPanel extends ViewPanel {
 		
 		setLayout(null);
 		
-		questionLbl = new JLabel("Question ");
+		questionLbl = new JLabel("Question "+questionNumber);
 		questionLbl.setBounds(8, 8, 95, 27);
 		questionLbl.setFont(new Font("Serif", Font.BOLD, 20));
 		add(questionLbl);
