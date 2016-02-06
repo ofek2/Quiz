@@ -45,7 +45,7 @@ public class qPanel extends ViewPanel {
 
 		setPreferredSize(new Dimension(725, 250));
 		setMaximumSize(new Dimension(725,250));
-		layoutSettings();
+		
 		setLayout(null);
 		
 		questionLbl = new JLabel("Question 1.");
@@ -103,7 +103,5 @@ public class qPanel extends ViewPanel {
 	{
 		btnRemove.addActionListener(listener);
 	}
-	private void layoutSettings() {
-	}
-
+	
 }
