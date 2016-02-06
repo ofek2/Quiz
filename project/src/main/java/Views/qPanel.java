@@ -44,7 +44,7 @@ public class qPanel extends ViewPanel {
 	private JPanel qAsText;
 	private JButton browseBtn;
 	private JTextArea textArea;
-	
+	private int questionNumber;
 	/**
 	 * Create the panel.
 	 */
@@ -56,7 +56,7 @@ public class qPanel extends ViewPanel {
 		
 		setLayout(null);
 		
-		questionLbl = new JLabel("Question 1.");
+		questionLbl = new JLabel("Question ");
 		questionLbl.setBounds(8, 8, 95, 27);
 		questionLbl.setFont(new Font("Serif", Font.BOLD, 20));
 		add(questionLbl);
