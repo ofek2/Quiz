@@ -11,6 +11,7 @@ import javax.swing.JLabel;
 
 import java.awt.Font;
 import java.awt.event.ActionListener;
+import java.awt.event.ItemListener;
 
 import javax.swing.JComboBox;
 
@@ -27,15 +28,20 @@ import javax.swing.border.CompoundBorder;
 import javax.swing.border.LineBorder;
 import javax.swing.border.SoftBevelBorder;
 import javax.swing.JTextField;
+import java.awt.CardLayout;
+import javax.swing.JCheckBox;
 
 public class qPanel extends ViewPanel {
 	private JLabel questionLbl;
 	private JComboBox<String> inputTypeCb;
 	private JComboBox<String> questionTypeCb;
 	private JButton btnRemove;
-	public Random random;
 	private JTextField scoreField;
 	private JLabel lblScore;
+	private JPanel questionPanel;
+	private JPanel qAsText;
+	private JTextField textField;
+	private JButton browseBtn;
 	
 	/**
 	 * Create the panel.
@@ -73,7 +79,6 @@ public class qPanel extends ViewPanel {
 		inputTypeCb.setBounds(134, 66, 160, 20);
 		inputTypeCb.addItem("As a text");
 		inputTypeCb.addItem("As an image");
-		inputTypeCb.addItem("As a sound");
 		inputTypeCb.setSelectedIndex(0);
 		inputTypeCb.setMaximumSize(inputTypeCb.getPreferredSize());
 		add(inputTypeCb);
@@ -98,10 +103,59 @@ public class qPanel extends ViewPanel {
 		scoreField.setBounds(179, 15, 52, 20);
 		add(scoreField);
 		scoreField.setColumns(10);
+		
+		questionPanel = new JPanel();
+		questionPanel.setBounds(321, 52, 376, 69);
+		add(questionPanel);
+		questionPanel.setLayout(new CardLayout(0, 0));
+		
+		qAsText = new JPanel();
+		questionPanel.add(qAsText, "As a text");
+		qAsText.setLayout(null);
+		
+		textField = new JTextField();
+		textField.setBounds(99, 11, 182, 20);
+		qAsText.add(textField);
+		textField.setColumns(10);
+		
+		JLabel qLabel = new JLabel("Enter question:");
+		qLabel.setBounds(10, 14, 117, 14);
+		qAsText.add(qLabel);
+		
+		JCheckBox chckbxNewCheckBox = new JCheckBox("Enable listening");
+		chckbxNewCheckBox.setFont(new Font("Tahoma", Font.PLAIN, 9));
+		chckbxNewCheckBox.setBounds(287, 10, 97, 23);
+		qAsText.add(chckbxNewCheckBox);
+		
+		JPanel qAsImg = new JPanel();
+		questionPanel.add(qAsImg, "As an image");
+		qAsImg.setLayout(null);
+		
+		browseBtn = new JButton("Browse..");
+		browseBtn.setBounds(131, 11, 89, 23);
+		qAsImg.add(browseBtn);
+		
+		JLabel browseLabel = new JLabel("Browse an image:");
+		browseLabel.setBounds(10, 15, 104, 14);
+		qAsImg.add(browseLabel);
+		/*JPanel qAsAtext = new JPanel();
+		qAsAtext.setSize(310,60);
+		JPanel qAsAnImg= new JPanel();
+		qAsAnImg.setSize(310,60);*/
+		
+	
+		
 	}
 	public void removeBtnAddListener(ActionListener listener)
 	{
 		btnRemove.addActionListener(listener);
 	}
-	
+	public void qTypeCBaddItemListener(ItemListener listener)
+	{
+		inputTypeCb.addItemListener(listener);
+	}
+	public JPanel getQuestionPanel()
+	{
+		return questionPanel;
+	}
 }

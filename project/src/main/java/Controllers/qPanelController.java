@@ -1,7 +1,10 @@
 package Controllers;
 
+import java.awt.CardLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
 import java.io.FileNotFoundException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -23,6 +26,7 @@ public class qPanelController{
 		this.view = view;
 		this.parentView=parentView;
 		this.view.removeBtnAddListener(new removeBtnListener());
+		this.view.qTypeCBaddItemListener(new qTypeItemListener());
 	}
 	
 	class removeBtnListener implements ActionListener
@@ -51,5 +55,14 @@ public class qPanelController{
 		}
 		
 	}
-	
+	class qTypeItemListener implements ItemListener
+	{
+
+		public void itemStateChanged(ItemEvent e) {
+			 CardLayout cl = (CardLayout)(view.getQuestionPanel().getLayout());
+			    cl.show(view.getQuestionPanel(), (String)e.getItem());
+			
+		}
+		
+	}
 }
