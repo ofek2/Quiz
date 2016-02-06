@@ -45,6 +45,8 @@ public class qPanel extends ViewPanel {
 	private JButton browseBtn;
 	private JTextArea textArea;
 	private int questionNumber;
+	private JCheckBox listenChkBox;
+	private JCheckBox chckbxHideQuestion;
 	/**
 	 * Create the panel.
 	 */
@@ -122,11 +124,11 @@ public class qPanel extends ViewPanel {
 		qLabel.setBounds(10, 14, 117, 14);
 		qAsText.add(qLabel);
 		
-		JCheckBox chckbxNewCheckBox = new JCheckBox("Enable listening");
-		chckbxNewCheckBox.setFont(new Font("Tahoma", Font.PLAIN, 9));
-		chckbxNewCheckBox.setBounds(287, 10, 97, 23);
-		chckbxNewCheckBox.setOpaque(false);
-		qAsText.add(chckbxNewCheckBox);
+		listenChkBox = new JCheckBox("Enable listening");
+		listenChkBox.setFont(new Font("Tahoma", Font.PLAIN, 9));
+		listenChkBox.setBounds(287, 10, 97, 23);
+		listenChkBox.setOpaque(false);
+		qAsText.add(listenChkBox);
 		
 		JScrollPane scrollPane = new JScrollPane();
 		scrollPane.setBounds(98, 11, 175, 75);
@@ -137,6 +139,13 @@ public class qPanel extends ViewPanel {
 		textArea.setWrapStyleWord(true);
 		textArea.setLineWrap(true);
 		textArea.setFont(new Font("Times New Roman", Font.PLAIN, 12));
+		
+		chckbxHideQuestion = new JCheckBox("Hide question");
+		chckbxHideQuestion.setFont(new Font("Tahoma", Font.PLAIN, 9));
+		chckbxHideQuestion.setOpaque(false);
+		chckbxHideQuestion.setVisible(false);
+		chckbxHideQuestion.setBounds(287, 36, 97, 23);
+		qAsText.add(chckbxHideQuestion);
 		
 		JPanel qAsImg = new JPanel();
 		questionPanel.add(qAsImg, "As an image");
@@ -150,9 +159,15 @@ public class qPanel extends ViewPanel {
 		browseLabel.setBounds(10, 15, 104, 14);
 		qAsImg.add(browseLabel);
 	
-		
+	
 	
 		
+	}
+	public JCheckBox getChckbxHideQuestion() {
+		return chckbxHideQuestion;
+	}
+	public void setChckbxHideQuestion(JCheckBox chckbxHideQuestion) {
+		this.chckbxHideQuestion = chckbxHideQuestion;
 	}
 	public void removeBtnAddListener(ActionListener listener)
 	{
@@ -161,6 +176,16 @@ public class qPanel extends ViewPanel {
 	public void qTypeCBaddItemListener(ItemListener listener)
 	{
 		inputTypeCb.addItemListener(listener);
+	}
+	public void listenChkBoxAddListner(ActionListener listener)
+	{
+		listenChkBox.addActionListener(listener);
+	}
+	public JCheckBox getListenChkBox() {
+		return listenChkBox;
+	}
+	public void setListenChkBox(JCheckBox listenChkBox) {
+		this.listenChkBox = listenChkBox;
 	}
 	public JPanel getQuestionPanel()
 	{

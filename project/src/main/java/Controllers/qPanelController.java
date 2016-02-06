@@ -27,6 +27,7 @@ public class qPanelController{
 		this.parentView=parentView;
 		this.view.removeBtnAddListener(new removeBtnListener());
 		this.view.qTypeCBaddItemListener(new qTypeItemListener());
+		this.view.listenChkBoxAddListner(new listenChkBoxListener());
 	}
 	
 	class removeBtnListener implements ActionListener
@@ -66,6 +67,20 @@ public class qPanelController{
 		public void itemStateChanged(ItemEvent e) {
 			 CardLayout cl = (CardLayout)(view.getQuestionPanel().getLayout());
 			    cl.show(view.getQuestionPanel(), (String)e.getItem());
+			
+		}
+		
+	}
+	class listenChkBoxListener implements ActionListener
+	{
+
+		public void actionPerformed(ActionEvent e) {
+			if(view.getListenChkBox().isSelected())
+			{
+				view.getChckbxHideQuestion().setVisible(true);
+			}
+			else
+				view.getChckbxHideQuestion().setVisible(false);
 			
 		}
 		
