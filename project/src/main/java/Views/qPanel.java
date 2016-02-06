@@ -1,17 +1,23 @@
 package Views;
 
 import javax.swing.JPanel;
+
 import com.jgoodies.forms.layout.FormLayout;
 import com.jgoodies.forms.layout.ColumnSpec;
 import com.jgoodies.forms.layout.RowSpec;
 import com.jgoodies.forms.layout.FormSpecs;
+
 import javax.swing.JLabel;
+
 import java.awt.Font;
 import java.awt.event.ActionListener;
 
 import javax.swing.JComboBox;
+
 import java.awt.Color;
 import java.awt.Dimension;
+import java.util.Random;
+
 import javax.swing.JButton;
 
 public class qPanel extends ViewPanel {
@@ -19,13 +25,15 @@ public class qPanel extends ViewPanel {
 	private JComboBox<String> inputTypeCb;
 	private JComboBox<String> questionTypeCb;
 	private JButton btnRemove;
+	public Random random;
 	
 	/**
 	 * Create the panel.
 	 */
 	public qPanel() {
-		
-		
+		random = new Random();
+		int num= random.nextInt(100);
+		setBackground(Color.getHSBColor(num, num, num));
 		setSize(800, 250);
 		setMaximumSize(new Dimension(800,250));
 		layoutSettings();
