@@ -1,17 +1,20 @@
 package Entities;
 
+import java.io.File;
+
 public class QuizEntity {
 	private String name;
-	
+	private File quizFile;
 	private int percentageFromFGrade;
 	public QuizEntity(String name) {
 		super();
 		this.name = name;
 	}
-	public QuizEntity(String name,int percentageFFgrade) {
+	public QuizEntity(String name,int percentageFFgrade,File quizFile) {
 		super();
 		this.name = name;
 		this.percentageFromFGrade = percentageFFgrade;
+		this.quizFile = quizFile;
 	}
 	public String getName() {
 		return name;
@@ -25,6 +28,10 @@ public class QuizEntity {
 	}
 	public void setPercentageFromFGrade(int percentageFromFGrade) {
 		this.percentageFromFGrade = percentageFromFGrade;
+	}
+	
+	public File getQuizFile() {
+		return quizFile;
 	}
 	
 }

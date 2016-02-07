@@ -5,13 +5,23 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
+import java.awt.image.BufferedImage;
+import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import javax.imageio.ImageIO;
+import javax.swing.JFileChooser;
+import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.TransformerException;
 
+import com.google.common.io.Files;
+
+import Entities.QuizEntity;
 import Views.MainFrameView;
 import Views.QuizCreationView;
 import Views.qPanel;
@@ -21,14 +31,29 @@ import project.HtmlBuilder;
 
 public class qPanelController{
 	private qPanel view;
+	private QuizEntity quizEntity;
 	private QuizCreationView parentView;
-	public qPanelController(qPanel view,QuizCreationView parentView) {
+	private JFileChooser fileChooser;
+	private String quizPath;
+	private File imgFile;
+	public qPanelController(qPanel view,QuizCreationView parentView,QuizEntity quizEntity) {
 		this.view = view;
 		this.parentView=parentView;
+		this.quizEntity=quizEntity;
 		this.view.removeBtnAddListener(new removeBtnListener());
-		
 		this.view.listenChkBoxAddListner(new listenChkBoxListener());
+		this.view.browseBtnAddListener(new browseBtnListener());
+		fileChooser=view.getFileChooser();
+		try {
+			quizPath = quizEntity.getQuizFile().getCanonicalPath();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		imgFile=null;
 	}
+	
+	
 	
 	class removeBtnListener implements ActionListener
 	{
@@ -43,6 +68,8 @@ public class qPanelController{
 				QuizCreationController.qPanels.get(i).setQuestionNumber(i+1);
 				QuizCreationController.qPanels.get(i).getQuestionLbl().setText("Question "+(i+1));
 			}
+			if(imgFile!=null)
+				imgFile.delete();
 			/*
 			try {
 				HtmlBuilder hb= new HtmlBuilder();
@@ -85,4 +112,37 @@ public class qPanelController{
 		}
 		
 	}
-}
+	
+	class browseBtnListener implements ActionListener
+	{
+		private int returnVal;
+		private File fileSave;
+		private BufferedImage bufferedImage;
+		private String questionLbl;
+		private String questionImgPath;
+		private String fileExtension;
+		public void actionPerformed(ActionEvent e) {
+			// TODO Auto-generated method stub
+			returnVal=fileChooser.showSaveDialog(view.getQuestionDataPanel());
+			if(returnVal==fileChooser.APPROVE_OPTION)
+			{
+				imgFile = fileChooser.getSelectedFile();				
+				try {
+					questionLbl = view.getQuestionLbl().getText()+".PNG";
+					questionImgPath = quizPath +"/" + questionLbl;
+					fileExtension = Files.getFileExtension(imgFile.getCanonicalPath());
+					bufferedImage = ImageIO.read(imgFile); 	
+					fileSave = new File(questionImgPath);
+					ImageIO.write(bufferedImage,fileExtension , fileSave);
+					imgFile = fileSave;
+				} catch (IOException e2) {
+					// TODO Auto-generated catch block
+					e2.printStackTrace();
+				}
+			}
+		}
+		
+	}
+	}
+	
+

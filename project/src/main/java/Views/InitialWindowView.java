@@ -3,7 +3,9 @@ package Views;
 import javax.swing.JPanel;
 import javax.swing.JMenuBar;
 import javax.swing.JMenu;
+
 import java.awt.Color;
+
 import javax.swing.JMenuItem;
 import javax.swing.border.BevelBorder;
 import javax.swing.border.CompoundBorder;
@@ -11,19 +13,39 @@ import javax.swing.UIManager;
 import javax.swing.border.LineBorder;
 import javax.swing.border.EtchedBorder;
 import javax.swing.JTree;
+
+import java.awt.BorderLayout;
+import java.awt.CardLayout;
 import java.awt.Component;
 import java.awt.Point;
+import java.awt.TextField;
 import java.awt.event.ActionListener;
+import java.awt.event.ItemListener;
+
 import javax.swing.JSeparator;
 import javax.swing.SwingConstants;
+
 import java.awt.Dimension;
 import java.awt.Cursor;
+
+import javax.swing.JTextField;
+
+import java.awt.Label;
+
+import javax.swing.JComboBox;
+
+import java.awt.Button;
 
 public class InitialWindowView extends ViewPanel {
 	private JMenu mnQuizMngMenu;
 	private JMenuBar menuBar;
 	private JMenu mnCourseManagement;
-
+	private JPanel newQuizDialogPanel;
+	private JComboBox courseCode;
+	private JTextField newQuizName;
+	private Button createNewQuiz;
+	private JTree tree;
+	
 	/**
 	 * Create the panel.
 	 */
@@ -74,9 +96,43 @@ public class InitialWindowView extends ViewPanel {
 		JMenuItem mntmRemoveStudent = new JMenuItem("Remove Student");
 		mnCourseManagement.add(mntmRemoveStudent);
 		
-		JTree tree = new JTree();
+		tree = new JTree();
 		tree.setBounds(0, 30, 800, 570);
 		add(tree);
+		
+		newQuizDialogPanel = new JPanel();
+		newQuizDialogPanel.setBackground(Color.RED);
+		newQuizDialogPanel.setBounds(137, 193, 200, 168);
+		tree.add(newQuizDialogPanel);
+		newQuizDialogPanel.setLayout(null);
+		newQuizDialogPanel.setVisible(false);
+//		
+		
+		Label label = new Label("Course Code:");
+		label.setBounds(13, 28, 80, 19);
+		newQuizDialogPanel.add(label);
+		
+		courseCode = new JComboBox();
+		courseCode.setBounds(100, 27, 86, 20);
+		courseCode.addItem("-");
+		courseCode.addItem("1");
+		courseCode.addItem("2");
+		courseCode.addItem("3");
+		courseCode.setSelectedIndex(0);
+		newQuizDialogPanel.add(courseCode);
+		
+		Label label_1 = new Label("Quiz Name:");
+		label_1.setBounds(13, 70, 80, 19);
+		newQuizDialogPanel.add(label_1);
+		
+		newQuizName = new JTextField();
+		newQuizName.setBounds(100, 70, 86, 20);
+		newQuizDialogPanel.add(newQuizName);
+		newQuizName.setColumns(10);
+		
+		createNewQuiz = new Button("Create Quiz");
+		createNewQuiz.setBounds(66, 121, 70, 19);
+		newQuizDialogPanel.add(createNewQuiz);
 	}
 	public void addQuizManagementListeners(ActionListener[] listener)
 	{
@@ -89,5 +145,23 @@ public class InitialWindowView extends ViewPanel {
 		for (int i = 0; i < listener.length; i++) {
 			mnCourseManagement.getItem(i).addActionListener(listener[i]);
 		}
+	}
+	public void addCourseCodeListener(ItemListener listener)
+	{
+		courseCode.addItemListener(listener);
+	}
+	public void createCourseBtnAddListener(ActionListener listener)
+	{
+		createNewQuiz.addActionListener(listener);
+	}
+	
+	public JPanel getNewQuizDialogPanel() {
+		return newQuizDialogPanel;
+	}
+	public JTree getTree() {
+		return tree;
+	}
+	public JTextField getNewQuizName() {
+		return newQuizName;
 	}
 }

@@ -27,7 +27,7 @@ public class QuizCreationController {
 	public void addQpanel()
 	{
 		qPanel qPview = new qPanel();
-		new qPanelController(qPview,view);
+		new qPanelController(qPview,view,entity);
 		view.panel.add(qPview);
 		view.panel.revalidate();
 		if(view.panel.getComponentCount()%2 == 0)

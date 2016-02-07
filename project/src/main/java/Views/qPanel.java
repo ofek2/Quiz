@@ -8,6 +8,8 @@ import com.jgoodies.forms.layout.RowSpec;
 
 
 
+
+
 import project.checkBoxFieldPanel;
 
 import com.jgoodies.forms.layout.FormSpecs;
@@ -32,9 +34,13 @@ import javax.swing.border.EtchedBorder;
 import javax.swing.border.CompoundBorder;
 import javax.swing.border.LineBorder;
 import javax.swing.border.SoftBevelBorder;
+import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.JTextField;
+
 import java.awt.CardLayout;
+
 import javax.swing.JCheckBox;
+import javax.swing.JFileChooser;
 import javax.swing.JTextArea;
 import javax.swing.JScrollPane;
 import javax.swing.JSeparator;
@@ -50,8 +56,10 @@ public class qPanel extends ViewPanel {
 	private JButton btnRemove;
 	private JTextField scoreField;
 	private JLabel lblScore;
-	private JPanel qAsText;
+	private JPanel qDataPanel;
 	private JButton browseBtn;
+	private JFileChooser fileChooser;
+	private FileNameExtensionFilter extensionFilter;
 	private JTextArea textArea;
 	private int questionNumber;
 	private JCheckBox listenChkBox;
@@ -112,25 +120,25 @@ public class qPanel extends ViewPanel {
 		add(scoreField);
 		scoreField.setColumns(10);
 		
-		qAsText = new JPanel();
-		qAsText.setBounds(8, 96, 376, 191);
-		add(qAsText);
-		qAsText.setLayout(null);
-		qAsText.setOpaque(false);
+		qDataPanel = new JPanel();
+		qDataPanel.setBounds(8, 96, 376, 191);
+		add(qDataPanel);
+		qDataPanel.setLayout(null);
+		qDataPanel.setOpaque(false);
 		
 		JLabel qLabel = new JLabel("Enter question:");
 		qLabel.setBounds(10, 14, 117, 14);
-		qAsText.add(qLabel);
+		qDataPanel.add(qLabel);
 		
 		listenChkBox = new JCheckBox("Enable listening");
 		listenChkBox.setFont(new Font("Tahoma", Font.PLAIN, 9));
 		listenChkBox.setBounds(287, 10, 97, 23);
 		listenChkBox.setOpaque(false);
-		qAsText.add(listenChkBox);
+		qDataPanel.add(listenChkBox);
 		
 		JScrollPane scrollPane = new JScrollPane();
 		scrollPane.setBounds(98, 11, 175, 89);
-		qAsText.add(scrollPane);
+		qDataPanel.add(scrollPane);
 		
 		textArea = new JTextArea();
 		scrollPane.setViewportView(textArea);
@@ -143,14 +151,18 @@ public class qPanel extends ViewPanel {
 		chckbxHideQuestion.setOpaque(false);
 		chckbxHideQuestion.setVisible(false);
 		chckbxHideQuestion.setBounds(287, 36, 97, 23);
-		qAsText.add(chckbxHideQuestion);
+		qDataPanel.add(chckbxHideQuestion);
+		fileChooser = new JFileChooser();
+		extensionFilter = new FileNameExtensionFilter("Img","jpg","gif","png");
+		fileChooser.setFileFilter(extensionFilter);
+		fileChooser.setAcceptAllFileFilterUsed(false);
 		browseBtn = new JButton("Browse..");
 		browseBtn.setBounds(131, 107, 89, 23);
-		qAsText.add(browseBtn);
+		qDataPanel.add(browseBtn);
 		
 		JLabel browseLabel = new JLabel("Browse an image:");
 		browseLabel.setBounds(10, 111, 104, 14);
-		qAsText.add(browseLabel);
+		qDataPanel.add(browseLabel);
 		
 		JSeparator separator = new JSeparator();
 		separator.setOrientation(SwingConstants.VERTICAL);
@@ -176,6 +188,11 @@ public class qPanel extends ViewPanel {
 	public void setChckbxHideQuestion(JCheckBox chckbxHideQuestion) {
 		this.chckbxHideQuestion = chckbxHideQuestion;
 	}
+	public void browseBtnAddListener(ActionListener listener)
+	{
+		browseBtn.addActionListener(listener);
+	}
+	
 	public void removeBtnAddListener(ActionListener listener)
 	{
 		btnRemove.addActionListener(listener);
@@ -206,5 +223,18 @@ public class qPanel extends ViewPanel {
 	}
 	public void setQuestionNumber(int questionNumber) {
 		this.questionNumber = questionNumber;
+	}
+	
+	public JFileChooser getFileChooser() {
+		return fileChooser;
+	}
+	public void setFileChooser(JFileChooser fileChooser) {
+		this.fileChooser= fileChooser;
+	}
+	public JPanel getQuestionDataPanel() {
+		return qDataPanel;
+	}
+	public void setQuestionDataPanel(String s) {
+		textArea.setText(s);;
 	}
 }
