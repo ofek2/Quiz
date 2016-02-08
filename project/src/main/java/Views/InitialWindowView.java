@@ -35,6 +35,8 @@ import java.awt.Label;
 import javax.swing.JComboBox;
 
 import java.awt.Button;
+import javax.swing.JLabel;
+import javax.swing.JButton;
 
 public class InitialWindowView extends ViewPanel {
 	private JMenu mnQuizMngMenu;
@@ -45,7 +47,9 @@ public class InitialWindowView extends ViewPanel {
 	private JTextField newQuizName;
 	private Button createNewQuiz;
 	private JTree tree;
-	
+	private JTextField newCourseId;
+	private JPanel newCourseDialogPanel;
+	private Button createNewCourse;
 	/**
 	 * Create the panel.
 	 */
@@ -103,9 +107,10 @@ public class InitialWindowView extends ViewPanel {
 		newQuizDialogPanel = new JPanel();
 		newQuizDialogPanel.setBackground(Color.RED);
 		newQuizDialogPanel.setBounds(137, 193, 200, 168);
+		newQuizDialogPanel.setVisible(false);
 		tree.add(newQuizDialogPanel);
 		newQuizDialogPanel.setLayout(null);
-		newQuizDialogPanel.setVisible(false);
+		
 //		
 		
 		Label label = new Label("Course Code:");
@@ -133,6 +138,25 @@ public class InitialWindowView extends ViewPanel {
 		createNewQuiz = new Button("Create Quiz");
 		createNewQuiz.setBounds(66, 121, 70, 19);
 		newQuizDialogPanel.add(createNewQuiz);
+		
+		newCourseDialogPanel = new JPanel();
+		tree.add(newCourseDialogPanel);
+		newCourseDialogPanel.setBackground(Color.CYAN);
+		newCourseDialogPanel.setBounds(406, 193, 200, 168);
+		newCourseDialogPanel.setLayout(null);
+		
+		JLabel lblCourseId = new JLabel("Course Id:");
+		lblCourseId.setBounds(10, 45, 70, 14);
+		newCourseDialogPanel.add(lblCourseId);
+		
+		newCourseId = new JTextField();
+		newCourseId.setBounds(79, 42, 86, 20);
+		newCourseDialogPanel.add(newCourseId);
+		newCourseId.setColumns(10);
+		
+		createNewCourse = new Button("Create Course");
+		createNewCourse.setBounds(35, 121, 130, 23);
+		newCourseDialogPanel.add(createNewCourse);
 	}
 	public void addQuizManagementListeners(ActionListener[] listener)
 	{
