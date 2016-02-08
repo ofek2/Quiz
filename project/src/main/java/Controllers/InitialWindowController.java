@@ -28,6 +28,7 @@ public class InitialWindowController {
 	private InitialWindowView view;
 	private File quizFile;	
 	private String courseCode;
+	private JDialog dialog;
 	public InitialWindowController(InitialWindowView view) {
 		this.view=view;
 		addListeners();
@@ -66,6 +67,7 @@ public class InitialWindowController {
 					QuizCreationView quizCreationView = new QuizCreationView();
 					QuizEntity quizEntity = new QuizEntity("QuizTest",25,quizFile);
 					new QuizCreationController(quizCreationView,quizEntity);
+					dialog.setVisible(false);
 					MainFrameController.view.changeContentPane(quizCreationView);
 				}
 				else
@@ -92,7 +94,7 @@ public class InitialWindowController {
 	{
 		public void actionPerformed(ActionEvent e) {
 			// TODO Auto-generated method stub	
-			JDialog dialog = new JDialog(new JFrame());
+			dialog = new JDialog(new JFrame(),"New Quiz Dialog");
 			dialog.setLocationRelativeTo(MainFrameController.view);
 			dialog.setSize(220,220);
 			dialog.setVisible(true);
