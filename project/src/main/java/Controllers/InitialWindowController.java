@@ -92,11 +92,11 @@ public class InitialWindowController {
 	{
 		public void actionPerformed(ActionEvent e) {
 			// TODO Auto-generated method stub	
-			JDialog dialog = new JDialog(MainFrameController.view);
+			JDialog dialog = new JDialog(new JFrame());
+			dialog.setLocationRelativeTo(MainFrameController.view);
 			dialog.setSize(220,220);
 			dialog.setVisible(true);
-			dialog.setMaximumSize(new Dimension(220, 220));
-			dialog.setMinimumSize(new Dimension(220, 220));
+			dialog.setResizable(false);
 			dialog.getContentPane().add(view.getNewQuizDialogPanel());
 //			view.getNewQuizDialogPanel().setVisible(true);
 		}
