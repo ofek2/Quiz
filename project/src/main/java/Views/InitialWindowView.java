@@ -107,8 +107,8 @@ public class InitialWindowView extends ViewPanel {
 		newQuizDialogPanel = new JPanel();
 		newQuizDialogPanel.setBackground(Color.RED);
 		newQuizDialogPanel.setBounds(137, 193, 200, 168);
-		newQuizDialogPanel.setVisible(false);
-		tree.add(newQuizDialogPanel);
+		newQuizDialogPanel.setVisible(true);
+//////		tree.add(newQuizDialogPanel);
 		newQuizDialogPanel.setLayout(null);
 		
 //		

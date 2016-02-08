@@ -1,5 +1,6 @@
 package Controllers;
 
+import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
@@ -9,6 +10,8 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 
+import javax.swing.JDialog;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
@@ -89,7 +92,13 @@ public class InitialWindowController {
 	{
 		public void actionPerformed(ActionEvent e) {
 			// TODO Auto-generated method stub	
-			view.getNewQuizDialogPanel().setVisible(true);
+			JDialog dialog = new JDialog(MainFrameController.view);
+			dialog.setSize(220,220);
+			dialog.setVisible(true);
+			dialog.setMaximumSize(new Dimension(220, 220));
+			dialog.setMinimumSize(new Dimension(220, 220));
+			dialog.getContentPane().add(view.getNewQuizDialogPanel());
+//			view.getNewQuizDialogPanel().setVisible(true);
 		}
 		
 	}
