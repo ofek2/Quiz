@@ -14,20 +14,21 @@ import Views.qPanel;
 public class QuizCreationController {
 	private QuizCreationView view;
 	private QuizEntity entity;
-	protected static ArrayList<qPanel> qPanels;
+	private qPanelController qPanelController;
+	protected static ArrayList<qPanelController> qPanels;
 	
 	public QuizCreationController(QuizCreationView view,QuizEntity entity) {
 	
 		this.view = view;
 		this.entity = entity;
 		this.view.addBtnAddListener(new addBtnListener());
-		qPanels = new ArrayList<qPanel>();
+		qPanels = new ArrayList<qPanelController>();
 		addQpanel();
 	}
 	public void addQpanel()
 	{
 		qPanel qPview = new qPanel();
-		new qPanelController(qPview,view,entity);
+		qPanelController = new qPanelController(qPview,view,entity);
 		view.panel.add(qPview);
 		view.panel.revalidate();
 		if(view.panel.getComponentCount()%2 == 0)
@@ -39,8 +40,8 @@ public class QuizCreationController {
 		view.panel.add(view.addBtn);
 		view.panel.revalidate();
 		qPview.setQuestionNumber(qPanels.size()+1);
-		qPanels.add(qPview);
-		QuizCreationController.qPanels.get(qPanels.size()-1).getQuestionLbl().setText("Question "+(qPanels.size()));
+		qPanels.add(qPanelController);
+		QuizCreationController.qPanels.get(qPanels.size()-1).getQuestionPanel().getQuestionLbl().setText("Question"+(qPanels.size()));
 		
 		
 	}

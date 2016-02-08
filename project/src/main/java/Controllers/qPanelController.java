@@ -15,6 +15,7 @@ import java.util.ResourceBundle;
 
 import javax.imageio.ImageIO;
 import javax.swing.JFileChooser;
+import javax.swing.JPanel;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.TransformerException;
@@ -63,13 +64,27 @@ public class qPanelController{
 			parentView.panel.remove(view);
 			parentView.panel.revalidate();
 			MainFrameController.view.repaint();
-			QuizCreationController.qPanels.remove(view.getQuestionNumber()-1);
-			for (int i = view.getQuestionNumber()-1; i < QuizCreationController.qPanels.size(); i++) {
-				QuizCreationController.qPanels.get(i).setQuestionNumber(i+1);
-				QuizCreationController.qPanels.get(i).getQuestionLbl().setText("Question "+(i+1));
-			}
 			if(imgFile!=null)
 				imgFile.delete();
+			QuizCreationController.qPanels.remove(view.getQuestionNumber()-1);		
+			for (int i = view.getQuestionNumber()-1; i < QuizCreationController.qPanels.size(); i++) {
+				QuizCreationController.qPanels.get(i).view.setQuestionNumber(i+1);
+				QuizCreationController.qPanels.get(i).view.getQuestionLbl().setText("Question"+(i+1));
+//				if(QuizCreationController.qPanels.get(i).imgFile!=null)
+//					try {
+//						if(QuizCreationController.qPanels.get(i).imgFile!=null)
+//						Files.move(imgFile, new File(QuizCreationController.qPanels.get(i).quizPath+"/"+
+//									"Question"+(i+1)+".PNG"));
+//					} catch (IOException e1) {
+//						// TODO Auto-generated catch block
+//						e1.printStackTrace();
+//					}
+				if(QuizCreationController.qPanels.get(i).imgFile!=null)
+						QuizCreationController.qPanels.get(i).imgFile.renameTo(
+						new File(QuizCreationController.qPanels.get(i).quizPath+"/"+
+								"Question"+(i+1)+".PNG"));
+			}
+
 			/*
 			try {
 				HtmlBuilder hb= new HtmlBuilder();
@@ -143,6 +158,11 @@ public class qPanelController{
 		}
 		
 	}
+	
+	public qPanel getQuestionPanel() {
+		return view;
+	}
+	
 	}
 	
 
