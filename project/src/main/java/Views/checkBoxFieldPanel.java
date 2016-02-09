@@ -46,25 +46,10 @@ public class checkBoxFieldPanel extends JPanel{
 	public JButton getPlusBtn() {
 		return plusBtn;
 	}
-	public void setPlusBtn(JButton plusBtn) {
-		this.plusBtn = plusBtn;
-	}
 	public JButton getMinusBtn() {
 		return minusBtn;
 	}
-	public void setMinusBtn(JButton minusBtn) {
-		this.minusBtn = minusBtn;
-	}
-	public JCheckBox getCheckBox() {
-		return checkBox;
-	}
-	public void setCheckBox(JCheckBox checkBox) {
-		this.checkBox = checkBox;
-	}
-	public JTextField getTextField() {
-		return textField;
-	}
-	public void setTextField(JTextField textField) {
-		this.textField = textField;
-	}
+	
+
+	
 }
