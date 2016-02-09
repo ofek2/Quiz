@@ -41,7 +41,6 @@ public class qPanelController{
 	private String quizPath;
 	private File imgFile;
 	private String fileExtension;
-	
 	public qPanelController(qPanel view,QuizCreationView parentView,QuizEntity quizEntity) {
 		this.view = view;
 		this.parentView=parentView;
@@ -63,8 +62,9 @@ public class qPanelController{
 	
 	class removeBtnListener implements ActionListener
 	{
-
+		private BufferedImage bufferedImage;
 		public void actionPerformed(ActionEvent e) {
+			System.out.println("click");
 			parentView.panel.remove(view);
 			parentView.panel.revalidate();
 			MainFrameController.view.repaint();
@@ -74,35 +74,21 @@ public class qPanelController{
 			for (int i = view.getQuestionNumber()-1; i < QuizCreationController.qPanels.size(); i++) {
 				QuizCreationController.qPanels.get(i).view.setQuestionNumber(i+1);
 				QuizCreationController.qPanels.get(i).view.getQuestionLbl().setText("Question"+(i+1));
-//				if(QuizCreationController.qPanels.get(i).imgFile!=null)
-//					try {
-//						if(QuizCreationController.qPanels.get(i).imgFile!=null)
-//						Files.move(imgFile, new File(QuizCreationController.qPanels.get(i).quizPath+"/"+
-//									"Question"+(i+1)+".PNG"));
-//					} catch (IOException e1) {
-//						// TODO Auto-generated catch block
-//						e1.printStackTrace();
-//					}
+
 				if(QuizCreationController.qPanels.get(i).imgFile!=null){
 				try {
 					File tempFile = new File(QuizCreationController.qPanels.get(i).quizPath+"/"+
 							"Question"+(i+1)+".PNG");
-					final BufferedImage bufferedImage = ImageIO.read(QuizCreationController.qPanels.get(i).imgFile);
-					ImageIO.write(bufferedImage,fileExtension , tempFile);
+					bufferedImage = ImageIO.read(QuizCreationController.qPanels.get(i).imgFile);
+					ImageIO.write(bufferedImage,QuizCreationController.qPanels.get(i).fileExtension , tempFile);
 					QuizCreationController.qPanels.get(i).imgFile.delete();
 					QuizCreationController.qPanels.get(i).imgFile=tempFile;
 				} catch (IOException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
-				}
-				
-				
+				}	
 				
 				}
-//				if(QuizCreationController.qPanels.get(i).imgFile!=null)
-//						QuizCreationController.qPanels.get(i).imgFile.renameTo(
-//						new File(QuizCreationController.qPanels.get(i).quizPath+"/"+
-//								"Question"+(i+1)+".PNG"));
 			}
 
 			/*
@@ -152,7 +138,7 @@ public class qPanelController{
 	{
 		private int returnVal;
 		private File fileSave;
-		private BufferedImage bufferedImage;
+		private BufferedImage image;
 		private String questionLbl;
 		private String questionImgPath;
 		public void actionPerformed(ActionEvent e) {
@@ -165,9 +151,9 @@ public class qPanelController{
 					questionLbl = view.getQuestionLbl().getText()+".PNG";
 					questionImgPath = quizPath +"/" + questionLbl;
 					fileExtension = Files.getFileExtension(imgFile.getCanonicalPath());
-					bufferedImage = ImageIO.read(imgFile); 	
+					image = ImageIO.read(imgFile); 	
 					fileSave = new File(questionImgPath);
-					ImageIO.write(bufferedImage,fileExtension , fileSave);
+					ImageIO.write(image,fileExtension , fileSave);
 					imgFile = fileSave;
 				} catch (IOException e2) {
 					// TODO Auto-generated catch block
