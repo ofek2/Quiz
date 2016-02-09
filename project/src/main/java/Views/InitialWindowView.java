@@ -35,8 +35,13 @@ import java.awt.Label;
 import javax.swing.JComboBox;
 
 import java.awt.Button;
+import java.io.File;
+import java.util.ArrayList;
+
 import javax.swing.JLabel;
 import javax.swing.JButton;
+
+import Controllers.qPanelController;
 
 public class InitialWindowView extends ViewPanel {
 	private JMenu mnQuizMngMenu;
