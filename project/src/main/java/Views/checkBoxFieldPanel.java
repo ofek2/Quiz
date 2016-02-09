@@ -17,11 +17,13 @@ public class checkBoxFieldPanel extends JPanel{
 	private JTextField textField_1;
 	private JButton plusBtn;
 	private JButton minusBtn;
+	private int answerNumber;
 	public checkBoxFieldPanel() {
 		super();
 		setLayout(null);
 		setPreferredSize(new Dimension(241,35));
-		setMaximumSize(new Dimension(241,35));
+		setMaximumSize(new Dimension(482,35));
+		
 		JCheckBox chckbxNewCheckBox = new JCheckBox("");
 		chckbxNewCheckBox.setBounds(6, 7, 21, 23);
 		add(chckbxNewCheckBox);
@@ -33,13 +35,13 @@ public class checkBoxFieldPanel extends JPanel{
 		
 		plusBtn = new JButton("+");
 		plusBtn.setMargin(new Insets(0, 0, 0, 0));
-		plusBtn.setFont(new Font("Serif", Font.PLAIN, 8));
+		plusBtn.setFont(new Font("Serif", Font.PLAIN, 14));
 		plusBtn.setBounds(166, 6, 37, 23);
 		add(plusBtn);
 		
 		minusBtn = new JButton("-");
 		minusBtn.setMargin(new Insets(0, 0, 0, 0));
-		minusBtn.setFont(new Font("Arial", Font.PLAIN, 8));
+		minusBtn.setFont(new Font("Arial", Font.PLAIN, 14));
 		minusBtn.setBounds(204, 6, 37, 23);
 		add(minusBtn);
 		
@@ -57,6 +59,12 @@ public class checkBoxFieldPanel extends JPanel{
 	}
 	public JButton getMinusBtn() {
 		return minusBtn;
+	}
+	public int getAnswerNumber() {
+		return answerNumber;
+	}
+	public void setAnswerNumber(int answerNumber) {
+		this.answerNumber = answerNumber;
 	}
 	
 
