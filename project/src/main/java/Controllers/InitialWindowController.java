@@ -59,6 +59,9 @@ public class InitialWindowController {
 		public void actionPerformed(ActionEvent e) {
 			// TODO Auto-generated method stub
 			quizName = view.getNewQuizName().getText();
+		if(quizName.isEmpty())
+				JOptionPane.showMessageDialog(null,"This quiz name is empty, please choose another name","Alert",JOptionPane.ERROR_MESSAGE);
+		else{
 			try {
 				quizFolder = new File(new File(".").getCanonicalPath()+"/OnlineQuizChecker"+"/"+courseCode+"/"+quizName);
 				if(!quizFolder.exists())
@@ -73,20 +76,20 @@ public class InitialWindowController {
 				else
 				{
 					
+					JOptionPane.showMessageDialog(null,"This quiz name already exists, please choose another name","Alert",JOptionPane.ERROR_MESSAGE);
 				}
 				
 			} catch (IOException e1) {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}
-			 catch (NullPointerException e1) {//quiz name is empty
+			 catch (NullPointerException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
 			}
-
 			
+			}
 		}
-		
 	}
 	
 	
