@@ -1,23 +1,26 @@
-package project;
+package Views;
 
 import java.awt.Component;
+import java.awt.Dimension;
 
 import javax.swing.JCheckBox;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.JButton;
 import java.awt.Font;
+import java.awt.Insets;
 
 public class checkBoxFieldPanel extends JPanel{
 	private JCheckBox checkBox;
 	private JTextField textField;
 	private JTextField textField_1;
 	private JButton plusBtn;
-	private JButton button;
+	private JButton minusBtn;
 	public checkBoxFieldPanel() {
 		super();
 		setLayout(null);
-		
+		setPreferredSize(new Dimension(241,35));
+		setMaximumSize(new Dimension(241,35));
 		JCheckBox chckbxNewCheckBox = new JCheckBox("");
 		chckbxNewCheckBox.setBounds(6, 7, 21, 23);
 		add(chckbxNewCheckBox);
@@ -28,15 +31,29 @@ public class checkBoxFieldPanel extends JPanel{
 		textField_1.setColumns(10);
 		
 		plusBtn = new JButton("+");
-		plusBtn.setFont(new Font("Arial", Font.PLAIN, 8));
+		plusBtn.setMargin(new Insets(0, 0, 0, 0));
+		plusBtn.setFont(new Font("Serif", Font.PLAIN, 8));
 		plusBtn.setBounds(166, 6, 37, 23);
 		add(plusBtn);
 		
-		button = new JButton("-");
-		button.setFont(new Font("Arial", Font.PLAIN, 8));
-		button.setBounds(204, 6, 37, 23);
-		add(button);
+		minusBtn = new JButton("-");
+		minusBtn.setMargin(new Insets(0, 0, 0, 0));
+		minusBtn.setFont(new Font("Arial", Font.PLAIN, 8));
+		minusBtn.setBounds(204, 6, 37, 23);
+		add(minusBtn);
 		
+	}
+	public JButton getPlusBtn() {
+		return plusBtn;
+	}
+	public void setPlusBtn(JButton plusBtn) {
+		this.plusBtn = plusBtn;
+	}
+	public JButton getMinusBtn() {
+		return minusBtn;
+	}
+	public void setMinusBtn(JButton minusBtn) {
+		this.minusBtn = minusBtn;
 	}
 	public JCheckBox getCheckBox() {
 		return checkBox;
