@@ -9,6 +9,7 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.ArrayList;
 
 import javax.swing.JDialog;
 import javax.swing.JFrame;
@@ -29,10 +30,11 @@ public class InitialWindowController {
 	private File quizFolder;	
 	private String courseCode;
 	private JDialog dialog;
+	protected static ArrayList<File> coursesFiles;
 	public InitialWindowController(InitialWindowView view) {
 		this.view=view;
 		addListeners();
-		
+		coursesFiles = new ArrayList<File>();
 	}
 	private void addListeners()
 	{
@@ -147,6 +149,12 @@ public class InitialWindowController {
 
 		public void actionPerformed(ActionEvent e) {
 			// TODO Auto-generated method stub
+			dialog = new JDialog(MainFrameController.view,"New Course Dialog");
+			dialog.setLocationRelativeTo(MainFrameController.view);
+			dialog.setSize(220,220);
+			dialog.setVisible(true);
+			dialog.setResizable(false);
+			dialog.getContentPane().add(view.getNewQuizDialogPanel());
 			
 		}
 		
