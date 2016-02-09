@@ -23,7 +23,7 @@ public class MainFrameController {
 			if(!appFolder.exists())
 				appFolder.mkdir();
 			else
-				JOptionPane.showMessageDialog(null,"The folder already exists, all of the existing data will be lost","Alert",JOptionPane.ERROR_MESSAGE);
+				JOptionPane.showMessageDialog(null,"The application folder already exists, all of the existing data will be lost","Alert",JOptionPane.ERROR_MESSAGE);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
