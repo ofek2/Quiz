@@ -13,6 +13,9 @@ import java.awt.Dimension;
 import javax.swing.JButton;
 import javax.swing.border.EtchedBorder;
 import javax.swing.filechooser.FileNameExtensionFilter;
+
+import Controllers.MultipleChoicePanelController;
+
 import javax.swing.JTextField;
 
 import java.awt.CardLayout;
@@ -24,6 +27,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JSeparator;
 import javax.swing.SwingConstants;
 import javax.swing.BoxLayout;
+import java.awt.Insets;
 
 public class qPanel extends ViewPanel {
 	private JLabel questionLbl;
@@ -40,7 +44,7 @@ public class qPanel extends ViewPanel {
 	private JCheckBox listenChkBox;
 	private JCheckBox chckbxHideQuestion;
 	private JPanel answerPanel;
-	private JPanel multipleChoicePanel;
+	private MultipleChoicePanelController multipleChoicePanelController;
 	private JLabel choicesLbl;
 	private JLabel theAnswerLbl;
 	/**
@@ -60,8 +64,9 @@ public class qPanel extends ViewPanel {
 		add(questionLbl);
 		
 		btnRemove = new JButton("X");
-		btnRemove.setFont(new Font("Serif", Font.BOLD, 10));
-		btnRemove.setBounds(668, 9, 47, 34);
+		btnRemove.setMargin(new Insets(0, 0, 0, 0));
+		btnRemove.setFont(new Font("Arial", Font.BOLD, 15));
+		btnRemove.setBounds(686, 9, 29, 27);
 		add(btnRemove);
 		
 		JLabel theQuestionLbl = new JLabel("The Question");
@@ -79,8 +84,8 @@ public class qPanel extends ViewPanel {
 		answerTypeCb = new JComboBox<String>();
 		answerTypeCb.setBounds(527, 96, 160, 20);
 		answerTypeCb.addItem("Multiple Choice");
-		answerTypeCb.addItem("Free text");
-		answerTypeCb.addItem("Free drawing");
+		answerTypeCb.addItem("Free Text");
+		answerTypeCb.addItem("Free Drawing");
 		answerTypeCb.setSelectedIndex(0);
 		answerTypeCb.setMaximumSize(answerTypeCb.getPreferredSize());
 		add(answerTypeCb);
@@ -136,9 +141,10 @@ public class qPanel extends ViewPanel {
 		fileChooser.setFileFilter(extensionFilter);
 		fileChooser.setAcceptAllFileFilterUsed(false);
 		browseBtn = new JButton("Browse..");
+		browseBtn.setMargin(new Insets(0, 0, 0, 0));
 		browseBtn.setBounds(131, 107, 89, 23);
 		qDataPanel.add(browseBtn);
-		////////////////////////////////////////
+		
 		JLabel browseLabel = new JLabel("Browse an image:");
 		browseLabel.setFont(new Font("Arial", Font.PLAIN, 11));
 		browseLabel.setBounds(10, 111, 104, 14);
@@ -154,20 +160,14 @@ public class qPanel extends ViewPanel {
 		add(answerPanel);
 		answerPanel.setLayout(new CardLayout(0, 0));
 		
-		multipleChoicePanel = new JPanel();
-		answerPanel.add(multipleChoicePanel, "name_739422495432258");
-		multipleChoicePanel.setLayout(new BoxLayout(multipleChoicePanel, BoxLayout.Y_AXIS));
-		
-		choicesLbl = new JLabel("Choices:");
-		choicesLbl.setFont(new Font("Arial", Font.PLAIN, 11));
-		multipleChoicePanel.add(choicesLbl);
-		checkBoxFieldPanel checkBoxFieldPanel = new checkBoxFieldPanel();
-		checkBoxFieldPanel.getMinusBtn().setVisible(false);
-		checkBoxFieldPanel.setMaximumSize(new Dimension(482, 35));
-		multipleChoicePanel.add(checkBoxFieldPanel);
+		MultipleChoicePanel multipleChoicePanel = new MultipleChoicePanel();
+		multipleChoicePanelController = new MultipleChoicePanelController(multipleChoicePanel);
+		answerPanel.add(multipleChoicePanel, "Multiple Choice");
+	
+	
 		
 		JPanel freeTextPanel = new JPanel();
-		answerPanel.add(freeTextPanel, "name_989801892555020");
+		answerPanel.add(freeTextPanel, "Free Text");
 		freeTextPanel.setLayout(null);
 		
 		JScrollPane scrollPane_1 = new JScrollPane();
