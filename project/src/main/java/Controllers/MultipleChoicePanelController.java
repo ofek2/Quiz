@@ -1,5 +1,29 @@
 package Controllers;
 
-public class MultipleChoicePanelController {
+import java.awt.Dimension;
+import java.util.ArrayList;
 
+import Views.MultipleChoicePanel;
+import Views.checkBoxFieldPanel;
+
+public class MultipleChoicePanelController {
+	private MultipleChoicePanel view;
+	protected static ArrayList<checkBoxFieldController> cBfControllers;
+	public MultipleChoicePanelController(MultipleChoicePanel view)
+	{
+		this.view=view;
+		cBfControllers = new ArrayList<checkBoxFieldController>();
+		addCheckBoxField(0);
+		
+	}
+	public void addCheckBoxField(int index) {
+		checkBoxFieldPanel checkBoxFieldPanel = new checkBoxFieldPanel();
+		checkBoxFieldController checkBoxFieldController= new checkBoxFieldController(checkBoxFieldPanel, view);
+		checkBoxFieldPanel.getMinusBtn().setVisible(false);
+		
+		view.panel.add(checkBoxFieldPanel);
+		cBfControllers.add(index, checkBoxFieldController);
+		checkBoxFieldPanel.setAnswerNumber(index+1);
+	}
+	
 }
