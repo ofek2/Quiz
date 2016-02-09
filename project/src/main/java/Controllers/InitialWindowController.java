@@ -41,7 +41,7 @@ public class InitialWindowController {
 		view.addQuizManagementListeners(quizMngmntListeners);
 		view.addCourseManagementListeners(courseMngmntListeners);
 		view.addCourseCodeListener(new CourseCodeListener());
-		view.createCourseBtnAddListener(new CreateCourseBtnListener());
+		view.createQuizBtnAddListener(new CreateQuizBtnListener());
 	}
 	class CourseCodeListener implements ItemListener
 	{
@@ -53,7 +53,7 @@ public class InitialWindowController {
 		
 	}
 	
-	class CreateCourseBtnListener implements ActionListener
+	class CreateQuizBtnListener implements ActionListener
 	{
 		private String quizName;
 		public void actionPerformed(ActionEvent e) {
