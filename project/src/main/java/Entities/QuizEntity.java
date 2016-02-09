@@ -4,17 +4,17 @@ import java.io.File;
 
 public class QuizEntity {
 	private String name;
-	private File quizFile;
+	private File quizFolder;
 	private int percentageFromFGrade;
 	public QuizEntity(String name) {
 		super();
 		this.name = name;
 	}
-	public QuizEntity(String name,int percentageFFgrade,File quizFile) {
+	public QuizEntity(String name,int percentageFFgrade,File quizFolder) {
 		super();
 		this.name = name;
 		this.percentageFromFGrade = percentageFFgrade;
-		this.quizFile = quizFile;
+		this.quizFolder = quizFolder;
 	}
 	public String getName() {
 		return name;
@@ -31,7 +31,7 @@ public class QuizEntity {
 	}
 	
 	public File getQuizFile() {
-		return quizFile;
+		return quizFolder;
 	}
 	
 }
