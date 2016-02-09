@@ -6,6 +6,9 @@ import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.awt.image.BufferedImage;
+import java.awt.image.BufferedImageFilter;
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
@@ -37,6 +40,8 @@ public class qPanelController{
 	private JFileChooser fileChooser;
 	private String quizPath;
 	private File imgFile;
+	private String fileExtension;
+	
 	public qPanelController(qPanel view,QuizCreationView parentView,QuizEntity quizEntity) {
 		this.view = view;
 		this.parentView=parentView;
@@ -79,10 +84,26 @@ public class qPanelController{
 //						// TODO Auto-generated catch block
 //						e1.printStackTrace();
 //					}
-				if(QuizCreationController.qPanels.get(i).imgFile!=null)
-						QuizCreationController.qPanels.get(i).imgFile.renameTo(
-						new File(QuizCreationController.qPanels.get(i).quizPath+"/"+
-								"Question"+(i+1)+".PNG"));
+				if(QuizCreationController.qPanels.get(i).imgFile!=null){
+				try {
+					File tempFile = new File(QuizCreationController.qPanels.get(i).quizPath+"/"+
+							"Question"+(i+1)+".PNG");
+					final BufferedImage bufferedImage = ImageIO.read(QuizCreationController.qPanels.get(i).imgFile);
+					ImageIO.write(bufferedImage,fileExtension , tempFile);
+					QuizCreationController.qPanels.get(i).imgFile.delete();
+					QuizCreationController.qPanels.get(i).imgFile=tempFile;
+				} catch (IOException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+				
+				
+				
+				}
+//				if(QuizCreationController.qPanels.get(i).imgFile!=null)
+//						QuizCreationController.qPanels.get(i).imgFile.renameTo(
+//						new File(QuizCreationController.qPanels.get(i).quizPath+"/"+
+//								"Question"+(i+1)+".PNG"));
 			}
 
 			/*
@@ -135,7 +156,6 @@ public class qPanelController{
 		private BufferedImage bufferedImage;
 		private String questionLbl;
 		private String questionImgPath;
-		private String fileExtension;
 		public void actionPerformed(ActionEvent e) {
 			// TODO Auto-generated method stub
 			returnVal=fileChooser.showSaveDialog(view.getQuestionDataPanel());

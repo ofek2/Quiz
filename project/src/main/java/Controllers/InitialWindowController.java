@@ -94,7 +94,7 @@ public class InitialWindowController {
 	{
 		public void actionPerformed(ActionEvent e) {
 			// TODO Auto-generated method stub	
-			dialog = new JDialog(new JFrame(),"New Quiz Dialog");
+			dialog = new JDialog(MainFrameController.view,"New Quiz Dialog");
 			dialog.setLocationRelativeTo(MainFrameController.view);
 			dialog.setSize(220,220);
 			dialog.setVisible(true);
