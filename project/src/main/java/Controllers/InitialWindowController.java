@@ -26,7 +26,7 @@ import Views.QuizCreationView;
 
 public class InitialWindowController {
 	private InitialWindowView view;
-	private File quizFile;	
+	private File quizFolder;	
 	private String courseCode;
 	private JDialog dialog;
 	public InitialWindowController(InitialWindowView view) {
@@ -60,12 +60,12 @@ public class InitialWindowController {
 			// TODO Auto-generated method stub
 			quizName = view.getNewQuizName().getText();
 			try {
-				quizFile = new File(new File(".").getCanonicalPath()+"/"+courseCode+"/"+quizName);
-				if(!quizFile.exists())
+				quizFolder = new File(new File(".").getCanonicalPath()+"/OnlineQuizChecker"+"/"+courseCode+"/"+quizName);
+				if(!quizFolder.exists())
 				{
-					quizFile.mkdir();
+					quizFolder.mkdir();
 					QuizCreationView quizCreationView = new QuizCreationView();
-					QuizEntity quizEntity = new QuizEntity("QuizTest",25,quizFile);
+					QuizEntity quizEntity = new QuizEntity("QuizTest",25,quizFolder);
 					new QuizCreationController(quizCreationView,quizEntity);
 					dialog.setVisible(false);
 					MainFrameController.view.changeContentPane(quizCreationView);
@@ -111,7 +111,7 @@ public class InitialWindowController {
 			// TODO Auto-generated method stub
 			QuizCreationView quizCreationView = new QuizCreationView();
 //			quizFile="the chosen quiz";
-			QuizEntity quizEntity = new QuizEntity("QuizTest",25,quizFile);
+			QuizEntity quizEntity = new QuizEntity("QuizTest",25,quizFolder);
 			QuizCreationController quizCreationController = new QuizCreationController(quizCreationView,quizEntity);
 			MainFrameController.view.changeContentPane(quizCreationView);
 			//quizCreationController.setBack()
