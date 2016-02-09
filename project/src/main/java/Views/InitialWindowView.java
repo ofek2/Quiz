@@ -174,7 +174,7 @@ public class InitialWindowView extends ViewPanel {
 	{
 		courseCode.addItemListener(listener);
 	}
-	public void createCourseBtnAddListener(ActionListener listener)
+	public void createQuizBtnAddListener(ActionListener listener)
 	{
 		createNewQuiz.addActionListener(listener);
 	}
