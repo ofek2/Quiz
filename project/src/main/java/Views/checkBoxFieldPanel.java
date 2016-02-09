@@ -9,6 +9,7 @@ import javax.swing.JTextField;
 import javax.swing.JButton;
 import java.awt.Font;
 import java.awt.Insets;
+import java.awt.event.ActionListener;
 
 public class checkBoxFieldPanel extends JPanel{
 	private JCheckBox checkBox;
@@ -42,6 +43,14 @@ public class checkBoxFieldPanel extends JPanel{
 		minusBtn.setBounds(204, 6, 37, 23);
 		add(minusBtn);
 		
+	}
+	public void plusBtnAddListener(ActionListener listener)
+	{
+		plusBtn.addActionListener(listener);
+	}
+	public void minusBtnAddListener(ActionListener listener)
+	{
+		minusBtn.addActionListener(listener);
 	}
 	public JButton getPlusBtn() {
 		return plusBtn;
