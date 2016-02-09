@@ -138,7 +138,7 @@ public class qPanel extends ViewPanel {
 		browseBtn = new JButton("Browse..");
 		browseBtn.setBounds(131, 107, 89, 23);
 		qDataPanel.add(browseBtn);
-		
+		////////////////////////////////////////
 		JLabel browseLabel = new JLabel("Browse an image:");
 		browseLabel.setFont(new Font("Arial", Font.PLAIN, 11));
 		browseLabel.setBounds(10, 111, 104, 14);
