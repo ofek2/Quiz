@@ -65,7 +65,6 @@ public class qPanelController{
 	{
 
 		public void actionPerformed(ActionEvent e) {
-			System.out.println("click");
 			parentView.panel.remove(view);
 			parentView.panel.revalidate();
 			MainFrameController.view.repaint();
