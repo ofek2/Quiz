@@ -1,19 +1,6 @@
 package Views;
 
 import javax.swing.JPanel;
-
-import com.jgoodies.forms.layout.FormLayout;
-import com.jgoodies.forms.layout.ColumnSpec;
-import com.jgoodies.forms.layout.RowSpec;
-
-
-
-
-
-import project.checkBoxFieldPanel;
-
-import com.jgoodies.forms.layout.FormSpecs;
-
 import javax.swing.JLabel;
 
 import java.awt.Font;
@@ -22,18 +9,9 @@ import java.awt.event.ItemListener;
 
 import javax.swing.JComboBox;
 
-import java.awt.Color;
 import java.awt.Dimension;
-import java.util.Random;
-
 import javax.swing.JButton;
-import javax.swing.border.BevelBorder;
-import javax.swing.border.TitledBorder;
-import javax.swing.border.MatteBorder;
 import javax.swing.border.EtchedBorder;
-import javax.swing.border.CompoundBorder;
-import javax.swing.border.LineBorder;
-import javax.swing.border.SoftBevelBorder;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.JTextField;
 
@@ -45,9 +23,6 @@ import javax.swing.JTextArea;
 import javax.swing.JScrollPane;
 import javax.swing.JSeparator;
 import javax.swing.SwingConstants;
-import javax.swing.JRadioButton;
-import javax.swing.JFormattedTextField;
-import javax.swing.JEditorPane;
 import javax.swing.BoxLayout;
 
 public class qPanel extends ViewPanel {
@@ -66,6 +41,8 @@ public class qPanel extends ViewPanel {
 	private JCheckBox chckbxHideQuestion;
 	private JPanel answerPanel;
 	private JPanel multipleChoicePanel;
+	private JLabel choicesLbl;
+	private JLabel theAnswerLbl;
 	/**
 	 * Create the panel.
 	 */
@@ -78,8 +55,8 @@ public class qPanel extends ViewPanel {
 		setLayout(null);
 		
 		questionLbl = new JLabel("Question "+questionNumber);
-		questionLbl.setBounds(8, 8, 95, 27);
-		questionLbl.setFont(new Font("Serif", Font.BOLD, 20));
+		questionLbl.setBounds(8, 8, 126, 27);
+		questionLbl.setFont(new Font("Arial", Font.BOLD, 20));
 		add(questionLbl);
 		
 		btnRemove = new JButton("X");
@@ -87,20 +64,20 @@ public class qPanel extends ViewPanel {
 		btnRemove.setBounds(668, 9, 47, 34);
 		add(btnRemove);
 		
-		JLabel enterQuestionLbl = new JLabel("The question:");
-		enterQuestionLbl.setBounds(8, 68, 95, 18);
-		enterQuestionLbl.setFont(new Font("Serif", Font.PLAIN, 13));
-		add(enterQuestionLbl);
+		JLabel theQuestionLbl = new JLabel("The Question");
+		theQuestionLbl.setBounds(136, 67, 141, 18);
+		theQuestionLbl.setFont(new Font("Arial", Font.BOLD, 18));
+		add(theQuestionLbl);
 		
 		
 		JLabel questionTypeLbl = new JLabel("Answer type:");
-		questionTypeLbl.setBounds(401, 69, 95, 18);
-		questionTypeLbl.setFont(new Font("Serif", Font.PLAIN, 13));
+		questionTypeLbl.setBounds(401, 97, 95, 18);
+		questionTypeLbl.setFont(new Font("Arial", Font.PLAIN, 13));
 		add(questionTypeLbl);
 		
 		
 		answerTypeCb = new JComboBox<String>();
-		answerTypeCb.setBounds(527, 68, 160, 20);
+		answerTypeCb.setBounds(527, 96, 160, 20);
 		answerTypeCb.addItem("Multiple Choice");
 		answerTypeCb.addItem("Free text");
 		answerTypeCb.addItem("Free drawing");
@@ -112,11 +89,12 @@ public class qPanel extends ViewPanel {
 		setAlignmentY(0.0f);
 		
 		lblScore = new JLabel("Score:");
-		lblScore.setBounds(134, 18, 52, 14);
+		lblScore.setFont(new Font("Arial", Font.PLAIN, 11));
+		lblScore.setBounds(136, 11, 52, 14);
 		add(lblScore);
 		
 		scoreField = new JTextField();
-		scoreField.setBounds(179, 15, 52, 20);
+		scoreField.setBounds(181, 8, 52, 20);
 		add(scoreField);
 		scoreField.setColumns(10);
 		
@@ -127,6 +105,7 @@ public class qPanel extends ViewPanel {
 		qDataPanel.setOpaque(false);
 		
 		JLabel qLabel = new JLabel("Enter question:");
+		qLabel.setFont(new Font("Arial", Font.PLAIN, 11));
 		qLabel.setBounds(10, 14, 117, 14);
 		qDataPanel.add(qLabel);
 		
@@ -161,6 +140,7 @@ public class qPanel extends ViewPanel {
 		qDataPanel.add(browseBtn);
 		
 		JLabel browseLabel = new JLabel("Browse an image:");
+		browseLabel.setFont(new Font("Arial", Font.PLAIN, 11));
 		browseLabel.setBounds(10, 111, 104, 14);
 		qDataPanel.add(browseLabel);
 		
@@ -170,14 +150,49 @@ public class qPanel extends ViewPanel {
 		add(separator);
 		
 		answerPanel = new JPanel();
-		answerPanel.setBounds(398, 98, 317, 191);
+		answerPanel.setBounds(398, 127, 317, 162);
 		add(answerPanel);
 		answerPanel.setLayout(new CardLayout(0, 0));
 		
 		multipleChoicePanel = new JPanel();
 		answerPanel.add(multipleChoicePanel, "name_739422495432258");
-		multipleChoicePanel.setLayout(new BoxLayout(multipleChoicePanel, BoxLayout.X_AXIS));
-		multipleChoicePanel.add(new checkBoxFieldPanel());
+		multipleChoicePanel.setLayout(new BoxLayout(multipleChoicePanel, BoxLayout.Y_AXIS));
+		
+		choicesLbl = new JLabel("Choices:");
+		choicesLbl.setFont(new Font("Arial", Font.PLAIN, 11));
+		multipleChoicePanel.add(choicesLbl);
+		checkBoxFieldPanel checkBoxFieldPanel = new checkBoxFieldPanel();
+		checkBoxFieldPanel.getMinusBtn().setVisible(false);
+		checkBoxFieldPanel.setMaximumSize(new Dimension(482, 35));
+		multipleChoicePanel.add(checkBoxFieldPanel);
+		
+		JPanel freeTextPanel = new JPanel();
+		answerPanel.add(freeTextPanel, "name_989801892555020");
+		freeTextPanel.setLayout(null);
+		
+		JScrollPane scrollPane_1 = new JScrollPane();
+		scrollPane_1.setBounds(96, 11, 211, 140);
+		freeTextPanel.add(scrollPane_1);
+		
+		JTextArea answerTextA = new JTextArea();
+		scrollPane_1.setViewportView(answerTextA);
+		answerTextA.setWrapStyleWord(true);
+		answerTextA.setLineWrap(true);
+		answerTextA.setFont(new Font("Times New Roman", Font.PLAIN, 12));
+		
+		JLabel lblEnterAnswer = new JLabel("Enter answer:");
+		lblEnterAnswer.setFont(new Font("Arial", Font.PLAIN, 11));
+		lblEnterAnswer.setBounds(10, 14, 90, 14);
+		freeTextPanel.add(lblEnterAnswer);
+		
+		theAnswerLbl = new JLabel("The Answer");
+		theAnswerLbl.setFont(new Font("Arial", Font.BOLD, 18));
+		theAnswerLbl.setBounds(492, 68, 141, 18);
+		add(theAnswerLbl);
+		
+		JSeparator separator_1 = new JSeparator();
+		separator_1.setBounds(8, 84, 707, 2);
+		add(separator_1);
 	
 	
 		
