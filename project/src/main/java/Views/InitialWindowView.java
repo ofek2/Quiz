@@ -1,5 +1,6 @@
 package Views;
 
+import javax.swing.ComboBoxModel;
 import javax.swing.JPanel;
 import javax.swing.JMenuBar;
 import javax.swing.JMenu;
@@ -41,6 +42,7 @@ import java.util.ArrayList;
 import javax.swing.JLabel;
 import javax.swing.JButton;
 
+import Controllers.InitialWindowController;
 import Controllers.qPanelController;
 
 public class InitialWindowView extends ViewPanel {
@@ -48,13 +50,14 @@ public class InitialWindowView extends ViewPanel {
 	private JMenuBar menuBar;
 	private JMenu mnCourseManagement;
 	private JPanel newQuizDialogPanel;
-	private JComboBox courseCode;
+	private JComboBox<String> coursesIds;
 	private JTextField newQuizName;
 	private Button createNewQuiz;
 	private JTree tree;
 	private JTextField newCourseId;
 	private JPanel newCourseDialogPanel;
 	private Button createNewCourse;
+	private JTextField newCourseName;
 	/**
 	 * Create the panel.
 	 */
@@ -113,23 +116,19 @@ public class InitialWindowView extends ViewPanel {
 		newQuizDialogPanel.setBackground(Color.RED);
 		newQuizDialogPanel.setBounds(137, 193, 200, 168);
 		newQuizDialogPanel.setVisible(true);
-//////		tree.add(newQuizDialogPanel);
 		newQuizDialogPanel.setLayout(null);
-		
-//		
+				
 		
 		Label label = new Label("Course Code:");
 		label.setBounds(13, 28, 80, 19);
 		newQuizDialogPanel.add(label);
 		
-		courseCode = new JComboBox();
-		courseCode.setBounds(100, 27, 86, 20);
-		courseCode.addItem("-");
-		courseCode.addItem("1");
-		courseCode.addItem("2");
-		courseCode.addItem("3");
-		courseCode.setSelectedIndex(0);
-		newQuizDialogPanel.add(courseCode);
+		coursesIds = new JComboBox<String>();
+		coursesIds.setBounds(100, 27, 86, 20);
+		for(int i=0;i<InitialWindowController.coursesFiles.size();i++)
+			coursesIds.addItem(InitialWindowController.coursesFiles.get(i).getName());		
+		coursesIds.setSelectedIndex(0);
+		newQuizDialogPanel.add(coursesIds);
 		
 		Label label_1 = new Label("Quiz Name:");
 		label_1.setBounds(13, 70, 80, 19);
@@ -145,7 +144,6 @@ public class InitialWindowView extends ViewPanel {
 		newQuizDialogPanel.add(createNewQuiz);
 		
 		newCourseDialogPanel = new JPanel();
-		tree.add(newCourseDialogPanel);
 		newCourseDialogPanel.setBackground(Color.CYAN);
 		newCourseDialogPanel.setBounds(406, 193, 200, 168);
 		newCourseDialogPanel.setLayout(null);
@@ -155,13 +153,22 @@ public class InitialWindowView extends ViewPanel {
 		newCourseDialogPanel.add(lblCourseId);
 		
 		newCourseId = new JTextField();
-		newCourseId.setBounds(79, 42, 86, 20);
+		newCourseId.setBounds(93, 42, 86, 20);
 		newCourseDialogPanel.add(newCourseId);
 		newCourseId.setColumns(10);
 		
 		createNewCourse = new Button("Create Course");
 		createNewCourse.setBounds(35, 121, 130, 23);
 		newCourseDialogPanel.add(createNewCourse);
+		
+		JLabel lblNewLabel = new JLabel("Course Name:");
+		lblNewLabel.setBounds(10, 81, 84, 14);
+		newCourseDialogPanel.add(lblNewLabel);
+		
+		newCourseName = new JTextField();
+		newCourseName.setBounds(93, 78, 86, 20);
+		newCourseDialogPanel.add(newCourseName);
+		newCourseName.setColumns(10);
 	}
 	public void addQuizManagementListeners(ActionListener[] listener)
 	{
@@ -175,17 +182,20 @@ public class InitialWindowView extends ViewPanel {
 			mnCourseManagement.getItem(i).addActionListener(listener[i]);
 		}
 	}
-	public void addCourseCodeListener(ItemListener listener)
-	{
-		courseCode.addItemListener(listener);
-	}
 	public void createQuizBtnAddListener(ActionListener listener)
 	{
 		createNewQuiz.addActionListener(listener);
 	}
+	public void createCourseBtnAddListener(ActionListener listener)
+	{
+		createNewCourse.addActionListener(listener);
+	}
 	
 	public JPanel getNewQuizDialogPanel() {
 		return newQuizDialogPanel;
+	}
+	public JPanel getNewCourseDialogPanel() {
+		return newCourseDialogPanel;
 	}
 	public JTree getTree() {
 		return tree;
@@ -193,4 +203,16 @@ public class InitialWindowView extends ViewPanel {
 	public JTextField getNewQuizName() {
 		return newQuizName;
 	}
+	public JTextField getNewCourseId() {
+		return newCourseId;
+	}
+	public JTextField getNewCourseName() {
+		return newCourseName;
+	}
+	public JComboBox getCoursesIds() {
+		return coursesIds;
+	}
+	
+	
+	
 }

@@ -2,6 +2,7 @@ package Controllers;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.swing.JOptionPane;
 
@@ -13,10 +14,33 @@ import Controllers.QuizCreationController;
 public class MainFrameController {
 	public static MainFrameView view;
 	private File appFolder;
+	private InitialWindowController initialWindowController;
+	
+	///////////////////////////
+	File temp1;
+	File temp2;
+	File temp3;
+	///////////////////////////
 	public MainFrameController(MainFrameView view) {
 		this.view=view;
+		
+		//load the courses folders into the array list
+		//////////////////////////////
+		initialWindowController.coursesFiles=new ArrayList<File>();
+		try {
+			initialWindowController.coursesFiles.add(temp1=new File(new File(".").getCanonicalPath()+"/OnlineQuizChecker"+"/"+"1"));
+			initialWindowController.coursesFiles.add(temp2=new File(new File(".").getCanonicalPath()+"/OnlineQuizChecker"+"/"+"2"));
+			initialWindowController.coursesFiles.add(temp3=new File(new File(".").getCanonicalPath()+"/OnlineQuizChecker"+"/"+"3"));
+			temp1.mkdir();
+			temp2.mkdir();
+			temp3.mkdir();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		//////////////////////////////////
 		InitialWindowView initialWindowView = new InitialWindowView();
-		InitialWindowController initialWindowController = new InitialWindowController(initialWindowView);
+		initialWindowController = new InitialWindowController(initialWindowView);
 		this.view.changeContentPane(initialWindowView);
 		try {
 			appFolder= new File(new File(".").getCanonicalPath()+"/OnlineQuizChecker");
@@ -28,6 +52,7 @@ public class MainFrameController {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-
+		
+		
 	}
 }

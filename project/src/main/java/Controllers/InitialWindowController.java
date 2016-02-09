@@ -27,14 +27,12 @@ import Views.QuizCreationView;
 
 public class InitialWindowController {
 	private InitialWindowView view;
-	private File quizFolder;	
-	private String courseCode;
 	private JDialog dialog;
-	protected static ArrayList<File> coursesFiles;
+	public static ArrayList<File> coursesFiles;
 	public InitialWindowController(InitialWindowView view) {
+//		coursesFiles = new ArrayList<File>();
 		this.view=view;
-		addListeners();
-		coursesFiles = new ArrayList<File>();
+		addListeners();		
 	}
 	private void addListeners()
 	{
@@ -42,15 +40,51 @@ public class InitialWindowController {
 		ActionListener[] courseMngmntListeners ={new AddCourseListener(),new RemoveCourseListener(),new RegisterStudentListener(),new RemoveStudentListener()};
 		view.addQuizManagementListeners(quizMngmntListeners);
 		view.addCourseManagementListeners(courseMngmntListeners);
-		view.addCourseCodeListener(new CourseCodeListener());
 		view.createQuizBtnAddListener(new CreateQuizBtnListener());
+		view.createCourseBtnAddListener(new CreateCourseBtnListener());
 	}
-	class CourseCodeListener implements ItemListener
-	{
 
-		public void itemStateChanged(ItemEvent e) {
+	
+	class CreateCourseBtnListener implements ActionListener
+	{
+		private File courseFolder;
+		private String courseId;
+		private String courseName;
+		private String courseFolderName;
+		public void actionPerformed(ActionEvent e) {
 			// TODO Auto-generated method stub
-			courseCode = (String) e.getItem();
+			courseName = view.getNewCourseName().getText();
+			courseId = view.getNewCourseId().getText();
+			courseFolderName=courseId+","+courseName;
+			if(courseId.isEmpty())
+				JOptionPane.showMessageDialog(null,"This course id is empty, please choose another name","Alert",JOptionPane.ERROR_MESSAGE);
+			else if(courseName.isEmpty())
+				JOptionPane.showMessageDialog(null,"This course name is empty, please choose another name","Alert",JOptionPane.ERROR_MESSAGE);
+			else{
+				try {
+					courseFolder = new File(new File(".").getCanonicalPath()+"/OnlineQuizChecker"+"/"+courseFolderName);
+					if(!courseFolder.exists())
+					{
+						courseFolder.mkdir();
+						coursesFiles.add(courseFolder);
+						dialog.revalidate();
+//						QuizCreationView quizCreationView = new QuizCreationView();
+//						QuizEntity quizEntity = new QuizEntity("QuizTest",25,quizFolder);
+//						new QuizCreationController(quizCreationView,quizEntity);
+						dialog.setVisible(false);
+//						MainFrameController.view.changeContentPane(quizCreationView);
+					}
+					else
+					{
+						
+						JOptionPane.showMessageDialog(null,"This course already exists, please choose another id and name","Alert",JOptionPane.ERROR_MESSAGE);
+					}
+				} catch (IOException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+				
+			}
 		}
 		
 	}
@@ -58,6 +92,7 @@ public class InitialWindowController {
 	class CreateQuizBtnListener implements ActionListener
 	{
 		private String quizName;
+		private File quizFolder;
 		public void actionPerformed(ActionEvent e) {
 			// TODO Auto-generated method stub
 			quizName = view.getNewQuizName().getText();
@@ -65,7 +100,7 @@ public class InitialWindowController {
 				JOptionPane.showMessageDialog(null,"This quiz name is empty, please choose another name","Alert",JOptionPane.ERROR_MESSAGE);
 		else{
 			try {
-				quizFolder = new File(new File(".").getCanonicalPath()+"/OnlineQuizChecker"+"/"+courseCode+"/"+quizName);
+				quizFolder = new File(new File(".").getCanonicalPath()+"/OnlineQuizChecker"+"/"+(String)view.getCoursesIds().getSelectedItem()+"/"+quizName);
 				if(!quizFolder.exists())
 				{
 					quizFolder.mkdir();
@@ -114,12 +149,12 @@ public class InitialWindowController {
 
 		public void actionPerformed(ActionEvent e) {
 			// TODO Auto-generated method stub
-			QuizCreationView quizCreationView = new QuizCreationView();
+	/*		QuizCreationView quizCreationView = new QuizCreationView();
 //			quizFile="the chosen quiz";
 			QuizEntity quizEntity = new QuizEntity("QuizTest",25,quizFolder);
 			QuizCreationController quizCreationController = new QuizCreationController(quizCreationView,quizEntity);
 			MainFrameController.view.changeContentPane(quizCreationView);
-			//quizCreationController.setBack()
+			//quizCreationController.setBack()*/
 		}
 		
 	}
@@ -154,8 +189,7 @@ public class InitialWindowController {
 			dialog.setSize(220,220);
 			dialog.setVisible(true);
 			dialog.setResizable(false);
-			dialog.getContentPane().add(view.getNewQuizDialogPanel());
-			
+			dialog.getContentPane().add(view.getNewCourseDialogPanel());
 		}
 		
 	}
