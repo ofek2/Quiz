@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import javax.swing.JOptionPane;
 
 import Views.InitialWindowView;
+import Views.Main;
 import Views.MainFrameView;
 import Views.QuizCreationView;
 import Controllers.QuizCreationController;
@@ -16,6 +17,7 @@ public class MainFrameController {
 	public static MainFrameView view;
 	private File appFolder;
 	private InitialWindowController initialWindowController;
+	private int overWrite=JOptionPane.YES_OPTION;
 	
 	///////////////////////////
 	File temp1;
@@ -30,13 +32,14 @@ public class MainFrameController {
 			if(!appFolder.exists())
 				appFolder.mkdir();
 			else
-				JOptionPane.showMessageDialog(null,"The application folder already exists, all of the existing data will be lost","Alert",JOptionPane.ERROR_MESSAGE);
+				overWrite=JOptionPane.showConfirmDialog(null,"The application folder already exists, all of the existing data will be lost,\n do you want to keep the application progress?","Alert",JOptionPane.YES_NO_OPTION);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
-		
+		if(overWrite==JOptionPane.YES_OPTION)
+		{
 		//load the courses folders into the array list
 		///////////////////////////////////////////////////////////////////////////////////////////////
 		initialWindowController.coursesFiles=new ArrayList<CourseEntity>();
@@ -58,7 +61,10 @@ public class MainFrameController {
 		InitialWindowView initialWindowView = new InitialWindowView();
 		initialWindowController = new InitialWindowController(initialWindowView);
 		this.view.changeContentPane(initialWindowView);
-
+		}
+		else if(overWrite==JOptionPane.NO_OPTION||overWrite==JOptionPane.CLOSED_OPTION)
+			System.exit(1);
+			
 		
 		
 	}
