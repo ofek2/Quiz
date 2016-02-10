@@ -10,6 +10,7 @@ import Views.InitialWindowView;
 import Views.MainFrameView;
 import Views.QuizCreationView;
 import Controllers.QuizCreationController;
+import Entities.CourseEntity;
 
 public class MainFrameController {
 	public static MainFrameView view;
@@ -24,24 +25,6 @@ public class MainFrameController {
 	public MainFrameController(MainFrameView view) {
 		this.view=view;
 		
-		//load the courses folders into the array list
-		//////////////////////////////
-		initialWindowController.coursesFiles=new ArrayList<File>();
-		try {
-			initialWindowController.coursesFiles.add(temp1=new File(new File(".").getCanonicalPath()+"/OnlineQuizChecker"+"/"+"1"));
-			initialWindowController.coursesFiles.add(temp2=new File(new File(".").getCanonicalPath()+"/OnlineQuizChecker"+"/"+"2"));
-			initialWindowController.coursesFiles.add(temp3=new File(new File(".").getCanonicalPath()+"/OnlineQuizChecker"+"/"+"3"));
-			temp1.mkdir();
-			temp2.mkdir();
-			temp3.mkdir();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		//////////////////////////////////
-		InitialWindowView initialWindowView = new InitialWindowView();
-		initialWindowController = new InitialWindowController(initialWindowView);
-		this.view.changeContentPane(initialWindowView);
 		try {
 			appFolder= new File(new File(".").getCanonicalPath()+"/OnlineQuizChecker");
 			if(!appFolder.exists())
@@ -52,6 +35,30 @@ public class MainFrameController {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		
+		
+		//load the courses folders into the array list
+		///////////////////////////////////////////////////////////////////////////////////////////////
+		initialWindowController.coursesFiles=new ArrayList<CourseEntity>();
+		try {
+			temp1=new File(new File(".").getCanonicalPath()+"/OnlineQuizChecker"+"/"+"1,a");
+			temp2=new File(new File(".").getCanonicalPath()+"/OnlineQuizChecker"+"/"+"2,b");
+			temp3=new File(new File(".").getCanonicalPath()+"/OnlineQuizChecker"+"/"+"3,c");
+			initialWindowController.coursesFiles.add(new CourseEntity(temp1, "1", "a"));
+			initialWindowController.coursesFiles.add(new CourseEntity(temp1, "2", "b"));
+			initialWindowController.coursesFiles.add(new CourseEntity(temp1, "3", "c"));
+			temp1.mkdir();
+			temp2.mkdir();
+			temp3.mkdir();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		////////////////////////////////////////////////////////////////////////////////////////////////
+		InitialWindowView initialWindowView = new InitialWindowView();
+		initialWindowController = new InitialWindowController(initialWindowView);
+		this.view.changeContentPane(initialWindowView);
+
 		
 		
 	}

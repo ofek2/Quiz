@@ -50,7 +50,7 @@ public class qPanelController{
 		this.view.browseBtnAddListener(new browseBtnListener());
 		fileChooser=view.getFileChooser();
 		try {
-			quizPath = quizEntity.getQuizFile().getCanonicalPath();
+			quizPath = quizEntity.getQuizFolder().getCanonicalPath();
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

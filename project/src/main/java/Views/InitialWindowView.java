@@ -126,7 +126,7 @@ public class InitialWindowView extends ViewPanel {
 		coursesIds = new JComboBox<String>();
 		coursesIds.setBounds(100, 27, 86, 20);
 		for(int i=0;i<InitialWindowController.coursesFiles.size();i++)
-			coursesIds.addItem(InitialWindowController.coursesFiles.get(i).getName());		
+			coursesIds.addItem(InitialWindowController.coursesFiles.get(i).getCourseFolderName());		
 		coursesIds.setSelectedIndex(0);
 		newQuizDialogPanel.add(coursesIds);
 		

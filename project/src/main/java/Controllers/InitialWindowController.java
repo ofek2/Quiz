@@ -18,6 +18,7 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 import Controllers.qPanelController.removeBtnListener;
+import Entities.CourseEntity;
 import Entities.QuizEntity;
 import Views.GradingWindowView;
 import Views.InitialWindowView;
@@ -28,7 +29,7 @@ import Views.QuizCreationView;
 public class InitialWindowController {
 	private InitialWindowView view;
 	private JDialog dialog;
-	public static ArrayList<File> coursesFiles;
+	public static ArrayList<CourseEntity> coursesFiles;
 	public InitialWindowController(InitialWindowView view) {
 //		coursesFiles = new ArrayList<File>();
 		this.view=view;
@@ -50,24 +51,29 @@ public class InitialWindowController {
 		private File courseFolder;
 		private String courseId;
 		private String courseName;
-		private String courseFolderName;
+		private CourseEntity courseEntity;
 		public void actionPerformed(ActionEvent e) {
 			// TODO Auto-generated method stub
 			courseName = view.getNewCourseName().getText();
 			courseId = view.getNewCourseId().getText();
-			courseFolderName=courseId+","+courseName;
 			if(courseId.isEmpty())
 				JOptionPane.showMessageDialog(null,"This course id is empty, please choose another name","Alert",JOptionPane.ERROR_MESSAGE);
 			else if(courseName.isEmpty())
 				JOptionPane.showMessageDialog(null,"This course name is empty, please choose another name","Alert",JOptionPane.ERROR_MESSAGE);
 			else{
 				try {
-					courseFolder = new File(new File(".").getCanonicalPath()+"/OnlineQuizChecker"+"/"+courseFolderName);
-					if(!courseFolder.exists())
+					courseFolder = new File(new File(".").getCanonicalPath()+"/OnlineQuizChecker"+"/"+CourseEntity.getCourseFolderName(courseId, courseName));
+					courseEntity = new CourseEntity(courseFolder, courseId, courseName);
+					if(!courseEntity.CourseExist())
 					{
-						courseFolder.mkdir();
-						coursesFiles.add(courseFolder);
-						dialog.revalidate();
+						courseFolder.mkdir();						
+						coursesFiles.add(courseEntity);
+//						view.getCoursesIds().revalidate();
+						view.getCoursesIds().removeAllItems();
+						for(int i=0;i<InitialWindowController.coursesFiles.size();i++)
+							view.getCoursesIds().addItem(InitialWindowController.coursesFiles.get(i).getCourseFolderName());		
+
+						
 //						QuizCreationView quizCreationView = new QuizCreationView();
 //						QuizEntity quizEntity = new QuizEntity("QuizTest",25,quizFolder);
 //						new QuizCreationController(quizCreationView,quizEntity);
@@ -77,7 +83,7 @@ public class InitialWindowController {
 					else
 					{
 						
-						JOptionPane.showMessageDialog(null,"This course already exists, please choose another id and name","Alert",JOptionPane.ERROR_MESSAGE);
+						JOptionPane.showMessageDialog(null,"This course already exists, please choose another id","Alert",JOptionPane.ERROR_MESSAGE);
 					}
 				} catch (IOException e1) {
 					// TODO Auto-generated catch block

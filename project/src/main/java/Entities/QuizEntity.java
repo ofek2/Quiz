@@ -30,7 +30,7 @@ public class QuizEntity {
 		this.percentageFromFGrade = percentageFromFGrade;
 	}
 	
-	public File getQuizFile() {
+	public File getQuizFolder() {
 		return quizFolder;
 	}
 	
