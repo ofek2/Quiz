@@ -48,6 +48,7 @@ public class qPanelController{
 		this.view.removeBtnAddListener(new removeBtnListener());
 		this.view.listenChkBoxAddListner(new listenChkBoxListener());
 		this.view.browseBtnAddListener(new browseBtnListener());
+		this.view.aTypeCBaddItemListener(new aTypeItemListener());
 		fileChooser=view.getFileChooser();
 		try {
 			quizPath = quizEntity.getQuizFolder().getCanonicalPath();
@@ -109,16 +110,16 @@ public class qPanelController{
 		}
 		
 	}
-	/*class aTypeItemListener implements ItemListener
+	class aTypeItemListener implements ItemListener
 	{
 
 		public void itemStateChanged(ItemEvent e) {
-			 CardLayout cl = (CardLayout)(view.getQuestionPanel().getLayout());
-			    cl.show(view.getQuestionPanel(), (String)e.getItem());
+			 CardLayout cl = (CardLayout)(view.getAnswerPanel().getLayout());
+			    cl.show(view.getAnswerPanel(), (String)e.getItem());
 			
 		}
 		
-	}*/
+	}
 	class listenChkBoxListener implements ActionListener
 	{
 

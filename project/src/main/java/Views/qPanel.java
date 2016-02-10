@@ -47,6 +47,7 @@ public class qPanel extends ViewPanel {
 	private MultipleChoicePanelController multipleChoicePanelController;
 	private JLabel choicesLbl;
 	private JLabel theAnswerLbl;
+	private JButton ansBrowseBtn;
 	/**
 	 * Create the panel.
 	 */
@@ -110,8 +111,8 @@ public class qPanel extends ViewPanel {
 		qDataPanel.setOpaque(false);
 		
 		JLabel qLabel = new JLabel("Enter question:");
-		qLabel.setFont(new Font("Arial", Font.PLAIN, 11));
-		qLabel.setBounds(10, 14, 117, 14);
+		qLabel.setFont(new Font("Arial", Font.PLAIN, 13));
+		qLabel.setBounds(5, 7, 117, 14);
 		qDataPanel.add(qLabel);
 		
 		listenChkBox = new JCheckBox("Enable listening");
@@ -142,12 +143,12 @@ public class qPanel extends ViewPanel {
 		fileChooser.setAcceptAllFileFilterUsed(false);
 		browseBtn = new JButton("Browse..");
 		browseBtn.setMargin(new Insets(0, 0, 0, 0));
-		browseBtn.setBounds(131, 107, 89, 23);
+		browseBtn.setBounds(119, 110, 89, 23);
 		qDataPanel.add(browseBtn);
 		
 		JLabel browseLabel = new JLabel("Browse an image:");
-		browseLabel.setFont(new Font("Arial", Font.PLAIN, 11));
-		browseLabel.setBounds(10, 111, 104, 14);
+		browseLabel.setFont(new Font("Arial", Font.PLAIN, 13));
+		browseLabel.setBounds(5, 111, 104, 19);
 		qDataPanel.add(browseLabel);
 		
 		JSeparator separator = new JSeparator();
@@ -185,6 +186,20 @@ public class qPanel extends ViewPanel {
 		lblEnterAnswer.setBounds(10, 14, 90, 14);
 		freeTextPanel.add(lblEnterAnswer);
 		
+		JPanel freeDrawPanel = new JPanel();
+		answerPanel.add(freeDrawPanel, "Free Drawing");
+		freeDrawPanel.setLayout(null);
+		
+		ansBrowseBtn = new JButton("Browse..");
+		ansBrowseBtn.setBounds(124, 10, 89, 23);
+		ansBrowseBtn.setMargin(new Insets(0, 0, 0, 0));
+		freeDrawPanel.add(ansBrowseBtn);
+		
+		JLabel label = new JLabel("Browse an image:");
+		label.setFont(new Font("Arial", Font.PLAIN, 13));
+		label.setBounds(10, 11, 104, 19);
+		freeDrawPanel.add(label);
+		
 		theAnswerLbl = new JLabel("The Answer");
 		theAnswerLbl.setFont(new Font("Arial", Font.BOLD, 18));
 		theAnswerLbl.setBounds(492, 68, 141, 18);
@@ -196,6 +211,12 @@ public class qPanel extends ViewPanel {
 	
 	
 		
+	}
+	public JPanel getAnswerPanel() {
+		return answerPanel;
+	}
+	public void setAnswerPanel(JPanel answerPanel) {
+		this.answerPanel = answerPanel;
 	}
 	public JCheckBox getChckbxHideQuestion() {
 		return chckbxHideQuestion;
@@ -219,6 +240,10 @@ public class qPanel extends ViewPanel {
 	public void listenChkBoxAddListner(ActionListener listener)
 	{
 		listenChkBox.addActionListener(listener);
+	}
+	public void ansBrowseBtnAddListener(ActionListener listener)
+	{
+		ansBrowseBtn.addActionListener(listener);
 	}
 	public JCheckBox getListenChkBox() {
 		return listenChkBox;
