@@ -92,7 +92,7 @@ public class qPanel extends ViewPanel {
 		
 		JLabel theQuestionLbl = new JLabel("The Question");
 		theQuestionLbl.setSize(141, 18);
-		theQuestionLbl.setLocation(setCorrectPosX(theQuestionLbl, width/4), setCorrectPosY(theQuestionLbl, height*3/16));
+		theQuestionLbl.setLocation(setCorrectPosX(theQuestionLbl, width/4), height/8);
 		theQuestionLbl.setFont(new Font("Arial", Font.BOLD, 18));
 		add(theQuestionLbl);
 		
@@ -102,7 +102,7 @@ public class qPanel extends ViewPanel {
 		add(separator);
 		
 		qDataPanel = new JPanel();
-		qDataPanel.setSize(width/2-20, height*3/8);
+		qDataPanel.setSize(width/2-20, height*7/16);
 		qDataPanel.setLocation(8, setCorrectPosY(qDataPanel, height*5/8));
 		add(qDataPanel);
 		qDataPanel.setLayout(null);
@@ -114,7 +114,7 @@ public class qPanel extends ViewPanel {
 		qDataPanel.add(qLabel);
 		
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setSize((width/2)-40, height*3/8);
+		scrollPane.setSize(qDataPanel.getWidth()*5/8,qDataPanel.getHeight()*3/4);
 		scrollPane.setLocation(getRightPos(qLabel)+2, qLabel.getY()); 
 		qDataPanel.add(scrollPane);
 		
@@ -157,6 +157,11 @@ public class qPanel extends ViewPanel {
 	
 		
 		//Answer side
+		theAnswerLbl = new JLabel("The Answer");
+		theAnswerLbl.setFont(new Font("Arial", Font.BOLD, 18));
+		theAnswerLbl.setBounds(width*3/4, height/8, 141, 18);
+		add(theAnswerLbl);
+		
 		JLabel answerTypeLbl = new JLabel("Answer type:");
 		answerTypeLbl.setSize(95, 18);
 		answerTypeLbl.setLocation(setCorrectPosX(answerTypeLbl,width*10/16), setCorrectPosY(answerTypeLbl, height*5/16));
@@ -215,10 +220,6 @@ public class qPanel extends ViewPanel {
 		label.setBounds(10, 11, 104, 19);
 		freeDrawPanel.add(label);
 		
-		theAnswerLbl = new JLabel("The Answer");
-		theAnswerLbl.setFont(new Font("Arial", Font.BOLD, 18));
-		theAnswerLbl.setBounds(width*3/4, height/8, 141, 18);
-		add(theAnswerLbl);
 		
 		JSeparator separator_1 = new JSeparator();
 		separator_1.setBounds(2, theAnswerLbl.getY()+theAnswerLbl.getHeight(), width-2, 2);
