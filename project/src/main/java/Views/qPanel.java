@@ -181,8 +181,6 @@ public class qPanel extends ViewPanel {
 		MultipleChoicePanel multipleChoicePanel = new MultipleChoicePanel();
 		multipleChoicePanelController = new MultipleChoicePanelController(multipleChoicePanel);
 		answerPanel.add(multipleChoicePanel, "Multiple Choice");
-	
-	
 		
 		JPanel freeTextPanel = new JPanel();
 		answerPanel.add(freeTextPanel, "Free Text");
