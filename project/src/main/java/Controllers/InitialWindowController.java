@@ -20,6 +20,7 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 import Controllers.qPanelController.removeBtnListener;
+import Entities.Constants;
 import Entities.CourseEntity;
 import Entities.QuizEntity;
 import Views.GradingWindowView;
@@ -112,7 +113,7 @@ public class InitialWindowController {
 				if(!quizFolder.exists())
 				{
 					quizFolder.mkdir();
-					MainFrameController.view.setBounds(100,100,1600,900);
+					MainFrameController.view.setExtendedState(JFrame.MAXIMIZED_BOTH);
 					QuizCreationView quizCreationView = new QuizCreationView();
 					QuizEntity quizEntity = new QuizEntity("QuizTest",25,quizFolder);
 					new QuizCreationController(quizCreationView,quizEntity);
