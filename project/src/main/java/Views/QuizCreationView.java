@@ -45,7 +45,7 @@ public class QuizCreationView extends ViewPanel {
 		panel.setLayout(new BoxLayout(panel, BoxLayout.PAGE_AXIS));
 		panel.setBounds(0,0,MainFrameController.view.getWidth(), MainFrameController.view.getHeight());
 		JScrollPane jsp=new JScrollPane(panel,ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS,ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
-		jsp.setPreferredSize(new Dimension(MainFrameController.view.getWidth(),MainFrameController.view.getHeight()));
+		jsp.setPreferredSize(new Dimension(MainFrameController.view.getWidth(),MainFrameController.view.getHeight()-40));
 		jsp.getVerticalScrollBar().setUnitIncrement(16);
 		
 		add(jsp);
