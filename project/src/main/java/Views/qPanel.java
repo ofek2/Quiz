@@ -8,12 +8,14 @@ import java.awt.event.ActionListener;
 import java.awt.event.ItemListener;
 
 import javax.swing.JComboBox;
+import javax.swing.JComponent;
 
 import java.awt.Dimension;
 import javax.swing.JButton;
 import javax.swing.border.EtchedBorder;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
+import Controllers.MainFrameController;
 import Controllers.MultipleChoicePanelController;
 
 import javax.swing.JTextField;
@@ -28,6 +30,7 @@ import javax.swing.JSeparator;
 import javax.swing.SwingConstants;
 import javax.swing.BoxLayout;
 import java.awt.Insets;
+import java.awt.Point;
 
 public class qPanel extends ViewPanel {
 	private JLabel questionLbl;
@@ -48,64 +51,59 @@ public class qPanel extends ViewPanel {
 	private JLabel choicesLbl;
 	private JLabel theAnswerLbl;
 	private JButton ansBrowseBtn;
+	private final static int width=MainFrameController.view.getWidth()-20;
+	private final static int height=(int) ((int)MainFrameController.view.getHeight()/2.5f);
 	/**
 	 * Create the panel.
 	 */
 	public qPanel() {
 		setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
-
-		setPreferredSize(new Dimension(725, 300));
-		setMaximumSize(new Dimension(725,300));
 		
+		setPreferredSize(new Dimension(width, height));
+		setMaximumSize(new Dimension(width,height));
+		setMinimumSize(new Dimension(width, height));
 		setLayout(null);
+		setAlignmentY(0.0f);
+		
+		btnRemove = new JButton("X");
+		btnRemove.setMargin(new Insets(0, 0, 0, 0));
+		btnRemove.setFont(new Font("Arial", Font.BOLD, 15));
+		btnRemove.setBounds(width-40, 10, 30, 27);
+		add(btnRemove);
 		
 		questionLbl = new JLabel("Question "+questionNumber);
 		questionLbl.setBounds(8, 8, 126, 27);
 		questionLbl.setFont(new Font("Arial", Font.BOLD, 20));
 		add(questionLbl);
 		
-		btnRemove = new JButton("X");
-		btnRemove.setMargin(new Insets(0, 0, 0, 0));
-		btnRemove.setFont(new Font("Arial", Font.BOLD, 15));
-		btnRemove.setBounds(686, 9, 29, 27);
-		add(btnRemove);
-		
-		JLabel theQuestionLbl = new JLabel("The Question");
-		theQuestionLbl.setBounds(136, 67, 141, 18);
-		theQuestionLbl.setFont(new Font("Arial", Font.BOLD, 18));
-		add(theQuestionLbl);
-		
-		
-		JLabel questionTypeLbl = new JLabel("Answer type:");
-		questionTypeLbl.setBounds(401, 97, 95, 18);
-		questionTypeLbl.setFont(new Font("Arial", Font.PLAIN, 13));
-		add(questionTypeLbl);
-		
-		
-		answerTypeCb = new JComboBox<String>();
-		answerTypeCb.setBounds(527, 96, 160, 20);
-		answerTypeCb.addItem("Multiple Choice");
-		answerTypeCb.addItem("Free Text");
-		answerTypeCb.addItem("Free Drawing");
-		answerTypeCb.setSelectedIndex(0);
-		answerTypeCb.setMaximumSize(answerTypeCb.getPreferredSize());
-		add(answerTypeCb);
-		setMinimumSize(new Dimension(800, 250));
-		
-		setAlignmentY(0.0f);
-		
 		lblScore = new JLabel("Score:");
 		lblScore.setFont(new Font("Arial", Font.PLAIN, 11));
-		lblScore.setBounds(136, 11, 52, 14);
+		lblScore.setBounds(getRightPos(questionLbl)+10, 11, 52, 14);
 		add(lblScore);
 		
 		scoreField = new JTextField();
-		scoreField.setBounds(181, 8, 52, 20);
+		scoreField.setBounds(getRightPos(lblScore)+2, 8, 52, 20);
 		add(scoreField);
 		scoreField.setColumns(10);
 		
+		
+		
+		//Question side
+		
+		JLabel theQuestionLbl = new JLabel("The Question");
+		theQuestionLbl.setSize(141, 18);
+		theQuestionLbl.setLocation(setCorrectPosX(theQuestionLbl, width/4), setCorrectPosY(theQuestionLbl, height*3/16));
+		theQuestionLbl.setFont(new Font("Arial", Font.BOLD, 18));
+		add(theQuestionLbl);
+		
+		JSeparator separator = new JSeparator();
+		separator.setOrientation(SwingConstants.VERTICAL);
+		separator.setBounds(width/2, theQuestionLbl.getHeight(), 2, height-8);
+		add(separator);
+		
 		qDataPanel = new JPanel();
-		qDataPanel.setBounds(8, 96, 376, 191);
+		qDataPanel.setSize(width/2-20, height*3/8);
+		qDataPanel.setLocation(8, setCorrectPosY(qDataPanel, height*5/8));
 		add(qDataPanel);
 		qDataPanel.setLayout(null);
 		qDataPanel.setOpaque(false);
@@ -115,14 +113,9 @@ public class qPanel extends ViewPanel {
 		qLabel.setBounds(5, 7, 117, 14);
 		qDataPanel.add(qLabel);
 		
-		listenChkBox = new JCheckBox("Enable listening");
-		listenChkBox.setFont(new Font("Tahoma", Font.PLAIN, 9));
-		listenChkBox.setBounds(287, 10, 97, 23);
-		listenChkBox.setOpaque(false);
-		qDataPanel.add(listenChkBox);
-		
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(98, 11, 175, 89);
+		scrollPane.setSize((width/2)-40, height*3/8);
+		scrollPane.setLocation(getRightPos(qLabel)+2, qLabel.getY()); 
 		qDataPanel.add(scrollPane);
 		
 		textArea = new JTextArea();
@@ -131,33 +124,57 @@ public class qPanel extends ViewPanel {
 		textArea.setLineWrap(true);
 		textArea.setFont(new Font("Times New Roman", Font.PLAIN, 12));
 		
+		listenChkBox = new JCheckBox("Enable listening");
+		listenChkBox.setFont(new Font("Tahoma", Font.PLAIN, 9));
+		listenChkBox.setSize(97, 23);
+		listenChkBox.setLocation(getRightPos(scrollPane)+2,scrollPane.getY());
+		listenChkBox.setOpaque(false);
+		qDataPanel.add(listenChkBox);
+		
 		chckbxHideQuestion = new JCheckBox("Hide question");
 		chckbxHideQuestion.setFont(new Font("Tahoma", Font.PLAIN, 9));
 		chckbxHideQuestion.setOpaque(false);
 		chckbxHideQuestion.setVisible(false);
-		chckbxHideQuestion.setBounds(287, 36, 97, 23);
+		chckbxHideQuestion.setSize(97, 23);
+		chckbxHideQuestion.setLocation(listenChkBox.getX(),listenChkBox.getY()+30);
 		qDataPanel.add(chckbxHideQuestion);
+		
+		JLabel browseLabel = new JLabel("Browse an image:");
+		browseLabel.setFont(new Font("Arial", Font.PLAIN, 13));
+		browseLabel.setBounds(qLabel.getX(), scrollPane.getY()+scrollPane.getHeight()+20, 104, 19);
+		qDataPanel.add(browseLabel);
+		
 		fileChooser = new JFileChooser();
 		extensionFilter = new FileNameExtensionFilter("Img","jpg","gif","png");
 		fileChooser.setFileFilter(extensionFilter);
 		fileChooser.setAcceptAllFileFilterUsed(false);
 		browseBtn = new JButton("Browse..");
 		browseBtn.setMargin(new Insets(0, 0, 0, 0));
-		browseBtn.setBounds(119, 110, 89, 23);
+		browseBtn.setSize(89, 23);
+		browseBtn.setLocation(getRightPos(browseLabel)+2, browseLabel.getY());
 		qDataPanel.add(browseBtn);
 		
-		JLabel browseLabel = new JLabel("Browse an image:");
-		browseLabel.setFont(new Font("Arial", Font.PLAIN, 13));
-		browseLabel.setBounds(5, 111, 104, 19);
-		qDataPanel.add(browseLabel);
+	
 		
-		JSeparator separator = new JSeparator();
-		separator.setOrientation(SwingConstants.VERTICAL);
-		separator.setBounds(389, 68, 2, 219);
-		add(separator);
+		//Answer side
+		JLabel answerTypeLbl = new JLabel("Answer type:");
+		answerTypeLbl.setSize(95, 18);
+		answerTypeLbl.setLocation(setCorrectPosX(answerTypeLbl,width*10/16), setCorrectPosY(answerTypeLbl, height*5/16));
+		answerTypeLbl.setFont(new Font("Arial", Font.PLAIN, 13));
+		add(answerTypeLbl);
+		
+		answerTypeCb = new JComboBox<String>();
+		answerTypeCb.setSize(160, 20);
+		answerTypeCb.setLocation(getRightPos(answerTypeLbl)+2, answerTypeLbl.getY());
+		answerTypeCb.addItem("Multiple Choice");
+		answerTypeCb.addItem("Free Text");
+		answerTypeCb.addItem("Free Drawing");
+		answerTypeCb.setSelectedIndex(0);
+		answerTypeCb.setMaximumSize(answerTypeCb.getPreferredSize());
+		add(answerTypeCb);
 		
 		answerPanel = new JPanel();
-		answerPanel.setBounds(398, 127, 317, 162);
+		answerPanel.setBounds(setCorrectPosX(answerPanel, width*10/16), setCorrectPosY(answerPanel, height*5/16), 317, 162);
 		add(answerPanel);
 		answerPanel.setLayout(new CardLayout(0, 0));
 		
@@ -202,16 +219,17 @@ public class qPanel extends ViewPanel {
 		
 		theAnswerLbl = new JLabel("The Answer");
 		theAnswerLbl.setFont(new Font("Arial", Font.BOLD, 18));
-		theAnswerLbl.setBounds(492, 68, 141, 18);
+		theAnswerLbl.setBounds(width*3/4, height/8, 141, 18);
 		add(theAnswerLbl);
 		
 		JSeparator separator_1 = new JSeparator();
-		separator_1.setBounds(8, 84, 707, 2);
+		separator_1.setBounds(2, theAnswerLbl.getY()+theAnswerLbl.getHeight(), width-2, 2);
 		add(separator_1);
 	
 	
 		
 	}
+	
 	public JPanel getAnswerPanel() {
 		return answerPanel;
 	}
@@ -276,5 +294,17 @@ public class qPanel extends ViewPanel {
 	}
 	public void setQuestionDataPanel(String s) {
 		textArea.setText(s);;
+	}
+	private int getRightPos(JComponent comp)
+	{
+		return comp.getX()+comp.getWidth();
+	}
+	private int setCorrectPosX(JComponent comp,int tempW) {
+		// TODO Auto-generated method stub
+		return tempW-comp.getWidth();
+	}
+	private int setCorrectPosY(JComponent comp,int tempH) {
+		// TODO Auto-generated method stub
+		return tempH-comp.getHeight();
 	}
 }

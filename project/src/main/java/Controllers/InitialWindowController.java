@@ -1,6 +1,8 @@
 package Controllers;
 
 import java.awt.Dimension;
+import java.awt.Frame;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
@@ -110,11 +112,13 @@ public class InitialWindowController {
 				if(!quizFolder.exists())
 				{
 					quizFolder.mkdir();
+					MainFrameController.view.setBounds(100,100,1600,900);
 					QuizCreationView quizCreationView = new QuizCreationView();
 					QuizEntity quizEntity = new QuizEntity("QuizTest",25,quizFolder);
 					new QuizCreationController(quizCreationView,quizEntity);
 					dialog.setVisible(false);
 					MainFrameController.view.changeContentPane(quizCreationView);
+					
 				}
 				else
 				{

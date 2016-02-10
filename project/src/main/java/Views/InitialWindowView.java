@@ -44,6 +44,7 @@ import javax.swing.JButton;
 
 import Controllers.InitialWindowController;
 import Controllers.qPanelController;
+import Entities.Constants;
 
 public class InitialWindowView extends ViewPanel {
 	private JMenu mnQuizMngMenu;
@@ -67,7 +68,7 @@ public class InitialWindowView extends ViewPanel {
 		menuBar = new JMenuBar();
 		menuBar.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
 		menuBar.setBackground(Color.WHITE);
-		menuBar.setBounds(0, 0, 800, 30);
+		menuBar.setBounds(0, 0, Constants.realtiveFrameInitWidth, 30);
 		add(menuBar);
 		
 		mnQuizMngMenu = new JMenu("Quiz Management");
@@ -109,7 +110,7 @@ public class InitialWindowView extends ViewPanel {
 		mnCourseManagement.add(mntmRemoveStudent);
 		
 		tree = new JTree();
-		tree.setBounds(0, 30, 800, 570);
+		tree.setBounds(0, 30, Constants.realtiveFrameInitWidth, Constants.realtiveFrameInitHeight);
 		add(tree);
 		
 		newQuizDialogPanel = new JPanel();

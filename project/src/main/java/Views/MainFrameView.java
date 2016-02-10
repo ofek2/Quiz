@@ -1,9 +1,13 @@
 package Views;
 
 import java.awt.Container;
+import java.awt.Dimension;
+import java.awt.Toolkit;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+
+import Entities.Constants;
 
 
 public class MainFrameView extends JFrame {
@@ -16,7 +20,9 @@ public class MainFrameView extends JFrame {
 	public MainFrameView() {
 		super();
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(200, 200, 800,600);
+		
+		setBounds(Constants.realtiveFrameXPos,Constants.realtiveFrameYPos,Constants.realtiveFrameInitWidth,Constants.realtiveFrameInitHeight);
+		setResizable(false);
 //		contentPane = new Container();
 //		add(contentPane);
 //		setContentPane(contentPane);
