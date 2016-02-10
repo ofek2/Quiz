@@ -26,17 +26,20 @@ public class checkBoxFieldController {
 			// TODO Auto-generated method stub
 			
 			
-			addCheckBoxField(view.getAnswerNumber());
+			addCheckBoxField();
 			parentView.panel.revalidate();
 		}
-		public void addCheckBoxField(int index) {
+		public void addCheckBoxField() {
 			checkBoxFieldPanel checkBoxFieldPanel = new checkBoxFieldPanel();
 			checkBoxFieldController checkBoxFieldController= new checkBoxFieldController(checkBoxFieldPanel, parentView);
 			parentView.panel.add(checkBoxFieldPanel);
+			MultipleChoicePanelController.cBfControllers.add(checkBoxFieldController);
 			view.getMinusBtn().setVisible(true);
 			view.getPlusBtn().setVisible(false);
-			MultipleChoicePanelController.cBfControllers.add(index, checkBoxFieldController);
-			checkBoxFieldPanel.setAnswerNumber(index+1);
+			
+			
+			checkBoxFieldPanel.setAnswerNumber(MultipleChoicePanelController.cBfControllers.size());
+			checkBoxFieldPanel.setaNumberLbl(MultipleChoicePanelController.cBfControllers.size()+".");
 		}
 	}
 	class minusBtnListener implements ActionListener
@@ -44,16 +47,39 @@ public class checkBoxFieldController {
 
 		public void actionPerformed(ActionEvent e) {
 			// TODO Auto-generated method stub
-			checkBoxFieldPanel temp;
+			
 			parentView.panel.remove(view);
 			MultipleChoicePanelController.cBfControllers.remove(view.getAnswerNumber()-1);
-			temp= (checkBoxFieldPanel)(parentView.panel.getComponent(parentView.panel.getComponentCount()-1));
-			if(temp.getAnswerNumber()==1)
+			rebuildAnswersPanel();
+			
+			
+		/*	if(temp.getAnswerNumber()==1)
 			temp.getMinusBtn().setVisible(false);
-			temp.getPlusBtn().setVisible(true);
+			temp.getPlusBtn().setVisible(true);*/
 			parentView.panel.revalidate();
-			//MultipleChoicePanelController.cBfControllers.remove(index)
+			MainFrameController.view.repaint();
 		}
-		
+		public void rebuildAnswersPanel()
+		{
+			
+			for(int i=0;i<MultipleChoicePanelController.cBfControllers.size();i++)
+			{
+			
+				
+				MultipleChoicePanelController.cBfControllers.get(i).view.setAnswerNumber(i+1);
+				MultipleChoicePanelController.cBfControllers.get(i).view.setaNumberLbl((i+1)+".");
+				if(i==MultipleChoicePanelController.cBfControllers.size()-1)
+				{
+					MultipleChoicePanelController.cBfControllers.get(i).view.getPlusBtn().setVisible(true);
+					MultipleChoicePanelController.cBfControllers.get(i).view.getMinusBtn().setVisible(true);
+				}
+				if(i==0 && MultipleChoicePanelController.cBfControllers.size()==1)
+				{
+					MultipleChoicePanelController.cBfControllers.get(i).view.getPlusBtn().setVisible(true);
+					MultipleChoicePanelController.cBfControllers.get(i).view.getMinusBtn().setVisible(false);
+				}
+				
+			}
+		}
 	}
 }
