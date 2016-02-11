@@ -1,151 +1,328 @@
 package Views;
 
-import javax.swing.JPanel;
-import javax.swing.JLabel;
-
-import java.awt.Font;
-import java.awt.event.ActionListener;
-import java.awt.event.ItemListener;
-
-import javax.swing.JComboBox;
-import javax.swing.JComponent;
-
 import java.awt.Dimension;
-import javax.swing.JButton;
+
+import javax.swing.JPanel;
 import javax.swing.border.EtchedBorder;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
 import Controllers.MainFrameController;
 import Controllers.MultipleChoicePanelController;
 
+import java.awt.GridBagLayout;
+import javax.swing.JLabel;
+import java.awt.GridBagConstraints;
+import java.awt.Font;
+import java.awt.Insets;
+import java.awt.event.ActionListener;
+import java.awt.event.ItemListener;
+
+import javax.swing.JButton;
 import javax.swing.JTextField;
+import javax.swing.JCheckBox;
+import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
+import javax.swing.JComboBox;
+import javax.swing.JFileChooser;
 
 import java.awt.CardLayout;
-
-import javax.swing.JCheckBox;
-import javax.swing.JFileChooser;
-import javax.swing.JTextArea;
-import javax.swing.JScrollPane;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.JSeparator;
 import javax.swing.SwingConstants;
-import javax.swing.BoxLayout;
-import java.awt.Insets;
-import java.awt.Point;
+import java.awt.Color;
 
-public class qPanel extends ViewPanel {
+public class qPanel extends JPanel {
+	//title
+	private int questionNumber;
 	private JLabel questionLbl;
-	private JComboBox<String> answerTypeCb;
-	private JButton btnRemove;
-	private JTextField scoreField;
 	private JLabel lblScore;
+	private JButton btnRemove;
+	//question side
 	private JPanel qDataPanel;
 	private JButton qbrowseBtn;
 	private JFileChooser qFileChooser;
-	private JFileChooser aFileChooser;
-	private FileNameExtensionFilter extensionFilter;
-	private JTextArea textArea;
-	private int questionNumber;
+	private JTextArea textAreaQ;
+	private JTextArea textAreaA;
 	private JCheckBox listenChkBox;
 	private JCheckBox chckbxHideQuestion;
+	//answer side
+	private JComboBox<String> answerTypeCb;
+	private JFileChooser aFileChooser;
 	private JPanel answerPanel;
-	private MultipleChoicePanelController multipleChoicePanelController;
 	private JLabel choicesLbl;
-	private JLabel theAnswerLbl;
 	private JButton ansBrowseBtn;
+	
+	private FileNameExtensionFilter extensionFilter;
+	private MultipleChoicePanelController multipleChoicePanelController;
+	
 	private final static int width=MainFrameController.view.getWidth()-20;
-	private final static int height=(int) ((int)MainFrameController.view.getHeight()/2.5f)+100;
+	private final static int height=(int) (MainFrameController.view.getHeight()/2.5f);
+	private JTextField textField;
+	private JSeparator separator;
+	private JSeparator separator_1;
+	private JSeparator separator_2;
 	/**
 	 * Create the panel.
 	 */
 	public qPanel() {
-		setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
 		
+		setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
 		setPreferredSize(new Dimension(width, height));
 		setMaximumSize(new Dimension(width,height));
 		setMinimumSize(new Dimension(width, height));
-		setLayout(null);
 		setAlignmentY(0.0f);
+		GridBagLayout gridBagLayout = new GridBagLayout();
+		gridBagLayout.columnWidths = new int[]{119, 0, 54, 63, 0, 0, 0, 0, 0, 0, 0, 0, 8, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 34, 0};
+		gridBagLayout.rowHeights = new int[]{0, 0, 0, 0, 0, -2, 0, 0};
+		gridBagLayout.columnWeights = new double[]{1.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
+		gridBagLayout.rowWeights = new double[]{0.0, 1.0, 1.0, 0.0, 0.0, 0.0, 1.0, Double.MIN_VALUE};
+		setLayout(gridBagLayout);
+		//Question title objects
+		questionLbl = new JLabel("Question 1.");
+		questionLbl.setFont(new Font("Arial", Font.BOLD | Font.ITALIC, 17));
+		GridBagConstraints gbc_qLabel = new GridBagConstraints();
+		gbc_qLabel.fill = GridBagConstraints.BOTH;
+		gbc_qLabel.insets = new Insets(0, 0, 5, 5);
+		gbc_qLabel.gridx = 0;
+		gbc_qLabel.gridy = 0;
+		add(questionLbl, gbc_qLabel);
+		
+		lblScore = new JLabel("Score:");
+		GridBagConstraints gbc_lblScore = new GridBagConstraints();
+		gbc_lblScore.anchor = GridBagConstraints.WEST;
+		gbc_lblScore.fill = GridBagConstraints.VERTICAL;
+		gbc_lblScore.insets = new Insets(0, 0, 5, 5);
+		gbc_lblScore.gridx = 1;
+		gbc_lblScore.gridy = 0;
+		add(lblScore, gbc_lblScore);
+		
+		textField = new JTextField();
+		GridBagConstraints gbc_textField = new GridBagConstraints();
+		gbc_textField.anchor = GridBagConstraints.WEST;
+		gbc_textField.insets = new Insets(0, 0, 5, 5);
+		gbc_textField.fill = GridBagConstraints.VERTICAL;
+		gbc_textField.gridx = 2;
+		gbc_textField.gridy = 0;
+		add(textField, gbc_textField);
+		textField.setColumns(10);
 		
 		btnRemove = new JButton("X");
 		btnRemove.setMargin(new Insets(0, 0, 0, 0));
-		btnRemove.setFont(new Font("Arial", Font.BOLD, 15));
-		btnRemove.setBounds(width-40, 10, 30, 27);
-		add(btnRemove);
+		GridBagConstraints gbc_btnNewButton = new GridBagConstraints();
+		gbc_btnNewButton.insets = new Insets(0, 0, 5, 0);
+		gbc_btnNewButton.fill = GridBagConstraints.HORIZONTAL;
+		gbc_btnNewButton.gridx = 24;
+		gbc_btnNewButton.gridy = 0;
+		add(btnRemove, gbc_btnNewButton);
 		
-		questionLbl = new JLabel("Question "+questionNumber);
-		questionLbl.setBounds(8, 8, 126, 27);
-		questionLbl.setFont(new Font("Arial", Font.BOLD, 20));
-		add(questionLbl);
+		JLabel lblTheQuestion = new JLabel("The Question");
+		lblTheQuestion.setFont(new Font("Arial", Font.BOLD, 15));
+		GridBagConstraints gbc_lblTheQuestion = new GridBagConstraints();
+		gbc_lblTheQuestion.anchor = GridBagConstraints.WEST;
+		gbc_lblTheQuestion.fill = GridBagConstraints.VERTICAL;
+		gbc_lblTheQuestion.insets = new Insets(0, 0, 5, 5);
+		gbc_lblTheQuestion.gridx = 0;
+		gbc_lblTheQuestion.gridy = 4;
+		add(lblTheQuestion, gbc_lblTheQuestion);
 		
-		lblScore = new JLabel("Score:");
-		lblScore.setFont(new Font("Arial", Font.PLAIN, 11));
-		lblScore.setBounds(getRightPos(questionLbl)+10, 11, 52, 14);
-		add(lblScore);
+		separator_2 = new JSeparator();
+		separator_2.setPreferredSize(new Dimension(2, 2));
+		separator_2.setOrientation(SwingConstants.VERTICAL);
+		GridBagConstraints gbc_separator_2 = new GridBagConstraints();
+		gbc_separator_2.fill = GridBagConstraints.VERTICAL;
+		gbc_separator_2.insets = new Insets(0, 0, 3, 5);
+		gbc_separator_2.gridx = 12;
+		gbc_separator_2.gridy = 4;
+		add(separator_2, gbc_separator_2);
 		
-		scoreField = new JTextField();
-		scoreField.setBounds(getRightPos(lblScore)+2, 8, 52, 20);
-		add(scoreField);
-		scoreField.setColumns(10);
+		JLabel lblTheAnswer = new JLabel("The Answer");
+		lblTheAnswer.setFont(new Font("Arial", Font.BOLD, 15));
+		GridBagConstraints gbc_lblTheAnswer = new GridBagConstraints();
+		gbc_lblTheAnswer.anchor = GridBagConstraints.WEST;
+		gbc_lblTheAnswer.fill = GridBagConstraints.VERTICAL;
+		gbc_lblTheAnswer.insets = new Insets(0, 0, 5, 5);
+		gbc_lblTheAnswer.gridx = 13;
+		gbc_lblTheAnswer.gridy = 4;
+		add(lblTheAnswer, gbc_lblTheAnswer);
 		
+		JLabel lblAnswerType = new JLabel("Answer type:");
+		GridBagConstraints gbc_lblAnswerType = new GridBagConstraints();
+		gbc_lblAnswerType.anchor = GridBagConstraints.EAST;
+		gbc_lblAnswerType.insets = new Insets(0, 0, 5, 5);
+		gbc_lblAnswerType.gridx = 19;
+		gbc_lblAnswerType.gridy = 4;
+		add(lblAnswerType, gbc_lblAnswerType);
 		
+		answerTypeCb = new JComboBox();
+		answerTypeCb.setModel(new DefaultComboBoxModel(new String[] {"Multiple Choice", "Free Text", "Free Draw"}));
+		GridBagConstraints gbc_comboBox = new GridBagConstraints();
+		gbc_comboBox.gridwidth = 3;
+		gbc_comboBox.insets = new Insets(0, 0, 5, 5);
+		gbc_comboBox.fill = GridBagConstraints.HORIZONTAL;
+		gbc_comboBox.gridx = 20;
+		gbc_comboBox.gridy = 4;
+		add(answerTypeCb, gbc_comboBox);
 		
-		//Question side
-		
-		JLabel theQuestionLbl = new JLabel("The Question");
-		theQuestionLbl.setSize(141, 18);
-		theQuestionLbl.setLocation(setCorrectPosX(theQuestionLbl, width/4), height/8);
-		theQuestionLbl.setFont(new Font("Arial", Font.BOLD, 18));
-		add(theQuestionLbl);
-		
-		JSeparator separator = new JSeparator();
-		separator.setOrientation(SwingConstants.VERTICAL);
-		separator.setBounds(width/2, theQuestionLbl.getHeight(), 2, height-8);
-		add(separator);
+		separator_1 = new JSeparator();
+		separator_1.setSize(new Dimension(0, 2));
+		separator_1.setPreferredSize(new Dimension(100, 4));
+		GridBagConstraints gbc_separator_1 = new GridBagConstraints();
+		gbc_separator_1.fill = GridBagConstraints.HORIZONTAL;
+		gbc_separator_1.gridwidth = 25;
+		gbc_separator_1.insets = new Insets(0, 0, 1, 0);
+		gbc_separator_1.gridx = 0;
+		gbc_separator_1.gridy = 5;
+		add(separator_1, gbc_separator_1);
 		
 		qDataPanel = new JPanel();
-		qDataPanel.setSize(width/2-20, height*7/16+100);
-		System.out.println(height*5/16);
-		qDataPanel.setLocation(8, height*5/16);
-		add(qDataPanel);
-		qDataPanel.setLayout(null);
-		qDataPanel.setOpaque(false);
+		GridBagConstraints gbc_qDataPanel = new GridBagConstraints();
+		gbc_qDataPanel.gridwidth = 12;
+		gbc_qDataPanel.insets = new Insets(0, 0, 0, 5);
+		gbc_qDataPanel.fill = GridBagConstraints.BOTH;
+		gbc_qDataPanel.gridx = 0;
+		gbc_qDataPanel.gridy = 6;
+		add(qDataPanel, gbc_qDataPanel);
+		GridBagLayout gbl_qDataPanel = new GridBagLayout();
+		gbl_qDataPanel.columnWidths = new int[]{0, 40, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+		gbl_qDataPanel.rowHeights = new int[]{0, 0, 0, 0, 0, 0, 0, 0};
+		gbl_qDataPanel.columnWeights = new double[]{0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
+		gbl_qDataPanel.rowWeights = new double[]{0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
+		qDataPanel.setLayout(gbl_qDataPanel);
 		
-		JLabel qLabel = new JLabel("Enter question:");
-		qLabel.setFont(new Font("Arial", Font.PLAIN, 13));
-		qLabel.setBounds(5, 7, 117, 14);
-		qDataPanel.add(qLabel);
+		JLabel lblEnterQuestion = new JLabel("Enter question:");
+		GridBagConstraints gbc_lblEnterQuestion = new GridBagConstraints();
+		gbc_lblEnterQuestion.fill = GridBagConstraints.BOTH;
+		gbc_lblEnterQuestion.insets = new Insets(0, 0, 5, 5);
+		gbc_lblEnterQuestion.gridx = 0;
+		gbc_lblEnterQuestion.gridy = 0;
+		qDataPanel.add(lblEnterQuestion, gbc_lblEnterQuestion);
 		
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setSize(qDataPanel.getWidth()*3/8,qDataPanel.getHeight()*1/2);
-		scrollPane.setLocation(getRightPos(qLabel)+2, qLabel.getY()); 
-		scrollPane.setOpaque(false);
-		qDataPanel.add(scrollPane);
+		GridBagConstraints gbc_scrollPane = new GridBagConstraints();
+		gbc_scrollPane.gridheight = 3;
+		gbc_scrollPane.gridwidth = 10;
+		gbc_scrollPane.insets = new Insets(0, 0, 5, 5);
+		gbc_scrollPane.fill = GridBagConstraints.BOTH;
+		gbc_scrollPane.gridx = 1;
+		gbc_scrollPane.gridy = 0;
+		qDataPanel.add(scrollPane, gbc_scrollPane);
 		
-		textArea = new JTextArea();
-		scrollPane.setViewportView(textArea);
-		textArea.setWrapStyleWord(true);
-		textArea.setLineWrap(true);
-		textArea.setFont(new Font("Times New Roman", Font.PLAIN, 12));
+		textAreaQ = new JTextArea();
+		scrollPane.setViewportView(textAreaQ);
 		
 		listenChkBox = new JCheckBox("Enable listening");
-		listenChkBox.setFont(new Font("Tahoma", Font.PLAIN, 9));
-		listenChkBox.setSize(97, 23);
-		listenChkBox.setLocation(getRightPos(scrollPane)+2,scrollPane.getY());
-		listenChkBox.setOpaque(false);
-		qDataPanel.add(listenChkBox);
+		GridBagConstraints gbc_chckbxNewCheckBox = new GridBagConstraints();
+		gbc_chckbxNewCheckBox.gridwidth = 2;
+		gbc_chckbxNewCheckBox.insets = new Insets(0, 0, 5, 0);
+		gbc_chckbxNewCheckBox.gridx = 11;
+		gbc_chckbxNewCheckBox.gridy = 0;
+		qDataPanel.add(listenChkBox, gbc_chckbxNewCheckBox);
 		
 		chckbxHideQuestion = new JCheckBox("Hide question");
-		chckbxHideQuestion.setFont(new Font("Tahoma", Font.PLAIN, 9));
-		chckbxHideQuestion.setOpaque(false);
 		chckbxHideQuestion.setVisible(false);
-		chckbxHideQuestion.setSize(97, 23);
-		chckbxHideQuestion.setLocation(listenChkBox.getX(),listenChkBox.getY()+30);
-		qDataPanel.add(chckbxHideQuestion);
+		GridBagConstraints gbc_chckbxHideQuestion = new GridBagConstraints();
+		gbc_chckbxHideQuestion.gridwidth = 2;
+		gbc_chckbxHideQuestion.anchor = GridBagConstraints.WEST;
+		gbc_chckbxHideQuestion.insets = new Insets(0, 0, 5, 0);
+		gbc_chckbxHideQuestion.gridx = 11;
+		gbc_chckbxHideQuestion.gridy = 1;
+		qDataPanel.add(chckbxHideQuestion, gbc_chckbxHideQuestion);
 		
-		JLabel browseLabel = new JLabel("Browse an image:");
-		browseLabel.setFont(new Font("Arial", Font.PLAIN, 13));
-		browseLabel.setBounds(qLabel.getX(), scrollPane.getY()+scrollPane.getHeight()+10, 104, 19);
-		qDataPanel.add(browseLabel);
+		JLabel qBrowseAnImage = new JLabel("Browse an image:");
+		GridBagConstraints gbc_qBrowseAnImage = new GridBagConstraints();
+		gbc_qBrowseAnImage.anchor = GridBagConstraints.WEST;
+		gbc_qBrowseAnImage.insets = new Insets(0, 0, 5, 5);
+		gbc_qBrowseAnImage.gridx = 0;
+		gbc_qBrowseAnImage.gridy = 3;
+		qDataPanel.add(qBrowseAnImage, gbc_qBrowseAnImage);
+		
+		qbrowseBtn = new JButton("Browse..");
+		GridBagConstraints gbc_qBrowseBtn = new GridBagConstraints();
+		gbc_qBrowseBtn.fill = GridBagConstraints.HORIZONTAL;
+		gbc_qBrowseBtn.insets = new Insets(0, 0, 5, 5);
+		gbc_qBrowseBtn.gridx = 1;
+		gbc_qBrowseBtn.gridy = 3;
+		qDataPanel.add(qbrowseBtn, gbc_qBrowseBtn);
+		
+		separator = new JSeparator();
+		separator.setSize(new Dimension(2, 0));
+		separator.setOrientation(SwingConstants.VERTICAL);
+		separator.setPreferredSize(new Dimension(2, 2));
+		GridBagConstraints gbc_separator = new GridBagConstraints();
+		gbc_separator.fill = GridBagConstraints.VERTICAL;
+		gbc_separator.insets = new Insets(0, 0, 0, 5);
+		gbc_separator.gridx = 12;
+		gbc_separator.gridy = 6;
+		add(separator, gbc_separator);
+		
+		answerPanel = new JPanel();
+		GridBagConstraints gbc_answerPanel = new GridBagConstraints();
+		gbc_answerPanel.gridwidth = 12;
+		gbc_answerPanel.fill = GridBagConstraints.BOTH;
+		gbc_answerPanel.gridx = 13;
+		gbc_answerPanel.gridy = 6;
+		add(answerPanel, gbc_answerPanel);
+		answerPanel.setLayout(new CardLayout(0, 0));
+		
+		MultipleChoicePanel multipleChoicePanel = new MultipleChoicePanel();
+		GridBagLayout gridBagLayout_1 = (GridBagLayout) multipleChoicePanel.getLayout();
+		gridBagLayout_1.columnWeights = new double[]{1.0};
+		answerPanel.add(multipleChoicePanel, "Multiple Choice");
+		multipleChoicePanelController = new MultipleChoicePanelController(multipleChoicePanel);
+		multipleChoicePanel.jsp.setPreferredSize(new Dimension(answerPanel.getWidth(),answerPanel.getHeight()));
+		
+		JPanel freeTextPanel = new JPanel();
+		answerPanel.add(freeTextPanel, "Free Text");
+		GridBagLayout gbl_freeTextPanel = new GridBagLayout();
+		gbl_freeTextPanel.columnWidths = new int[]{0, 0, 0, 0};
+		gbl_freeTextPanel.rowHeights = new int[]{0, 0, 0};
+		gbl_freeTextPanel.columnWeights = new double[]{0.0, 1.0, 0.0, Double.MIN_VALUE};
+		gbl_freeTextPanel.rowWeights = new double[]{1.0, 0.0, Double.MIN_VALUE};
+		freeTextPanel.setLayout(gbl_freeTextPanel);
+		
+		JLabel lblEnterText = new JLabel("Enter text:");
+		GridBagConstraints gbc_lblEnterText = new GridBagConstraints();
+		gbc_lblEnterText.anchor = GridBagConstraints.NORTH;
+		gbc_lblEnterText.insets = new Insets(0, 0, 5, 5);
+		gbc_lblEnterText.gridx = 0;
+		gbc_lblEnterText.gridy = 0;
+		freeTextPanel.add(lblEnterText, gbc_lblEnterText);
+		
+		JScrollPane scrollPane_1 = new JScrollPane();
+		GridBagConstraints gbc_scrollPane_1 = new GridBagConstraints();
+		gbc_scrollPane_1.insets = new Insets(0, 0, 5, 5);
+		gbc_scrollPane_1.fill = GridBagConstraints.BOTH;
+		gbc_scrollPane_1.gridx = 1;
+		gbc_scrollPane_1.gridy = 0;
+		freeTextPanel.add(scrollPane_1, gbc_scrollPane_1);
+		
+		textAreaA = new JTextArea();
+		scrollPane_1.setViewportView(textAreaA);
+		
+		JPanel freeDrawPanel = new JPanel();
+		answerPanel.add(freeDrawPanel, "Free Draw");
+		GridBagLayout gbl_freeDrawPanel = new GridBagLayout();
+		gbl_freeDrawPanel.columnWidths = new int[]{111, 85, 0, 0, 0, 0, 0};
+		gbl_freeDrawPanel.rowHeights = new int[]{14, 0, 0, 0, 0, 0, 0, 0};
+		gbl_freeDrawPanel.columnWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
+		gbl_freeDrawPanel.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
+		freeDrawPanel.setLayout(gbl_freeDrawPanel);
+		
+		JLabel ansBrowseLbl = new JLabel("Browse an image:");
+		GridBagConstraints gbc_ansBrowseLbl = new GridBagConstraints();
+		gbc_ansBrowseLbl.insets = new Insets(0, 0, 5, 5);
+		gbc_ansBrowseLbl.anchor = GridBagConstraints.NORTHWEST;
+		gbc_ansBrowseLbl.gridx = 1;
+		gbc_ansBrowseLbl.gridy = 1;
+		freeDrawPanel.add(ansBrowseLbl, gbc_ansBrowseLbl);
+		
+		ansBrowseBtn = new JButton("Browse..");
+		GridBagConstraints gbc_btnBrowseBtn = new GridBagConstraints();
+		gbc_btnBrowseBtn.fill = GridBagConstraints.BOTH;
+		gbc_btnBrowseBtn.insets = new Insets(0, 0, 5, 5);
+		gbc_btnBrowseBtn.gridx = 2;
+		gbc_btnBrowseBtn.gridy = 1;
+		freeDrawPanel.add(ansBrowseBtn, gbc_btnBrowseBtn);
 		
 		qFileChooser = new JFileChooser();
 		extensionFilter = new FileNameExtensionFilter("Img","jpg","gif","png");
@@ -155,92 +332,14 @@ public class qPanel extends ViewPanel {
 		extensionFilter = new FileNameExtensionFilter("Img","jpg","gif","png");
 		aFileChooser.setFileFilter(extensionFilter);
 		aFileChooser.setAcceptAllFileFilterUsed(false);
-		qbrowseBtn = new JButton("Browse..");
-		qbrowseBtn.setMargin(new Insets(0, 0, 0, 0));
-		qbrowseBtn.setSize(89, 23);
-		qbrowseBtn.setLocation(scrollPane.getX(), browseLabel.getY());
-		qDataPanel.add(qbrowseBtn);
 		
-	
-		
-		//Answer side
-		theAnswerLbl = new JLabel("The Answer");
-		theAnswerLbl.setFont(new Font("Arial", Font.BOLD, 18));
-		theAnswerLbl.setBounds(width*3/4, height/8, 141, 18);
-		add(theAnswerLbl);
-		
-		JLabel answerTypeLbl = new JLabel("Answer type:");
-		answerTypeLbl.setSize(95, 18);
-		answerTypeLbl.setLocation(setCorrectPosX(answerTypeLbl,width*12/16), setCorrectPosY(answerTypeLbl, height*5/16));
-		answerTypeLbl.setFont(new Font("Arial", Font.PLAIN, 13));
-		add(answerTypeLbl);
-		
-		answerTypeCb = new JComboBox<String>();
-		answerTypeCb.setSize(160, 20);
-		answerTypeCb.setLocation(getRightPos(answerTypeLbl)+2, answerTypeLbl.getY());
-		answerTypeCb.addItem("Multiple Choice");
-		answerTypeCb.addItem("Free Text");
-		answerTypeCb.addItem("Free Drawing");
-		answerTypeCb.setSelectedIndex(0);
-		answerTypeCb.setMaximumSize(answerTypeCb.getPreferredSize());
-		add(answerTypeCb);
-		
-		answerPanel = new JPanel();
-		answerPanel.setBounds(setCorrectPosX(answerPanel, width*9/16), setCorrectPosY(answerPanel, height*6/16), width*6/16, height/2);
-		add(answerPanel);
-		answerPanel.setLayout(new CardLayout(0, 0));
-		answerPanel.setOpaque(false);
-		
-		MultipleChoicePanel multipleChoicePanel = new MultipleChoicePanel();
-		multipleChoicePanelController = new MultipleChoicePanelController(multipleChoicePanel);
-		multipleChoicePanel.jsp.setPreferredSize(new Dimension(answerPanel.getWidth(),answerPanel.getHeight()));
-		
-		answerPanel.add(multipleChoicePanel, "Multiple Choice");
-		
-		JPanel freeTextPanel = new JPanel();
-		freeTextPanel.setOpaque(false);
-		answerPanel.add(freeTextPanel, "Free Text");
-		freeTextPanel.setLayout(null);
-		
-		JScrollPane scrollPane_1 = new JScrollPane();
-		scrollPane_1.setBounds(100, 10, answerPanel.getWidth()*12/16,answerPanel.getHeight()-10);
-		freeTextPanel.add(scrollPane_1);
-		
-		JTextArea answerTextA = new JTextArea();
-		scrollPane_1.setViewportView(answerTextA);
-		answerTextA.setWrapStyleWord(true);
-		answerTextA.setLineWrap(true);
-		answerTextA.setFont(new Font("Times New Roman", Font.PLAIN, 12));
-		
-		JLabel lblEnterAnswer = new JLabel("Enter answer:");
-		lblEnterAnswer.setFont(new Font("Arial", Font.PLAIN, 11));
-		lblEnterAnswer.setBounds(10, 14, 90, 14);
-		freeTextPanel.add(lblEnterAnswer);
-		
-		JPanel freeDrawPanel = new JPanel();
+		qDataPanel.setOpaque(false);
 		freeDrawPanel.setOpaque(false);
-		answerPanel.add(freeDrawPanel, "Free Drawing");
-		freeDrawPanel.setLayout(null);
-		
-		ansBrowseBtn = new JButton("Browse..");
-		ansBrowseBtn.setBounds(124, 10, 89, 23);
-		ansBrowseBtn.setMargin(new Insets(0, 0, 0, 0));
-		freeDrawPanel.add(ansBrowseBtn);
-		
-		JLabel label = new JLabel("Browse an image:");
-		label.setFont(new Font("Arial", Font.PLAIN, 13));
-		label.setBounds(10, 11, 104, 19);
-		freeDrawPanel.add(label);
-		
-		
-		JSeparator separator_1 = new JSeparator();
-		separator_1.setBounds(2, theAnswerLbl.getY()+theAnswerLbl.getHeight(), width-2, 2);
-		add(separator_1);
-	
-	
-		
+		freeTextPanel.setOpaque(false);
+		answerPanel.setOpaque(false);
+		chckbxHideQuestion.setOpaque(false);
+		listenChkBox.setOpaque(false);
 	}
-	
 	public JPanel getAnswerPanel() {
 		return answerPanel;
 	}
@@ -312,19 +411,5 @@ public class qPanel extends ViewPanel {
 	public JPanel getQuestionDataPanel() {
 		return qDataPanel;
 	}
-	public void setQuestionDataPanel(String s) {
-		textArea.setText(s);;
-	}
-	private int getRightPos(JComponent comp)
-	{
-		return comp.getX()+comp.getWidth();
-	}
-	private int setCorrectPosX(JComponent comp,int tempW) {
-		// TODO Auto-generated method stub
-		return tempW-comp.getWidth();
-	}
-	private int setCorrectPosY(JComponent comp,int tempH) {
-		// TODO Auto-generated method stub
-		return tempH-comp.getHeight();
-	}
+	
 }
