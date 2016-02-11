@@ -55,12 +55,15 @@ public class InitialWindowView extends ViewPanel {
 	private JPanel newQuizDialogPanel;
 	private JComboBox<String> coursesIds;
 	private JTextField newQuizName;
-	private Button createNewQuiz;
+	private Button createNewQuizBtn;
 	private JTree tree;
 	private JTextField newCourseId;
 	private JPanel newCourseDialogPanel;
-	private Button createNewCourse;
+	private Button createNewCourseBtn;
 	private JTextField newCourseName;
+	private JPanel removeCourseDialogPanel;
+	private JComboBox<String> removeCourses;
+	private Button removeCourseBtn;
 	/**
 	 * Create the panel.
 	 */
@@ -147,9 +150,9 @@ public class InitialWindowView extends ViewPanel {
 		newQuizDialogPanel.add(newQuizName);
 		newQuizName.setColumns(10);
 		
-		createNewQuiz = new Button("Create Quiz");
-		createNewQuiz.setBounds(66, 121, 70, 19);
-		newQuizDialogPanel.add(createNewQuiz);
+		createNewQuizBtn = new Button("Create Quiz");
+		createNewQuizBtn.setBounds(66, 121, 70, 19);
+		newQuizDialogPanel.add(createNewQuizBtn);
 		
 		newCourseDialogPanel = new JPanel();
 		newCourseDialogPanel.setBackground(Color.CYAN);
@@ -165,9 +168,9 @@ public class InitialWindowView extends ViewPanel {
 		newCourseDialogPanel.add(newCourseId);
 		newCourseId.setColumns(10);
 		
-		createNewCourse = new Button("Create Course");
-		createNewCourse.setBounds(35, 121, 130, 23);
-		newCourseDialogPanel.add(createNewCourse);
+		createNewCourseBtn = new Button("Create Course");
+		createNewCourseBtn.setBounds(35, 121, 130, 23);
+		newCourseDialogPanel.add(createNewCourseBtn);
 		
 		JLabel lblNewLabel = new JLabel("Course Name:");
 		lblNewLabel.setBounds(10, 81, 84, 14);
@@ -177,6 +180,27 @@ public class InitialWindowView extends ViewPanel {
 		newCourseName.setBounds(93, 78, 86, 20);
 		newCourseDialogPanel.add(newCourseName);
 		newCourseName.setColumns(10);
+		
+		removeCourseDialogPanel = new JPanel();
+		removeCourseDialogPanel.setBackground(Color.lightGray);
+		removeCourseDialogPanel.setBounds(124, 120, 189, 177);
+		removeCourseDialogPanel.setLayout(null);
+		
+		removeCourses = new JComboBox<String>();
+		removeCourses.setBounds(100, 27, 86, 20);
+		for(int i=0;i<InitialWindowController.coursesFiles.size();i++)
+			removeCourses.addItem(InitialWindowController.coursesFiles.get(i).getCourseFolderName());		
+		removeCourses.setSelectedIndex(0);
+		removeCourseDialogPanel.add(removeCourses);
+		
+		JLabel lblCourse = new JLabel("Course:");
+		lblCourse.setBounds(4, 39, 46, 14);
+		removeCourseDialogPanel.add(lblCourse);
+		
+		removeCourseBtn = new Button("remove course");
+		removeCourseBtn.setBounds(42, 120, 109, 23);
+		removeCourseDialogPanel.add(removeCourseBtn);
+		
 	}
 	public void addQuizManagementListeners(ActionListener[] listener)
 	{
@@ -192,11 +216,15 @@ public class InitialWindowView extends ViewPanel {
 	}
 	public void createQuizBtnAddListener(ActionListener listener)
 	{
-		createNewQuiz.addActionListener(listener);
+		createNewQuizBtn.addActionListener(listener);
 	}
 	public void createCourseBtnAddListener(ActionListener listener)
 	{
-		createNewCourse.addActionListener(listener);
+		createNewCourseBtn.addActionListener(listener);
+	}
+	public void removeCourseBtnAddListener(ActionListener listener)
+	{
+		removeCourseBtn.addActionListener(listener);
 	}
 	
 	public JPanel getNewQuizDialogPanel() {
@@ -204,6 +232,9 @@ public class InitialWindowView extends ViewPanel {
 	}
 	public JPanel getNewCourseDialogPanel() {
 		return newCourseDialogPanel;
+	}
+	public JPanel getRemoveCourseDialogPanel() {
+		return removeCourseDialogPanel;
 	}
 	public JTree getTree() {
 		return tree;
@@ -227,6 +258,9 @@ public class InitialWindowView extends ViewPanel {
 	public JComboBox getCoursesIds() {
 		return coursesIds;
 	}
+	public JComboBox getRemoveCourses() {
+		return removeCourses;
+	}
 	public static DefaultMutableTreeNode filesTree(File file)
 	{
 		DefaultMutableTreeNode treeNode = new DefaultMutableTreeNode(file.getName());
@@ -235,6 +269,4 @@ public class InitialWindowView extends ViewPanel {
 				treeNode.add(filesTree(child));
 		return treeNode;
 	}
-	
-	
 }

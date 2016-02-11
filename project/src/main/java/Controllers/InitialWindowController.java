@@ -47,6 +47,7 @@ public class InitialWindowController {
 		view.addCourseManagementListeners(courseMngmntListeners);
 		view.createQuizBtnAddListener(new CreateQuizBtnListener());
 		view.createCourseBtnAddListener(new CreateCourseBtnListener());
+		view.removeCourseBtnAddListener(new RemoveCourseBtnListener());
 	}
 
 	
@@ -73,12 +74,7 @@ public class InitialWindowController {
 						courseFolder.mkdir();						
 						coursesFiles.add(courseEntity);
 //						view.getCoursesIds().revalidate();
-						view.getCoursesIds().removeAllItems();
-						for(int i=0;i<InitialWindowController.coursesFiles.size();i++)
-							view.getCoursesIds().addItem(InitialWindowController.coursesFiles.get(i).getCourseFolderName());		
-
-						
-						view.setTree(new JTree(InitialWindowView.filesTree(new File(new File(".").getCanonicalPath()+"/OnlineQuizChecker"))));
+						coursesUpdate();
 //						QuizCreationView quizCreationView = new QuizCreationView();
 //						QuizEntity quizEntity = new QuizEntity("QuizTest",25,quizFolder);
 //						new QuizCreationController(quizCreationView,quizEntity);
@@ -140,6 +136,26 @@ public class InitialWindowController {
 			
 			}
 		}
+	}
+	
+	class RemoveCourseBtnListener implements ActionListener
+	{
+
+		public void actionPerformed(ActionEvent e) {
+			// TODO Auto-generated method stub
+			try {
+				File file = new File(new File(".").getCanonicalPath()+"/OnlineQuizChecker/"+(String)view.getRemoveCourses().getSelectedItem());
+				removeFolder(file);
+				coursesFiles.remove(view.getRemoveCourses().getSelectedIndex());
+				coursesUpdate();
+			} catch (IOException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+			
+			
+		}
+		
 	}
 	
 	
@@ -211,9 +227,15 @@ public class InitialWindowController {
 
 		public void actionPerformed(ActionEvent e) {
 			// TODO Auto-generated method stub
+			dialog = new JDialog(MainFrameController.view,"Remove Course Dialog");
+			dialog.setLocationRelativeTo(MainFrameController.view);
+			dialog.setSize(220,220);
+			dialog.setVisible(true);
+			dialog.setResizable(false);
+			dialog.getContentPane().add(view.getRemoveCourseDialogPanel());
 			
 		}
-		
+
 	}
 	class RegisterStudentListener implements ActionListener
 	{
@@ -233,4 +255,30 @@ public class InitialWindowController {
 		}
 		
 	}
+	public void removeFolder(File file)
+	{
+		if(file.isDirectory())
+			for(File child: file.listFiles())
+				removeFolder(child);
+		file.delete();
+	}
+	public void coursesUpdate()
+	{
+		view.getCoursesIds().removeAllItems();
+		view.getRemoveCourses().removeAllItems();
+		for(int i=0;i<InitialWindowController.coursesFiles.size();i++)
+		{
+			view.getCoursesIds().addItem(InitialWindowController.coursesFiles.get(i).getCourseFolderName());		
+			view.getRemoveCourses().addItem(InitialWindowController.coursesFiles.get(i).getCourseFolderName());
+		}
+		try {
+			view.setTree(new JTree(InitialWindowView.filesTree(new File(new File(".").getCanonicalPath()+"/OnlineQuizChecker"))));
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+	}
+	
+	
 }

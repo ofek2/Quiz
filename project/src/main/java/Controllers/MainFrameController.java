@@ -50,8 +50,11 @@ public class MainFrameController {
 			initialWindowController.coursesFiles.add(new CourseEntity(temp1, "1", "a"));
 			initialWindowController.coursesFiles.add(new CourseEntity(temp1, "2", "b"));
 			initialWindowController.coursesFiles.add(new CourseEntity(temp1, "3", "c"));
+			if(!temp1.exists())
 			temp1.mkdir();
+			if(!temp2.exists())
 			temp2.mkdir();
+			if(!temp3.exists())
 			temp3.mkdir();
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
