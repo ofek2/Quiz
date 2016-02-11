@@ -29,6 +29,7 @@ public class HtmlBuilder {
 	private HtmlParser parser;
 	private Element bodyElement;
 	private ArrayList<Element> questions;
+	private final String emptySpace="&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp";
 	public HtmlBuilder() throws ParserConfigurationException, FileNotFoundException{
 		questions=new ArrayList<Element>();
 		DocumentBuilderFactory builderFactory = DocumentBuilderFactory.newInstance();
@@ -54,6 +55,8 @@ public class HtmlBuilder {
 	{
 		Element questionElement = document.createElement("Q"+qNumber);
 		questionElement.setAttribute("type", type);
+		Element div = document.createElement("div");
+		questionElement.appendChild(div);
 		// add h1 element
 		questions.add(questionElement);
 		bodyElement.appendChild(questionElement);
@@ -61,17 +64,66 @@ public class HtmlBuilder {
 	public void addQuestionData(int qNumber,String questionText,String questionImgPath)
 	{
 		Element qText= document.createElement("qText");
-		qText.appendChild(document.createTextNode(questionText));
-		questions.get(qNumber).appendChild(qText);
+		qText.appendChild(document.createTextNode(questionText+emptySpace));
+		qText.appendChild(document.createTextNode("<input type=\"button\" src=\"g.gif\" onClick=\" Android.listen() \"/>"));
+		questions.get(qNumber).getFirstChild().appendChild(qText);
 		
 		Element qImage= document.createElement("qImage");
 		qImage.appendChild(document.createTextNode("<img src=\""+questionImgPath+"\">"));
-		questions.get(qNumber).appendChild(qImage);
+		questions.get(qNumber).getFirstChild().appendChild(qImage);
 	}
-	public void addAnswersData(int qNumber)
+	public void addAnswersData(int qNumber,ArrayList<String> choices)
 	{
 		Element qAnswers = document.createElement("qAnswers");
-		questions.get(qNumber).appendChild(qAnswers);
+		questions.get(qNumber).getFirstChild().appendChild(qAnswers);
+		
+		Element form = document.createElement("form");
+		questions.get(qNumber).getFirstChild().appendChild(form);
+		
+		for(int i=0;i<choices.size();i++)
+		{
+			Element choice = document.createElement("input");
+			if(questions.get(qNumber).getAttribute("type").equals("MultipleChoice"))
+			{
+				choice.setAttribute("type", "checkbox");
+				choice.setAttribute("name", "a"+(i+1));
+			}
+			else
+			{
+				choice.setAttribute("type", "radio");
+				choice.setAttribute("name", "a");
+			}
+			choice.setAttribute("onClick", "Android.mAns(this.form)");
+			choice.appendChild(document.createTextNode(choices.get(i)));
+			form.appendChild(choice);
+			form.appendChild(document.createTextNode("<br>"));
+		}
+		
+	}
+	public void addAnswersData(int qNumber,String type)
+	{
+		Element qAnswers = document.createElement("qAnswers");
+		questions.get(qNumber).getFirstChild().appendChild(qAnswers);
+		
+		Element form = document.createElement("form");
+		questions.get(qNumber).getFirstChild().appendChild(form);
+		if(type.equals("Free text"))
+		{
+			Element textarea = document.createElement("textarea");
+			textarea.setAttribute("rows", "4");
+			textarea.setAttribute("cols", "50");
+			form.appendChild(textarea);
+			form.appendChild(document.createTextNode("<br>"));
+		}
+		if(type.equals("Free drawing"))
+		{
+			Element canvas = document.createElement("canvas");
+			canvas.setAttribute("id", "sketchpad");
+			canvas.setAttribute("height", "300");
+			canvas.setAttribute("width", "500");
+			form.appendChild(canvas);
+			form.appendChild(document.createTextNode("<br>"));
+		}
 	}
 	public void writeHtml(String path) throws TransformerException{
 		// write the content into HTML file
