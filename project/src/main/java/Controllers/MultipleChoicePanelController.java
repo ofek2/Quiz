@@ -7,8 +7,8 @@ import Views.MultipleChoicePanel;
 import Views.checkBoxFieldPanel;
 
 public class MultipleChoicePanelController {
-	private MultipleChoicePanel view;
-	protected static ArrayList<checkBoxFieldController> cBfControllers;
+	public MultipleChoicePanel view;
+	public ArrayList<checkBoxFieldController> cBfControllers;
 	public MultipleChoicePanelController(MultipleChoicePanel view)
 	{
 		this.view=view;
@@ -18,7 +18,7 @@ public class MultipleChoicePanelController {
 	}
 	public void addCheckBoxField(int index) {
 		checkBoxFieldPanel checkBoxFieldPanel = new checkBoxFieldPanel();
-		checkBoxFieldController checkBoxFieldController= new checkBoxFieldController(checkBoxFieldPanel, view);
+		checkBoxFieldController checkBoxFieldController= new checkBoxFieldController(checkBoxFieldPanel, this);
 		checkBoxFieldPanel.getMinusBtn().setVisible(false);
 		
 		view.panel.add(checkBoxFieldPanel);

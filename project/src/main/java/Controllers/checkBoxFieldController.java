@@ -11,11 +11,11 @@ import Views.checkBoxFieldPanel;
 
 public class checkBoxFieldController {
 	private checkBoxFieldPanel view;
-	private MultipleChoicePanel parentView;
+	private MultipleChoicePanelController parentController;
 	
-	public checkBoxFieldController(checkBoxFieldPanel view, MultipleChoicePanel parentView) {
+	public checkBoxFieldController(checkBoxFieldPanel view, MultipleChoicePanelController parentController) {
 		this.view = view;
-		this.parentView = parentView;
+		this.parentController = parentController;
 		this.view.plusBtnAddListener(new plusBtnListener());
 		this.view.minusBtnAddListener(new minusBtnListener());
 	}
@@ -27,19 +27,19 @@ public class checkBoxFieldController {
 			
 			
 			addCheckBoxField();
-			parentView.panel.revalidate();
+			parentController.view.panel.revalidate();
 		}
 		public void addCheckBoxField() {
 			checkBoxFieldPanel checkBoxFieldPanel = new checkBoxFieldPanel();
-			checkBoxFieldController checkBoxFieldController= new checkBoxFieldController(checkBoxFieldPanel, parentView);
-			parentView.panel.add(checkBoxFieldPanel);
-			MultipleChoicePanelController.cBfControllers.add(checkBoxFieldController);
+			checkBoxFieldController checkBoxFieldController= new checkBoxFieldController(checkBoxFieldPanel, parentController);
+			parentController.view.panel.add(checkBoxFieldPanel);
+			parentController.cBfControllers.add(checkBoxFieldController);
 			view.getMinusBtn().setVisible(true);
 			view.getPlusBtn().setVisible(false);
 			
 			
-			checkBoxFieldPanel.setAnswerNumber(MultipleChoicePanelController.cBfControllers.size());
-			checkBoxFieldPanel.setaNumberLbl(MultipleChoicePanelController.cBfControllers.size()+".");
+			checkBoxFieldPanel.setAnswerNumber(parentController.cBfControllers.size());
+			checkBoxFieldPanel.setaNumberLbl(parentController.cBfControllers.size()+".");
 		}
 	}
 	class minusBtnListener implements ActionListener
@@ -48,35 +48,35 @@ public class checkBoxFieldController {
 		public void actionPerformed(ActionEvent e) {
 			// TODO Auto-generated method stub
 			
-			parentView.panel.remove(view);
-			MultipleChoicePanelController.cBfControllers.remove(view.getAnswerNumber()-1);
+			parentController.view.panel.remove(view);
+			parentController.cBfControllers.remove(view.getAnswerNumber()-1);
 			rebuildAnswersPanel();
 			
 			
 		/*	if(temp.getAnswerNumber()==1)
 			temp.getMinusBtn().setVisible(false);
 			temp.getPlusBtn().setVisible(true);*/
-			parentView.panel.revalidate();
+			parentController.view.panel.revalidate();
 			MainFrameController.view.repaint();
 		}
 		public void rebuildAnswersPanel()
 		{
 			
-			for(int i=0;i<MultipleChoicePanelController.cBfControllers.size();i++)
+			for(int i=0;i<parentController.cBfControllers.size();i++)
 			{
 			
 				
-				MultipleChoicePanelController.cBfControllers.get(i).view.setAnswerNumber(i+1);
-				MultipleChoicePanelController.cBfControllers.get(i).view.setaNumberLbl((i+1)+".");
-				if(i==MultipleChoicePanelController.cBfControllers.size()-1)
+				parentController.cBfControllers.get(i).view.setAnswerNumber(i+1);
+				parentController.cBfControllers.get(i).view.setaNumberLbl((i+1)+".");
+				if(i==parentController.cBfControllers.size()-1)
 				{
-					MultipleChoicePanelController.cBfControllers.get(i).view.getPlusBtn().setVisible(true);
-					MultipleChoicePanelController.cBfControllers.get(i).view.getMinusBtn().setVisible(true);
+					parentController.cBfControllers.get(i).view.getPlusBtn().setVisible(true);
+					parentController.cBfControllers.get(i).view.getMinusBtn().setVisible(true);
 				}
-				if(i==0 && MultipleChoicePanelController.cBfControllers.size()==1)
+				if(i==0 && parentController.cBfControllers.size()==1)
 				{
-					MultipleChoicePanelController.cBfControllers.get(i).view.getPlusBtn().setVisible(true);
-					MultipleChoicePanelController.cBfControllers.get(i).view.getMinusBtn().setVisible(false);
+					parentController.cBfControllers.get(i).view.getPlusBtn().setVisible(true);
+					parentController.cBfControllers.get(i).view.getMinusBtn().setVisible(false);
 				}
 				
 			}
