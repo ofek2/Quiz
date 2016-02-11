@@ -71,8 +71,8 @@ public class InitialWindowController {
 					courseEntity = new CourseEntity(courseFolder, courseId, courseName);
 					if(!courseEntity.CourseExist())
 					{
-						courseFolder.mkdir();						
-						coursesFiles.add(courseEntity);
+						courseFolder.mkdir();			
+						coursesFiles.add(courseEntity.checkPosition(),courseEntity);
 //						view.getCoursesIds().revalidate();
 						coursesUpdate();
 //						QuizCreationView quizCreationView = new QuizCreationView();
@@ -267,7 +267,7 @@ public class InitialWindowController {
 		view.getCoursesIds().removeAllItems();
 		view.getRemoveCourses().removeAllItems();
 		for(int i=0;i<InitialWindowController.coursesFiles.size();i++)
-		{
+		{	
 			view.getCoursesIds().addItem(InitialWindowController.coursesFiles.get(i).getCourseFolderName());		
 			view.getRemoveCourses().addItem(InitialWindowController.coursesFiles.get(i).getCourseFolderName());
 		}

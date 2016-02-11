@@ -48,6 +48,14 @@ public class CourseEntity {
 		return false;
 			
 	}
-
+	public int checkPosition()
+	{
+		int i;
+		for(i=0;i<InitialWindowController.coursesFiles.size();i++)
+			if(Integer.parseInt(courseId)<Integer.parseInt(InitialWindowController.coursesFiles.get(i).courseId))
+				return i;
+		return i;
+			
+	}
 	
 }
