@@ -53,7 +53,7 @@ public class HtmlBuilder {
 	public void addQuestion(int qNumber,String type,int score)
 	{
 		Element questionElement = document.createElement("Q"+qNumber);
-		questionElement.setAttribute("type", "MultipleChoice");
+		questionElement.setAttribute("type", type);
 		// add h1 element
 		questions.add(questionElement);
 		bodyElement.appendChild(questionElement);
@@ -68,7 +68,11 @@ public class HtmlBuilder {
 		qImage.appendChild(document.createTextNode("<img src=\""+questionImgPath+"\">"));
 		questions.get(qNumber).appendChild(qImage);
 	}
-	
+	public void addAnswersData(int qNumber)
+	{
+		Element qAnswers = document.createElement("qAnswers");
+		questions.get(qNumber).appendChild(qAnswers);
+	}
 	public void writeHtml(String path) throws TransformerException{
 		// write the content into HTML file
 		TransformerFactory transformerFactory = TransformerFactory.newInstance();
