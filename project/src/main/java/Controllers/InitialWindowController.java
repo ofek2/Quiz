@@ -111,7 +111,7 @@ public class InitialWindowController {
 				if(!quizFolder.exists())
 				{
 					quizFolder.mkdir();
-					MainFrameController.view.setExtendedState(JFrame.MAXIMIZED_BOTH);
+					MainFrameController.view.setBounds(Constants.realtiveFrameXPos/2,Constants.realtiveFrameYPos/2,(int)((int)Constants.realtiveFrameInitWidth*1.5f),(int)((int)Constants.realtiveFrameInitHeight*1.5f));
 					QuizCreationView quizCreationView = new QuizCreationView();
 					QuizEntity quizEntity = new QuizEntity("QuizTest",25,quizFolder);
 					new QuizCreationController(quizCreationView,quizEntity);

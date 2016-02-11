@@ -26,6 +26,7 @@ public class HtmlBuilder {
 
 	private Document document;
 	private HtmlParser parser;
+	private Element bodyElement;
 	public HtmlBuilder() throws ParserConfigurationException, FileNotFoundException{
 	
 		DocumentBuilderFactory builderFactory = DocumentBuilderFactory.newInstance();
@@ -34,6 +35,7 @@ public class HtmlBuilder {
 		InputStream in = new FileInputStream(new File("CanvasScript.html"));
 		parser = new HtmlParser(in);
 	}
+	
 	public void initiateHtml(){
 		Element htmlElement = document.createElement("html");
 		document.appendChild(htmlElement);
@@ -42,9 +44,10 @@ public class HtmlBuilder {
 		headElement.appendChild(document.createTextNode(parser.document.getFirstChild().getFirstChild().getTextContent()));
 		htmlElement.appendChild(headElement);
 		
-		Element bodyElement = document.createElement("body");
+		bodyElement = document.createElement("body");
 		htmlElement.appendChild(bodyElement);	
 	}
+	
 	
 	public void writeHtml(String path) throws TransformerException{
 		// write the content into HTML file
