@@ -38,11 +38,9 @@ public class HtmlBuilder {
 		Element htmlElement = document.createElement("html");
 		document.appendChild(htmlElement);
 		
-		Element scriptElement = document.createElement("script");
-		scriptElement.setAttribute("type", "text/javascript");
-		scriptElement.appendChild(document.createTextNode(parser.document.getFirstChild().getFirstChild().getTextContent()));
-		//scriptElement.appendChild(document.createTextNode()
-		htmlElement.appendChild(scriptElement);
+		Element headElement = document.createElement("head");
+		headElement.appendChild(document.createTextNode(parser.document.getFirstChild().getFirstChild().getTextContent()));
+		htmlElement.appendChild(headElement);
 		
 		Element bodyElement = document.createElement("body");
 		htmlElement.appendChild(bodyElement);	
