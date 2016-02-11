@@ -44,7 +44,7 @@ public class checkBoxFieldPanel extends JPanel{
 		add(chckbxNewCheckBox);
 		
 		textField = new JTextField();
-		textField.setSize(panelWidth*13/16, 20);
+		textField.setSize(panelWidth*11/16, 20);
 		textField.setLocation(chckbxNewCheckBox.getX()+chckbxNewCheckBox.getWidth()+2,9);
 		add(textField);
 		
