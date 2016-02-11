@@ -47,7 +47,8 @@ public class qPanelController{
 		this.quizEntity=quizEntity;
 		this.view.removeBtnAddListener(new removeBtnListener());
 		this.view.listenChkBoxAddListner(new listenChkBoxListener());
-		this.view.browseBtnAddListener(new browseBtnListener());
+		this.view.qBrowseBtnAddListener(new qBrowseBtnListener());
+		this.view.ansBrowseBtnAddListener(new ansBrowseBtnListener());
 		this.view.aTypeCBaddItemListener(new aTypeItemListener());
 		fileChooser=view.getFileChooser();
 		try {
@@ -135,7 +136,7 @@ public class qPanelController{
 		
 	}
 	
-	class browseBtnListener implements ActionListener
+	class qBrowseBtnListener implements ActionListener
 	{
 		private int returnVal;
 		private File fileSave;
@@ -164,7 +165,35 @@ public class qPanelController{
 		}
 		
 	}
-	
+	class ansBrowseBtnListener implements ActionListener
+	{
+		private int returnVal;
+		private File fileSave;
+		private BufferedImage image;
+		private String answerLbl;
+		private String answerImgPath;
+		public void actionPerformed(ActionEvent e) {
+			// TODO Auto-generated method stub
+			returnVal=fileChooser.showSaveDialog(view.getAnswerPanel());
+			if(returnVal==fileChooser.APPROVE_OPTION)
+			{
+				imgFile = fileChooser.getSelectedFile();				
+				try {
+					answerLbl = "Answer"+view.getQuestionNumber()+".PNG";
+					answerImgPath = quizPath +"/" + answerLbl;
+					fileExtension = Files.getFileExtension(imgFile.getCanonicalPath());
+					image = ImageIO.read(imgFile); 	
+					fileSave = new File(answerImgPath);
+					ImageIO.write(image,fileExtension , fileSave);
+					imgFile = fileSave;
+				} catch (IOException e2) {
+					// TODO Auto-generated catch block
+					e2.printStackTrace();
+				}
+			}
+		}
+		
+	}
 	public qPanel getQuestionPanel() {
 		return view;
 	}

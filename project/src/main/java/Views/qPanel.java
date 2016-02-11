@@ -248,7 +248,7 @@ public class qPanel extends ViewPanel {
 	public void setChckbxHideQuestion(JCheckBox chckbxHideQuestion) {
 		this.chckbxHideQuestion = chckbxHideQuestion;
 	}
-	public void browseBtnAddListener(ActionListener listener)
+	public void qBrowseBtnAddListener(ActionListener listener)
 	{
 		browseBtn.addActionListener(listener);
 	}
