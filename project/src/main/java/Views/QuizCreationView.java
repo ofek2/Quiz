@@ -39,6 +39,7 @@ import java.awt.Component;
 public class QuizCreationView extends ViewPanel {
 	public JButton addBtn;
 	public JPanel panel;
+	private JPanel headPanel;
 	public QuizCreationView() {
 		super();
 		panel = new JPanel();
@@ -50,7 +51,7 @@ public class QuizCreationView extends ViewPanel {
 		
 		add(jsp);
 		setVisible(true);
-		
+	
 		addBtn = new JButton("Add question");
 		addBtn.setAlignmentX(CENTER_ALIGNMENT);
 		panel.add(addBtn);

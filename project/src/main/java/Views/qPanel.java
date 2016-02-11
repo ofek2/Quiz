@@ -74,7 +74,7 @@ public class qPanel extends JPanel {
 		GridBagLayout gridBagLayout = new GridBagLayout();
 		gridBagLayout.columnWidths = new int[]{119, 0, 54, 63, 0, 0, 0, 0, 0, 0, 0, 0, 8, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 34, 0};
 		gridBagLayout.rowHeights = new int[]{0, 0, 0, 0, 0, -2, 0, 0};
-		gridBagLayout.columnWeights = new double[]{1.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
+		gridBagLayout.columnWeights = new double[]{0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
 		gridBagLayout.rowWeights = new double[]{0.0, 1.0, 1.0, 0.0, 0.0, 0.0, 1.0, Double.MIN_VALUE};
 		setLayout(gridBagLayout);
 		//Question title objects
@@ -82,7 +82,7 @@ public class qPanel extends JPanel {
 		questionLbl.setFont(new Font("Arial", Font.BOLD | Font.ITALIC, 17));
 		GridBagConstraints gbc_qLabel = new GridBagConstraints();
 		gbc_qLabel.fill = GridBagConstraints.BOTH;
-		gbc_qLabel.insets = new Insets(0, 0, 5, 5);
+		gbc_qLabel.insets = new Insets(0, 5, 5, 5);
 		gbc_qLabel.gridx = 0;
 		gbc_qLabel.gridy = 0;
 		add(questionLbl, gbc_qLabel);
@@ -120,7 +120,7 @@ public class qPanel extends JPanel {
 		GridBagConstraints gbc_lblTheQuestion = new GridBagConstraints();
 		gbc_lblTheQuestion.anchor = GridBagConstraints.WEST;
 		gbc_lblTheQuestion.fill = GridBagConstraints.VERTICAL;
-		gbc_lblTheQuestion.insets = new Insets(0, 0, 5, 5);
+		gbc_lblTheQuestion.insets = new Insets(0, 5, 5, 5);
 		gbc_lblTheQuestion.gridx = 0;
 		gbc_lblTheQuestion.gridy = 4;
 		add(lblTheQuestion, gbc_lblTheQuestion);
@@ -130,7 +130,7 @@ public class qPanel extends JPanel {
 		separator_2.setOrientation(SwingConstants.VERTICAL);
 		GridBagConstraints gbc_separator_2 = new GridBagConstraints();
 		gbc_separator_2.fill = GridBagConstraints.VERTICAL;
-		gbc_separator_2.insets = new Insets(0, 0, 3, 5);
+		gbc_separator_2.insets = new Insets(0, 0, 0, 5);
 		gbc_separator_2.gridx = 12;
 		gbc_separator_2.gridy = 4;
 		add(separator_2, gbc_separator_2);
@@ -165,11 +165,10 @@ public class qPanel extends JPanel {
 		
 		separator_1 = new JSeparator();
 		separator_1.setSize(new Dimension(0, 2));
-		separator_1.setPreferredSize(new Dimension(100, 4));
+		separator_1.setPreferredSize(new Dimension(100, 2));
 		GridBagConstraints gbc_separator_1 = new GridBagConstraints();
 		gbc_separator_1.fill = GridBagConstraints.HORIZONTAL;
 		gbc_separator_1.gridwidth = 25;
-		gbc_separator_1.insets = new Insets(0, 0, 1, 0);
 		gbc_separator_1.gridx = 0;
 		gbc_separator_1.gridy = 5;
 		add(separator_1, gbc_separator_1);
@@ -177,7 +176,7 @@ public class qPanel extends JPanel {
 		qDataPanel = new JPanel();
 		GridBagConstraints gbc_qDataPanel = new GridBagConstraints();
 		gbc_qDataPanel.gridwidth = 12;
-		gbc_qDataPanel.insets = new Insets(0, 0, 0, 5);
+		gbc_qDataPanel.insets = new Insets(5, 5, 0, 5);
 		gbc_qDataPanel.fill = GridBagConstraints.BOTH;
 		gbc_qDataPanel.gridx = 0;
 		gbc_qDataPanel.gridy = 6;
@@ -192,7 +191,7 @@ public class qPanel extends JPanel {
 		JLabel lblEnterQuestion = new JLabel("Enter question:");
 		GridBagConstraints gbc_lblEnterQuestion = new GridBagConstraints();
 		gbc_lblEnterQuestion.fill = GridBagConstraints.BOTH;
-		gbc_lblEnterQuestion.insets = new Insets(0, 0, 5, 5);
+		gbc_lblEnterQuestion.insets = new Insets(0, 5, 5, 5);
 		gbc_lblEnterQuestion.gridx = 0;
 		gbc_lblEnterQuestion.gridy = 0;
 		qDataPanel.add(lblEnterQuestion, gbc_lblEnterQuestion);
@@ -231,7 +230,7 @@ public class qPanel extends JPanel {
 		JLabel qBrowseAnImage = new JLabel("Browse an image:");
 		GridBagConstraints gbc_qBrowseAnImage = new GridBagConstraints();
 		gbc_qBrowseAnImage.anchor = GridBagConstraints.WEST;
-		gbc_qBrowseAnImage.insets = new Insets(0, 0, 5, 5);
+		gbc_qBrowseAnImage.insets = new Insets(0, 5, 5, 5);
 		gbc_qBrowseAnImage.gridx = 0;
 		gbc_qBrowseAnImage.gridy = 3;
 		qDataPanel.add(qBrowseAnImage, gbc_qBrowseAnImage);
@@ -257,6 +256,7 @@ public class qPanel extends JPanel {
 		
 		answerPanel = new JPanel();
 		GridBagConstraints gbc_answerPanel = new GridBagConstraints();
+		gbc_answerPanel.insets = new Insets(5, 0, 0, 0);
 		gbc_answerPanel.gridwidth = 12;
 		gbc_answerPanel.fill = GridBagConstraints.BOTH;
 		gbc_answerPanel.gridx = 13;
