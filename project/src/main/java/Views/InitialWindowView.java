@@ -45,6 +45,7 @@ import javax.swing.JLabel;
 import javax.swing.JButton;
 
 import Controllers.InitialWindowController;
+import Controllers.MainFrameController;
 import Controllers.qPanelController;
 import Entities.Constants;
 
@@ -73,7 +74,7 @@ public class InitialWindowView extends ViewPanel {
 		menuBar = new JMenuBar();
 		menuBar.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
 		menuBar.setBackground(Color.WHITE);
-		menuBar.setBounds(0, 0, Constants.realtiveFrameInitWidth, 30);
+		menuBar.setBounds(0, 0, MainFrameController.view.getWidth(), 30);
 		add(menuBar);
 		
 		mnQuizMngMenu = new JMenu("Quiz Management");
@@ -116,7 +117,7 @@ public class InitialWindowView extends ViewPanel {
 		
 		try {
 			tree = new JTree(filesTree(new File(new File(".").getCanonicalPath()+"/OnlineQuizChecker")));
-			tree.setBounds(0, 30, Constants.realtiveFrameInitWidth, Constants.realtiveFrameInitHeight);
+			tree.setBounds(0, 30, MainFrameController.view.getWidth(),MainFrameController.view.getHeight());
 			add(tree);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
@@ -243,7 +244,7 @@ public class InitialWindowView extends ViewPanel {
 		remove(this.tree);
 		this.tree = tree;
 		add(this.tree);
-		this.tree.setBounds(0, 30, Constants.realtiveFrameInitWidth, Constants.realtiveFrameInitHeight);
+		this.tree.setBounds(0, 30, MainFrameController.view.getWidth(),MainFrameController.view.getHeight());
 		revalidate();		
 	}
 	public JTextField getNewQuizName() {
