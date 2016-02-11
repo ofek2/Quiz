@@ -21,7 +21,7 @@ public class MainFrameView extends JFrame {
 		super();
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
-		setBounds(Constants.realtiveFrameXPos,Constants.realtiveFrameYPos,Toolkit.getDefaultToolkit().getScreenSize().width/2,(int) ((Toolkit.getDefaultToolkit().getScreenSize().width/2)/Constants.ratio));
+		setBounds(Constants.realtiveFrameXPos,Constants.realtiveFrameYPos,Toolkit.getDefaultToolkit().getScreenSize().width/1,(int) ((Toolkit.getDefaultToolkit().getScreenSize().width/1.5)/Constants.ratio));
 		System.out.println(Constants.realtiveFrameInitWidth+" "+Constants.realtiveFrameInitHeight+" "+((Toolkit.getDefaultToolkit().getScreenSize().width/2)/Constants.ratio)+" "+Constants.ratio);
 		setResizable(false);
 //		contentPane = new Container();

@@ -56,15 +56,15 @@ public class InitialWindowView extends ViewPanel {
 	private JPanel newQuizDialogPanel;
 	private JComboBox<String> coursesIds;
 	private JTextField newQuizName;
-	private Button createNewQuizBtn;
+	private JButton createNewQuizBtn;
 	private JTree tree;
 	private JTextField newCourseId;
 	private JPanel newCourseDialogPanel;
-	private Button createNewCourseBtn;
+	private JButton createNewCourseBtn;
 	private JTextField newCourseName;
 	private JPanel removeCourseDialogPanel;
 	private JComboBox<String> removeCourses;
-	private Button removeCourseBtn;
+	private JButton removeCourseBtn;
 	/**
 	 * Create the panel.
 	 */
@@ -151,7 +151,7 @@ public class InitialWindowView extends ViewPanel {
 		newQuizDialogPanel.add(newQuizName);
 		newQuizName.setColumns(10);
 		
-		createNewQuizBtn = new Button("Create Quiz");
+		createNewQuizBtn = new JButton("Create Quiz");
 		createNewQuizBtn.setBounds(66, 121, 70, 19);
 		newQuizDialogPanel.add(createNewQuizBtn);
 		
@@ -169,7 +169,7 @@ public class InitialWindowView extends ViewPanel {
 		newCourseDialogPanel.add(newCourseId);
 		newCourseId.setColumns(10);
 		
-		createNewCourseBtn = new Button("Create Course");
+		createNewCourseBtn = new JButton("Create Course");
 		createNewCourseBtn.setBounds(35, 121, 130, 23);
 		newCourseDialogPanel.add(createNewCourseBtn);
 		
@@ -198,7 +198,7 @@ public class InitialWindowView extends ViewPanel {
 		lblCourse.setBounds(4, 39, 46, 14);
 		removeCourseDialogPanel.add(lblCourse);
 		
-		removeCourseBtn = new Button("remove course");
+		removeCourseBtn = new JButton("remove course");
 		removeCourseBtn.setBounds(42, 120, 109, 23);
 		removeCourseDialogPanel.add(removeCourseBtn);
 		

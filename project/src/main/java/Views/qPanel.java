@@ -39,7 +39,7 @@ public class qPanel extends ViewPanel {
 	private JTextField scoreField;
 	private JLabel lblScore;
 	private JPanel qDataPanel;
-	private JButton browseBtn;
+	private JButton qbrowseBtn;
 	private JFileChooser qFileChooser;
 	private JFileChooser aFileChooser;
 	private FileNameExtensionFilter extensionFilter;
@@ -53,7 +53,7 @@ public class qPanel extends ViewPanel {
 	private JLabel theAnswerLbl;
 	private JButton ansBrowseBtn;
 	private final static int width=MainFrameController.view.getWidth()-20;
-	private final static int height=(int) ((int)MainFrameController.view.getHeight()/2.5f);
+	private final static int height=(int) ((int)MainFrameController.view.getHeight()/2.5f)+100;
 	/**
 	 * Create the panel.
 	 */
@@ -103,7 +103,7 @@ public class qPanel extends ViewPanel {
 		add(separator);
 		
 		qDataPanel = new JPanel();
-		qDataPanel.setSize(width/2-20, height*7/16);
+		qDataPanel.setSize(width/2-20, height*7/16+100);
 		System.out.println(height*5/16);
 		qDataPanel.setLocation(8, height*5/16);
 		add(qDataPanel);
@@ -116,7 +116,7 @@ public class qPanel extends ViewPanel {
 		qDataPanel.add(qLabel);
 		
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setSize(qDataPanel.getWidth()*5/8,qDataPanel.getHeight()*3/4);
+		scrollPane.setSize(qDataPanel.getWidth()*3/8,qDataPanel.getHeight()*1/2);
 		scrollPane.setLocation(getRightPos(qLabel)+2, qLabel.getY()); 
 		scrollPane.setOpaque(false);
 		qDataPanel.add(scrollPane);
@@ -155,11 +155,11 @@ public class qPanel extends ViewPanel {
 		extensionFilter = new FileNameExtensionFilter("Img","jpg","gif","png");
 		aFileChooser.setFileFilter(extensionFilter);
 		aFileChooser.setAcceptAllFileFilterUsed(false);
-		browseBtn = new JButton("Browse..");
-		browseBtn.setMargin(new Insets(0, 0, 0, 0));
-		browseBtn.setSize(89, 23);
-		browseBtn.setLocation(scrollPane.getX(), browseLabel.getY());
-		qDataPanel.add(browseBtn);
+		qbrowseBtn = new JButton("Browse..");
+		qbrowseBtn.setMargin(new Insets(0, 0, 0, 0));
+		qbrowseBtn.setSize(89, 23);
+		qbrowseBtn.setLocation(scrollPane.getX(), browseLabel.getY());
+		qDataPanel.add(qbrowseBtn);
 		
 	
 		
@@ -255,7 +255,7 @@ public class qPanel extends ViewPanel {
 	}
 	public void qBrowseBtnAddListener(ActionListener listener)
 	{
-		browseBtn.addActionListener(listener);
+		qbrowseBtn.addActionListener(listener);
 	}
 	
 	public void removeBtnAddListener(ActionListener listener)
@@ -283,6 +283,9 @@ public class qPanel extends ViewPanel {
 	
 	public JLabel getQuestionLbl() {
 		return questionLbl;
+	}
+	public JButton getQuestionImageBrosweButton() {
+		return qbrowseBtn;
 	}
 	public void setQuestionLbl(JLabel questionLbl) {
 		this.questionLbl = questionLbl;
