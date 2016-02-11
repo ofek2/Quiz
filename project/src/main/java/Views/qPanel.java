@@ -103,7 +103,8 @@ public class qPanel extends ViewPanel {
 		
 		qDataPanel = new JPanel();
 		qDataPanel.setSize(width/2-20, height*7/16);
-		qDataPanel.setLocation(8, setCorrectPosY(qDataPanel, height*5/8));
+		System.out.println(height*5/16);
+		qDataPanel.setLocation(8, height*5/16);
 		add(qDataPanel);
 		qDataPanel.setLayout(null);
 		qDataPanel.setOpaque(false);
@@ -116,6 +117,7 @@ public class qPanel extends ViewPanel {
 		JScrollPane scrollPane = new JScrollPane();
 		scrollPane.setSize(qDataPanel.getWidth()*5/8,qDataPanel.getHeight()*3/4);
 		scrollPane.setLocation(getRightPos(qLabel)+2, qLabel.getY()); 
+		scrollPane.setOpaque(false);
 		qDataPanel.add(scrollPane);
 		
 		textArea = new JTextArea();
@@ -141,7 +143,7 @@ public class qPanel extends ViewPanel {
 		
 		JLabel browseLabel = new JLabel("Browse an image:");
 		browseLabel.setFont(new Font("Arial", Font.PLAIN, 13));
-		browseLabel.setBounds(qLabel.getX(), scrollPane.getY()+scrollPane.getHeight()+20, 104, 19);
+		browseLabel.setBounds(qLabel.getX(), scrollPane.getY()+scrollPane.getHeight()+10, 104, 19);
 		qDataPanel.add(browseLabel);
 		
 		fileChooser = new JFileChooser();
@@ -151,7 +153,7 @@ public class qPanel extends ViewPanel {
 		browseBtn = new JButton("Browse..");
 		browseBtn.setMargin(new Insets(0, 0, 0, 0));
 		browseBtn.setSize(89, 23);
-		browseBtn.setLocation(getRightPos(browseLabel)+2, browseLabel.getY());
+		browseBtn.setLocation(scrollPane.getX(), browseLabel.getY());
 		qDataPanel.add(browseBtn);
 		
 	
@@ -164,7 +166,7 @@ public class qPanel extends ViewPanel {
 		
 		JLabel answerTypeLbl = new JLabel("Answer type:");
 		answerTypeLbl.setSize(95, 18);
-		answerTypeLbl.setLocation(setCorrectPosX(answerTypeLbl,width*10/16), setCorrectPosY(answerTypeLbl, height*5/16));
+		answerTypeLbl.setLocation(setCorrectPosX(answerTypeLbl,width*12/16), setCorrectPosY(answerTypeLbl, height*5/16));
 		answerTypeLbl.setFont(new Font("Arial", Font.PLAIN, 13));
 		add(answerTypeLbl);
 		
@@ -179,20 +181,24 @@ public class qPanel extends ViewPanel {
 		add(answerTypeCb);
 		
 		answerPanel = new JPanel();
-		answerPanel.setBounds(setCorrectPosX(answerPanel, width*10/16), setCorrectPosY(answerPanel, height*5/16), 317, 162);
+		answerPanel.setBounds(setCorrectPosX(answerPanel, width*9/16), setCorrectPosY(answerPanel, height*6/16), width*6/16, height/2);
 		add(answerPanel);
 		answerPanel.setLayout(new CardLayout(0, 0));
+		answerPanel.setOpaque(false);
 		
 		MultipleChoicePanel multipleChoicePanel = new MultipleChoicePanel();
 		multipleChoicePanelController = new MultipleChoicePanelController(multipleChoicePanel);
+		multipleChoicePanel.jsp.setPreferredSize(new Dimension(answerPanel.getWidth(),answerPanel.getHeight()));
+		
 		answerPanel.add(multipleChoicePanel, "Multiple Choice");
 		
 		JPanel freeTextPanel = new JPanel();
+		freeTextPanel.setOpaque(false);
 		answerPanel.add(freeTextPanel, "Free Text");
 		freeTextPanel.setLayout(null);
 		
 		JScrollPane scrollPane_1 = new JScrollPane();
-		scrollPane_1.setBounds(96, 11, 211, 140);
+		scrollPane_1.setBounds(100, 10, answerPanel.getWidth()*12/16,answerPanel.getHeight()-10);
 		freeTextPanel.add(scrollPane_1);
 		
 		JTextArea answerTextA = new JTextArea();
@@ -207,6 +213,7 @@ public class qPanel extends ViewPanel {
 		freeTextPanel.add(lblEnterAnswer);
 		
 		JPanel freeDrawPanel = new JPanel();
+		freeDrawPanel.setOpaque(false);
 		answerPanel.add(freeDrawPanel, "Free Drawing");
 		freeDrawPanel.setLayout(null);
 		
