@@ -65,9 +65,10 @@ public class HtmlBuilder {
 		questions.get(qNumber).appendChild(qText);
 		
 		Element qImage= document.createElement("qImage");
-		qImage.appendChild(document.createTextNode("<img src=\""+questionImgPath+"\""));
+		qImage.appendChild(document.createTextNode("<img src=\""+questionImgPath+"\">"));
 		questions.get(qNumber).appendChild(qImage);
 	}
+	
 	public void writeHtml(String path) throws TransformerException{
 		// write the content into HTML file
 		TransformerFactory transformerFactory = TransformerFactory.newInstance();
