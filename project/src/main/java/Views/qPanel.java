@@ -40,7 +40,8 @@ public class qPanel extends ViewPanel {
 	private JLabel lblScore;
 	private JPanel qDataPanel;
 	private JButton browseBtn;
-	private JFileChooser fileChooser;
+	private JFileChooser qFileChooser;
+	private JFileChooser aFileChooser;
 	private FileNameExtensionFilter extensionFilter;
 	private JTextArea textArea;
 	private int questionNumber;
@@ -146,10 +147,14 @@ public class qPanel extends ViewPanel {
 		browseLabel.setBounds(qLabel.getX(), scrollPane.getY()+scrollPane.getHeight()+10, 104, 19);
 		qDataPanel.add(browseLabel);
 		
-		fileChooser = new JFileChooser();
+		qFileChooser = new JFileChooser();
 		extensionFilter = new FileNameExtensionFilter("Img","jpg","gif","png");
-		fileChooser.setFileFilter(extensionFilter);
-		fileChooser.setAcceptAllFileFilterUsed(false);
+		qFileChooser.setFileFilter(extensionFilter);
+		qFileChooser.setAcceptAllFileFilterUsed(false);
+		aFileChooser = new JFileChooser();
+		extensionFilter = new FileNameExtensionFilter("Img","jpg","gif","png");
+		aFileChooser.setFileFilter(extensionFilter);
+		aFileChooser.setAcceptAllFileFilterUsed(false);
 		browseBtn = new JButton("Browse..");
 		browseBtn.setMargin(new Insets(0, 0, 0, 0));
 		browseBtn.setSize(89, 23);
@@ -289,11 +294,17 @@ public class qPanel extends ViewPanel {
 		this.questionNumber = questionNumber;
 	}
 	
-	public JFileChooser getFileChooser() {
-		return fileChooser;
+	public JFileChooser getQuestionFileChooser() {
+		return qFileChooser;
 	}
-	public void setFileChooser(JFileChooser fileChooser) {
-		this.fileChooser= fileChooser;
+	public void setQuestionFileChooser(JFileChooser fileChooser) {
+		this.qFileChooser= fileChooser;
+	}
+	public JFileChooser getAnswerFileChooser() {
+		return aFileChooser;
+	}
+	public void setAnswerFileChooser(JFileChooser fileChooser) {
+		this.aFileChooser= fileChooser;
 	}
 	public JPanel getQuestionDataPanel() {
 		return qDataPanel;

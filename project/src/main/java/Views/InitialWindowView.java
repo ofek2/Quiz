@@ -13,6 +13,7 @@ import javax.swing.border.CompoundBorder;
 import javax.swing.UIManager;
 import javax.swing.border.LineBorder;
 import javax.swing.border.EtchedBorder;
+import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.JTree;
 
 import java.awt.BorderLayout;
@@ -37,6 +38,7 @@ import javax.swing.JComboBox;
 
 import java.awt.Button;
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 
 import javax.swing.JLabel;
@@ -109,9 +111,14 @@ public class InitialWindowView extends ViewPanel {
 		JMenuItem mntmRemoveStudent = new JMenuItem("Remove Student");
 		mnCourseManagement.add(mntmRemoveStudent);
 		
-		tree = new JTree();
-		tree.setBounds(0, 30, Constants.realtiveFrameInitWidth, Constants.realtiveFrameInitHeight);
-		add(tree);
+		try {
+			tree = new JTree(filesTree(new File(new File(".").getCanonicalPath()+"/OnlineQuizChecker")));
+			tree.setBounds(0, 30, Constants.realtiveFrameInitWidth, Constants.realtiveFrameInitHeight);
+			add(tree);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
 		newQuizDialogPanel = new JPanel();
 		newQuizDialogPanel.setBackground(Color.RED);
@@ -201,6 +208,13 @@ public class InitialWindowView extends ViewPanel {
 	public JTree getTree() {
 		return tree;
 	}
+	public void setTree(JTree tree) {
+		remove(this.tree);
+		this.tree = tree;
+		add(this.tree);
+		this.tree.setBounds(0, 30, Constants.realtiveFrameInitWidth, Constants.realtiveFrameInitHeight);
+		revalidate();		
+	}
 	public JTextField getNewQuizName() {
 		return newQuizName;
 	}
@@ -213,7 +227,14 @@ public class InitialWindowView extends ViewPanel {
 	public JComboBox getCoursesIds() {
 		return coursesIds;
 	}
-	
+	public static DefaultMutableTreeNode filesTree(File file)
+	{
+		DefaultMutableTreeNode treeNode = new DefaultMutableTreeNode(file.getName());
+		if(file.isDirectory())
+			for(File child: file.listFiles())
+				treeNode.add(filesTree(child));
+		return treeNode;
+	}
 	
 	
 }

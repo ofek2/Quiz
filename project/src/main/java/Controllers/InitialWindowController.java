@@ -18,6 +18,7 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+import javax.swing.JTree;
 
 import Controllers.qPanelController.removeBtnListener;
 import Entities.Constants;
@@ -77,6 +78,7 @@ public class InitialWindowController {
 							view.getCoursesIds().addItem(InitialWindowController.coursesFiles.get(i).getCourseFolderName());		
 
 						
+						view.setTree(new JTree(InitialWindowView.filesTree(new File(new File(".").getCanonicalPath()+"/OnlineQuizChecker"))));
 //						QuizCreationView quizCreationView = new QuizCreationView();
 //						QuizEntity quizEntity = new QuizEntity("QuizTest",25,quizFolder);
 //						new QuizCreationController(quizCreationView,quizEntity);
@@ -119,7 +121,7 @@ public class InitialWindowController {
 					new QuizCreationController(quizCreationView,quizEntity);
 					dialog.setVisible(false);
 					MainFrameController.view.changeContentPane(quizCreationView);
-					
+//					view.setTree(new JTree(InitialWindowView.filesTree(new File(new File(".").getCanonicalPath()+"/OnlineQuizChecker"))));
 				}
 				else
 				{
