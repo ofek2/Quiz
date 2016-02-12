@@ -1,5 +1,7 @@
 package Views;
 import java.awt.FlowLayout;
+import java.awt.Font;
+
 import javax.swing.JPanel;
 import javax.swing.JButton;
 import com.jgoodies.forms.layout.FormLayout;
@@ -15,10 +17,15 @@ import Entities.Constants;
 import javax.swing.JLabel;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+
+import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
 import java.awt.Dimension;
 import javax.swing.JScrollPane;
+import javax.swing.JSpinner;
 import javax.swing.ScrollPaneConstants;
+import javax.swing.SpinnerListModel;
+import javax.swing.SpinnerNumberModel;
 import javax.swing.JInternalFrame;
 import java.awt.ScrollPane;
 import java.awt.GridBagLayout;
@@ -26,6 +33,8 @@ import java.awt.GridBagConstraints;
 import java.awt.Insets;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
+import javax.swing.border.EtchedBorder;
+import javax.swing.border.TitledBorder;
 
 import java.awt.BorderLayout;
 import java.awt.CardLayout;
@@ -40,6 +49,7 @@ public class QuizCreationView extends ViewPanel {
 	public JButton addBtn;
 	public JPanel panel;
 	private JPanel headPanel;
+	private JLabel quizName;
 	public QuizCreationView() {
 		super();
 		panel = new JPanel();
@@ -50,15 +60,53 @@ public class QuizCreationView extends ViewPanel {
 		jsp.getVerticalScrollBar().setUnitIncrement(16);
 		
 		add(jsp);
-		setVisible(true);
+		
+		headPanel= new JPanel();
+		headPanel.setMaximumSize(new Dimension(700,50));
+		TitledBorder title = BorderFactory.createTitledBorder("Quiz Info");
+		title.setTitleJustification(TitledBorder.CENTER);
+		headPanel.setBorder(title);
+		headPanel.setOpaque(false);
+		headPanel.setLayout(new GridLayout(1, 4));
+		
+		JLabel quizLbl = new JLabel("Quiz Name: ");
+		
+		quizLbl.setFont(new Font("Arial", Font.BOLD, 17));
+		quizLbl.setHorizontalAlignment(JLabel.CENTER);
 	
+		headPanel.add(quizLbl);
+		quizName = new JLabel("test");
+		quizName.setFont(new Font("Arial", Font.PLAIN, 17));
+		quizName.setHorizontalAlignment(JLabel.LEFT);
+		headPanel.add(quizName);
+		
+		JLabel percentage = new JLabel("Quiz Weight: ");
+		percentage.setFont(new Font("Arial", Font.BOLD, 17));
+		percentage.setHorizontalAlignment(JLabel.CENTER);
+		headPanel.add(percentage);
+		JSpinner percentageFromFgrade = new JSpinner(new SpinnerNumberModel(0,0,1,.01));   
+		JSpinner.NumberEditor editor = new JSpinner.NumberEditor(percentageFromFgrade,"0%");  
+		percentageFromFgrade.setEditor(editor);
+		
+		headPanel.add(percentageFromFgrade);
+		panel.add(headPanel);
+		
 		addBtn = new JButton("Add question");
 		addBtn.setAlignmentX(CENTER_ALIGNMENT);
 		panel.add(addBtn);
 		addBtn.setAlignmentY(0.0f);
-
+		setVisible(true);
 	}
 	
+	/*private String[] buildSpinnerModel() {
+		String [] str = new String[100];
+		for(int i=0;i<100;i++)
+		{
+			str[i]=(i+1)+"%";
+		}
+		return str;
+	}*/
+
 	public void addBtnAddListener(ActionListener listener){
 		addBtn.addActionListener(listener);
 	}
