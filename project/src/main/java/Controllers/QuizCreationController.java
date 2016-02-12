@@ -31,19 +31,19 @@ public class QuizCreationController {
 		qPanelController = new qPanelController(qPview,view,entity);
 		view.panel.add(qPview);
 		view.panel.revalidate();
-		if(view.panel.getComponentCount()%2 == 0)
-			qPview.setBackground(Color.getHSBColor(0.55f, 0.69f, 1));
-		else
-			qPview.setBackground(Color.getHSBColor(0.0711f, 0.9916f, 1));
+		
 		
 		view.panel.remove(view.addBtn);
 		view.panel.add(view.addBtn);
-		view.panel.revalidate();
+		
 		qPview.setQuestionNumber(qPanels.size()+1);
 		qPanels.add(qPanelController);
 		QuizCreationController.qPanels.get(qPanels.size()-1).getQuestionPanel().getQuestionLbl().setText("Question"+(qPanels.size()));
-		
-		
+		if((qPview.getQuestionNumber()-1)%2 == 0)
+			qPview.setBackground(Color.getHSBColor(0.55f, 0.69f, 1));
+		else
+			qPview.setBackground(Color.getHSBColor(0.0711f, 0.9916f, 1));
+		view.panel.revalidate();
 	}
 	class addBtnListener implements ActionListener
 	{
