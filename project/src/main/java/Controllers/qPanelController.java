@@ -1,6 +1,7 @@
 package Controllers;
 
 import java.awt.CardLayout;
+import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -77,7 +78,7 @@ public class qPanelController{
 	{
 		private BufferedImage bufferedImage;
 		public void actionPerformed(ActionEvent e) {
-			System.out.println("click");
+			
 			parentView.panel.remove(view);
 			parentView.panel.revalidate();
 			MainFrameController.view.repaint();
@@ -86,6 +87,7 @@ public class qPanelController{
 			if(aImgFile!=null)
 				aImgFile.delete();
 			QuizCreationController.qPanels.remove(view.getQuestionNumber()-1);		
+			fixColors();
 			for (int i = view.getQuestionNumber()-1; i < QuizCreationController.qPanels.size(); i++) {
 				QuizCreationController.qPanels.get(i).view.setQuestionNumber(i+1);
 				QuizCreationController.qPanels.get(i).view.getQuestionLbl().setText("Question"+(i+1));
@@ -131,6 +133,17 @@ public class qPanelController{
 				e1.printStackTrace();
 			}*/
 		}
+			private void fixColors() {
+				for(int i=0;i<QuizCreationController.qPanels.size();i++)
+				{
+					if(i%2 == 0)
+						QuizCreationController.qPanels.get(i).view.setBackground(Color.getHSBColor(0.55f, 0.69f, 1));
+					else
+						QuizCreationController.qPanels.get(i).view.setBackground(Color.getHSBColor(0.0711f, 0.9916f, 1));
+				}
+				
+			}
+			
 		
 	}
 	class aTypeItemListener implements ItemListener
