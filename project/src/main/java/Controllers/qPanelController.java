@@ -39,7 +39,8 @@ import javafx.fxml.Initializable;
 import project.HtmlBuilder;
 
 public class qPanelController{
-	private qPanel view;
+	public qPanel view;
+
 	private QuizEntity quizEntity;
 	private QuizCreationView parentView;
 	private JFileChooser qFileChooser;
@@ -247,7 +248,66 @@ public class qPanelController{
 	public qPanel getQuestionPanel() {
 		return view;
 	}
-	
+	public QuizEntity getQuizEntity() {
+		return quizEntity;
+	}
+	public void setQuizEntity(QuizEntity quizEntity) {
+		this.quizEntity = quizEntity;
+	}
+	public QuizCreationView getParentView() {
+		return parentView;
+	}
+	public void setParentView(QuizCreationView parentView) {
+		this.parentView = parentView;
+	}
+	public JFileChooser getqFileChooser() {
+		return qFileChooser;
+	}
+	public void setqFileChooser(JFileChooser qFileChooser) {
+		this.qFileChooser = qFileChooser;
+	}
+	public JFileChooser getaFileChooser() {
+		return aFileChooser;
+	}
+	public void setaFileChooser(JFileChooser aFileChooser) {
+		this.aFileChooser = aFileChooser;
+	}
+	public String getQuizPath() {
+		return quizPath;
+	}
+	public void setQuizPath(String quizPath) {
+		this.quizPath = quizPath;
+	}
+	public File getqImgFile() {
+		return qImgFile;
+	}
+	public void setqImgFile(File qImgFile) {
+		this.qImgFile = qImgFile;
+	}
+	public File getaImgFile() {
+		return aImgFile;
+	}
+	public void setaImgFile(File aImgFile) {
+		this.aImgFile = aImgFile;
+	}
+	public String getFileExtension() {
+		return fileExtension;
+	}
+	public void setFileExtension(String fileExtension) {
+		this.fileExtension = fileExtension;
+	}
+	public JLabel getqImageIcon() {
+		return qImageIcon;
+	}
+	public void setqImageIcon(JLabel qImageIcon) {
+		this.qImageIcon = qImageIcon;
+	}
+	public Graphics getGraphics() {
+		return graphics;
+	}
+	public void setGraphics(Graphics graphics) {
+		this.graphics = graphics;
+	}
 	}
 	
 

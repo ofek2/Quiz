@@ -1,7 +1,9 @@
 package project;
 
 import java.io.File;
+import java.io.IOException;
 import java.io.InputStream;
+import java.io.OutputStream;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -20,15 +22,16 @@ import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.w3c.dom.UserDataHandler;
+import org.w3c.tidy.Tidy;
 
 public class HtmlParser {
 	protected Document document;
 	protected NodeList nList;
+
 	public HtmlParser(InputStream xmlFile) {
 		try {
 			DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
 			DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
-			
 			document = dBuilder.parse(xmlFile);
 		} catch (Exception e) {
 			e.printStackTrace();

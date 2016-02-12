@@ -29,12 +29,13 @@ public class HtmlBuilder {
 	private HtmlParser parser;
 	private Element bodyElement;
 	private ArrayList<Element> questions;
-	private final String emptySpace="&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp";
+	private final String emptySpace="&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;";
 	public HtmlBuilder() throws ParserConfigurationException, FileNotFoundException{
 		questions=new ArrayList<Element>();
 		DocumentBuilderFactory builderFactory = DocumentBuilderFactory.newInstance();
 		DocumentBuilder builder = builderFactory.newDocumentBuilder();
 		document = builder.newDocument();
+		
 		InputStream in = new FileInputStream(new File("CanvasScript.html"));
 		parser = new HtmlParser(in);
 	}
@@ -43,8 +44,8 @@ public class HtmlBuilder {
 		Element htmlElement = document.createElement("html");
 		document.appendChild(htmlElement);
 		
-		Element headElement = document.createElement("head");
-		headElement.appendChild(document.createTextNode(parser.document.getFirstChild().getFirstChild().getTextContent()));
+		Node headElement = document.importNode(parser.document.getFirstChild(), true);
+		
 		htmlElement.appendChild(headElement);
 		
 		bodyElement = document.createElement("body");
@@ -61,19 +62,27 @@ public class HtmlBuilder {
 		questions.add(questionElement);
 		bodyElement.appendChild(questionElement);
 	}
-	public void addQuestionData(int qNumber,String questionText,String questionImgPath)
+	public void addQuestionData(int questionNumber,String questionText,String questionImgPath)
 	{
+		int qNumber = questionNumber-1;
 		Element qText= document.createElement("qText");
 		qText.appendChild(document.createTextNode(questionText+emptySpace));
-		qText.appendChild(document.createTextNode("<input type=\"button\" src=\"g.gif\" onClick=\" Android.listen() \"/>"));
+		Element input = document.createElement("input");
+		input.setAttribute("type", "button");
+		input.setAttribute("src", "g.gif");
+		input.setAttribute("onClick", "Android.listen()");
+		qText.appendChild(input);
 		questions.get(qNumber).getFirstChild().appendChild(qText);
 		
 		Element qImage= document.createElement("qImage");
-		qImage.appendChild(document.createTextNode("<img src=\""+questionImgPath+"\">"));
+		Element img = document.createElement("img");
+		img.setAttribute("src", questionImgPath);
+		qImage.appendChild(img);
 		questions.get(qNumber).getFirstChild().appendChild(qImage);
 	}
-	public void addAnswersData(int qNumber,ArrayList<String> choices)
+	public void addAnswersData(int questionNumber,ArrayList<String> choices)
 	{
+		int qNumber = questionNumber-1;
 		Element qAnswers = document.createElement("qAnswers");
 		questions.get(qNumber).getFirstChild().appendChild(qAnswers);
 		
@@ -100,8 +109,9 @@ public class HtmlBuilder {
 		}
 		
 	}
-	public void addAnswersData(int qNumber,String type)
+	public void addAnswersData(int questionNumber,String type)
 	{
+		int qNumber = questionNumber-1;
 		Element qAnswers = document.createElement("qAnswers");
 		questions.get(qNumber).getFirstChild().appendChild(qAnswers);
 		
@@ -133,7 +143,7 @@ public class HtmlBuilder {
 		transformer.setOutputProperty(OutputKeys.ENCODING, "UTF-8");
 		transformer.setOutputProperty(OutputKeys.INDENT, "yes");
 		DOMSource source = new DOMSource(document);
-		StreamResult result = new StreamResult(new File(path));
+		StreamResult result = new StreamResult(new File(path+".html"));
 
 		// Output to console for testing
 		// StreamResult result = new StreamResult(System.out);

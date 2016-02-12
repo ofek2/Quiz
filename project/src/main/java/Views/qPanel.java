@@ -37,6 +37,7 @@ public class qPanel extends JPanel {
 	private JLabel questionLbl;
 	private JLabel lblScore;
 	private JButton btnRemove;
+	private JTextField scoreTextField;
 	//question side
 	private JPanel qDataPanel;
 	private JButton qbrowseBtn;
@@ -57,7 +58,7 @@ public class qPanel extends JPanel {
 	
 	private final static int width=MainFrameController.view.getWidth()-20;
 	private final static int height=(int) (MainFrameController.view.getHeight()/2.5f);
-	private JTextField textField;
+
 	private JSeparator separator;
 	private JSeparator separator_1;
 	private JSeparator separator_2;
@@ -96,15 +97,15 @@ public class qPanel extends JPanel {
 		gbc_lblScore.gridy = 0;
 		add(lblScore, gbc_lblScore);
 		
-		textField = new JTextField();
+		scoreTextField = new JTextField();
 		GridBagConstraints gbc_textField = new GridBagConstraints();
 		gbc_textField.anchor = GridBagConstraints.WEST;
 		gbc_textField.insets = new Insets(0, 0, 5, 5);
 		gbc_textField.fill = GridBagConstraints.VERTICAL;
 		gbc_textField.gridx = 2;
 		gbc_textField.gridy = 0;
-		add(textField, gbc_textField);
-		textField.setColumns(10);
+		add(scoreTextField, gbc_textField);
+		scoreTextField.setColumns(10);
 		
 		btnRemove = new JButton("X");
 		btnRemove.setMargin(new Insets(0, 0, 0, 0));
@@ -339,6 +340,90 @@ public class qPanel extends JPanel {
 		answerPanel.setOpaque(false);
 		chckbxHideQuestion.setOpaque(false);
 		listenChkBox.setOpaque(false);
+	}
+	public JLabel getLblScore() {
+		return lblScore;
+	}
+	public void setLblScore(JLabel lblScore) {
+		this.lblScore = lblScore;
+	}
+	public JButton getBtnRemove() {
+		return btnRemove;
+	}
+	public void setBtnRemove(JButton btnRemove) {
+		this.btnRemove = btnRemove;
+	}
+	public JPanel getqDataPanel() {
+		return qDataPanel;
+	}
+	public void setqDataPanel(JPanel qDataPanel) {
+		this.qDataPanel = qDataPanel;
+	}
+	public JButton getQbrowseBtn() {
+		return qbrowseBtn;
+	}
+	public void setQbrowseBtn(JButton qbrowseBtn) {
+		this.qbrowseBtn = qbrowseBtn;
+	}
+	public JFileChooser getqFileChooser() {
+		return qFileChooser;
+	}
+	public void setqFileChooser(JFileChooser qFileChooser) {
+		this.qFileChooser = qFileChooser;
+	}
+	public JTextArea getTextAreaQ() {
+		return textAreaQ;
+	}
+	public void setTextAreaQ(JTextArea textAreaQ) {
+		this.textAreaQ = textAreaQ;
+	}
+	public JTextArea getTextAreaA() {
+		return textAreaA;
+	}
+	public void setTextAreaA(JTextArea textAreaA) {
+		this.textAreaA = textAreaA;
+	}
+	public JComboBox<String> getAnswerTypeCb() {
+		return answerTypeCb;
+	}
+	public void setAnswerTypeCb(JComboBox<String> answerTypeCb) {
+		this.answerTypeCb = answerTypeCb;
+	}
+	public JFileChooser getaFileChooser() {
+		return aFileChooser;
+	}
+	public void setaFileChooser(JFileChooser aFileChooser) {
+		this.aFileChooser = aFileChooser;
+	}
+	public JLabel getChoicesLbl() {
+		return choicesLbl;
+	}
+	public void setChoicesLbl(JLabel choicesLbl) {
+		this.choicesLbl = choicesLbl;
+	}
+	public JButton getAnsBrowseBtn() {
+		return ansBrowseBtn;
+	}
+	public void setAnsBrowseBtn(JButton ansBrowseBtn) {
+		this.ansBrowseBtn = ansBrowseBtn;
+	}
+	public FileNameExtensionFilter getExtensionFilter() {
+		return extensionFilter;
+	}
+	public void setExtensionFilter(FileNameExtensionFilter extensionFilter) {
+		this.extensionFilter = extensionFilter;
+	}
+	public MultipleChoicePanelController getMultipleChoicePanelController() {
+		return multipleChoicePanelController;
+	}
+	public void setMultipleChoicePanelController(MultipleChoicePanelController multipleChoicePanelController) {
+		this.multipleChoicePanelController = multipleChoicePanelController;
+	}
+	public JTextField getScoreTextField() {
+		return scoreTextField;
+	}
+	public void setScoreTextField(JTextField textField) {
+		this.scoreTextField = textField;
 	}
 	public JPanel getAnswerPanel() {
 		return answerPanel;

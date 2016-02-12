@@ -111,7 +111,7 @@ public class QuizCreationView extends ViewPanel {
 		percentage.setFont(new Font("Arial", Font.BOLD, 17));
 		percentage.setHorizontalAlignment(JLabel.CENTER);
 		headPanel.add(percentage);
-		JSpinner percentageFromFgrade = new JSpinner(new SpinnerNumberModel(0,0,1,.01));   
+		JSpinner percentageFromFgrade = new JSpinner(new SpinnerNumberModel(0.25,0,1,.01));   
 		JSpinner.NumberEditor editor = new JSpinner.NumberEditor(percentageFromFgrade,"0%");  
 		percentageFromFgrade.setEditor(editor);
 		

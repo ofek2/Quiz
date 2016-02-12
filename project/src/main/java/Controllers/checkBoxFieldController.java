@@ -10,7 +10,7 @@ import Views.MultipleChoicePanel;
 import Views.checkBoxFieldPanel;
 
 public class checkBoxFieldController {
-	private checkBoxFieldPanel view;
+	public checkBoxFieldPanel view;
 	private MultipleChoicePanelController parentController;
 	
 	public checkBoxFieldController(checkBoxFieldPanel view, MultipleChoicePanelController parentController) {
