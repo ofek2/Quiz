@@ -13,8 +13,13 @@ import Controllers.MainFrameController;
 import Controllers.MultipleChoicePanelController;
 import Controllers.qPanelController;
 import Entities.Constants;
+import javafx.scene.shape.Box;
 
 import javax.swing.JLabel;
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
+
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
@@ -42,6 +47,7 @@ import java.awt.Color;
 import java.awt.GridLayout;
 import javax.swing.SpringLayout;
 import java.awt.Component;
+import java.awt.Cursor;
 
 
 
@@ -50,17 +56,38 @@ public class QuizCreationView extends ViewPanel {
 	public JPanel panel;
 	private JPanel headPanel;
 	private JLabel quizName;
+	private JMenuBar menuBar;
+	private JMenu fileMenu;
+	
 	public QuizCreationView() {
 		super();
+		setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
+		menuBar = new JMenuBar();
+		menuBar.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
+		menuBar.setBackground(Color.WHITE);
+		menuBar.setPreferredSize(new Dimension(100000, 30));
+		menuBar.setMaximumSize(new Dimension(100000, 30));
+		add(menuBar);
+		
+		fileMenu = new JMenu("File");
+		fileMenu.setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
+		menuBar.add(fileMenu);
+		
+		JMenuItem saveItem = new JMenuItem("Save");
+		fileMenu.add(saveItem);
+		
+		JMenuItem exitItem = new JMenuItem("Exit");
+		fileMenu.add(exitItem);
+		
 		panel = new JPanel();
 		panel.setLayout(new BoxLayout(panel, BoxLayout.PAGE_AXIS));
-		panel.setBounds(0,0,MainFrameController.view.getWidth(), MainFrameController.view.getHeight());
+		panel.setBounds(0,30,MainFrameController.view.getWidth(), MainFrameController.view.getHeight());
 		JScrollPane jsp=new JScrollPane(panel,ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS,ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 		jsp.setPreferredSize(new Dimension(MainFrameController.view.getWidth(),MainFrameController.view.getHeight()-40));
 		jsp.getVerticalScrollBar().setUnitIncrement(16);
 		
 		add(jsp);
-		
+	
 		headPanel= new JPanel();
 		headPanel.setMaximumSize(new Dimension(700,50));
 		TitledBorder title = BorderFactory.createTitledBorder("Quiz Info");
