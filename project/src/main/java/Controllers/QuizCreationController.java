@@ -76,7 +76,16 @@ public class QuizCreationController {
 
 		public void actionPerformed(ActionEvent e) {
 			// TODO Auto-generated method stub
-			
+			try {
+				htmlBuilder = new HtmlBuilder();
+			} catch (FileNotFoundException e2) {
+				// TODO Auto-generated catch block
+				e2.printStackTrace();
+			} catch (ParserConfigurationException e2) {
+				// TODO Auto-generated catch block
+				e2.printStackTrace();
+			}
+			htmlBuilder.initiateHtml();
 			// -------add the title information to the html file here---------///
 			
 			//--------------------------------------------------------------------
@@ -97,16 +106,21 @@ public class QuizCreationController {
 				System.out.println("2");
 				if(answerType.equals("Multiple Choice"))
 				{
+
+					System.out.println("3");
 					choices = new ArrayList<String>();
-					for (int j=0;j<tempQpanel.getMultipleChoicePanelController().cBfControllers.size();i++)
+					System.out.println(tempQpanel.getMultipleChoicePanelController().cBfControllers.size());
+					for (int j=0;j<tempQpanel.getMultipleChoicePanelController().cBfControllers.size();j++)
+					{
+						
 						choices.add(tempQpanel.getMultipleChoicePanelController().cBfControllers.get(j).view.getTextField().getText());
+					}
 					htmlBuilder.addAnswersData(i+1, choices);
 				}
 				else
 				{
 					htmlBuilder.addAnswersData(i+1, answerType);
 				}
-				System.out.println("3");
 				//------- add the Lecturer correct answer here---------
 				
 				//--------!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!---------

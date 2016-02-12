@@ -29,7 +29,7 @@ public class HtmlBuilder {
 	private HtmlParser parser;
 	private Element bodyElement;
 	private ArrayList<Element> questions;
-	private final String emptySpace="&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;";
+	
 	public HtmlBuilder() throws ParserConfigurationException, FileNotFoundException{
 		questions=new ArrayList<Element>();
 		DocumentBuilderFactory builderFactory = DocumentBuilderFactory.newInstance();
@@ -57,7 +57,29 @@ public class HtmlBuilder {
 		Element questionElement = document.createElement("Q"+qNumber);
 		questionElement.setAttribute("type", type);
 		Element div = document.createElement("div");
+		div.setAttribute("class", "containter-fluid");
 		questionElement.appendChild(div);
+		Element h1 = document.createElement("h1");
+		Element rowSpan = document.createElement("span");
+		rowSpan.setAttribute("class", "row");
+		Element titleSpan = document.createElement("span");
+		titleSpan.appendChild(document.createTextNode("Question "+qNumber));
+		titleSpan.setAttribute("class", "col-xs-4");
+		rowSpan.appendChild(titleSpan);
+		Element scoreSpan = document.createElement("span");
+		scoreSpan.setAttribute("class", "col-xs-8");
+		Element input = document.createElement("input");
+		input.setAttribute("id", "score");
+		input.setAttribute("type", "hidden");
+		scoreSpan.appendChild(input);
+		scoreSpan.appendChild(document.createTextNode("/"));
+		Element qScore = document.createElement("qScore");
+		qScore.appendChild(document.createTextNode(String.valueOf(score)));
+		scoreSpan.appendChild(qScore);
+		rowSpan.appendChild(scoreSpan);
+		h1.appendChild(rowSpan);
+	
+		div.appendChild(h1);
 		// add h1 element
 		questions.add(questionElement);
 		bodyElement.appendChild(questionElement);
@@ -65,14 +87,28 @@ public class HtmlBuilder {
 	public void addQuestionData(int questionNumber,String questionText,String questionImgPath)
 	{
 		int qNumber = questionNumber-1;
+		
+		Element rowSpan = document.createElement("span");
+		rowSpan.setAttribute("class", "row");
+		Element questionTextSpan = document.createElement("span");
 		Element qText= document.createElement("qText");
-		qText.appendChild(document.createTextNode(questionText+emptySpace));
+		qText.appendChild(document.createTextNode(questionText));
+		questionTextSpan.appendChild(qText);
+		questionTextSpan.setAttribute("class", "col-xs-4");
+		rowSpan.appendChild(questionTextSpan);
+		
+		Element speakerBtnSpan = document.createElement("span");
+		speakerBtnSpan.setAttribute("class", "col-xs-8");
 		Element input = document.createElement("input");
 		input.setAttribute("type", "button");
 		input.setAttribute("src", "g.gif");
 		input.setAttribute("onClick", "Android.listen()");
 		qText.appendChild(input);
-		questions.get(qNumber).getFirstChild().appendChild(qText);
+		speakerBtnSpan.appendChild(input);
+		rowSpan.appendChild(speakerBtnSpan);
+		
+		
+		questions.get(qNumber).getFirstChild().appendChild(rowSpan);
 		
 		Element qImage= document.createElement("qImage");
 		Element img = document.createElement("img");
@@ -83,12 +119,13 @@ public class HtmlBuilder {
 	public void addAnswersData(int questionNumber,ArrayList<String> choices)
 	{
 		int qNumber = questionNumber-1;
+		System.out.println("9");
 		Element qAnswers = document.createElement("qAnswers");
 		questions.get(qNumber).getFirstChild().appendChild(qAnswers);
-		
+		System.out.println("10");
 		Element form = document.createElement("form");
-		questions.get(qNumber).getFirstChild().appendChild(form);
-		
+		qAnswers.appendChild(form);
+		System.out.println("11");
 		for(int i=0;i<choices.size();i++)
 		{
 			Element choice = document.createElement("input");
@@ -105,9 +142,10 @@ public class HtmlBuilder {
 			choice.setAttribute("onClick", "Android.mAns(this.form)");
 			choice.appendChild(document.createTextNode(choices.get(i)));
 			form.appendChild(choice);
-			form.appendChild(document.createTextNode("<br>"));
+			form.appendChild(document.createElement("br"));
+			System.out.println("12");
 		}
-		
+		System.out.println("13");
 	}
 	public void addAnswersData(int questionNumber,String type)
 	{
@@ -116,23 +154,23 @@ public class HtmlBuilder {
 		questions.get(qNumber).getFirstChild().appendChild(qAnswers);
 		
 		Element form = document.createElement("form");
-		questions.get(qNumber).getFirstChild().appendChild(form);
-		if(type.equals("Free text"))
+		qAnswers.appendChild(form);
+		if(type.equals("Free Text"))
 		{
 			Element textarea = document.createElement("textarea");
 			textarea.setAttribute("rows", "4");
 			textarea.setAttribute("cols", "50");
 			form.appendChild(textarea);
-			form.appendChild(document.createTextNode("<br>"));
+			form.appendChild(document.createElement("br"));
 		}
-		if(type.equals("Free drawing"))
+		if(type.equals("Free Draw"))
 		{
 			Element canvas = document.createElement("canvas");
 			canvas.setAttribute("id", "sketchpad");
 			canvas.setAttribute("height", "300");
 			canvas.setAttribute("width", "500");
 			form.appendChild(canvas);
-			form.appendChild(document.createTextNode("<br>"));
+			form.appendChild(document.createElement("br"));
 		}
 	}
 	public void writeHtml(String path) throws TransformerException{
