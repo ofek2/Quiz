@@ -137,4 +137,10 @@ public class QuizCreationView extends ViewPanel {
 	public void addBtnAddListener(ActionListener listener){
 		addBtn.addActionListener(listener);
 	}
+	public void addFileMenuListeners(ActionListener[] listener)
+	{
+		for (int i = 0; i < listener.length; i++) {
+			fileMenu.getItem(i).addActionListener(listener[i]);
+		}
+	}
 }
