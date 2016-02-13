@@ -57,7 +57,7 @@ public class HtmlBuilder {
 		Element questionElement = document.createElement("Q"+qNumber);
 		questionElement.setAttribute("type", type);
 		Element div = document.createElement("div");
-		div.setAttribute("class", "containter-fluid");
+		div.setAttribute("class", "container-fluid");
 		questionElement.appendChild(div);
 		Element h1 = document.createElement("h1");
 		Element rowSpan = document.createElement("span");
