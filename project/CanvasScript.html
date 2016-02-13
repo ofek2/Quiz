@@ -1,4 +1,10 @@
- <script type="text/javascript">
+ <head>
+        <meta charset="utf-8"></meta>
+          <meta name="viewport" content="width=device-width, initial-scale=1"></meta>
+          <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"></link>
+          <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+          <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+           <script type="text/javascript">
     // Variables for referencing the canvas and 2dcanvas context
     var canvas,ctx;
 
@@ -169,3 +175,32 @@
         }
     }
 </script>
+   <style>
+ 		   textarea{
+                width:100%;
+            }
+           div {
+                background-color: rgb(181,226,255);
+                 border-style: solid;
+                border-width: 1px;
+            }
+            h1 {
+                font-size:20;
+            }
+            p {
+                font-size:15;
+            }
+            #score{
+                width:26;
+            }
+            #sketchpad {
+                  background-color:white;
+                float:left;
+                height:300px;
+                width:400px;
+                border:2px solid #888;
+                border-radius:4px;
+                position:relative; /* Necessary for correct mouse co-ords in Firefox */
+            }
+        </style>
+    </head>
