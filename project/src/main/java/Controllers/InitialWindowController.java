@@ -2,6 +2,8 @@ package Controllers;
 
 import java.awt.Dimension;
 import java.awt.Frame;
+import java.awt.GraphicsEnvironment;
+import java.awt.Rectangle;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -111,10 +113,20 @@ public class InitialWindowController {
 				if(!quizFolder.exists())
 				{
 					quizFolder.mkdir();
-					MainFrameController.view.setBounds(Constants.realtiveFrameXPos/2,Constants.realtiveFrameYPos/2,(int)(MainFrameController.view.getWidth()*1.5f),(int)(MainFrameController.view.getHeight()*1.5f));
+					
+//					MainFrameController.view.setBounds(Constants.realtiveFrameXPos/2,Constants.realtiveFrameYPos/2,(int)(MainFrameController.view.getWidth()*1.5f),(int)(MainFrameController.view.getHeight()*1.5f));
+//					MainFrameController.view.setExtendedState(JFrame.MAXIMIZED_BOTH);
+					GraphicsEnvironment env = GraphicsEnvironment.getLocalGraphicsEnvironment();
+					Rectangle bounds = env.getMaximumWindowBounds();
+//					MainFrameController.view.setBounds(new Rectangle(0, 0, bounds.width, bounds.height));
+					
 					QuizCreationView quizCreationView = new QuizCreationView();
+//					quizCreationView.setBounds(0, 0, bounds.width, bounds.height-40);
+					quizCreationView.setSize(bounds.width, bounds.height-30);
+//					quizCreationView.setBounds(0, 0, 100, 100);
 					QuizEntity quizEntity = new QuizEntity("QuizTest",25,quizFolder);
 					new QuizCreationController(quizCreationView,quizEntity);
+					quizCreationView.getQuizName().setText(quizName);
 					dialog.setVisible(false);
 					MainFrameController.view.changeContentPane(quizCreationView);
 //					view.setTree(new JTree(InitialWindowView.filesTree(new File(new File(".").getCanonicalPath()+"/OnlineQuizChecker"))));

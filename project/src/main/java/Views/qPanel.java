@@ -42,7 +42,6 @@ public class qPanel extends JPanel {
 	private JPanel qDataPanel;
 	private JButton qbrowseBtn;
 	private JFileChooser qFileChooser;
-	private JTextArea textAreaQ;
 	private JTextArea textAreaA;
 	private JCheckBox listenChkBox;
 	private JCheckBox chckbxHideQuestion;
@@ -62,6 +61,8 @@ public class qPanel extends JPanel {
 	private JSeparator separator;
 	private JSeparator separator_1;
 	private JSeparator separator_2;
+	private JTextArea textAreaQ;
+	private JLabel qImage;
 	/**
 	 * Create the panel.
 	 */
@@ -71,6 +72,8 @@ public class qPanel extends JPanel {
 		setPreferredSize(new Dimension(width, height));
 		setMaximumSize(new Dimension(width,height));
 		setMinimumSize(new Dimension(width, height));
+		
+		
 		setAlignmentY(0.0f);
 		GridBagLayout gridBagLayout = new GridBagLayout();
 		gridBagLayout.columnWidths = new int[]{119, 0, 54, 63, 0, 0, 0, 0, 0, 0, 0, 0, 8, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 34, 0};
@@ -184,14 +187,15 @@ public class qPanel extends JPanel {
 		add(qDataPanel, gbc_qDataPanel);
 		GridBagLayout gbl_qDataPanel = new GridBagLayout();
 		gbl_qDataPanel.columnWidths = new int[]{0, 40, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
-		gbl_qDataPanel.rowHeights = new int[]{0, 0, 0, 0, 0, 0, 0, 0};
+		gbl_qDataPanel.rowHeights = new int[]{0, 23, 0, 0, 0, 0, 0, 0, 0, 0};
 		gbl_qDataPanel.columnWeights = new double[]{0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
-		gbl_qDataPanel.rowWeights = new double[]{0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
+		gbl_qDataPanel.rowWeights = new double[]{1.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
 		qDataPanel.setLayout(gbl_qDataPanel);
 		
 		JLabel lblEnterQuestion = new JLabel("Enter question:");
 		GridBagConstraints gbc_lblEnterQuestion = new GridBagConstraints();
-		gbc_lblEnterQuestion.fill = GridBagConstraints.BOTH;
+		gbc_lblEnterQuestion.anchor = GridBagConstraints.NORTH;
+		gbc_lblEnterQuestion.fill = GridBagConstraints.HORIZONTAL;
 		gbc_lblEnterQuestion.insets = new Insets(0, 5, 5, 5);
 		gbc_lblEnterQuestion.gridx = 0;
 		gbc_lblEnterQuestion.gridy = 0;
@@ -199,8 +203,8 @@ public class qPanel extends JPanel {
 		
 		JScrollPane scrollPane = new JScrollPane();
 		GridBagConstraints gbc_scrollPane = new GridBagConstraints();
-		gbc_scrollPane.gridheight = 3;
-		gbc_scrollPane.gridwidth = 10;
+		gbc_scrollPane.gridheight = 2;
+		gbc_scrollPane.gridwidth = 7;
 		gbc_scrollPane.insets = new Insets(0, 0, 5, 5);
 		gbc_scrollPane.fill = GridBagConstraints.BOTH;
 		gbc_scrollPane.gridx = 1;
@@ -208,6 +212,7 @@ public class qPanel extends JPanel {
 		qDataPanel.add(scrollPane, gbc_scrollPane);
 		
 		textAreaQ = new JTextArea();
+		textAreaQ.setFont(new Font("Courier New", Font.PLAIN, 12));
 		scrollPane.setViewportView(textAreaQ);
 		
 		listenChkBox = new JCheckBox("Enable listening");
@@ -227,22 +232,6 @@ public class qPanel extends JPanel {
 		gbc_chckbxHideQuestion.gridx = 11;
 		gbc_chckbxHideQuestion.gridy = 1;
 		qDataPanel.add(chckbxHideQuestion, gbc_chckbxHideQuestion);
-		
-		JLabel qBrowseAnImage = new JLabel("Browse an image:");
-		GridBagConstraints gbc_qBrowseAnImage = new GridBagConstraints();
-		gbc_qBrowseAnImage.anchor = GridBagConstraints.WEST;
-		gbc_qBrowseAnImage.insets = new Insets(0, 5, 5, 5);
-		gbc_qBrowseAnImage.gridx = 0;
-		gbc_qBrowseAnImage.gridy = 3;
-		qDataPanel.add(qBrowseAnImage, gbc_qBrowseAnImage);
-		
-		qbrowseBtn = new JButton("Browse..");
-		GridBagConstraints gbc_qBrowseBtn = new GridBagConstraints();
-		gbc_qBrowseBtn.fill = GridBagConstraints.HORIZONTAL;
-		gbc_qBrowseBtn.insets = new Insets(0, 0, 5, 5);
-		gbc_qBrowseBtn.gridx = 1;
-		gbc_qBrowseBtn.gridy = 3;
-		qDataPanel.add(qbrowseBtn, gbc_qBrowseBtn);
 		
 		separator = new JSeparator();
 		separator.setSize(new Dimension(2, 0));
@@ -340,6 +329,30 @@ public class qPanel extends JPanel {
 		answerPanel.setOpaque(false);
 		chckbxHideQuestion.setOpaque(false);
 		listenChkBox.setOpaque(false);
+		
+		JLabel qBrowseAnImage = new JLabel("Browse an image:");
+		GridBagConstraints gbc_qBrowseAnImage = new GridBagConstraints();
+		gbc_qBrowseAnImage.anchor = GridBagConstraints.NORTHWEST;
+		gbc_qBrowseAnImage.insets = new Insets(0, 5, 5, 5);
+		gbc_qBrowseAnImage.gridx = 0;
+		gbc_qBrowseAnImage.gridy = 2;
+		qDataPanel.add(qBrowseAnImage, gbc_qBrowseAnImage);
+		
+		qbrowseBtn = new JButton("Browse..");
+		GridBagConstraints gbc_qBrowseBtn = new GridBagConstraints();
+		gbc_qBrowseBtn.anchor = GridBagConstraints.NORTH;
+		gbc_qBrowseBtn.fill = GridBagConstraints.HORIZONTAL;
+		gbc_qBrowseBtn.insets = new Insets(0, 0, 5, 5);
+		gbc_qBrowseBtn.gridx = 1;
+		gbc_qBrowseBtn.gridy = 2;
+		qDataPanel.add(qbrowseBtn, gbc_qBrowseBtn);
+		
+		qImage = new JLabel();
+		GridBagConstraints gbc_qImage = new GridBagConstraints();
+		gbc_qImage.insets = new Insets(0, 0, 5, 5);
+		gbc_qImage.gridx = 2;
+		gbc_qImage.gridy = 2;
+		qDataPanel.add(qImage, gbc_qImage);
 	}
 	public JLabel getLblScore() {
 		return lblScore;
@@ -467,6 +480,9 @@ public class qPanel extends JPanel {
 	
 	public JLabel getQuestionLbl() {
 		return questionLbl;
+	}
+	public JLabel getQuestionIcon() {
+		return qImage;
 	}
 	public JButton getQuestionImageBrosweButton() {
 		return qbrowseBtn;

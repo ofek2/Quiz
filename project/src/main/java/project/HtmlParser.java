@@ -22,7 +22,7 @@ import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.w3c.dom.UserDataHandler;
-import org.w3c.tidy.Tidy;
+//import org.w3c.tidy.Tidy;
 
 public class HtmlParser {
 	protected Document document;

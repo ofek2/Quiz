@@ -4,6 +4,7 @@ import java.awt.Font;
 
 import javax.swing.JPanel;
 import javax.swing.JButton;
+
 import com.jgoodies.forms.layout.FormLayout;
 import com.jgoodies.forms.layout.ColumnSpec;
 import com.jgoodies.forms.layout.FormSpecs;
@@ -25,17 +26,24 @@ import java.awt.event.ActionEvent;
 
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
+
 import java.awt.Dimension;
+
+import javax.swing.JFrame;
 import javax.swing.JScrollPane;
 import javax.swing.JSpinner;
 import javax.swing.ScrollPaneConstants;
 import javax.swing.SpinnerListModel;
 import javax.swing.SpinnerNumberModel;
 import javax.swing.JInternalFrame;
+
+import java.awt.GraphicsEnvironment;
+import java.awt.Rectangle;
 import java.awt.ScrollPane;
 import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
+
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.border.EtchedBorder;
@@ -45,7 +53,9 @@ import java.awt.BorderLayout;
 import java.awt.CardLayout;
 import java.awt.Color;
 import java.awt.GridLayout;
+
 import javax.swing.SpringLayout;
+
 import java.awt.Component;
 import java.awt.Cursor;
 
@@ -81,9 +91,19 @@ public class QuizCreationView extends ViewPanel {
 		
 		panel = new JPanel();
 		panel.setLayout(new BoxLayout(panel, BoxLayout.PAGE_AXIS));
-		panel.setBounds(0,30,MainFrameController.view.getWidth(), MainFrameController.view.getHeight());
+//		panel.setBounds(0,30,MainFrameController.view.getWidth(), MainFrameController.view.getHeight());
+//		panel.setBounds(0,0,100,100);
+		
+		GraphicsEnvironment env = GraphicsEnvironment.getLocalGraphicsEnvironment();
+		Rectangle bounds = env.getMaximumWindowBounds();
+//		panel.setBounds(new Rectangle(0, 0, bounds.width, bounds.height-400));
+		
+//		MainFrameController.view.setExtendedState(JFrame.MAXIMIZED_BOTH);
+		
 		JScrollPane jsp=new JScrollPane(panel,ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS,ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
-		jsp.setPreferredSize(new Dimension(MainFrameController.view.getWidth(),MainFrameController.view.getHeight()-40));
+//		jsp.setPreferredSize(new Dimension(MainFrameController.view.getWidth(),MainFrameController.view.getHeight()-40));
+//		jsp.setBounds(new Rectangle(0, 0, bounds.width, bounds.height-400));
+
 		jsp.getVerticalScrollBar().setUnitIncrement(16);
 		
 		add(jsp);
@@ -143,4 +163,8 @@ public class QuizCreationView extends ViewPanel {
 			fileMenu.getItem(i).addActionListener(listener[i]);
 		}
 	}
+	public JLabel getQuizName() {
+		return quizName;
+	}
+	
 }
