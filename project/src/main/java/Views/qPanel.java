@@ -30,6 +30,7 @@ import javax.swing.DefaultComboBoxModel;
 import javax.swing.JSeparator;
 import javax.swing.SwingConstants;
 import java.awt.Color;
+import java.awt.event.ActionEvent;
 
 public class qPanel extends JPanel {
 	//title
@@ -57,15 +58,17 @@ public class qPanel extends JPanel {
 	
 	private final static int width=MainFrameController.view.getContentPane().getWidth()-20;
 	private final static int height=(int) (MainFrameController.view.getContentPane().getHeight()/3);
-	//private final static int width=1900;
-	//private final static int height=540;
+//	private final static int width=1900;
+//	private final static int height=540;
 	
 	private JSeparator separator;
 	private JSeparator separator_1;
 	private JSeparator separator_2;
 	private JTextArea textAreaQ;
 	private JButton qImage;
-	private JButton btnRemoveImage;
+	private JButton btnRemoveQuestionImage;
+	private JButton btnRemoveAnswerImage;
+	private JButton btnViewAnswerImage;
 	/**
 	 * Create the panel.
 	 */
@@ -310,6 +313,24 @@ public class qPanel extends JPanel {
 		
 		qDataPanel.setOpaque(false);
 		freeDrawPanel.setOpaque(false);
+		
+		btnRemoveAnswerImage = new JButton("Remove Image");
+		GridBagConstraints gbc_btnRemoveAnswerImage = new GridBagConstraints();
+		gbc_btnRemoveAnswerImage.anchor = GridBagConstraints.WEST;
+		gbc_btnRemoveAnswerImage.insets = new Insets(0, 0, 5, 5);
+		gbc_btnRemoveAnswerImage.gridx = 3;
+		gbc_btnRemoveAnswerImage.gridy = 1;
+		btnRemoveAnswerImage.setVisible(false);
+		freeDrawPanel.add(btnRemoveAnswerImage, gbc_btnRemoveAnswerImage);
+		
+		btnViewAnswerImage = new JButton("View Image");
+		GridBagConstraints gbc_btnViewAnswerImage = new GridBagConstraints();
+		gbc_btnViewAnswerImage.anchor = GridBagConstraints.NORTH;
+		gbc_btnViewAnswerImage.insets = new Insets(0, 0, 5, 5);
+		gbc_btnViewAnswerImage.gridx = 2;
+		gbc_btnViewAnswerImage.gridy = 2;
+		btnViewAnswerImage.setVisible(false);
+		freeDrawPanel.add(btnViewAnswerImage, gbc_btnViewAnswerImage);
 		freeTextPanel.setOpaque(false);
 		answerPanel.setOpaque(false);
 		
@@ -349,14 +370,14 @@ public class qPanel extends JPanel {
 		gbc_qImage.gridy = 4;
 		qImage.setVisible(false);
 		
-		btnRemoveImage = new JButton("Remove Image");
-		GridBagConstraints gbc_btnRemoveImage = new GridBagConstraints();
-		gbc_btnRemoveImage.anchor = GridBagConstraints.WEST;
-		gbc_btnRemoveImage.insets = new Insets(0, 0, 5, 5);
-		gbc_btnRemoveImage.gridx = 2;
-		gbc_btnRemoveImage.gridy = 2;
-		btnRemoveImage.setVisible(false);
-		qDataPanel.add(btnRemoveImage, gbc_btnRemoveImage);
+		btnRemoveQuestionImage = new JButton("Remove Image");
+		GridBagConstraints gbc_btnRemoveQuestionImage = new GridBagConstraints();
+		gbc_btnRemoveQuestionImage.anchor = GridBagConstraints.WEST;
+		gbc_btnRemoveQuestionImage.insets = new Insets(0, 0, 5, 5);
+		gbc_btnRemoveQuestionImage.gridx = 2;
+		gbc_btnRemoveQuestionImage.gridy = 2;
+		btnRemoveQuestionImage.setVisible(false);
+		qDataPanel.add(btnRemoveQuestionImage, gbc_btnRemoveQuestionImage);
 		
 		chckbxHideQuestion = new JCheckBox("Hide question");
 		chckbxHideQuestion.setVisible(false);
@@ -395,8 +416,11 @@ public class qPanel extends JPanel {
 	public void setQbrowseBtn(JButton qbrowseBtn) {
 		this.qbrowseBtn = qbrowseBtn;
 	}
-	public JButton getRemoveImageBtn() {
-		return btnRemoveImage;
+	public JButton getRemoveQuestionImageBtn() {
+		return btnRemoveQuestionImage;
+	}
+	public JButton getRemoveAnswerImageBtn() {
+		return btnRemoveAnswerImage;
 	}
 	public JFileChooser getqFileChooser() {
 		return qFileChooser;
@@ -495,9 +519,17 @@ public class qPanel extends JPanel {
 	{
 		qImage.addActionListener(listener);
 	}
-	public void removeImageBtnAddListener(ActionListener listener)
+	public void viewAnswerImageBtnAddListener(ActionListener listener)
 	{
-		btnRemoveImage.addActionListener(listener);
+		btnViewAnswerImage.addActionListener(listener);
+	}
+	public void removeQuestionImageBtnAddListener(ActionListener listener)
+	{
+		btnRemoveQuestionImage.addActionListener(listener);
+	}
+	public void removeAnswerImageBtnAddListener(ActionListener listener)
+	{
+		btnRemoveAnswerImage.addActionListener(listener);
 	}
 	public JCheckBox getListenChkBox() {
 		return listenChkBox;
@@ -512,7 +544,9 @@ public class qPanel extends JPanel {
 	public JButton getqImage() {
 		return qImage;
 	}
-
+	public JButton getbtnViewAnswerImage() {
+		return btnViewAnswerImage;
+	}
 	public void setqImage(JButton qImage) {
 		this.qImage = qImage;
 	}

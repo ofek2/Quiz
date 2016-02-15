@@ -66,7 +66,9 @@ public class qPanelController{
 		this.view.ansBrowseBtnAddListener(new ansBrowseBtnListener());
 		this.view.aTypeCBaddItemListener(new aTypeItemListener());
 		this.view.qImageBtnAddListener(new qImageBtnListener());
-		this.view.removeImageBtnAddListener(new removeImageBtnListener());
+		this.view.viewAnswerImageBtnAddListener(new viewAnswerImageBtnAddListener());
+		this.view.removeQuestionImageBtnAddListener(new removeQuestionImageBtnListener());
+		this.view.removeAnswerImageBtnAddListener(new removeAnswerImageBtnListener());
 		qFileChooser=view.getQuestionFileChooser();
 		aFileChooser=view.getAnswerFileChooser();
 		try {
@@ -161,6 +163,8 @@ public class qPanelController{
 			 CardLayout cl = (CardLayout)(view.getAnswerPanel().getLayout());
 			    cl.show(view.getAnswerPanel(), (String)e.getItem());
 			
+			    if((!((String)e.getItem()).equals("Free Draw"))&&aImgFile!=null)
+			    	removeAnswerImage();
 		}
 		
 	}
@@ -201,7 +205,7 @@ public class qPanelController{
 					ImageIO.write(image,fileExtension , fileSave);
 					qImgFile = fileSave;
 					view.getqImage().setVisible(true);
-					view.getRemoveImageBtn().setVisible(true);
+					view.getRemoveQuestionImageBtn().setVisible(true);
 					view.getQuestionDataPanel().revalidate();
 				} catch (IOException e2) {
 					// TODO Auto-generated catch block
@@ -232,6 +236,9 @@ public class qPanelController{
 					fileSave = new File(answerImgPath);
 					ImageIO.write(image,fileExtension , fileSave);
 					aImgFile = fileSave;
+					view.getRemoveAnswerImageBtn().setVisible(true);
+					view.getbtnViewAnswerImage().setVisible(true);
+					view.getQuestionDataPanel().revalidate();
 				} catch (IOException e2) {
 					// TODO Auto-generated catch block
 					e2.printStackTrace();
@@ -245,8 +252,6 @@ public class qPanelController{
 		private BufferedImage image;
 		public void actionPerformed(ActionEvent e) {
 			// TODO Auto-generated method stub
-			if(qImgFile!=null)
-			{
 				try {
 					image = ImageIO.read(qImgFile);
 				} catch (IOException e1) {
@@ -261,22 +266,60 @@ public class qPanelController{
 				pictureViewFrame.setLocationRelativeTo(null);
 				pictureViewFrame.setVisible(true);
 				pictureViewFrame.getContentPane().add(BorderLayout.CENTER,jsp);
-			}
 		}
 		
 	}
 	
-	class removeImageBtnListener implements ActionListener
+	class viewAnswerImageBtnAddListener implements ActionListener
+	{
+		private BufferedImage image;
+		public void actionPerformed(ActionEvent e) {
+			// TODO Auto-generated method stub
+				try {
+					image = ImageIO.read(aImgFile);
+				} catch (IOException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+				JFrame pictureViewFrame = new JFrame();
+				JScrollPane jsp=new JScrollPane(new JLabel(new ImageIcon(image)),ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED,ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+				pictureViewFrame.getContentPane().setPreferredSize(new Dimension(image.getWidth(),image.getHeight()));
+				pictureViewFrame.setLayout(new BorderLayout());
+				pictureViewFrame.pack();
+				pictureViewFrame.setLocationRelativeTo(null);
+				pictureViewFrame.setVisible(true);
+				pictureViewFrame.getContentPane().add(BorderLayout.CENTER,jsp);
+		}
+		
+	}
+	
+	
+	class removeQuestionImageBtnListener implements ActionListener
 	{
 		public void actionPerformed(ActionEvent e) {
 			// TODO Auto-generated method stub
-			if(qImgFile!=null)
-				qImgFile.delete();	
-			view.getRemoveImageBtn().setVisible(false);
+			qImgFile.delete();	
+			view.getRemoveQuestionImageBtn().setVisible(false);
 			view.getqImage().setVisible(false);
 			view.getQuestionDataPanel().revalidate();
 		}
 	}
+	
+	class removeAnswerImageBtnListener implements ActionListener
+	{
+		public void actionPerformed(ActionEvent e) {
+			// TODO Auto-generated method stub
+			removeAnswerImage();
+		}
+	}
+	public void removeAnswerImage()
+	{
+		aImgFile.delete();	
+		view.getRemoveAnswerImageBtn().setVisible(false);
+		view.getbtnViewAnswerImage().setVisible(false);
+		view.getQuestionDataPanel().revalidate();
+	}
+	
 	public qPanel getQuestionPanel() {
 		return view;
 	}
