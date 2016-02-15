@@ -55,16 +55,17 @@ public class qPanel extends JPanel {
 	private FileNameExtensionFilter extensionFilter;
 	private MultipleChoicePanelController multipleChoicePanelController;
 	
-	private final static int width=MainFrameController.view.getContentPane().getWidth()-20;
-	private final static int height=(int) (MainFrameController.view.getContentPane().getHeight()/2);
-	//private final static int width=1900;
-	//private final static int height=540;
+//	private final static int width=MainFrameController.view.getContentPane().getWidth()-20;
+//	private final static int height=(int) (MainFrameController.view.getContentPane().getHeight()/2);
+	private final static int width=1900;
+	private final static int height=540;
 	
 	private JSeparator separator;
 	private JSeparator separator_1;
 	private JSeparator separator_2;
 	private JTextArea textAreaQ;
 	private JButton qImage;
+	private JButton btnRemoveImage;
 	/**
 	 * Create the panel.
 	 */
@@ -357,6 +358,15 @@ public class qPanel extends JPanel {
 		gbc_qImage.gridx = 1;
 		gbc_qImage.gridy = 4;
 		qImage.setVisible(false);
+		
+		btnRemoveImage = new JButton("Remove Image");
+		GridBagConstraints gbc_btnRemoveImage = new GridBagConstraints();
+		gbc_btnRemoveImage.anchor = GridBagConstraints.WEST;
+		gbc_btnRemoveImage.insets = new Insets(0, 0, 5, 5);
+		gbc_btnRemoveImage.gridx = 2;
+		gbc_btnRemoveImage.gridy = 2;
+		btnRemoveImage.setVisible(false);
+		qDataPanel.add(btnRemoveImage, gbc_btnRemoveImage);
 		qDataPanel.add(qImage, gbc_qImage);
 	}
 
@@ -383,6 +393,9 @@ public class qPanel extends JPanel {
 	}
 	public void setQbrowseBtn(JButton qbrowseBtn) {
 		this.qbrowseBtn = qbrowseBtn;
+	}
+	public JButton getRemoveImageBtn() {
+		return btnRemoveImage;
 	}
 	public JFileChooser getqFileChooser() {
 		return qFileChooser;
@@ -480,6 +493,10 @@ public class qPanel extends JPanel {
 	public void qImageBtnAddListener(ActionListener listener)
 	{
 		qImage.addActionListener(listener);
+	}
+	public void removeImageBtnAddListener(ActionListener listener)
+	{
+		btnRemoveImage.addActionListener(listener);
 	}
 	public JCheckBox getListenChkBox() {
 		return listenChkBox;
