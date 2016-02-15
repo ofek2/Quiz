@@ -32,7 +32,7 @@ public class MainFrameView extends JFrame {
 		GraphicsEnvironment env = GraphicsEnvironment.getLocalGraphicsEnvironment();
 		Rectangle bounds = env.getMaximumWindowBounds();
 		setBounds(new Rectangle(0, 0, bounds.width, bounds.height));
-//		setExtendedState(JFrame.MAXIMIZED_BOTH);
+		//setExtendedState(JFrame.MAXIMIZED_BOTH);
 		
 //		setExtendedState(JFrame.NORMAL);
 		setResizable(false);
