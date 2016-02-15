@@ -3,6 +3,7 @@ package Controllers;
 import java.awt.BorderLayout;
 import java.awt.CardLayout;
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
@@ -250,8 +251,13 @@ public class qPanelController{
 					e1.printStackTrace();
 				}
 				JFrame pictureViewFrame = new JFrame();
-				pictureViewFrame.setSize(image.getWidth(),image.getHeight());
+//				pictureViewFrame.setSize(image.getWidth(),image.getHeight());
+				ImageIcon icon = new ImageIcon(image);
+				pictureViewFrame.getContentPane().add(new JLabel(icon));
+				pictureViewFrame.getContentPane().setPreferredSize(new Dimension(image.getWidth(),image.getHeight()));
 				pictureViewFrame.setLayout(new BorderLayout());
+				
+				pictureViewFrame.pack();
 				pictureViewFrame.setLocationRelativeTo(null);
 				pictureViewFrame.setVisible(true);
 				pictureViewFrame.add(BorderLayout.CENTER,new JLabel(new ImageIcon(image)));
