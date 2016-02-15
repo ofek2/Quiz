@@ -99,8 +99,8 @@ public class QuizCreationController {
 				ArrayList<String> choices;
 				htmlBuilder.addQuestion(i+1,answerType , Integer.parseInt(tempQpanel.getScoreTextField().getText()));
 				String questionImagePath = "";
-				if(tempQController.getaImgFile()!=null)
-					questionImagePath= tempQController.getaImgFile().getPath();
+				if(tempQController.getqImgFile()!=null)
+					questionImagePath= tempQController.getqImgFile().getPath();
 				System.out.println("1");
 				htmlBuilder.addQuestionData(i+1, tempQpanel.getTextAreaQ().getText(), questionImagePath);
 				System.out.println("2");
