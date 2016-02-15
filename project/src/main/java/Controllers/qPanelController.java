@@ -194,20 +194,22 @@ public class qPanelController{
 					ImageIO.write(image,fileExtension , fileSave);
 					qImgFile = fileSave;
 
-					if(qImageIcon!=null)
-					view.getQuestionDataPanel().remove(qImageIcon);
+					//if(qImageIcon!=null)
+				//	view.getQuestionDataPanel().remove(qImageIcon);
 					ImageIcon icon = new ImageIcon(ImageIO.read(qImgFile));
 //					graphics=new BufferedImage(100, 100, BufferedImage.TYPE_INT_ARGB).getGraphics();
 //					graphics.drawImage(icon.getImage(),view.getQuestionImageBrosweButton().getX()+
 //							view.getQuestionImageBrosweButton().getWidth()+5
 //							,view.getQuestionImageBrosweButton().getY(),100,100, null);
 //					qImageIcon = new JLabel();
-					qImageIcon = view.getQuestionIcon();
-					qImageIcon.setIcon(icon);
-					qImageIcon.setBounds(view.getQuestionImageBrosweButton().getX()+
-							view.getQuestionImageBrosweButton().getWidth()+5
-							,view.getQuestionImageBrosweButton().getY(),100, 100);
-					view.getQuestionDataPanel().add(qImageIcon);
+			//		qImageIcon = view.getQuestionIcon();
+					 view.getQuestionIcon().setIcon(icon);
+					//qImageIcon.setBounds(view.getQuestionImageBrosweButton().getX()+
+					//		view.getQuestionImageBrosweButton().getWidth()+5
+					//		,view.getQuestionImageBrosweButton().getY(),100, 100);
+					//view.getQuestionDataPanel().add(qImageIcon);
+					view.getQuestionIcon().setMaximumSize(getQuestionPanel().getSize());
+					view.getQuestionIcon().setVisible(true);
 					view.getQuestionDataPanel().revalidate();
 				} catch (IOException e2) {
 					// TODO Auto-generated catch block

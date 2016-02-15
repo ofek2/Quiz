@@ -56,7 +56,7 @@ public class qPanel extends JPanel {
 	private MultipleChoicePanelController multipleChoicePanelController;
 	
 	private final static int width=MainFrameController.view.getWidth()-20;
-	private final static int height=(int) (MainFrameController.view.getHeight()/2.5f);
+	private final static int height=(int) (MainFrameController.view.getHeight()/2);
 
 	private JSeparator separator;
 	private JSeparator separator_1;
@@ -349,10 +349,17 @@ public class qPanel extends JPanel {
 		
 		qImage = new JLabel();
 		GridBagConstraints gbc_qImage = new GridBagConstraints();
+		gbc_qImage.fill = GridBagConstraints.HORIZONTAL;
 		gbc_qImage.insets = new Insets(0, 0, 5, 5);
 		gbc_qImage.gridx = 2;
 		gbc_qImage.gridy = 2;
 		qDataPanel.add(qImage, gbc_qImage);
+	}
+	public JLabel getqImage() {
+		return qImage;
+	}
+	public void setqImage(JLabel qImage) {
+		this.qImage = qImage;
 	}
 	public JLabel getLblScore() {
 		return lblScore;
