@@ -125,7 +125,7 @@ public class InitialWindowController {
 					//quizCreationView.setSize(bounds.width, bounds.height-30);
 //					quizCreationView.setBounds(0, 0, 100, 100);
 					QuizEntity quizEntity = new QuizEntity("QuizTest",25,quizFolder);
-					new QuizCreationController(quizCreationView,quizEntity);
+					new QuizCreationController(quizCreationView,quizEntity,view);
 					quizCreationView.getQuizName().setText(quizName);
 					dialog.setVisible(false);
 					MainFrameController.view.changeContentPane(quizCreationView);

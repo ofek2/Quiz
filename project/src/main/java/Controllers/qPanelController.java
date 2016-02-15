@@ -88,7 +88,7 @@ public class qPanelController{
 	{
 		private BufferedImage bufferedImage;
 		public void actionPerformed(ActionEvent e) {
-			
+			QuizCreationController.saveFlag=0;
 			parentView.panel.remove(view);
 			parentView.panel.revalidate();
 			MainFrameController.view.repaint();
@@ -165,6 +165,7 @@ public class qPanelController{
 			
 			    if((!((String)e.getItem()).equals("Free Draw"))&&aImgFile!=null)
 			    	removeAnswerImage();
+			    QuizCreationController.saveFlag=0;
 		}
 		
 	}
@@ -179,6 +180,7 @@ public class qPanelController{
 			else
 				view.getChckbxHideQuestion().setVisible(false);
 			
+			QuizCreationController.saveFlag=0;
 		}
 		
 	}
@@ -207,6 +209,7 @@ public class qPanelController{
 					view.getqImage().setVisible(true);
 					view.getRemoveQuestionImageBtn().setVisible(true);
 					view.getQuestionDataPanel().revalidate();
+					QuizCreationController.saveFlag=0;
 				} catch (IOException e2) {
 					// TODO Auto-generated catch block
 					e2.printStackTrace();
@@ -239,6 +242,7 @@ public class qPanelController{
 					view.getRemoveAnswerImageBtn().setVisible(true);
 					view.getbtnViewAnswerImage().setVisible(true);
 					view.getQuestionDataPanel().revalidate();
+					QuizCreationController.saveFlag=0;
 				} catch (IOException e2) {
 					// TODO Auto-generated catch block
 					e2.printStackTrace();
@@ -302,6 +306,7 @@ public class qPanelController{
 			view.getRemoveQuestionImageBtn().setVisible(false);
 			view.getqImage().setVisible(false);
 			view.getQuestionDataPanel().revalidate();
+			QuizCreationController.saveFlag=0;
 		}
 	}
 	
@@ -310,6 +315,7 @@ public class qPanelController{
 		public void actionPerformed(ActionEvent e) {
 			// TODO Auto-generated method stub
 			removeAnswerImage();
+			QuizCreationController.saveFlag=0;
 		}
 	}
 	public void removeAnswerImage()

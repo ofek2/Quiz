@@ -4,14 +4,18 @@ import java.awt.Color;
 import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import javax.swing.JOptionPane;
+import javax.swing.JTree;
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.TransformerException;
 
 import Entities.QuizEntity;
+import Views.InitialWindowView;
 import Views.MainFrameView;
 import Views.QuizCreationView;
 import Views.qPanel;
@@ -23,10 +27,13 @@ public class QuizCreationController {
 	private qPanelController qPanelController;
 	protected static ArrayList<qPanelController> qPanels;
 	private HtmlBuilder htmlBuilder;
-	public QuizCreationController(QuizCreationView view,QuizEntity entity) {
+	protected static int saveFlag=1;
+	private InitialWindowView initialWindowView;
+	public QuizCreationController(QuizCreationView view,QuizEntity entity, InitialWindowView initialWindowView) {
 		ActionListener[] fileMenuListeners = {new saveMenuListener(),new exitMenuListener()};
 		this.view = view;
 		this.entity = entity;
+		this.initialWindowView = initialWindowView;
 		this.view.addBtnAddListener(new addBtnListener());
 		this.view.addFileMenuListeners(fileMenuListeners);
 		qPanels = new ArrayList<qPanelController>();
@@ -44,6 +51,7 @@ public class QuizCreationController {
 		
 		addQpanel();
 	}
+
 	public void addQpanel()
 	{
 		qPanel qPview = new qPanel();
@@ -76,6 +84,7 @@ public class QuizCreationController {
 
 		public void actionPerformed(ActionEvent e) {
 			// TODO Auto-generated method stub
+			saveFlag=1;
 			try {
 				htmlBuilder = new HtmlBuilder();
 			} catch (FileNotFoundException e2) {
@@ -128,6 +137,7 @@ public class QuizCreationController {
 			
 			try {
 				htmlBuilder.writeHtml(entity.getQuizFolder().getCanonicalPath()+"/"+entity.getName());
+				initialWindowView.setTree(new JTree(InitialWindowView.filesTree(new File(new File(".").getCanonicalPath()+"/OnlineQuizChecker"))));
 			} catch (TransformerException e1) {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
@@ -140,12 +150,27 @@ public class QuizCreationController {
 	}
 	class exitMenuListener implements ActionListener
 	{
-
+		private int exitFlag;
 		public void actionPerformed(ActionEvent e) {
 			// TODO Auto-generated method stub
-			
+			if(saveFlag==0)
+			{
+			exitFlag=JOptionPane.showConfirmDialog(null,"You made an unsaved changes, all of this changes will be lost,\n do you want to keep the application progress?","Alert",JOptionPane.YES_NO_OPTION);
+			if(exitFlag==JOptionPane.YES_OPTION)
+				MainFrameController.view.changeContentPane(initialWindowView);	
+			}
+			else
+			{	
+				try {
+					initialWindowView.setTree(new JTree(InitialWindowView.filesTree(new File(new File(".").getCanonicalPath()+"/OnlineQuizChecker"))));
+					MainFrameController.view.changeContentPane(initialWindowView);
+				} catch (IOException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+
+			}
 		}
-		
 	}
 
 }
