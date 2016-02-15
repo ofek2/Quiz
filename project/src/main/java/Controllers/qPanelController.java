@@ -27,6 +27,8 @@ import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.ScrollPaneConstants;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.TransformerException;
@@ -251,12 +253,13 @@ public class qPanelController{
 					e1.printStackTrace();
 				}
 				JFrame pictureViewFrame = new JFrame();
+				JScrollPane jsp=new JScrollPane(new JLabel(new ImageIcon(image)),ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED,ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 				pictureViewFrame.getContentPane().setPreferredSize(new Dimension(image.getWidth(),image.getHeight()));
 				pictureViewFrame.setLayout(new BorderLayout());
 				pictureViewFrame.pack();
 				pictureViewFrame.setLocationRelativeTo(null);
 				pictureViewFrame.setVisible(true);
-				pictureViewFrame.add(BorderLayout.CENTER,new JLabel(new ImageIcon(image)));
+				pictureViewFrame.getContentPane().add(BorderLayout.CENTER,jsp);
 			}
 		}
 		
