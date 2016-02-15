@@ -66,6 +66,7 @@ public class qPanelController{
 		this.view.ansBrowseBtnAddListener(new ansBrowseBtnListener());
 		this.view.aTypeCBaddItemListener(new aTypeItemListener());
 		this.view.qImageBtnAddListener(new qImageBtnListener());
+		this.view.removeImageBtnAddListener(new removeImageBtnListener());
 		qFileChooser=view.getQuestionFileChooser();
 		aFileChooser=view.getAnswerFileChooser();
 		try {
@@ -200,7 +201,7 @@ public class qPanelController{
 					ImageIO.write(image,fileExtension , fileSave);
 					qImgFile = fileSave;
 					view.getqImage().setVisible(true);
-
+					view.getRemoveImageBtn().setVisible(true);
 					view.getQuestionDataPanel().revalidate();
 				} catch (IOException e2) {
 					// TODO Auto-generated catch block
@@ -263,6 +264,18 @@ public class qPanelController{
 			}
 		}
 		
+	}
+	
+	class removeImageBtnListener implements ActionListener
+	{
+		public void actionPerformed(ActionEvent e) {
+			// TODO Auto-generated method stub
+			if(qImgFile!=null)
+				qImgFile.delete();	
+			view.getRemoveImageBtn().setVisible(false);
+			view.getqImage().setVisible(false);
+			view.getQuestionDataPanel().revalidate();
+		}
 	}
 	public qPanel getQuestionPanel() {
 		return view;
