@@ -251,12 +251,8 @@ public class qPanelController{
 					e1.printStackTrace();
 				}
 				JFrame pictureViewFrame = new JFrame();
-//				pictureViewFrame.setSize(image.getWidth(),image.getHeight());
-				ImageIcon icon = new ImageIcon(image);
-				pictureViewFrame.getContentPane().add(new JLabel(icon));
 				pictureViewFrame.getContentPane().setPreferredSize(new Dimension(image.getWidth(),image.getHeight()));
 				pictureViewFrame.setLayout(new BorderLayout());
-				
 				pictureViewFrame.pack();
 				pictureViewFrame.setLocationRelativeTo(null);
 				pictureViewFrame.setVisible(true);
