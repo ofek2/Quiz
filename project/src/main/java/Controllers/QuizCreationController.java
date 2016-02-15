@@ -4,6 +4,8 @@ import java.awt.Color;
 import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -36,6 +38,7 @@ public class QuizCreationController {
 		this.initialWindowView = initialWindowView;
 		this.view.addBtnAddListener(new addBtnListener());
 		this.view.addFileMenuListeners(fileMenuListeners);
+		MainFrameController.view.addWindowListener(new windowListener());
 		qPanels = new ArrayList<qPanelController>();
 		
 		try {
@@ -171,6 +174,48 @@ public class QuizCreationController {
 
 			}
 		}
+	}
+	class windowListener implements WindowListener
+	{
+
+	
+		public void windowClosing(WindowEvent e) {
+			// TODO Auto-generated method stub
+			
+		}
+
+		public void windowActivated(WindowEvent e) {
+			// TODO Auto-generated method stub
+			
+		}
+
+		public void windowClosed(WindowEvent e) {
+			// TODO Auto-generated method stub
+			
+		}
+
+		public void windowDeactivated(WindowEvent e) {
+			// TODO Auto-generated method stub
+			
+		}
+
+		public void windowDeiconified(WindowEvent e) {
+			// TODO Auto-generated method stub
+			
+		}
+
+		public void windowIconified(WindowEvent e) {
+			// TODO Auto-generated method stub
+			
+		}
+
+		public void windowOpened(WindowEvent e) {
+			// TODO Auto-generated method stub
+			
+		}
+
+		
+		
 	}
 
 }
