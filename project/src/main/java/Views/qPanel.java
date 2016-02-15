@@ -55,14 +55,16 @@ public class qPanel extends JPanel {
 	private FileNameExtensionFilter extensionFilter;
 	private MultipleChoicePanelController multipleChoicePanelController;
 	
-	private final static int width=MainFrameController.view.getWidth()-20;
-	private final static int height=(int) (MainFrameController.view.getHeight()/2);
-
+	//private final static int width=MainFrameController.view.getWidth()-20;
+	//private final static int height=(int) (MainFrameController.view.getHeight()/2);
+	private final static int width=1900;
+	private final static int height=540;
+	
 	private JSeparator separator;
 	private JSeparator separator_1;
 	private JSeparator separator_2;
 	private JTextArea textAreaQ;
-	private JLabel qImage;
+	private JButton qImage;
 	/**
 	 * Create the panel.
 	 */
@@ -189,7 +191,7 @@ public class qPanel extends JPanel {
 		gbl_qDataPanel.columnWidths = new int[]{0, 40, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
 		gbl_qDataPanel.rowHeights = new int[]{0, 23, 0, 0, 0, 0, 0, 0, 0, 0};
 		gbl_qDataPanel.columnWeights = new double[]{0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
-		gbl_qDataPanel.rowWeights = new double[]{1.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
+		gbl_qDataPanel.rowWeights = new double[]{1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
 		qDataPanel.setLayout(gbl_qDataPanel);
 		
 		JLabel lblEnterQuestion = new JLabel("Enter question:");
@@ -347,20 +349,17 @@ public class qPanel extends JPanel {
 		gbc_qBrowseBtn.gridy = 2;
 		qDataPanel.add(qbrowseBtn, gbc_qBrowseBtn);
 		
-		qImage = new JLabel();
+		qImage = new JButton();
+		qImage.setText("View Image");
 		GridBagConstraints gbc_qImage = new GridBagConstraints();
-		gbc_qImage.fill = GridBagConstraints.HORIZONTAL;
+		gbc_qImage.anchor = GridBagConstraints.WEST;
 		gbc_qImage.insets = new Insets(0, 0, 5, 5);
-		gbc_qImage.gridx = 2;
-		gbc_qImage.gridy = 2;
+		gbc_qImage.gridx = 1;
+		gbc_qImage.gridy = 4;
+		qImage.setVisible(false);
 		qDataPanel.add(qImage, gbc_qImage);
 	}
-	public JLabel getqImage() {
-		return qImage;
-	}
-	public void setqImage(JLabel qImage) {
-		this.qImage = qImage;
-	}
+
 	public JLabel getLblScore() {
 		return lblScore;
 	}
@@ -478,6 +477,10 @@ public class qPanel extends JPanel {
 	{
 		ansBrowseBtn.addActionListener(listener);
 	}
+	public void qImageBtnAddListener(ActionListener listener)
+	{
+		qImage.addActionListener(listener);
+	}
 	public JCheckBox getListenChkBox() {
 		return listenChkBox;
 	}
@@ -488,9 +491,14 @@ public class qPanel extends JPanel {
 	public JLabel getQuestionLbl() {
 		return questionLbl;
 	}
-	public JLabel getQuestionIcon() {
+	public JButton getqImage() {
 		return qImage;
 	}
+
+	public void setqImage(JButton qImage) {
+		this.qImage = qImage;
+	}
+
 	public JButton getQuestionImageBrosweButton() {
 		return qbrowseBtn;
 	}
