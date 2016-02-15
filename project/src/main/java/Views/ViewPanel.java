@@ -12,7 +12,7 @@ public class ViewPanel extends JPanel{
 	public ViewPanel() {
 		super();
 		
-		setSize(MainFrameController.view.getWidth(),MainFrameController.view.getHeight());
+		setSize(MainFrameController.view.getContentPane().getWidth(),MainFrameController.view.getContentPane().getHeight());
 	}
 	
 }

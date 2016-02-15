@@ -122,7 +122,7 @@ public class InitialWindowController {
 					
 					QuizCreationView quizCreationView = new QuizCreationView();
 //					quizCreationView.setBounds(0, 0, bounds.width, bounds.height-40);
-					quizCreationView.setSize(bounds.width, bounds.height-30);
+					//quizCreationView.setSize(bounds.width, bounds.height-30);
 //					quizCreationView.setBounds(0, 0, 100, 100);
 					QuizEntity quizEntity = new QuizEntity("QuizTest",25,quizFolder);
 					new QuizCreationController(quizCreationView,quizEntity);

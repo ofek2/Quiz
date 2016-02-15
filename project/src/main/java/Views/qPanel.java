@@ -55,8 +55,8 @@ public class qPanel extends JPanel {
 	private FileNameExtensionFilter extensionFilter;
 	private MultipleChoicePanelController multipleChoicePanelController;
 	
-	private final static int width=MainFrameController.view.getWidth()-20;
-	private final static int height=(int) (MainFrameController.view.getHeight()/2);
+	private final static int width=MainFrameController.view.getContentPane().getWidth()-20;
+	private final static int height=(int) (MainFrameController.view.getContentPane().getHeight()/2);
 	//private final static int width=1900;
 	//private final static int height=540;
 	
