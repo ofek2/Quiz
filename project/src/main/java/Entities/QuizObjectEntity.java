@@ -3,12 +3,13 @@ package Entities;
 import java.io.Serializable;
 import java.util.ArrayList;
 
+import Controllers.qPanelController;
 import Views.qPanel;
 
 public class QuizObjectEntity implements Serializable {
 	private QuizEntity quizEntity;
-	private ArrayList<qPanel> qPanels;
-	public QuizObjectEntity(QuizEntity quizEntity, ArrayList<qPanel> qPanels) {
+	private ArrayList<qPanelController> qPanels;
+	public QuizObjectEntity(QuizEntity quizEntity, ArrayList<qPanelController> qPanels) {
 		super();
 		this.quizEntity = quizEntity;
 		this.qPanels = qPanels;
@@ -19,10 +20,10 @@ public class QuizObjectEntity implements Serializable {
 	public void setQuizEntity(QuizEntity quizEntity) {
 		this.quizEntity = quizEntity;
 	}
-	public ArrayList<qPanel> getqPanels() {
+	public ArrayList<qPanelController> getqPanels() {
 		return qPanels;
 	}
-	public void setqPanels(ArrayList<qPanel> qPanels) {
+	public void setqPanels(ArrayList<qPanelController> qPanels) {
 		this.qPanels = qPanels;
 	}
 	

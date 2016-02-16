@@ -8,7 +8,10 @@ import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.ObjectOutputStream;
+import java.io.Serializable;
 import java.util.ArrayList;
 
 import javax.swing.JOptionPane;
@@ -17,20 +20,21 @@ import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.TransformerException;
 
 import Entities.QuizEntity;
+import Entities.QuizObjectEntity;
 import Views.InitialWindowView;
 import Views.MainFrameView;
 import Views.QuizCreationView;
 import Views.qPanel;
 import project.HtmlBuilder;
 
-public class QuizCreationController {
-	private QuizCreationView view;
+public class QuizCreationController implements Serializable {
+	private transient QuizCreationView view;
 	private QuizEntity entity;
 	private qPanelController qPanelController;
 	protected static ArrayList<qPanelController> qPanels;
 	private HtmlBuilder htmlBuilder;
 	protected static int saveFlag=1;
-	private InitialWindowView initialWindowView;
+	private transient InitialWindowView initialWindowView;
 	public QuizCreationController(QuizCreationView view,QuizEntity entity, InitialWindowView initialWindowView) {
 		ActionListener[] fileMenuListeners = {new saveMenuListener(),new exitMenuListener()};
 		this.view = view;
@@ -54,7 +58,29 @@ public class QuizCreationController {
 		
 		addQpanel();
 	}
-
+	public QuizCreationController(QuizCreationView view,QuizObjectEntity objectEntity, InitialWindowView initialWindowView) {
+		ActionListener[] fileMenuListeners = {new saveMenuListener(),new exitMenuListener()};
+		this.view = view;
+		this.entity = objectEntity.getQuizEntity();
+		this.initialWindowView = initialWindowView;
+		this.view.addBtnAddListener(new addBtnListener());
+		this.view.addFileMenuListeners(fileMenuListeners);
+		MainFrameController.view.addWindowListener(new windowListener());
+		qPanels = objectEntity.getqPanels();
+		
+		try {
+			htmlBuilder = new HtmlBuilder();
+			htmlBuilder.initiateHtml();
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (ParserConfigurationException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
+	}
 	public void addQpanel()
 	{
 		qPanel qPview = new qPanel();
@@ -148,6 +174,17 @@ public class QuizCreationController {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}
+			try{
+			QuizObjectEntity quizObjectEntity = new QuizObjectEntity(entity, qPanels);
+			FileOutputStream fos = new FileOutputStream(entity.getQuizFolder().getCanonicalPath()+"/"+entity.getName()+".ser");
+			ObjectOutputStream oos = new ObjectOutputStream(fos);
+			oos.writeObject(quizObjectEntity);
+			oos.close();
+		} catch (FileNotFoundException e1) {
+			e1.printStackTrace();
+		} catch (IOException e1) {
+			e1.printStackTrace();
+		}
 		}
 		
 	}

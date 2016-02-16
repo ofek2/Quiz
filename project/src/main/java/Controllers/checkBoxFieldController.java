@@ -2,6 +2,7 @@ package Controllers;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.Serializable;
 import java.util.ArrayList;
 
 import javax.swing.JPanel;
@@ -9,7 +10,7 @@ import javax.swing.JPanel;
 import Views.MultipleChoicePanel;
 import Views.checkBoxFieldPanel;
 
-public class checkBoxFieldController {
+public class checkBoxFieldController implements Serializable {
 	public checkBoxFieldPanel view;
 	private MultipleChoicePanelController parentController;
 	

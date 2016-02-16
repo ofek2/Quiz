@@ -1,12 +1,13 @@
 package Controllers;
 
 import java.awt.Dimension;
+import java.io.Serializable;
 import java.util.ArrayList;
 
 import Views.MultipleChoicePanel;
 import Views.checkBoxFieldPanel;
 
-public class MultipleChoicePanelController {
+public class MultipleChoicePanelController implements Serializable{
 	public MultipleChoicePanel view;
 	public ArrayList<checkBoxFieldController> cBfControllers;
 	public MultipleChoicePanelController(MultipleChoicePanel view)

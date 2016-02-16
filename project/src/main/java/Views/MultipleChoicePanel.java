@@ -14,8 +14,9 @@ import Controllers.checkBoxFieldController;
 import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
+import java.io.Serializable;
 
-public class MultipleChoicePanel extends JPanel {
+public class MultipleChoicePanel extends JPanel implements Serializable{
 	
 	public JPanel panel;
 	public JScrollPane jsp;

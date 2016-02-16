@@ -10,7 +10,9 @@ import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.ObjectInputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
@@ -190,7 +192,13 @@ public class InitialWindowController {
 
 		public void actionPerformed(ActionEvent e) {
 			// TODO Auto-generated method stub
-	/*		QuizCreationView quizCreationView = new QuizCreationView();
+			// read object from file
+			/*			FileInputStream fis = new FileInputStream("mybean.ser");
+						ObjectInputStream ois = new ObjectInputStream(fis);
+						MyBean result = (MyBean) ois.readObject();
+						ois.close();
+
+			QuizCreationView quizCreationView = new QuizCreationView();
 //			quizFile="the chosen quiz";
 			QuizEntity quizEntity = new QuizEntity("QuizTest",25,quizFolder);
 			QuizCreationController quizCreationController = new QuizCreationController(quizCreationView,quizEntity);

@@ -14,11 +14,13 @@ import javax.swing.JButton;
 import java.awt.Font;
 import java.awt.Insets;
 import java.awt.event.ActionListener;
+import java.io.Serializable;
+
 import javax.swing.JLabel;
 import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
 
-public class checkBoxFieldPanel extends JPanel{
+public class checkBoxFieldPanel extends JPanel implements Serializable{
 	private JCheckBox checkBox;
 	private JTextField textField;
 	private JButton plusBtn;

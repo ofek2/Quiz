@@ -1,11 +1,12 @@
 package Entities;
 
 import java.io.File;
+import java.io.Serializable;
 
-public class QuizEntity {
-	private String name;
-	private File quizFolder;
-	private int percentageFromFGrade;
+public class QuizEntity implements Serializable{
+	private transient String name;
+	private transient File quizFolder;
+	private transient int percentageFromFGrade;
 	public QuizEntity(String name) {
 		super();
 		this.name = name;

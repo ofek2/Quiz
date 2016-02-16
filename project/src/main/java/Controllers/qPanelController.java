@@ -18,6 +18,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.Serializable;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -43,19 +44,19 @@ import javafx.event.Event;
 import javafx.fxml.Initializable;
 import project.HtmlBuilder;
 
-public class qPanelController{
+public class qPanelController implements Serializable{
 	public qPanel view;
 
 	private QuizEntity quizEntity;
-	private QuizCreationView parentView;
-	private JFileChooser qFileChooser;
-	private JFileChooser aFileChooser;
-	private String quizPath;
-	private File qImgFile;
-	private File aImgFile;
-	private String fileExtension;
-	private JLabel qImageIcon=null;
-	private Graphics graphics;
+	private transient QuizCreationView parentView;
+	private transient JFileChooser qFileChooser;
+	private transient JFileChooser aFileChooser;
+	private transient String quizPath;
+	private transient File qImgFile;
+	private transient File aImgFile;
+	private transient String fileExtension;
+	private transient JLabel qImageIcon=null;
+	private transient Graphics graphics;
 	public qPanelController(qPanel view,QuizCreationView parentView,QuizEntity quizEntity) {
 		this.view = view;
 		this.parentView=parentView;

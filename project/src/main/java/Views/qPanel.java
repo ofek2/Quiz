@@ -34,7 +34,7 @@ import java.awt.event.ActionEvent;
 
 public class qPanel extends JPanel {
 	//title
-	private int questionNumber;
+	private transient int questionNumber;
 	private JLabel questionLbl;
 	private JLabel lblScore;
 	private JButton btnRemove;
@@ -42,18 +42,18 @@ public class qPanel extends JPanel {
 	//question side
 	private JPanel qDataPanel;
 	private JButton qbrowseBtn;
-	private JFileChooser qFileChooser;
+	private transient JFileChooser qFileChooser;
 	private JTextArea textAreaA;
 	private JCheckBox listenChkBox;
 	private JCheckBox chckbxHideQuestion;
 	//answer side
 	private JComboBox<String> answerTypeCb;
-	private JFileChooser aFileChooser;
+	private transient JFileChooser aFileChooser;
 	private JPanel answerPanel;
 	private JLabel choicesLbl;
 	private JButton ansBrowseBtn;
 	
-	private FileNameExtensionFilter extensionFilter;
+	private transient FileNameExtensionFilter extensionFilter;
 	private MultipleChoicePanelController multipleChoicePanelController;
 	
 	private final static int width=MainFrameController.view.getContentPane().getWidth()-20;
