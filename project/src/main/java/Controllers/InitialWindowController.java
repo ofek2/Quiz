@@ -50,6 +50,7 @@ public class InitialWindowController {
 		view.addQuizManagementListeners(quizMngmntListeners);
 		view.addCourseManagementListeners(courseMngmntListeners);
 		view.createQuizBtnAddListener(new CreateQuizBtnListener());
+		view.editQuizBtnAddListener(new EditQuizBtnListener());
 		view.createCourseBtnAddListener(new CreateCourseBtnListener());
 		view.removeCourseBtnAddListener(new RemoveCourseBtnListener());
 	}
@@ -99,7 +100,15 @@ public class InitialWindowController {
 		}
 		
 	}
-	
+	class EditQuizBtnListener implements ActionListener
+	{
+
+		public void actionPerformed(ActionEvent e) {
+			// TODO Auto-generated method stub
+			
+		}
+		
+	}
 	class CreateQuizBtnListener implements ActionListener
 	{
 		private String quizName;
@@ -178,8 +187,9 @@ public class InitialWindowController {
 		public void actionPerformed(ActionEvent e) {
 			// TODO Auto-generated method stub	
 			dialog = new JDialog(MainFrameController.view,"New Quiz Dialog");
-			dialog.setLocationRelativeTo(MainFrameController.view);
-			dialog.setSize(220,220);
+		
+			dialog.setSize(300,220);
+			dialog.setLocationRelativeTo(MainFrameController.view.getContentPane());
 			dialog.setVisible(true);
 			dialog.setResizable(false);
 			dialog.getContentPane().add(view.getNewQuizDialogPanel());
@@ -192,6 +202,14 @@ public class InitialWindowController {
 
 		public void actionPerformed(ActionEvent e) {
 			// TODO Auto-generated method stub
+			dialog = new JDialog(MainFrameController.view,"Edit Quiz Dialog");
+			
+			dialog.setSize(300,220);
+			dialog.setLocationRelativeTo(MainFrameController.view.getContentPane());
+			dialog.setVisible(true);
+			dialog.setResizable(false);
+			dialog.getContentPane().add(view.getEditQuizDialogPanel());
+			
 			// read object from file
 			/*			FileInputStream fis = new FileInputStream("mybean.ser");
 						ObjectInputStream ois = new ObjectInputStream(fis);
@@ -234,8 +252,8 @@ public class InitialWindowController {
 		public void actionPerformed(ActionEvent e) {
 			// TODO Auto-generated method stub
 			dialog = new JDialog(MainFrameController.view,"New Course Dialog");
-			dialog.setLocationRelativeTo(MainFrameController.view);
 			dialog.setSize(220,220);
+			dialog.setLocationRelativeTo(MainFrameController.view);
 			dialog.setVisible(true);
 			dialog.setResizable(false);
 			dialog.getContentPane().add(view.getNewCourseDialogPanel());

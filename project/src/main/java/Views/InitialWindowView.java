@@ -53,18 +53,27 @@ public class InitialWindowView extends ViewPanel {
 	private JMenu mnQuizMngMenu;
 	private JMenuBar menuBar;
 	private JMenu mnCourseManagement;
+	
 	private JPanel newQuizDialogPanel;
 	private JComboBox<String> coursesIds;
 	private JTextField newQuizName;
 	private JButton createNewQuizBtn;
-	private JTree tree;
+	
+	private JPanel editQuizDialogPanel;
+	private JComboBox<String> coursesIdsEdit;
+	private JComboBox<String> quizzes;
+	private JButton editQuizBtn;
+	
 	private JTextField newCourseId;
 	private JPanel newCourseDialogPanel;
 	private JButton createNewCourseBtn;
 	private JTextField newCourseName;
+	
 	private JPanel removeCourseDialogPanel;
 	private JComboBox<String> removeCourses;
 	private JButton removeCourseBtn;
+	
+	private JTree tree;
 	/**
 	 * Create the panel.
 	 */
@@ -125,10 +134,11 @@ public class InitialWindowView extends ViewPanel {
 		}
 		
 		newQuizDialogPanel = new JPanel();
-		newQuizDialogPanel.setBackground(Color.RED);
-		newQuizDialogPanel.setBounds(137, 193, 200, 168);
-		newQuizDialogPanel.setVisible(true);
 		newQuizDialogPanel.setLayout(null);
+		newQuizDialogPanel.setBackground(Color.RED);
+		newQuizDialogPanel.setSize(300, 220);
+		newQuizDialogPanel.setVisible(true);
+		
 				
 		
 		Label label = new Label("Course Code:");
@@ -136,29 +146,61 @@ public class InitialWindowView extends ViewPanel {
 		newQuizDialogPanel.add(label);
 		
 		coursesIds = new JComboBox<String>();
-		coursesIds.setBounds(100, 27, 86, 20);
+		coursesIds.setBounds(100, 27, 180, 20);
 		for(int i=0;i<InitialWindowController.coursesFiles.size();i++)
 			coursesIds.addItem(InitialWindowController.coursesFiles.get(i).getCourseFolderName());		
 		coursesIds.setSelectedIndex(0);
 		newQuizDialogPanel.add(coursesIds);
 		
-		Label label_1 = new Label("Quiz Name:");
-		label_1.setBounds(13, 70, 80, 19);
-		newQuizDialogPanel.add(label_1);
+		Label label1 = new Label("Quiz Name:");
+		label1.setBounds(13, 70, 80, 19);
+		newQuizDialogPanel.add(label1);
 		
 		newQuizName = new JTextField();
-		newQuizName.setBounds(100, 70, 86, 20);
+		newQuizName.setBounds(100, 70, 180, 20);
 		newQuizDialogPanel.add(newQuizName);
 		newQuizName.setColumns(10);
 		
 		createNewQuizBtn = new JButton("Create Quiz");
-		createNewQuizBtn.setBounds(66, 121, 70, 19);
+		createNewQuizBtn.setBounds(newQuizDialogPanel.getSize().width/2-createNewQuizBtn.getPreferredSize().width/2, 121, createNewQuizBtn.getPreferredSize().width, createNewQuizBtn.getPreferredSize().height);
 		newQuizDialogPanel.add(createNewQuizBtn);
 		
+		editQuizDialogPanel = new JPanel();
+		editQuizDialogPanel.setLayout(null);
+		editQuizDialogPanel.setSize(300,220);
+		editQuizDialogPanel.setBackground(Color.RED);
+		
+		Label label2 = new Label("Course Code:");
+		label2.setBounds(13, 28, 80, 19);
+		editQuizDialogPanel.add(label2);
+		
+		coursesIdsEdit = new JComboBox<String>();
+		coursesIdsEdit.setBounds(100, 27, 180, 20);
+		for(int i=0;i<InitialWindowController.coursesFiles.size();i++)
+			coursesIdsEdit.addItem(InitialWindowController.coursesFiles.get(i).getCourseFolderName());		
+		coursesIdsEdit.setSelectedIndex(0);
+		editQuizDialogPanel.add(coursesIdsEdit);
+		
+		Label label3 = new Label("Quiz Name:");
+		label3.setBounds(13, 70, 80, 19);
+		newQuizDialogPanel.add(label3);
+		editQuizDialogPanel.add(label3);
+		
+		quizzes = new JComboBox<String>();
+		quizzes.setBounds(100, 27, 180, 20);
+		editQuizDialogPanel.add(quizzes);
+		
+		editQuizBtn = new JButton("Edit Quiz");
+		editQuizBtn.setBounds(editQuizDialogPanel.getSize().width/2-editQuizBtn.getPreferredSize().width/2, 121, editQuizBtn.getPreferredSize().width, editQuizBtn.getPreferredSize().height);
+		editQuizDialogPanel.add(editQuizBtn);
+		
+		editQuizDialogPanel.setVisible(true);
+		
 		newCourseDialogPanel = new JPanel();
-		newCourseDialogPanel.setBackground(Color.CYAN);
-		newCourseDialogPanel.setBounds(406, 193, 200, 168);
 		newCourseDialogPanel.setLayout(null);
+		newCourseDialogPanel.setBackground(Color.CYAN);
+		newCourseDialogPanel.setSize(220,220);
+		
 		
 		JLabel lblCourseId = new JLabel("Course Id:");
 		lblCourseId.setBounds(10, 45, 70, 14);
@@ -170,7 +212,7 @@ public class InitialWindowView extends ViewPanel {
 		newCourseId.setColumns(10);
 		
 		createNewCourseBtn = new JButton("Create Course");
-		createNewCourseBtn.setBounds(35, 121, 130, 23);
+		createNewCourseBtn.setBounds(newQuizDialogPanel.getSize().width/2-createNewCourseBtn.getPreferredSize().width/2, 121, createNewCourseBtn.getPreferredSize().width, createNewCourseBtn.getPreferredSize().height);
 		newCourseDialogPanel.add(createNewCourseBtn);
 		
 		JLabel lblNewLabel = new JLabel("Course Name:");
@@ -183,9 +225,10 @@ public class InitialWindowView extends ViewPanel {
 		newCourseName.setColumns(10);
 		
 		removeCourseDialogPanel = new JPanel();
-		removeCourseDialogPanel.setBackground(Color.lightGray);
-		removeCourseDialogPanel.setBounds(124, 120, 189, 177);
 		removeCourseDialogPanel.setLayout(null);
+		removeCourseDialogPanel.setBackground(Color.lightGray);
+		removeCourseDialogPanel.setSize(220,220);
+		
 		
 		removeCourses = new JComboBox<String>();
 		removeCourses.setBounds(100, 27, 86, 20);
@@ -227,9 +270,19 @@ public class InitialWindowView extends ViewPanel {
 	{
 		removeCourseBtn.addActionListener(listener);
 	}
-	
+	public void editQuizBtnAddListener(ActionListener listener)
+	{
+		editQuizBtn.addActionListener(listener);
+	}
+	public void coursesIdsEditAddItemListener(ItemListener listener)
+	{
+		coursesIdsEdit.addItemListener(listener);
+	}
 	public JPanel getNewQuizDialogPanel() {
 		return newQuizDialogPanel;
+	}
+	public JPanel getEditQuizDialogPanel(){
+		return editQuizDialogPanel;
 	}
 	public JPanel getNewCourseDialogPanel() {
 		return newCourseDialogPanel;
@@ -237,6 +290,7 @@ public class InitialWindowView extends ViewPanel {
 	public JPanel getRemoveCourseDialogPanel() {
 		return removeCourseDialogPanel;
 	}
+	
 	public JTree getTree() {
 		return tree;
 	}
@@ -246,6 +300,19 @@ public class InitialWindowView extends ViewPanel {
 		add(this.tree);
 		this.tree.setBounds(0, 30, MainFrameController.view.getWidth(),MainFrameController.view.getHeight());
 		revalidate();		
+	}
+	
+	public JComboBox<String> getCoursesIdsEdit() {
+		return coursesIdsEdit;
+	}
+	public void setCoursesIdsEdit(JComboBox<String> coursesIdsEdit) {
+		this.coursesIdsEdit = coursesIdsEdit;
+	}
+	public JComboBox<String> getQuizzes() {
+		return quizzes;
+	}
+	public void setQuizzes(JComboBox<String> quizzes) {
+		this.quizzes = quizzes;
 	}
 	public JTextField getNewQuizName() {
 		return newQuizName;
