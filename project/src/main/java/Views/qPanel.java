@@ -8,14 +8,20 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 
 import Controllers.MainFrameController;
 import Controllers.MultipleChoicePanelController;
+import Controllers.QuizCreationController;
+import Controllers.qPanelController;
 
 import java.awt.GridBagLayout;
+
 import javax.swing.JLabel;
+
 import java.awt.GridBagConstraints;
 import java.awt.Font;
 import java.awt.Insets;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.io.Serializable;
 
 import javax.swing.JButton;
@@ -27,9 +33,11 @@ import javax.swing.JComboBox;
 import javax.swing.JFileChooser;
 
 import java.awt.CardLayout;
+
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JSeparator;
 import javax.swing.SwingConstants;
+
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 
@@ -391,6 +399,47 @@ public class qPanel extends JPanel implements Serializable{
 		qDataPanel.add(chckbxHideQuestion, gbc_chckbxHideQuestion);
 		chckbxHideQuestion.setOpaque(false);
 		qDataPanel.add(qImage, gbc_qImage);
+		
+		qPanelController.setChangesActionListeners(this);
+		scoreTextField.addKeyListener(new KeyListener() {
+
+			public void keyTyped(KeyEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			public void keyReleased(KeyEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			public void keyPressed(KeyEvent e) {
+				// TODO Auto-generated method stub
+				QuizCreationController.saveFlag=0;
+			}
+			
+
+		});
+		textAreaQ.addKeyListener(qPanelController.textItemListener);
+		textAreaA.addKeyListener(qPanelController.textItemListener);
+		
+		chckbxHideQuestion.addActionListener(new ActionListener() {
+				
+				public void actionPerformed(ActionEvent e) {
+					// TODO Auto-generated method stub
+					QuizCreationController.saveFlag=0;
+				}
+			});
+        
+//		listenChkBox.addActionListener(new ActionListener() {
+//			
+//			public void actionPerformed(ActionEvent e) {
+//				// TODO Auto-generated method stub
+//				QuizCreationController.saveFlag=0;
+//			}
+//		});
+    
+		
 	}
 
 	public JLabel getLblScore() {
