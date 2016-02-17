@@ -20,7 +20,7 @@ public class checkBoxFieldController implements Serializable {
 		this.view.plusBtnAddListener(new plusBtnListener());
 		this.view.minusBtnAddListener(new minusBtnListener());
 	}
-	class plusBtnListener implements ActionListener
+	class plusBtnListener implements ActionListener,Serializable
 	{
 
 		public void actionPerformed(ActionEvent e) {
@@ -43,7 +43,7 @@ public class checkBoxFieldController implements Serializable {
 			checkBoxFieldPanel.setaNumberLbl(parentController.cBfControllers.size()+".");
 		}
 	}
-	class minusBtnListener implements ActionListener
+	class minusBtnListener implements ActionListener,Serializable
 	{
 
 		public void actionPerformed(ActionEvent e) {
