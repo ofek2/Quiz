@@ -16,6 +16,7 @@ import java.awt.Font;
 import java.awt.Insets;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemListener;
+import java.io.Serializable;
 
 import javax.swing.JButton;
 import javax.swing.JTextField;
@@ -32,7 +33,7 @@ import javax.swing.SwingConstants;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 
-public class qPanel extends JPanel {
+public class qPanel extends JPanel implements Serializable{
 	//title
 	private transient int questionNumber;
 	private JLabel questionLbl;

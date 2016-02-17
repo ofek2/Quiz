@@ -56,7 +56,7 @@ public class QuizCreationController implements Serializable {
 			e.printStackTrace();
 		}
 		
-		addQpanel();
+		addNewQpanel();
 	}
 	public QuizCreationController(QuizCreationView view,QuizObjectEntity objectEntity, InitialWindowView initialWindowView) {
 		ActionListener[] fileMenuListeners = {new saveMenuListener(),new exitMenuListener()};
@@ -66,8 +66,12 @@ public class QuizCreationController implements Serializable {
 		this.view.addBtnAddListener(new addBtnListener());
 		this.view.addFileMenuListeners(fileMenuListeners);
 		MainFrameController.view.addWindowListener(new windowListener());
+		qPanels = new ArrayList<qPanelController>();
 		qPanels = objectEntity.getqPanels();
-		
+		for(int i =0;i<qPanels.size();i++)
+		{
+			addExitingQpanel(qPanels.get(i).view);
+		}
 		try {
 			htmlBuilder = new HtmlBuilder();
 			htmlBuilder.initiateHtml();
@@ -81,7 +85,14 @@ public class QuizCreationController implements Serializable {
 		
 		
 	}
-	public void addQpanel()
+	public void addExitingQpanel(qPanel panel)
+	{
+		view.panel.add(panel);
+		view.panel.remove(view.addBtn);
+		view.panel.add(view.addBtn);
+		view.panel.revalidate();
+	}
+	public void addNewQpanel()
 	{
 		qPanel qPview = new qPanel();
 		qPanelController = new qPanelController(qPview,view,entity);
@@ -104,7 +115,7 @@ public class QuizCreationController implements Serializable {
 	class addBtnListener implements ActionListener
 	{
 		public void actionPerformed(ActionEvent e) {
-			addQpanel();
+			addNewQpanel();
 		}
 		
 	}

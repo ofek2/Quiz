@@ -144,9 +144,9 @@ public class qPanelController implements Serializable{
         }
 	}
 	
-	class removeBtnListener implements ActionListener
+	class removeBtnListener implements ActionListener,Serializable
 	{
-		private BufferedImage bufferedImage;
+		private transient BufferedImage bufferedImage;
 		public void actionPerformed(ActionEvent e) {
 			QuizCreationController.saveFlag=0;
 			parentView.panel.remove(view);
@@ -216,7 +216,7 @@ public class qPanelController implements Serializable{
 			
 		
 	}
-	class aTypeItemListener implements ItemListener
+	class aTypeItemListener implements ItemListener,Serializable
 	{
 
 		public void itemStateChanged(ItemEvent e) {
@@ -229,7 +229,7 @@ public class qPanelController implements Serializable{
 		}
 		
 	}
-	class listenChkBoxListener implements ActionListener
+	class listenChkBoxListener implements ActionListener,Serializable
 	{
 
 		public void actionPerformed(ActionEvent e) {
@@ -245,11 +245,11 @@ public class qPanelController implements Serializable{
 		
 	}
 	
-	class qBrowseBtnListener implements ActionListener
+	class qBrowseBtnListener implements ActionListener,Serializable
 	{
 		private int returnVal;
-		private File fileSave;
-		private BufferedImage image;
+		private transient File fileSave;
+		private transient BufferedImage image;
 		private String questionLbl;
 		private String questionImgPath;
 		public void actionPerformed(ActionEvent e) {
@@ -278,11 +278,11 @@ public class qPanelController implements Serializable{
 		}
 		
 	}
-	class ansBrowseBtnListener implements ActionListener
+	class ansBrowseBtnListener implements ActionListener,Serializable
 	{
 		private int returnVal;
-		private File fileSave;
-		private BufferedImage image;
+		private transient File fileSave;
+		private transient BufferedImage image;
 		private String answerLbl;
 		private String answerImgPath;
 		public void actionPerformed(ActionEvent e) {
@@ -311,9 +311,9 @@ public class qPanelController implements Serializable{
 		}
 		
 	}
-	class qImageBtnListener implements ActionListener
+	class qImageBtnListener implements ActionListener,Serializable
 	{
-		private BufferedImage image;
+		private transient BufferedImage image;
 		public void actionPerformed(ActionEvent e) {
 			// TODO Auto-generated method stub
 				try {
@@ -334,9 +334,9 @@ public class qPanelController implements Serializable{
 		
 	}
 	
-	class viewAnswerImageBtnAddListener implements ActionListener
+	class viewAnswerImageBtnAddListener implements ActionListener,Serializable
 	{
-		private BufferedImage image;
+		private transient BufferedImage image;
 		public void actionPerformed(ActionEvent e) {
 			// TODO Auto-generated method stub
 				try {
@@ -358,7 +358,7 @@ public class qPanelController implements Serializable{
 	}
 	
 	
-	class removeQuestionImageBtnListener implements ActionListener
+	class removeQuestionImageBtnListener implements ActionListener,Serializable
 	{
 		public void actionPerformed(ActionEvent e) {
 			// TODO Auto-generated method stub
@@ -370,7 +370,7 @@ public class qPanelController implements Serializable{
 		}
 	}
 	
-	class removeAnswerImageBtnListener implements ActionListener
+	class removeAnswerImageBtnListener implements ActionListener,Serializable
 	{
 		public void actionPerformed(ActionEvent e) {
 			// TODO Auto-generated method stub

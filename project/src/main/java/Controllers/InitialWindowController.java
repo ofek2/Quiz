@@ -11,6 +11,7 @@ import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.nio.file.Files;
@@ -30,6 +31,7 @@ import Controllers.qPanelController.removeBtnListener;
 import Entities.Constants;
 import Entities.CourseEntity;
 import Entities.QuizEntity;
+import Entities.QuizObjectEntity;
 import Views.GradingWindowView;
 import Views.InitialWindowView;
 import Views.Main;
@@ -114,7 +116,31 @@ public class InitialWindowController {
 
 		public void actionPerformed(ActionEvent e) {
 			// TODO Auto-generated method stub
+			// read object from file
+			String quizName = view.getQuizzes().getItemAt(view.getQuizzes().getSelectedIndex());
+			String quizFile = quizName+".ser";
+			String path;
+			try {
+				path = coursesFiles.get(view.getCoursesIdsEdit().getSelectedIndex()).getCourseFolder().getCanonicalPath()+"/"+quizName+"/"+quizFile;
+				FileInputStream fis;
+				fis = new FileInputStream(path);
+				ObjectInputStream ois = new ObjectInputStream(fis);
+				QuizObjectEntity result = (QuizObjectEntity) ois.readObject();
+				ois.close();
 			
+				QuizCreationView quizCreationView = new QuizCreationView();
+				QuizCreationController quizCreationController = new QuizCreationController(quizCreationView,result,view);
+				MainFrameController.view.changeContentPane(quizCreationView);
+			} catch (FileNotFoundException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			} catch (IOException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			} catch (ClassNotFoundException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
 		}
 		
 	}
@@ -135,7 +161,7 @@ public class InitialWindowController {
 					quizFolder.mkdir();
 			
 					QuizCreationView quizCreationView = new QuizCreationView();
-					QuizEntity quizEntity = new QuizEntity("QuizTest",25,quizFolder);
+					QuizEntity quizEntity = new QuizEntity(quizName,25,quizFolder);
 					new QuizCreationController(quizCreationView,quizEntity,view);
 					quizCreationView.getQuizName().setText(quizName);
 					dialog.setVisible(false);
@@ -212,18 +238,7 @@ public class InitialWindowController {
 			
 			loadQuizzesToComboBox(view.getCoursesIdsEdit().getSelectedIndex());
 			
-			// read object from file
-			/*			FileInputStream fis = new FileInputStream("mybean.ser");
-						ObjectInputStream ois = new ObjectInputStream(fis);
-						MyBean result = (MyBean) ois.readObject();
-						ois.close();
-
-			QuizCreationView quizCreationView = new QuizCreationView();
-//			quizFile="the chosen quiz";
-			QuizEntity quizEntity = new QuizEntity("QuizTest",25,quizFolder);
-			QuizCreationController quizCreationController = new QuizCreationController(quizCreationView,quizEntity);
-			MainFrameController.view.changeContentPane(quizCreationView);
-			//quizCreationController.setBack()*/
+	
 		}
 		
 	}
