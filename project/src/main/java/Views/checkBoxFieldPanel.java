@@ -8,15 +8,18 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 import Controllers.MainFrameController;
+import Controllers.qPanelController;
 
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
+
 import java.awt.Font;
 import java.awt.Insets;
 import java.awt.event.ActionListener;
 import java.io.Serializable;
 
 import javax.swing.JLabel;
+
 import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
 
@@ -85,7 +88,7 @@ public class checkBoxFieldPanel extends JPanel implements Serializable{
 		gbc_minusBtn.gridx = 4;
 		gbc_minusBtn.gridy = 0;
 		add(minusBtn, gbc_minusBtn);
-		
+		qPanelController.setChangesActionListeners(this);
 	
 		
 	}
