@@ -38,7 +38,7 @@ public class checkBoxFieldController implements Serializable {
 			view.getMinusBtn().setVisible(true);
 			view.getPlusBtn().setVisible(false);
 			
-			
+			QuizCreationController.saveFlag=0;
 			checkBoxFieldPanel.setAnswerNumber(parentController.cBfControllers.size());
 			checkBoxFieldPanel.setaNumberLbl(parentController.cBfControllers.size()+".");
 		}
@@ -53,7 +53,7 @@ public class checkBoxFieldController implements Serializable {
 			parentController.cBfControllers.remove(view.getAnswerNumber()-1);
 			rebuildAnswersPanel();
 			
-			
+			QuizCreationController.saveFlag=0;
 		/*	if(temp.getAnswerNumber()==1)
 			temp.getMinusBtn().setVisible(false);
 			temp.getPlusBtn().setVisible(true);*/
