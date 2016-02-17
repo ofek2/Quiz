@@ -28,6 +28,7 @@ import java.util.ResourceBundle;
 
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
+import javax.swing.JCheckBox;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -63,6 +64,7 @@ public class qPanelController implements Serializable{
 	private transient String fileExtension;
 	private transient JLabel qImageIcon=null;
 	private transient Graphics graphics;
+	public static textItemListener textItemListener;
 	public qPanelController(qPanel view,QuizCreationView parentView,QuizEntity quizEntity) {
 		this.view = view;
 		this.parentView=parentView;
@@ -76,7 +78,8 @@ public class qPanelController implements Serializable{
 		this.view.viewAnswerImageBtnAddListener(new viewAnswerImageBtnAddListener());
 		this.view.removeQuestionImageBtnAddListener(new removeQuestionImageBtnListener());
 		this.view.removeAnswerImageBtnAddListener(new removeAnswerImageBtnListener());
-		setChangesActionListeners(view);
+		textItemListener = new textItemListener();
+//		setChangesActionListeners(view);
 		qFileChooser=view.getQuestionFileChooser();
 		aFileChooser=view.getAnswerFileChooser();
 		try {
@@ -88,52 +91,32 @@ public class qPanelController implements Serializable{
 		qImgFile=null;
 		aImgFile=null;
 		
+
 	}
 	
-	public void setChangesActionListeners(Component comp)
+	public static void setChangesActionListeners(Component comp)
 	{
 		for (Component item : ((Container) comp).getComponents()){
 			
             if ((item.getClass() == JTextField.class)){
             	JTextField textFiled = (JTextField) item;
-            	textFiled.addKeyListener(new KeyListener() {
+            	textFiled.addKeyListener(textItemListener);
+            }
+//            if ((item.getClass() == JTextArea.class)){
+//            	JTextArea textArea = (JTextArea) item;
+//            	textArea.addKeyListener(textItemListener);
+//            }
+            if ((item.getClass() == JCheckBox.class)){
+            	JCheckBox textArea = (JCheckBox) item;
+            	textArea.addActionListener(new ActionListener() {
 					
-					public void keyTyped(KeyEvent e) {
-						// TODO Auto-generated method stub
-						
-					}
-					
-					public void keyReleased(KeyEvent e) {
-						// TODO Auto-generated method stub
-						
-					}
-					
-					public void keyPressed(KeyEvent e) {
+					public void actionPerformed(ActionEvent e) {
 						// TODO Auto-generated method stub
 						QuizCreationController.saveFlag=0;
 					}
 				});
             }
-            if ((item.getClass() == JTextArea.class)){
-            	JTextArea textFiled = (JTextArea) item;
-            	textFiled.addKeyListener(new KeyListener() {
-					
-					public void keyTyped(KeyEvent e) {
-						// TODO Auto-generated method stub
-						
-					}
-					
-					public void keyReleased(KeyEvent e) {
-						// TODO Auto-generated method stub
-						
-					}
-					
-					public void keyPressed(KeyEvent e) {
-						// TODO Auto-generated method stub
-						QuizCreationController.saveFlag=0;
-					}
-				});
-            }
+            
             if( item instanceof Container ) {
                 // recursively map child components
                 Component[] comps = ( (Container) item ).getComponents();
@@ -142,6 +125,23 @@ public class qPanelController implements Serializable{
                 }
             }
         }
+	}
+	public class textItemListener implements KeyListener
+	{
+		public void keyTyped(KeyEvent e) {
+			// TODO Auto-generated method stub
+			
+		}
+		
+		public void keyReleased(KeyEvent e) {
+			// TODO Auto-generated method stub
+			
+		}
+		
+		public void keyPressed(KeyEvent e) {
+			// TODO Auto-generated method stub
+			QuizCreationController.saveFlag=0;
+		}
 	}
 	
 	class removeBtnListener implements ActionListener,Serializable
