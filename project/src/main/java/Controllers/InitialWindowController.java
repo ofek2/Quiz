@@ -323,12 +323,8 @@ public class InitialWindowController {
 	{
 		
 		view.quizzes.removeAllItems();
-		System.out.println(coursesFiles.get(courseIndex).getCourseFolder().getName());
 		for(File child: coursesFiles.get(courseIndex).getCourseFolder().listFiles())
-		{
-			System.out.println("add");
 			view.quizzes.addItem(child.getName());
-		}
 		view.getEditQuizDialogPanel().revalidate();
 	}
 	
