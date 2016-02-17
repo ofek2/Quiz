@@ -17,6 +17,8 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
 
+import javax.swing.ComboBoxModel;
+import javax.swing.JComboBox;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -33,6 +35,7 @@ import Views.InitialWindowView;
 import Views.Main;
 import Views.MainFrameView;
 import Views.QuizCreationView;
+import javafx.scene.control.ComboBox;
 
 public class InitialWindowController {
 	private InitialWindowView view;
@@ -53,6 +56,7 @@ public class InitialWindowController {
 		view.editQuizBtnAddListener(new EditQuizBtnListener());
 		view.createCourseBtnAddListener(new CreateCourseBtnListener());
 		view.removeCourseBtnAddListener(new RemoveCourseBtnListener());
+		view.coursesIdsEditAddItemListener(new coursesIdsEditAddItemListener());
 	}
 
 	
@@ -78,17 +82,12 @@ public class InitialWindowController {
 					{
 						courseFolder.mkdir();			
 						coursesFiles.add(courseEntity.checkPosition(),courseEntity);
-//						view.getCoursesIds().revalidate();
 						coursesUpdate();
-//						QuizCreationView quizCreationView = new QuizCreationView();
-//						QuizEntity quizEntity = new QuizEntity("QuizTest",25,quizFolder);
-//						new QuizCreationController(quizCreationView,quizEntity);
 						dialog.setVisible(false);
-//						MainFrameController.view.changeContentPane(quizCreationView);
+
 					}
 					else
 					{
-						
 						JOptionPane.showMessageDialog(null,"This course already exists, please choose another id","Alert",JOptionPane.ERROR_MESSAGE);
 					}
 				} catch (IOException e1) {
@@ -97,6 +96,16 @@ public class InitialWindowController {
 				}
 				
 			}
+		}
+		
+	}
+	class coursesIdsEditAddItemListener implements ItemListener
+	{
+
+		public void itemStateChanged(ItemEvent e) {
+			// TODO Auto-generated method stub
+			JComboBox temp = (JComboBox)e.getSource();
+			loadQuizzesToComboBox(temp.getSelectedIndex());
 		}
 		
 	}
@@ -124,17 +133,8 @@ public class InitialWindowController {
 				if(!quizFolder.exists())
 				{
 					quizFolder.mkdir();
-					
-//					MainFrameController.view.setBounds(Constants.realtiveFrameXPos/2,Constants.realtiveFrameYPos/2,(int)(MainFrameController.view.getWidth()*1.5f),(int)(MainFrameController.view.getHeight()*1.5f));
-//					MainFrameController.view.setExtendedState(JFrame.MAXIMIZED_BOTH);
-					GraphicsEnvironment env = GraphicsEnvironment.getLocalGraphicsEnvironment();
-					Rectangle bounds = env.getMaximumWindowBounds();
-//					MainFrameController.view.setBounds(new Rectangle(0, 0, bounds.width, bounds.height));
-					
+			
 					QuizCreationView quizCreationView = new QuizCreationView();
-//					quizCreationView.setBounds(0, 0, bounds.width, bounds.height-40);
-					//quizCreationView.setSize(bounds.width, bounds.height-30);
-//					quizCreationView.setBounds(0, 0, 100, 100);
 					QuizEntity quizEntity = new QuizEntity("QuizTest",25,quizFolder);
 					new QuizCreationController(quizCreationView,quizEntity,view);
 					quizCreationView.getQuizName().setText(quizName);
@@ -209,6 +209,8 @@ public class InitialWindowController {
 			dialog.setVisible(true);
 			dialog.setResizable(false);
 			dialog.getContentPane().add(view.getEditQuizDialogPanel());
+			
+			loadQuizzesToComboBox(view.getCoursesIdsEdit().getSelectedIndex());
 			
 			// read object from file
 			/*			FileInputStream fis = new FileInputStream("mybean.ser");
@@ -317,6 +319,17 @@ public class InitialWindowController {
 		}
 
 	}
-	
+	public void loadQuizzesToComboBox(int courseIndex)
+	{
+		
+		view.quizzes.removeAllItems();
+		System.out.println(coursesFiles.get(courseIndex).getCourseFolder().getName());
+		for(File child: coursesFiles.get(courseIndex).getCourseFolder().listFiles())
+		{
+			System.out.println("add");
+			view.quizzes.addItem(child.getName());
+		}
+		view.getEditQuizDialogPanel().revalidate();
+	}
 	
 }
