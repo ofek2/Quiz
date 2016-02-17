@@ -48,8 +48,8 @@ public class MainFrameController {
 			temp2=new File(new File(".").getCanonicalPath()+"/OnlineQuizChecker"+"/"+"2,b");
 			temp3=new File(new File(".").getCanonicalPath()+"/OnlineQuizChecker"+"/"+"3,c");
 			initialWindowController.coursesFiles.add(new CourseEntity(temp1, "1", "a"));
-			initialWindowController.coursesFiles.add(new CourseEntity(temp1, "2", "b"));
-			initialWindowController.coursesFiles.add(new CourseEntity(temp1, "3", "c"));
+			initialWindowController.coursesFiles.add(new CourseEntity(temp2, "2", "b"));
+			initialWindowController.coursesFiles.add(new CourseEntity(temp3, "3", "c"));
 			if(!temp1.exists())
 			temp1.mkdir();
 			if(!temp2.exists())
