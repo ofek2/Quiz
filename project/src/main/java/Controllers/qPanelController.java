@@ -3,6 +3,8 @@ package Controllers;
 import java.awt.BorderLayout;
 import java.awt.CardLayout;
 import java.awt.Color;
+import java.awt.Component;
+import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Image;
@@ -10,6 +12,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.awt.image.BufferedImage;
 import java.awt.image.BufferedImageFilter;
 import java.io.BufferedReader;
@@ -29,6 +33,8 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
+import javax.swing.JTextField;
 import javax.swing.ScrollPaneConstants;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.xml.parsers.ParserConfigurationException;
@@ -70,6 +76,7 @@ public class qPanelController implements Serializable{
 		this.view.viewAnswerImageBtnAddListener(new viewAnswerImageBtnAddListener());
 		this.view.removeQuestionImageBtnAddListener(new removeQuestionImageBtnListener());
 		this.view.removeAnswerImageBtnAddListener(new removeAnswerImageBtnListener());
+		setChangesActionListeners(view);
 		qFileChooser=view.getQuestionFileChooser();
 		aFileChooser=view.getAnswerFileChooser();
 		try {
@@ -83,7 +90,59 @@ public class qPanelController implements Serializable{
 		
 	}
 	
-	
+	public void setChangesActionListeners(Component comp)
+	{
+		for (Component item : ((Container) comp).getComponents()){
+			
+            if ((item.getClass() == JTextField.class)){
+            	JTextField textFiled = (JTextField) item;
+            	textFiled.addKeyListener(new KeyListener() {
+					
+					public void keyTyped(KeyEvent e) {
+						// TODO Auto-generated method stub
+						
+					}
+					
+					public void keyReleased(KeyEvent e) {
+						// TODO Auto-generated method stub
+						
+					}
+					
+					public void keyPressed(KeyEvent e) {
+						// TODO Auto-generated method stub
+						QuizCreationController.saveFlag=0;
+					}
+				});
+            }
+            if ((item.getClass() == JTextArea.class)){
+            	JTextArea textFiled = (JTextArea) item;
+            	textFiled.addKeyListener(new KeyListener() {
+					
+					public void keyTyped(KeyEvent e) {
+						// TODO Auto-generated method stub
+						
+					}
+					
+					public void keyReleased(KeyEvent e) {
+						// TODO Auto-generated method stub
+						
+					}
+					
+					public void keyPressed(KeyEvent e) {
+						// TODO Auto-generated method stub
+						QuizCreationController.saveFlag=0;
+					}
+				});
+            }
+            if( item instanceof Container ) {
+                // recursively map child components
+                Component[] comps = ( (Container) item ).getComponents();
+                for( Component c : comps ) {
+                	setChangesActionListeners(c);
+                }
+            }
+        }
+	}
 	
 	class removeBtnListener implements ActionListener
 	{
