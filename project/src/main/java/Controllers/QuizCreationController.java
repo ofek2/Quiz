@@ -33,7 +33,7 @@ public class QuizCreationController implements Serializable {
 	private qPanelController qPanelController;
 	protected static ArrayList<qPanelController> qPanels;
 	private HtmlBuilder htmlBuilder;
-	protected static int saveFlag=1;
+	public static int saveFlag=1;
 	private transient InitialWindowView initialWindowView;
 	public QuizCreationController(QuizCreationView view,QuizEntity entity, InitialWindowView initialWindowView) {
 		ActionListener[] fileMenuListeners = {new saveMenuListener(),new exitMenuListener()};
@@ -99,7 +99,7 @@ public class QuizCreationController implements Serializable {
 		view.panel.add(qPview);
 		view.panel.revalidate();
 		
-		
+		QuizCreationController.saveFlag=0;
 		view.panel.remove(view.addBtn);
 		view.panel.add(view.addBtn);
 		
