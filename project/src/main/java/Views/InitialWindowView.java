@@ -61,7 +61,7 @@ public class InitialWindowView extends ViewPanel {
 	
 	private JPanel editQuizDialogPanel;
 	private JComboBox<String> coursesIdsEdit;
-	private JComboBox<String> quizzes;
+	public JComboBox<String> quizzes;
 	private JButton editQuizBtn;
 	
 	private JTextField newCourseId;
@@ -187,7 +187,14 @@ public class InitialWindowView extends ViewPanel {
 		editQuizDialogPanel.add(label3);
 		
 		quizzes = new JComboBox<String>();
-		quizzes.setBounds(100, 27, 180, 20);
+		quizzes.setBounds(100, 69, 180, 20);
+		if(InitialWindowController.coursesFiles.size()>0)
+		{
+		for(File child: InitialWindowController.coursesFiles.get(0).getCourseFolder().listFiles())
+			quizzes.addItem(child.getName());
+		}
+		else
+			quizzes.addItem("");
 		editQuizDialogPanel.add(quizzes);
 		
 		editQuizBtn = new JButton("Edit Quiz");
@@ -337,4 +344,5 @@ public class InitialWindowView extends ViewPanel {
 				treeNode.add(filesTree(child));
 		return treeNode;
 	}
+	
 }
