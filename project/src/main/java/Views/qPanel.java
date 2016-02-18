@@ -400,45 +400,6 @@ public class qPanel extends JPanel implements Serializable{
 		chckbxHideQuestion.setOpaque(false);
 		qDataPanel.add(qImage, gbc_qImage);
 		
-		qPanelController.setChangesActionListeners(this);
-		scoreTextField.addKeyListener(new KeyListener() {
-
-			public void keyTyped(KeyEvent e) {
-				// TODO Auto-generated method stub
-				
-			}
-			
-			public void keyReleased(KeyEvent e) {
-				// TODO Auto-generated method stub
-				
-			}
-			
-			public void keyPressed(KeyEvent e) {
-				// TODO Auto-generated method stub
-				QuizCreationController.saveFlag=0;
-			}
-			
-
-		});
-		textAreaQ.addKeyListener(qPanelController.textItemListener);
-		textAreaA.addKeyListener(qPanelController.textItemListener);
-		
-		chckbxHideQuestion.addActionListener(new ActionListener() {
-				
-				public void actionPerformed(ActionEvent e) {
-					// TODO Auto-generated method stub
-					QuizCreationController.saveFlag=0;
-				}
-			});
-        
-//		listenChkBox.addActionListener(new ActionListener() {
-//			
-//			public void actionPerformed(ActionEvent e) {
-//				// TODO Auto-generated method stub
-//				QuizCreationController.saveFlag=0;
-//			}
-//		});
-    
 		
 	}
 
