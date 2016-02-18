@@ -58,11 +58,11 @@ public class qPanelController implements Serializable{
 	private transient QuizCreationView parentView;
 	private transient JFileChooser qFileChooser;
 	private transient JFileChooser aFileChooser;
-	private transient String quizPath;
-	private transient File qImgFile;
-	private transient File aImgFile;
-	private transient String fileExtension;
-	private transient JLabel qImageIcon=null;
+	private String quizPath;
+	private File qImgFile;
+	private File aImgFile;
+	private String fileExtension;
+	private JLabel qImageIcon=null;
 
 	public static textItemListener textItemListener;
 	public qPanelController(qPanel view,QuizCreationView parentView,QuizEntity quizEntity) {
