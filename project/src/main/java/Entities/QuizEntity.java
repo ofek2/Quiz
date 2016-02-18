@@ -24,7 +24,7 @@ public class QuizEntity implements Serializable{
 		this.name = name;
 	}
 	
-	public int getPercentageFromFGrade() {
+	public int getPercentageFromFGrade() {//////////////////set the value form the listener
 		return percentageFromFGrade;
 	}
 	public void setPercentageFromFGrade(int percentageFromFGrade) {
