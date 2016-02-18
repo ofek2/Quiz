@@ -15,6 +15,7 @@ public class MultipleChoicePanelController implements Serializable{
 		this.view=view;
 		cBfControllers = new ArrayList<checkBoxFieldController>();
 		addCheckBoxField(0);
+//		qPanelController.setcheckboxFieldActionListeners(this.view);
 		
 	}
 	public void addCheckBoxField(int index) {
@@ -25,6 +26,7 @@ public class MultipleChoicePanelController implements Serializable{
 		view.panel.add(checkBoxFieldPanel);
 		cBfControllers.add(index, checkBoxFieldController);
 		checkBoxFieldPanel.setAnswerNumber(index+1);
+//		checkBoxFieldPanel.getAnswerTextOption().addKeyListener(qPanelController.textItemListener);
 	}
 	
 }

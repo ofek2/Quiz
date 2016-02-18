@@ -106,33 +106,33 @@ public class qPanelController implements Serializable{
 		});	
 	}
 	
-	public static void setcheckboxFieldActionListeners(Component comp)
-	{
-		for (Component item : ((Container) comp).getComponents()){
-			
-            if ((item.getClass() == JTextField.class)){
-            	JTextField textFiled = (JTextField) item;
-            	textFiled.addKeyListener(textItemListener);
-            }
-            if ((item.getClass() == JCheckBox.class)){
-            	JCheckBox checkBox = (JCheckBox) item;
-            	checkBox.addActionListener(new ActionListener() {
-					
-					public void actionPerformed(ActionEvent e) {
-						// TODO Auto-generated method stub
-						QuizCreationController.saveFlag=0;
-					}
-				});
-            }
-            
-            if( item instanceof Container ) {
-                Component[] comps = ( (Container) item ).getComponents();
-                for( Component c : comps ) {
-                	setcheckboxFieldActionListeners(c);
-                }
-            }
-        }
-	}
+//	public static void setcheckboxFieldActionListeners(Component comp)
+//	{
+//		for (Component item : ((Container) comp).getComponents()){
+//			
+//            if ((item.getClass() == JTextField.class)){
+//            	JTextField textFiled = (JTextField) item;
+//            	textFiled.addKeyListener(textItemListener);
+//            }
+//            if ((item.getClass() == JCheckBox.class)){
+//            	JCheckBox checkBox = (JCheckBox) item;
+//            	checkBox.addActionListener(new ActionListener() {
+//					
+//					public void actionPerformed(ActionEvent e) {
+//						// TODO Auto-generated method stub
+//						QuizCreationController.saveFlag=0;
+//					}
+//				});
+//            }
+//            
+//            if( item instanceof Container ) {
+//                Component[] comps = ( (Container) item ).getComponents();
+//                for( Component c : comps ) {
+//                	setcheckboxFieldActionListeners(c);
+//                }
+//            }
+//        }
+//	}
 	public class textItemListener implements KeyListener
 	{
 		public void keyTyped(KeyEvent e) {
@@ -148,6 +148,7 @@ public class qPanelController implements Serializable{
 		public void keyPressed(KeyEvent e) {
 			// TODO Auto-generated method stub
 			QuizCreationController.saveFlag=0;
+			System.out.print("11");
 		}
 	}
 	

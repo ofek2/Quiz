@@ -2,6 +2,8 @@ package Controllers;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.io.Serializable;
 import java.util.ArrayList;
 
@@ -19,7 +21,36 @@ public class checkBoxFieldController implements Serializable {
 		this.parentController = parentController;
 		this.view.plusBtnAddListener(new plusBtnListener());
 		this.view.minusBtnAddListener(new minusBtnListener());
+		this.view.addAnswerTextOptionKeyListener(new answerTextOptionkeyListener());
+		this.view.addChckbxNewCheckBox(new ActionListener() {
+			
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				QuizCreationController.saveFlag=0;
+			}
+		});
 	}
+	
+	class answerTextOptionkeyListener implements KeyListener,Serializable
+	{
+
+		public void keyPressed(KeyEvent e) {
+			// TODO Auto-generated method stub
+			
+		}
+
+		public void keyReleased(KeyEvent e) {
+			// TODO Auto-generated method stub
+			
+		}
+
+		public void keyTyped(KeyEvent e) {
+			// TODO Auto-generated method stub
+			QuizCreationController.saveFlag=0;
+		}
+		
+	}
+	
 	class plusBtnListener implements ActionListener,Serializable
 	{
 
