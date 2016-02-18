@@ -43,7 +43,7 @@ public class QuizCreationController implements Serializable {
 		this.initialWindowView = initialWindowView;
 		this.view.addBtnAddListener(new addBtnListener());
 		this.view.addFileMenuListeners(fileMenuListeners);
-		MainFrameController.view.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+//		MainFrameController.view.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 		MainFrameController.view.addWindowListener(new windowListener());
 		qPanels = new ArrayList<qPanelController>();
 		
