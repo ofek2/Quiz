@@ -41,7 +41,10 @@ import javafx.scene.control.ComboBox;
 
 public class InitialWindowController {
 	private InitialWindowView view;
-	private JDialog dialog;
+	private JDialog newQuizDialog;
+	private JDialog editQuizdialog;
+	private JDialog newCourseDialog;
+	private JDialog removeCourseDialog;
 	public static ArrayList<CourseEntity> coursesFiles;
 	public InitialWindowController(InitialWindowView view) {
 //		coursesFiles = new ArrayList<File>();
@@ -85,7 +88,7 @@ public class InitialWindowController {
 						courseFolder.mkdir();			
 						coursesFiles.add(courseEntity.checkPosition(),courseEntity);
 						coursesUpdate();
-						dialog.setVisible(false);
+//						newCourseDialog.setVisible(false);
 
 					}
 					else
@@ -129,8 +132,9 @@ public class InitialWindowController {
 				ois.close();
 			
 				QuizCreationView quizCreationView = new QuizCreationView();
-				QuizCreationController quizCreationController = new QuizCreationController(quizCreationView,result,view);
-				MainFrameController.view.changeContentPane(quizCreationView);
+				QuizCreationController quizCreationController = new QuizCreationController(quizCreationView,result,view);			
+				editQuizdialog.setVisible(false);
+				MainFrameController.view.changeContentPane(quizCreationView);			
 			} catch (FileNotFoundException e1) {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
@@ -164,7 +168,7 @@ public class InitialWindowController {
 					QuizEntity quizEntity = new QuizEntity(quizName,25,quizFolder);
 					new QuizCreationController(quizCreationView,quizEntity,view);
 					quizCreationView.getQuizName().setText(quizName);
-					dialog.setVisible(false);
+					newQuizDialog.setVisible(false);
 					MainFrameController.view.changeContentPane(quizCreationView);
 //					view.setTree(new JTree(InitialWindowView.filesTree(new File(new File(".").getCanonicalPath()+"/OnlineQuizChecker"))));
 				}
@@ -212,13 +216,13 @@ public class InitialWindowController {
 	{
 		public void actionPerformed(ActionEvent e) {
 			// TODO Auto-generated method stub	
-			dialog = new JDialog(MainFrameController.view,"New Quiz Dialog");
+			newQuizDialog = new JDialog(MainFrameController.view,"New Quiz Dialog");
 		
-			dialog.setSize(300,220);
-			dialog.setLocationRelativeTo(MainFrameController.view.getContentPane());
-			dialog.setVisible(true);
-			dialog.setResizable(false);
-			dialog.getContentPane().add(view.getNewQuizDialogPanel());
+			newQuizDialog.setSize(300,220);
+			newQuizDialog.setLocationRelativeTo(MainFrameController.view.getContentPane());
+			newQuizDialog.setVisible(true);
+			newQuizDialog.setResizable(false);
+			newQuizDialog.getContentPane().add(view.getNewQuizDialogPanel());
 //			view.getNewQuizDialogPanel().setVisible(true);
 		}
 		
@@ -228,13 +232,13 @@ public class InitialWindowController {
 
 		public void actionPerformed(ActionEvent e) {
 			// TODO Auto-generated method stub
-			dialog = new JDialog(MainFrameController.view,"Edit Quiz Dialog");
+			editQuizdialog = new JDialog(MainFrameController.view,"Edit Quiz Dialog");
 			
-			dialog.setSize(300,220);
-			dialog.setLocationRelativeTo(MainFrameController.view.getContentPane());
-			dialog.setVisible(true);
-			dialog.setResizable(false);
-			dialog.getContentPane().add(view.getEditQuizDialogPanel());
+			editQuizdialog.setSize(300,220);
+			editQuizdialog.setLocationRelativeTo(MainFrameController.view.getContentPane());
+			editQuizdialog.setVisible(true);
+			editQuizdialog.setResizable(false);
+			editQuizdialog.getContentPane().add(view.getEditQuizDialogPanel());
 			
 			loadQuizzesToComboBox(view.getCoursesIdsEdit().getSelectedIndex());
 			
@@ -268,12 +272,12 @@ public class InitialWindowController {
 
 		public void actionPerformed(ActionEvent e) {
 			// TODO Auto-generated method stub
-			dialog = new JDialog(MainFrameController.view,"New Course Dialog");
-			dialog.setSize(220,220);
-			dialog.setLocationRelativeTo(MainFrameController.view);
-			dialog.setVisible(true);
-			dialog.setResizable(false);
-			dialog.getContentPane().add(view.getNewCourseDialogPanel());
+			newCourseDialog = new JDialog(MainFrameController.view,"New Course Dialog");
+			newCourseDialog.setSize(220,220);
+			newCourseDialog.setLocationRelativeTo(MainFrameController.view);
+			newCourseDialog.setVisible(true);
+			newCourseDialog.setResizable(false);
+			newCourseDialog.getContentPane().add(view.getNewCourseDialogPanel());
 		}
 		
 	}
@@ -282,12 +286,12 @@ public class InitialWindowController {
 
 		public void actionPerformed(ActionEvent e) {
 			// TODO Auto-generated method stub
-			dialog = new JDialog(MainFrameController.view,"Remove Course Dialog");
-			dialog.setLocationRelativeTo(MainFrameController.view);
-			dialog.setSize(220,220);
-			dialog.setVisible(true);
-			dialog.setResizable(false);
-			dialog.getContentPane().add(view.getRemoveCourseDialogPanel());
+			removeCourseDialog = new JDialog(MainFrameController.view,"Remove Course Dialog");
+			removeCourseDialog.setLocationRelativeTo(MainFrameController.view);
+			removeCourseDialog.setSize(220,220);
+			removeCourseDialog.setVisible(true);
+			removeCourseDialog.setResizable(false);
+			removeCourseDialog.getContentPane().add(view.getRemoveCourseDialogPanel());
 			
 		}
 
