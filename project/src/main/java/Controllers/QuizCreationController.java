@@ -225,8 +225,7 @@ public class QuizCreationController implements Serializable {
 	}
 	class windowListener implements WindowListener
 	{
-
-	
+		private int exitFlag;
 		public void windowClosing(WindowEvent e) {
 			// TODO Auto-generated method stub
 			
@@ -239,7 +238,23 @@ public class QuizCreationController implements Serializable {
 
 		public void windowClosed(WindowEvent e) {
 			// TODO Auto-generated method stub
-			
+			if(saveFlag==0)
+			{
+			exitFlag=JOptionPane.showConfirmDialog(null,"You made an unsaved changes, all of this changes will be lost,\n do you want to keep the application progress?","Alert",JOptionPane.YES_NO_OPTION);
+			if(exitFlag==JOptionPane.YES_OPTION)
+				MainFrameController.view.changeContentPane(initialWindowView);	
+			}
+			else
+			{	
+				try {
+					initialWindowView.setTree(new JTree(InitialWindowView.filesTree(new File(new File(".").getCanonicalPath()+"/OnlineQuizChecker"))));
+					MainFrameController.view.changeContentPane(initialWindowView);
+				} catch (IOException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+
+			}
 		}
 
 		public void windowDeactivated(WindowEvent e) {
