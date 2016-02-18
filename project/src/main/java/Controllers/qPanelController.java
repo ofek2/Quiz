@@ -63,7 +63,7 @@ public class qPanelController implements Serializable{
 	private transient File aImgFile;
 	private transient String fileExtension;
 	private transient JLabel qImageIcon=null;
-	private transient Graphics graphics;
+
 	public static textItemListener textItemListener;
 	public qPanelController(qPanel view,QuizCreationView parentView,QuizEntity quizEntity) {
 		this.view = view;
@@ -194,21 +194,6 @@ public class qPanelController implements Serializable{
 				
 			}
 
-			/*
-			try {
-				HtmlBuilder hb= new HtmlBuilder();
-				hb.initiateHtml();
-				hb.writeHtml("C:\\Users\\Ofek\\ProjectWorkspace\\project\\testFile.html");
-			} catch (FileNotFoundException e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
-			} catch (ParserConfigurationException e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
-			} catch (TransformerException e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
-			}*/
 		}
 			private void fixColors() {
 				for(int i=0;i<QuizCreationController.qPanels.size();i++)
@@ -450,12 +435,7 @@ public class qPanelController implements Serializable{
 	public void setqImageIcon(JLabel qImageIcon) {
 		this.qImageIcon = qImageIcon;
 	}
-	public Graphics getGraphics() {
-		return graphics;
-	}
-	public void setGraphics(Graphics graphics) {
-		this.graphics = graphics;
-	}
+
 	}
 	
 
