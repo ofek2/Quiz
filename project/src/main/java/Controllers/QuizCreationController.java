@@ -14,6 +14,7 @@ import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.util.ArrayList;
 
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JTree;
 import javax.xml.parsers.ParserConfigurationException;
@@ -42,6 +43,7 @@ public class QuizCreationController implements Serializable {
 		this.initialWindowView = initialWindowView;
 		this.view.addBtnAddListener(new addBtnListener());
 		this.view.addFileMenuListeners(fileMenuListeners);
+		MainFrameController.view.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 		MainFrameController.view.addWindowListener(new windowListener());
 		qPanels = new ArrayList<qPanelController>();
 		
