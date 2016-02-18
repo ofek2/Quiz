@@ -94,10 +94,10 @@ public class qPanelController implements Serializable{
 	}
 	private void setqPanelListeners()
 	{
-		view.getTextAreaQ().addKeyListener(qPanelController.textItemListener);
-		view.getTextAreaA().addKeyListener(qPanelController.textItemListener);
-		view.getScoreTextField().addKeyListener(qPanelController.textItemListener);
-		view.getChckbxHideQuestion().addActionListener(new ActionListener() {
+		view.addTextAreaQKeyListener(qPanelController.textItemListener);
+		view.addTextAreaAKeyListener(qPanelController.textItemListener);
+		view.addScoreTextFieldKeyListener(qPanelController.textItemListener);
+		view.addChckbxHideQuestionListener(new ActionListener() {
 			
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub

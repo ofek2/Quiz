@@ -17,6 +17,8 @@ import java.util.ArrayList;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JTree;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.TransformerException;
 
@@ -43,6 +45,7 @@ public class QuizCreationController implements Serializable {
 		this.initialWindowView = initialWindowView;
 		this.view.addBtnAddListener(new addBtnListener());
 		this.view.addFileMenuListeners(fileMenuListeners);
+		this.view.addSpinnerChangeListener(new addSpinnerChangeListener());
 //		MainFrameController.view.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 		MainFrameController.view.addWindowListener(new windowListener());
 		qPanels = new ArrayList<qPanelController>();
@@ -66,6 +69,7 @@ public class QuizCreationController implements Serializable {
 		this.entity = objectEntity.getQuizEntity();
 		this.initialWindowView = initialWindowView;
 		this.view.addBtnAddListener(new addBtnListener());
+		this.view.addSpinnerChangeListener(new addSpinnerChangeListener());
 		this.view.addFileMenuListeners(fileMenuListeners);
 		MainFrameController.view.addWindowListener(new windowListener());
 		qPanels = new ArrayList<qPanelController>();
@@ -119,6 +123,16 @@ public class QuizCreationController implements Serializable {
 		public void actionPerformed(ActionEvent e) {
 			addNewQpanel();
 		}
+		
+	}
+	class addSpinnerChangeListener implements ChangeListener
+	{
+
+		public void stateChanged(ChangeEvent e) {
+			// TODO Auto-generated method stub
+			QuizCreationController.saveFlag=0;
+		}
+
 		
 	}
 	class saveMenuListener implements ActionListener

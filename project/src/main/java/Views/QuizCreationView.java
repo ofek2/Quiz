@@ -48,6 +48,7 @@ import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.border.EtchedBorder;
 import javax.swing.border.TitledBorder;
+import javax.swing.event.ChangeListener;
 
 import java.awt.BorderLayout;
 import java.awt.CardLayout;
@@ -68,7 +69,7 @@ public class QuizCreationView extends ViewPanel {
 	private JLabel quizName;
 	private JMenuBar menuBar;
 	private JMenu fileMenu;
-	
+	private JSpinner percentageFromFgrade;
 	public QuizCreationView() {
 		super();
 		setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
@@ -131,7 +132,7 @@ public class QuizCreationView extends ViewPanel {
 		percentage.setFont(new Font("Arial", Font.BOLD, 17));
 		percentage.setHorizontalAlignment(JLabel.CENTER);
 		headPanel.add(percentage);
-		JSpinner percentageFromFgrade = new JSpinner(new SpinnerNumberModel(0.25,0,1,.01));   
+		percentageFromFgrade = new JSpinner(new SpinnerNumberModel(0.25,0,1,.01));   
 		JSpinner.NumberEditor editor = new JSpinner.NumberEditor(percentageFromFgrade,"0%");  
 		percentageFromFgrade.setEditor(editor);
 		
@@ -156,6 +157,10 @@ public class QuizCreationView extends ViewPanel {
 
 	public void addBtnAddListener(ActionListener listener){
 		addBtn.addActionListener(listener);
+	}
+	public void addSpinnerChangeListener(ChangeListener changeListener)
+	{
+		percentageFromFgrade.addChangeListener(changeListener);
 	}
 	public void addFileMenuListeners(ActionListener[] listener)
 	{

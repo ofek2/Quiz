@@ -591,5 +591,18 @@ public class qPanel extends JPanel implements Serializable{
 	public JPanel getQuestionDataPanel() {
 		return qDataPanel;
 	}
+	public void addTextAreaQKeyListener(KeyListener listener){
+		textAreaQ.addKeyListener(listener);
+	}
+	public void addTextAreaAKeyListener(KeyListener listener){
+		textAreaA.addKeyListener(listener);
+	}
+	public void addScoreTextFieldKeyListener(KeyListener listener){
+		scoreTextField.addKeyListener(listener);
+	}
+	public void addChckbxHideQuestionListener(ActionListener listener){
+		chckbxHideQuestion.addActionListener(listener);
+	}
+	
 	
 }
