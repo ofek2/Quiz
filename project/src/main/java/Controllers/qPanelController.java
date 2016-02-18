@@ -79,7 +79,7 @@ public class qPanelController implements Serializable{
 		this.view.removeQuestionImageBtnAddListener(new removeQuestionImageBtnListener());
 		this.view.removeAnswerImageBtnAddListener(new removeAnswerImageBtnListener());
 		textItemListener = new textItemListener();
-//		setChangesActionListeners(view);
+		setqPanelListeners();
 		qFileChooser=view.getQuestionFileChooser();
 		aFileChooser=view.getAnswerFileChooser();
 		try {
@@ -91,7 +91,19 @@ public class qPanelController implements Serializable{
 		qImgFile=null;
 		aImgFile=null;
 		
-
+	}
+	public void setqPanelListeners()
+	{
+		view.getTextAreaQ().addKeyListener(qPanelController.textItemListener);
+		view.getTextAreaA().addKeyListener(qPanelController.textItemListener);
+		view.getScoreTextField().addKeyListener(qPanelController.textItemListener);
+		view.getChckbxHideQuestion().addActionListener(new ActionListener() {
+			
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				QuizCreationController.saveFlag=0;
+			}
+		});	
 	}
 	
 	public static void setChangesActionListeners(Component comp)
@@ -102,10 +114,6 @@ public class qPanelController implements Serializable{
             	JTextField textFiled = (JTextField) item;
             	textFiled.addKeyListener(textItemListener);
             }
-//            if ((item.getClass() == JTextArea.class)){
-//            	JTextArea textArea = (JTextArea) item;
-//            	textArea.addKeyListener(textItemListener);
-//            }
             if ((item.getClass() == JCheckBox.class)){
             	JCheckBox textArea = (JCheckBox) item;
             	textArea.addActionListener(new ActionListener() {
@@ -118,7 +126,6 @@ public class qPanelController implements Serializable{
             }
             
             if( item instanceof Container ) {
-                // recursively map child components
                 Component[] comps = ( (Container) item ).getComponents();
                 for( Component c : comps ) {
                 	setChangesActionListeners(c);
