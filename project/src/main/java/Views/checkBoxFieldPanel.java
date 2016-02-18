@@ -88,7 +88,7 @@ public class checkBoxFieldPanel extends JPanel implements Serializable{
 		gbc_minusBtn.gridx = 4;
 		gbc_minusBtn.gridy = 0;
 		add(minusBtn, gbc_minusBtn);
-		qPanelController.setChangesActionListeners(this);
+		qPanelController.setcheckboxFieldActionListeners(this);
 	
 		
 	}
