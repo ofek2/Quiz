@@ -92,7 +92,7 @@ public class qPanelController implements Serializable{
 		aImgFile=null;
 		
 	}
-	public void setqPanelListeners()
+	private void setqPanelListeners()
 	{
 		view.getTextAreaQ().addKeyListener(qPanelController.textItemListener);
 		view.getTextAreaA().addKeyListener(qPanelController.textItemListener);
