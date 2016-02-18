@@ -106,7 +106,7 @@ public class qPanelController implements Serializable{
 		});	
 	}
 	
-	public static void setChangesActionListeners(Component comp)
+	public static void setcheckboxFieldActionListeners(Component comp)
 	{
 		for (Component item : ((Container) comp).getComponents()){
 			
@@ -128,7 +128,7 @@ public class qPanelController implements Serializable{
             if( item instanceof Container ) {
                 Component[] comps = ( (Container) item ).getComponents();
                 for( Component c : comps ) {
-                	setChangesActionListeners(c);
+                	setcheckboxFieldActionListeners(c);
                 }
             }
         }
