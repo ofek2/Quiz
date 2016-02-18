@@ -80,8 +80,8 @@ public class qPanelController implements Serializable{
 		this.view.removeAnswerImageBtnAddListener(new removeAnswerImageBtnListener());
 		textItemListener = new textItemListener();
 		setqPanelListeners();
-		qFileChooser=view.getQuestionFileChooser();
-		aFileChooser=view.getAnswerFileChooser();
+		qFileChooser=this.view.getQuestionFileChooser();
+		aFileChooser=this.view.getAnswerFileChooser();
 		try {
 			quizPath = quizEntity.getQuizFolder().getCanonicalPath();
 		} catch (IOException e) {
@@ -91,6 +91,12 @@ public class qPanelController implements Serializable{
 		qImgFile=null;
 		aImgFile=null;
 		
+	}
+	public void intializefilechoosers()
+	{
+		this.view.initializeJFileChoosers();
+		qFileChooser=this.view.getQuestionFileChooser();
+		aFileChooser=this.view.getAnswerFileChooser();
 	}
 	private void setqPanelListeners()
 	{
@@ -133,7 +139,7 @@ public class qPanelController implements Serializable{
 //            }
 //        }
 //	}
-	public class textItemListener implements KeyListener
+	public class textItemListener implements KeyListener,Serializable
 	{
 		public void keyTyped(KeyEvent e) {
 			// TODO Auto-generated method stub

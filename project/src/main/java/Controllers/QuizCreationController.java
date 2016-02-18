@@ -76,6 +76,7 @@ public class QuizCreationController implements Serializable {
 		qPanels = objectEntity.getqPanels();
 		for(int i =0;i<qPanels.size();i++)
 		{
+			qPanels.get(i).intializefilechoosers();
 			addExitingQpanel(qPanels.get(i).view);
 		}
 		try {
@@ -239,7 +240,7 @@ public class QuizCreationController implements Serializable {
 			}
 		}
 	}
-	class windowListener implements WindowListener
+	class windowListener implements WindowListener,Serializable
 	{
 		private int exitFlag;
 		public void windowClosing(WindowEvent e) {

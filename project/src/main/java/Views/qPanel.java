@@ -43,7 +43,7 @@ import java.awt.event.ActionEvent;
 
 public class qPanel extends JPanel implements Serializable{
 	//title
-	private transient int questionNumber;
+	private int questionNumber;
 	private JLabel questionLbl;
 	private JLabel lblScore;
 	private JButton btnRemove;
@@ -312,14 +312,7 @@ public class qPanel extends JPanel implements Serializable{
 		gbc_btnBrowseBtn.gridy = 1;
 		freeDrawPanel.add(ansBrowseBtn, gbc_btnBrowseBtn);
 		
-		qFileChooser = new JFileChooser();
-		extensionFilter = new FileNameExtensionFilter("Img","jpg","gif","png");
-		qFileChooser.setFileFilter(extensionFilter);
-		qFileChooser.setAcceptAllFileFilterUsed(false);
-		aFileChooser = new JFileChooser();
-		extensionFilter = new FileNameExtensionFilter("Img","jpg","gif","png");
-		aFileChooser.setFileFilter(extensionFilter);
-		aFileChooser.setAcceptAllFileFilterUsed(false);
+		 initializeJFileChoosers();
 		
 		qDataPanel.setOpaque(false);
 		freeDrawPanel.setOpaque(false);
@@ -603,6 +596,16 @@ public class qPanel extends JPanel implements Serializable{
 	public void addChckbxHideQuestionListener(ActionListener listener){
 		chckbxHideQuestion.addActionListener(listener);
 	}
-	
+	public void initializeJFileChoosers()
+	{
+		qFileChooser = new JFileChooser();
+		extensionFilter = new FileNameExtensionFilter("Img","jpg","gif","png");
+		qFileChooser.setFileFilter(extensionFilter);
+		qFileChooser.setAcceptAllFileFilterUsed(false);
+		aFileChooser = new JFileChooser();
+		extensionFilter = new FileNameExtensionFilter("Img","jpg","gif","png");
+		aFileChooser.setFileFilter(extensionFilter);
+		aFileChooser.setAcceptAllFileFilterUsed(false);
+	}
 	
 }

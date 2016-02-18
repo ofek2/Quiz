@@ -22,6 +22,7 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 
 import java.awt.event.ActionListener;
+import java.io.Serializable;
 import java.awt.event.ActionEvent;
 
 import javax.swing.BorderFactory;
@@ -62,7 +63,7 @@ import java.awt.Cursor;
 
 
 
-public class QuizCreationView extends ViewPanel {
+public class QuizCreationView extends ViewPanel implements Serializable{
 	public JButton addBtn;
 	public JPanel panel;
 	private JPanel headPanel;

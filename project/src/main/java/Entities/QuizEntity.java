@@ -4,9 +4,9 @@ import java.io.File;
 import java.io.Serializable;
 
 public class QuizEntity implements Serializable{
-	private transient String name;
-	private transient File quizFolder;
-	private transient int percentageFromFGrade;
+	private String name;
+	private File quizFolder;
+	private int percentageFromFGrade;
 	public QuizEntity(String name) {
 		super();
 		this.name = name;
