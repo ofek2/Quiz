@@ -171,6 +171,7 @@ public class InitialWindowController {
 					quizCreationView.getQuizName().setText(quizName);
 					newQuizDialog.setVisible(false);
 					MainFrameController.view.changeContentPane(quizCreationView);
+					QuizCreationController.saveFlag=1;
 //					view.setTree(new JTree(InitialWindowView.filesTree(new File(new File(".").getCanonicalPath()+"/OnlineQuizChecker"))));
 				}
 				else
