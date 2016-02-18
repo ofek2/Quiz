@@ -154,7 +154,6 @@ public class qPanelController implements Serializable{
 		public void keyPressed(KeyEvent e) {
 			// TODO Auto-generated method stub
 			QuizCreationController.saveFlag=0;
-			System.out.print("11");
 		}
 	}
 	
