@@ -119,13 +119,13 @@ public class HtmlBuilder {
 	public void addAnswersData(int questionNumber,ArrayList<String> choices)
 	{
 		int qNumber = questionNumber-1;
-		System.out.println("9");
+		
 		Element qAnswers = document.createElement("qAnswers");
 		questions.get(qNumber).getFirstChild().appendChild(qAnswers);
-		System.out.println("10");
+		
 		Element form = document.createElement("form");
 		qAnswers.appendChild(form);
-		System.out.println("11");
+	
 		for(int i=0;i<choices.size();i++)
 		{
 			Element choice = document.createElement("input");
@@ -145,7 +145,7 @@ public class HtmlBuilder {
 			form.appendChild(document.createElement("br"));
 			System.out.println("12");
 		}
-		System.out.println("13");
+	
 	}
 	public void addAnswersData(int questionNumber,String type)
 	{

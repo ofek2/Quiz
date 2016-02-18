@@ -150,15 +150,15 @@ public class QuizCreationController implements Serializable {
 				String questionImagePath = "";
 				if(tempQController.getqImgFile()!=null)
 					questionImagePath= tempQController.getqImgFile().getPath();
-				System.out.println("1");
+				
 				htmlBuilder.addQuestionData(i+1, tempQpanel.getTextAreaQ().getText(), questionImagePath);
-				System.out.println("2");
+				
 				if(answerType.equals("Multiple Choice"))
 				{
 
-					System.out.println("3");
+					
 					choices = new ArrayList<String>();
-					System.out.println(tempQpanel.getMultipleChoicePanelController().cBfControllers.size());
+					
 					for (int j=0;j<tempQpanel.getMultipleChoicePanelController().cBfControllers.size();j++)
 					{
 						
