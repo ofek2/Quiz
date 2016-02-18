@@ -180,6 +180,7 @@ public class qPanel extends JPanel implements Serializable{
 		gbc_comboBox.fill = GridBagConstraints.HORIZONTAL;
 		gbc_comboBox.gridx = 20;
 		gbc_comboBox.gridy = 2;
+		answerTypeCb.setSelectedIndex(0);
 		add(answerTypeCb, gbc_comboBox);
 		
 		separator_1 = new JSeparator();

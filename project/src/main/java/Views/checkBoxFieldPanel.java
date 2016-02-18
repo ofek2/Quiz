@@ -25,7 +25,7 @@ import java.awt.GridBagConstraints;
 
 public class checkBoxFieldPanel extends JPanel implements Serializable{
 	private JCheckBox checkBox;
-	private JTextField textField;
+	private JTextField answerTextOption;
 	private JButton plusBtn;
 	private JButton minusBtn;
 	private int answerNumber;
@@ -62,13 +62,13 @@ public class checkBoxFieldPanel extends JPanel implements Serializable{
 		gbc_chckbxNewCheckBox.gridy = 0;
 		add(chckbxNewCheckBox, gbc_chckbxNewCheckBox);
 		
-		textField = new JTextField();
+		answerTextOption = new JTextField();
 		GridBagConstraints gbc_textField = new GridBagConstraints();
 		gbc_textField.insets = new Insets(0, 0, 0, 5);
 		gbc_textField.fill = GridBagConstraints.HORIZONTAL;
 		gbc_textField.gridx = 2;
 		gbc_textField.gridy = 0;
-		add(textField, gbc_textField);
+		add(answerTextOption, gbc_textField);
 		
 		
 		plusBtn = new JButton("+");
@@ -98,11 +98,11 @@ public class checkBoxFieldPanel extends JPanel implements Serializable{
 	public void setCheckBox(JCheckBox checkBox) {
 		this.checkBox = checkBox;
 	}
-	public JTextField getTextField() {
-		return textField;
+	public JTextField getAnswerTextOption() {
+		return answerTextOption;
 	}
-	public void setTextField(JTextField textField) {
-		this.textField = textField;
+	public void setAnswerTextOption(JTextField textField) {
+		this.answerTextOption = textField;
 	}
 	public void setPlusBtn(JButton plusBtn) {
 		this.plusBtn = plusBtn;

@@ -115,8 +115,8 @@ public class qPanelController implements Serializable{
             	textFiled.addKeyListener(textItemListener);
             }
             if ((item.getClass() == JCheckBox.class)){
-            	JCheckBox textArea = (JCheckBox) item;
-            	textArea.addActionListener(new ActionListener() {
+            	JCheckBox checkBox = (JCheckBox) item;
+            	checkBox.addActionListener(new ActionListener() {
 					
 					public void actionPerformed(ActionEvent e) {
 						// TODO Auto-generated method stub

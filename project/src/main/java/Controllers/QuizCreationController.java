@@ -164,7 +164,7 @@ public class QuizCreationController implements Serializable {
 					for (int j=0;j<tempQpanel.getMultipleChoicePanelController().cBfControllers.size();j++)
 					{
 						
-						choices.add(tempQpanel.getMultipleChoicePanelController().cBfControllers.get(j).view.getTextField().getText());
+						choices.add(tempQpanel.getMultipleChoicePanelController().cBfControllers.get(j).view.getAnswerTextOption().getText());
 					}
 					htmlBuilder.addAnswersData(i+1, choices);
 				}
