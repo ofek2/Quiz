@@ -63,7 +63,7 @@ import java.awt.Cursor;
 
 
 
-public class QuizCreationView extends ViewPanel implements Serializable{
+public class QuizCreationView extends ViewPanel{
 	public JButton addBtn;
 	public JPanel panel;
 	private JPanel headPanel;

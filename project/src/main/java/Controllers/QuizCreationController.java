@@ -31,7 +31,7 @@ import Views.qPanel;
 import project.HtmlBuilder;
 
 public class QuizCreationController implements Serializable {
-	private transient QuizCreationView view;
+	private QuizCreationView view;
 	private QuizEntity entity;
 	private qPanelController qPanelController;
 	protected static ArrayList<qPanelController> qPanels;

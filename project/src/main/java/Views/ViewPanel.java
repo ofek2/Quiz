@@ -1,14 +1,11 @@
 package Views;
 
-import java.awt.Container;
+import java.io.Serializable;
 
 import javax.swing.JPanel;
-import javax.swing.UIManager;
-
 import Controllers.MainFrameController;
-import Entities.Constants;
 
-public class ViewPanel extends JPanel{
+public class ViewPanel extends JPanel implements Serializable{
 	public ViewPanel() {
 		super();
 		

@@ -10,7 +10,7 @@ public class Main{
 	static MainFrameController controller;
 	public static void main(String [] args)
 	{
-		try {
+	/*	try {
 			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
 		} catch (ClassNotFoundException e) {
 			// TODO Auto-generated catch block
@@ -24,7 +24,7 @@ public class Main{
 		} catch (UnsupportedLookAndFeelException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}
+		}*/
 		view = new MainFrameView();
 		
 		controller = new MainFrameController(view);
