@@ -10,6 +10,7 @@ import java.awt.Toolkit;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
+import Controllers.MainFrameController;
 import Entities.Constants;
 
 
@@ -22,8 +23,8 @@ public class MainFrameView extends JFrame {
 	 */
 	public MainFrameView() {
 		super();
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		
+/////////////////////////////////		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+/////////////////////////////////		setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 //		setBounds(Constants.realtiveFrameXPos,Constants.realtiveFrameYPos,Toolkit.getDefaultToolkit().getScreenSize().width/2,(int) ((Toolkit.getDefaultToolkit().getScreenSize().width/2)/Constants.ratio));
 		
 //		setBounds(0,0,(int)Toolkit.getDefaultToolkit().getScreenSize().getWidth(), (int)Toolkit.getDefaultToolkit().getScreenSize().getHeight());
