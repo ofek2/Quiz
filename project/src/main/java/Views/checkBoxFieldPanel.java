@@ -8,6 +8,7 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 import Controllers.MainFrameController;
+import Controllers.QuizCreationController;
 import Controllers.qPanelController;
 
 import javax.swing.BoxLayout;
@@ -16,6 +17,8 @@ import javax.swing.JButton;
 import java.awt.Font;
 import java.awt.Insets;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.io.Serializable;
 
 import javax.swing.JLabel;
@@ -24,7 +27,7 @@ import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
 
 public class checkBoxFieldPanel extends JPanel implements Serializable{
-	private JCheckBox checkBox;
+	private JCheckBox answerCheckBox;
 	private JTextField answerTextOption;
 	private JButton plusBtn;
 	private JButton minusBtn;
@@ -53,14 +56,14 @@ public class checkBoxFieldPanel extends JPanel implements Serializable{
 		gbc_aNumberLbl.gridy = 0;
 		add(aNumberLbl, gbc_aNumberLbl);
 		
-		JCheckBox chckbxNewCheckBox = new JCheckBox("");
+		answerCheckBox = new JCheckBox("");
 		GridBagConstraints gbc_chckbxNewCheckBox = new GridBagConstraints();
 		gbc_chckbxNewCheckBox.fill = GridBagConstraints.VERTICAL;
 		gbc_chckbxNewCheckBox.anchor = GridBagConstraints.EAST;
 		gbc_chckbxNewCheckBox.insets = new Insets(0, 0, 0, 5);
 		gbc_chckbxNewCheckBox.gridx = 1;
 		gbc_chckbxNewCheckBox.gridy = 0;
-		add(chckbxNewCheckBox, gbc_chckbxNewCheckBox);
+		add(answerCheckBox, gbc_chckbxNewCheckBox);
 		
 		answerTextOption = new JTextField();
 		GridBagConstraints gbc_textField = new GridBagConstraints();
@@ -88,15 +91,15 @@ public class checkBoxFieldPanel extends JPanel implements Serializable{
 		gbc_minusBtn.gridx = 4;
 		gbc_minusBtn.gridy = 0;
 		add(minusBtn, gbc_minusBtn);
-		qPanelController.setcheckboxFieldActionListeners(this);
+//		qPanelController.setcheckboxFieldActionListeners(this);
 	
 		
 	}
-	public JCheckBox getCheckBox() {
-		return checkBox;
+	public JCheckBox getAnswerCheckBox() {
+		return answerCheckBox;
 	}
-	public void setCheckBox(JCheckBox checkBox) {
-		this.checkBox = checkBox;
+	public void setAnswerCheckBox(JCheckBox checkBox) {
+		this.answerCheckBox = checkBox;
 	}
 	public JTextField getAnswerTextOption() {
 		return answerTextOption;
@@ -126,6 +129,14 @@ public class checkBoxFieldPanel extends JPanel implements Serializable{
 	public void minusBtnAddListener(ActionListener listener)
 	{
 		minusBtn.addActionListener(listener);
+	}
+	public void addAnswerTextOptionKeyListener(KeyListener listener)
+	{
+		answerTextOption.addKeyListener(listener);
+	}
+	public void addChckbxNewCheckBox(ActionListener listener)
+	{
+		answerCheckBox.addActionListener(listener);
 	}
 	public JButton getPlusBtn() {
 		return plusBtn;
