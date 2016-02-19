@@ -1,17 +1,8 @@
 package Views;
 
-import java.awt.Container;
-import java.awt.Dimension;
-import java.awt.GraphicsConfiguration;
 import java.awt.GraphicsEnvironment;
 import java.awt.Rectangle;
-import java.awt.Toolkit;
-
 import javax.swing.JFrame;
-import javax.swing.JPanel;
-
-import Controllers.MainFrameController;
-import Entities.Constants;
 
 
 public class MainFrameView extends JFrame {
