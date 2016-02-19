@@ -204,6 +204,13 @@ public class QuizCreationController implements Serializable {
 			try {
 				htmlBuilder.writeHtml(entity.getQuizFolder().getCanonicalPath()+"/"+entity.getName());
 				initialWindowView.setTree(new JTree(InitialWindowView.filesTree(new File(new File(".").getCanonicalPath()+"/OnlineQuizChecker"))));
+				QuizObjectEntity quizObjectEntity = new QuizObjectEntity(entity, qPanels);
+				FileOutputStream fos = new FileOutputStream(entity.getQuizFolder().getCanonicalPath()+"/"+entity.getName()+".ser");
+				ObjectOutputStream oos = new ObjectOutputStream(fos);
+				oos.writeObject(quizObjectEntity);
+				oos.close();
+				JOptionPane.showMessageDialog(null, "All of the data saved successfully");
+
 			} catch (TransformerException e1) {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
@@ -211,17 +218,6 @@ public class QuizCreationController implements Serializable {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}
-			try{
-			QuizObjectEntity quizObjectEntity = new QuizObjectEntity(entity, qPanels);
-			FileOutputStream fos = new FileOutputStream(entity.getQuizFolder().getCanonicalPath()+"/"+entity.getName()+".ser");
-			ObjectOutputStream oos = new ObjectOutputStream(fos);
-			oos.writeObject(quizObjectEntity);
-			oos.close();
-		} catch (FileNotFoundException e1) {
-			e1.printStackTrace();
-		} catch (IOException e1) {
-			e1.printStackTrace();
-		}
 		}
 		
 	}
