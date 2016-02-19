@@ -172,6 +172,7 @@ public class QuizCreationController implements Serializable {
 				String answerType = tempQpanel.getAnswerTypeCb().getItemAt(index); 
 				ArrayList<String> choices;
 				String score;
+				
 				if(tempQpanel.getScoreTextField().getText().isEmpty())
 				{
 					score = "0";
@@ -179,15 +180,16 @@ public class QuizCreationController implements Serializable {
 				}
 				else 
 					score = tempQpanel.getScoreTextField().getText();
-				htmlBuilder.addQuestion(i+1,answerType , Integer.parseInt(score));
 				String questionImageName = "";
+				htmlBuilder.addQuestion(i+1,answerType ,score);
+				
 				if(tempQController.getqImgFile()!=null)
 				{
 					questionImageName= tempQController.getqImgFile().getName();
 //					questionImagePath= tempQController.getqImgFile().getPath();
 				}
 				htmlBuilder.addQuestionData(i+1, tempQpanel.getTextAreaQ().getText(), questionImageName);
-				
+				String answer="";
 				if(answerType.equals("Multiple Choice"))
 				{
 
@@ -196,18 +198,30 @@ public class QuizCreationController implements Serializable {
 					
 					for (int j=0;j<tempQpanel.getMultipleChoicePanelController().cBfControllers.size();j++)
 					{
-						
+						if(tempQpanel.getMultipleChoicePanelController().cBfControllers.get(j).view.getAnswerCheckBox().isSelected())
+							answer+=(j+1)+" ";
 						choices.add(tempQpanel.getMultipleChoicePanelController().cBfControllers.get(j).view.getAnswerTextOption().getText());
 					}
-					htmlBuilder.addAnswersData(i+1, choices);
+					String type;
+					String[] splited = answer.split("\\s");
+					if(splited.length>1)type="Multiple Choice";
+					else type="Singel Choice";
+					htmlBuilder.addAnswersData(i+1,type,choices);
+					htmlBuilder.addLecturerAnswers(i+1,type, choices, answer);
 				}
 				else
 				{
+					if(answerType.equals("Free Text"))
+						answer = tempQController.view.getTextAreaA().getText();
+					else
+					{
+						if(tempQController.getaImgFile()!=null)
+						answer = tempQController.getaImgFile().getPath();
+					}
 					htmlBuilder.addAnswersData(i+1, answerType);
+					htmlBuilder.addLecturerAnswers(i+1,answerType,answer);
 				}
-				//------- add the Lecturer correct answer here---------
-				
-				//--------!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!---------
+			
 			}
 			
 			try {
@@ -219,7 +233,7 @@ public class QuizCreationController implements Serializable {
 				oos.writeObject(quizObjectEntity);
 				oos.close();
 				JOptionPane.showMessageDialog(null, "All of the data saved successfully");
-				saveComplete=1;
+
 			} catch (TransformerException e1) {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
