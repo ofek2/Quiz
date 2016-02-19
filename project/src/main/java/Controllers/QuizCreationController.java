@@ -77,6 +77,7 @@ public class QuizCreationController implements Serializable {
 		for(int i =0;i<qPanels.size();i++)
 		{
 			qPanels.get(i).intializefilechoosers();
+			qPanels.get(i).setParentView(view);
 			addExitingQpanel(qPanels.get(i).view);
 		}
 		try {
@@ -92,6 +93,7 @@ public class QuizCreationController implements Serializable {
 		
 		
 	}
+
 	public void addExitingQpanel(qPanel panel)
 	{
 		view.panel.add(panel);

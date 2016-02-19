@@ -417,7 +417,6 @@ public class qPanelController implements Serializable{
 	public void setqImageIcon(JLabel qImageIcon) {
 		this.qImageIcon = qImageIcon;
 	}
-
 	}
 	
 
