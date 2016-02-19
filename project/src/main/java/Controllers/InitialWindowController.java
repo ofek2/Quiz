@@ -9,6 +9,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 import java.io.File;
@@ -24,10 +27,14 @@ import javax.swing.ComboBoxModel;
 import javax.swing.JComboBox;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
+import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JPopupMenu;
 import javax.swing.JTextField;
 import javax.swing.JTree;
+import javax.swing.tree.DefaultMutableTreeNode;
+import javax.swing.tree.TreePath;
 
 import Controllers.qPanelController.removeBtnListener;
 import Entities.Constants;
@@ -64,6 +71,35 @@ public class InitialWindowController {
 		view.createCourseBtnAddListener(new CreateCourseBtnListener());
 		view.removeCourseBtnAddListener(new RemoveCourseBtnListener());
 		view.coursesIdsEditAddItemListener(new coursesIdsEditAddItemListener());
+		view.getTree().addMouseListener(treeMouseListener());
+//		view.getTree().setComponentPopupMenu(jPopupMenu());
+	}
+	public MouseAdapter treeMouseListener()
+	{
+		MouseAdapter adapter;
+		return adapter = new MouseAdapter(){
+			public void mousePressed(MouseEvent e) {
+				if(e.getButton() == MouseEvent.BUTTON3)
+				{
+	                TreePath pathForLocation = view.getTree().getPathForLocation(e.getPoint().x, e.getPoint().y);
+	                if(pathForLocation != null){
+	                	System.out.print(pathForLocation.getLastPathComponent().toString());
+	                    view.getTree().setComponentPopupMenu(jPopupMenu());                    
+	                } else
+	                	view.getTree().setComponentPopupMenu(null);
+
+	            }
+			}
+		};
+		
+	}
+	
+	private JPopupMenu jPopupMenu()
+	{
+		JPopupMenu jPopupMenu = new JPopupMenu();
+		JMenuItem item = new JMenuItem("edit");
+		jPopupMenu.add(item);
+		return jPopupMenu;
 	}
 	
 	class CreateCourseBtnListener implements ActionListener
