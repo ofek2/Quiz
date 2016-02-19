@@ -247,16 +247,6 @@ public class QuizCreationController implements Serializable {
 		private int exitFlag;
 		public void windowClosing(WindowEvent e) {
 			// TODO Auto-generated method stub
-			
-		}
-
-		public void windowActivated(WindowEvent e) {
-			// TODO Auto-generated method stub
-			
-		}
-
-		public void windowClosed(WindowEvent e) {
-			// TODO Auto-generated method stub
 			if(saveFlag==0)
 			{
 			exitFlag=JOptionPane.showConfirmDialog(null,"You made an unsaved changes, all of this changes will be lost,\n do you want to keep the application progress?","Alert",JOptionPane.YES_NO_OPTION);
@@ -274,6 +264,16 @@ public class QuizCreationController implements Serializable {
 				}
 
 			}
+		}
+
+		public void windowActivated(WindowEvent e) {
+			// TODO Auto-generated method stub
+			
+		}
+
+		public void windowClosed(WindowEvent e) {
+			// TODO Auto-generated method stub
+			
 		}
 
 		public void windowDeactivated(WindowEvent e) {
