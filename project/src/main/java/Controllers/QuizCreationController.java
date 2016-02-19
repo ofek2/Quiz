@@ -38,6 +38,7 @@ public class QuizCreationController implements Serializable {
 	private HtmlBuilder htmlBuilder;
 	public static int saveFlag=1;
 	private transient InitialWindowView initialWindowView;
+	private windowListener windowListener;
 	public QuizCreationController(QuizCreationView view,QuizEntity entity, InitialWindowView initialWindowView) {
 		ActionListener[] fileMenuListeners = {new saveMenuListener(),new exitMenuListener()};
 		this.view = view;
@@ -46,10 +47,11 @@ public class QuizCreationController implements Serializable {
 		this.view.addBtnAddListener(new addBtnListener());
 		this.view.addFileMenuListeners(fileMenuListeners);
 		this.view.addSpinnerChangeListener(new addSpinnerChangeListener());
-//		MainFrameController.view.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
-		MainFrameController.view.addWindowListener(new windowListener());
-		qPanels = new ArrayList<qPanelController>();
-		
+		windowListener = new windowListener();
+		MainFrameController.view.removeWindowListener(MainFrameController.view.windowListener);
+		MainFrameController.view.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+		MainFrameController.view.addWindowListener(windowListener);
+		qPanels = new ArrayList<qPanelController>();		
 		try {
 			htmlBuilder = new HtmlBuilder();
 			htmlBuilder.initiateHtml();
@@ -71,7 +73,10 @@ public class QuizCreationController implements Serializable {
 		this.view.addBtnAddListener(new addBtnListener());
 		this.view.addSpinnerChangeListener(new addSpinnerChangeListener());
 		this.view.addFileMenuListeners(fileMenuListeners);
-		MainFrameController.view.addWindowListener(new windowListener());
+		windowListener = new windowListener();
+		MainFrameController.view.removeWindowListener(MainFrameController.view.windowListener);
+		MainFrameController.view.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+		MainFrameController.view.addWindowListener(windowListener);
 		qPanels = new ArrayList<qPanelController>();
 		qPanels = objectEntity.getqPanels();
 		for(int i =0;i<qPanels.size();i++)
@@ -227,13 +232,17 @@ public class QuizCreationController implements Serializable {
 			{
 			exitFlag=JOptionPane.showConfirmDialog(null,"You made an unsaved changes, all of this changes will be lost,\n do you want to keep the application progress?","Alert",JOptionPane.YES_NO_OPTION);
 			if(exitFlag==JOptionPane.YES_OPTION)
-				MainFrameController.view.changeContentPane(initialWindowView);	
+				MainFrameController.view.changeContentPane(initialWindowView);
+				MainFrameController.view.removeWindowListener(windowListener);
+				MainFrameController.view.addWindowListener(MainFrameController.view.windowListener);
 			}
 			else
 			{	
 				try {
 					initialWindowView.setTree(new JTree(InitialWindowView.filesTree(new File(new File(".").getCanonicalPath()+"/OnlineQuizChecker"))));
 					MainFrameController.view.changeContentPane(initialWindowView);
+					MainFrameController.view.removeWindowListener(windowListener);
+					MainFrameController.view.addWindowListener(MainFrameController.view.windowListener);
 				} catch (IOException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
@@ -251,17 +260,23 @@ public class QuizCreationController implements Serializable {
 			{
 			exitFlag=JOptionPane.showConfirmDialog(null,"You made an unsaved changes, all of this changes will be lost,\n do you want to keep the application progress?","Alert",JOptionPane.YES_NO_OPTION);
 			if(exitFlag==JOptionPane.YES_OPTION)
+				{
 				MainFrameController.view.changeContentPane(initialWindowView);	
+				MainFrameController.view.removeWindowListener(this);
+				MainFrameController.view.addWindowListener(MainFrameController.view.windowListener);
+				}
 			}
 			else
 			{	
-				try {
-					initialWindowView.setTree(new JTree(InitialWindowView.filesTree(new File(new File(".").getCanonicalPath()+"/OnlineQuizChecker"))));
+//				try {
+//					initialWindowView.setTree(new JTree(InitialWindowView.filesTree(new File(new File(".").getCanonicalPath()+"/OnlineQuizChecker"))));
 					MainFrameController.view.changeContentPane(initialWindowView);
-				} catch (IOException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}
+					MainFrameController.view.removeWindowListener(this);
+					MainFrameController.view.addWindowListener(MainFrameController.view.windowListener);
+//				} catch (IOException e1) {
+//					// TODO Auto-generated catch block
+//					e1.printStackTrace();
+//				}
 
 			}
 		}
