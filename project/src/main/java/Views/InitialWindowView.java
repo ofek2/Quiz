@@ -341,7 +341,10 @@ public class InitialWindowView extends ViewPanel {
 		DefaultMutableTreeNode treeNode = new DefaultMutableTreeNode(file.getName());
 		if(file.isDirectory())
 			for(File child: file.listFiles())
+			{
+				if(child.isDirectory())
 				treeNode.add(filesTree(child));
+			}
 		return treeNode;
 	}
 	
