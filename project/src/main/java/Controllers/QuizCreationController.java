@@ -171,11 +171,13 @@ public class QuizCreationController implements Serializable {
 				String answerType = tempQpanel.getAnswerTypeCb().getItemAt(index); 
 				ArrayList<String> choices;
 				htmlBuilder.addQuestion(i+1,answerType , Integer.parseInt(tempQpanel.getScoreTextField().getText()));
-				String questionImagePath = "";
+				String questionImageName = "";
 				if(tempQController.getqImgFile()!=null)
-					questionImagePath= tempQController.getqImgFile().getPath();
-				
-				htmlBuilder.addQuestionData(i+1, tempQpanel.getTextAreaQ().getText(), questionImagePath);
+				{
+					questionImageName= tempQController.getqImgFile().getName();
+//					questionImagePath= tempQController.getqImgFile().getPath();
+				}
+				htmlBuilder.addQuestionData(i+1, tempQpanel.getTextAreaQ().getText(), questionImageName);
 				
 				if(answerType.equals("Multiple Choice"))
 				{

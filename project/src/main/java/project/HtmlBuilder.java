@@ -84,7 +84,7 @@ public class HtmlBuilder {
 		questions.add(questionElement);
 		bodyElement.appendChild(questionElement);
 	}
-	public void addQuestionData(int questionNumber,String questionText,String questionImgPath)
+	public void addQuestionData(int questionNumber,String questionText,String questionImageName)
 	{
 		int qNumber = questionNumber-1;
 		
@@ -112,7 +112,7 @@ public class HtmlBuilder {
 		
 		Element qImage= document.createElement("qImage");
 		Element img = document.createElement("img");
-		img.setAttribute("src", questionImgPath);
+		img.setAttribute("src", questionImageName);
 		qImage.appendChild(img);
 		questions.get(qNumber).getFirstChild().appendChild(qImage);
 	}
