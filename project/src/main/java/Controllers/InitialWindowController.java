@@ -54,11 +54,23 @@ public class InitialWindowController {
 	private JDialog editQuizdialog;
 	private JDialog newCourseDialog;
 	private JDialog removeCourseDialog;
+	private JPopupMenu quizPopupMenu;
+	private JPopupMenu coursePopupMenu;
+	private JPopupMenu rootPopupMenu;
+	private JMenuItem edit;
+	private JMenuItem remove;
+	private JMenuItem add;
 	public static ArrayList<CourseEntity> coursesFiles;
 	public InitialWindowController(InitialWindowView view) {
 //		coursesFiles = new ArrayList<File>();
-		this.view=view;
-		addListeners();		
+		this.view=view;		
+		quizPopupMenu= new JPopupMenu();
+		coursePopupMenu= new JPopupMenu();
+		rootPopupMenu= new JPopupMenu();
+		edit = new JMenuItem("edit quiz");
+		remove = new JMenuItem("remove course");
+		add = new JMenuItem("add course");
+		addListeners();	
 	}
 	private void addListeners()
 	{
@@ -72,6 +84,11 @@ public class InitialWindowController {
 		view.removeCourseBtnAddListener(new RemoveCourseBtnListener());
 		view.coursesIdsEditAddItemListener(new coursesIdsEditAddItemListener());
 		view.getTree().addMouseListener(treeMouseListener());
+
+//		remove.addActionListener(l);
+		add.addActionListener(new AddCourseListener());
+		
+		
 //		view.getTree().setComponentPopupMenu(jPopupMenu());
 	}
 	public MouseAdapter treeMouseListener()
@@ -83,8 +100,17 @@ public class InitialWindowController {
 				{
 	                TreePath pathForLocation = view.getTree().getPathForLocation(e.getPoint().x, e.getPoint().y);
 	                if(pathForLocation != null){
-	                	System.out.print(pathForLocation.getLastPathComponent().toString());
-	                    view.getTree().setComponentPopupMenu(jPopupMenu());                    
+	                	DefaultMutableTreeNode selectedNode = (DefaultMutableTreeNode) pathForLocation.getLastPathComponent();
+//	                	System.out.print(selectedNode.getParent().toString());
+	                	String chosenFileName=pathForLocation.getLastPathComponent().toString();
+	                	pathForLocation.getLastPathComponent();
+//	                	System.out.print(pathForLocation.getLastPathComponent().toString());
+	                	if(chosenFileName.equals("OnlineQuizChecker"))
+	                    view.getTree().setComponentPopupMenu(rootPopupMenu());   
+	                	else if(selectedNode.getParent().toString().equals("OnlineQuizChecker"))
+		                    view.getTree().setComponentPopupMenu(removeCoursePopupMenu()); 
+	                	else
+		                    view.getTree().setComponentPopupMenu(quizPopupMenu(chosenFileName)); 
 	                } else
 	                	view.getTree().setComponentPopupMenu(null);
 
@@ -94,12 +120,24 @@ public class InitialWindowController {
 		
 	}
 	
-	private JPopupMenu jPopupMenu()
+	private JPopupMenu quizPopupMenu(String chosenFileName)
 	{
-		JPopupMenu jPopupMenu = new JPopupMenu();
-		JMenuItem item = new JMenuItem("edit");
-		jPopupMenu.add(item);
-		return jPopupMenu;
+//		edit.removeAll();
+//		edit = new JMenuItem("edit quiz"); 	
+		quizPopupMenu.remove(edit);
+		edit.addActionListener(new EditQuizBtnListener(chosenFileName));
+		quizPopupMenu.add(edit);
+		return quizPopupMenu;
+	}
+	private JPopupMenu removeCoursePopupMenu()
+	{
+		coursePopupMenu.add(remove);
+		return coursePopupMenu;
+	}
+	private JPopupMenu rootPopupMenu()
+	{
+		rootPopupMenu.add(add);
+		return rootPopupMenu;
 	}
 	
 	class CreateCourseBtnListener implements ActionListener
@@ -151,13 +189,25 @@ public class InitialWindowController {
 		}
 		
 	}
-	class EditQuizBtnListener implements ActionListener
+	public class EditQuizBtnListener implements ActionListener
 	{
-
+		private String quizName;
+		private int popUpMenuFlag;
+		
+		public EditQuizBtnListener()
+		{
+			popUpMenuFlag=1;
+		}
+		public EditQuizBtnListener(String quizName)
+		{
+			this.quizName = quizName;
+			popUpMenuFlag=0;
+		}	
 		public void actionPerformed(ActionEvent e) {
 			// TODO Auto-generated method stub
 			// read object from file
-			String quizName = view.getQuizzes().getItemAt(view.getQuizzes().getSelectedIndex());
+			if(popUpMenuFlag==1)
+				quizName = view.getQuizzes().getItemAt(view.getQuizzes().getSelectedIndex());
 			String quizFile = quizName+".ser";
 			String path;
 			try {
@@ -166,10 +216,11 @@ public class InitialWindowController {
 				fis = new FileInputStream(path);
 				ObjectInputStream ois = new ObjectInputStream(fis);
 				QuizObjectEntity result = (QuizObjectEntity) ois.readObject();
-				ois.close();
-			
+				ois.close();		
 				QuizCreationView quizCreationView = new QuizCreationView();
 				QuizCreationController quizCreationController = new QuizCreationController(quizCreationView,result,view);			
+				quizCreationView.getQuizName().setText(quizName);
+				if(popUpMenuFlag==1)
 				editQuizdialog.setVisible(false);
 				MainFrameController.view.changeContentPane(quizCreationView);			
 			} catch (FileNotFoundException e1) {
@@ -208,7 +259,7 @@ public class InitialWindowController {
 					newQuizDialog.setVisible(false);
 					MainFrameController.view.changeContentPane(quizCreationView);
 					QuizCreationController.saveFlag=1;
-//					view.setTree(new JTree(InitialWindowView.filesTree(new File(new File(".").getCanonicalPath()+"/OnlineQuizChecker"))));
+					view.setTree(new JTree(InitialWindowView.filesTree(new File(new File(".").getCanonicalPath()+"/OnlineQuizChecker"))));
 				}
 				else
 				{
