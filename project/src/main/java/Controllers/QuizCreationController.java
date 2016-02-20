@@ -330,8 +330,6 @@ public class QuizCreationController implements Serializable {
 						
 						
 						JTree newTree = new JTree(InitialWindowView.filesTree(new File(new File(".").getCanonicalPath()+"/OnlineQuizChecker")));
-					
-						newTree.addMouseListener(InitialWindowController.mouseadapter);
 						initialWindowView.setTree(newTree);
 						
 					}
