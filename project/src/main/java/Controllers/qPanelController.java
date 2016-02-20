@@ -39,7 +39,8 @@ public class qPanelController implements Serializable{
 	private File aImgFile;
 	private String fileExtension;
 	private JLabel qImageIcon=null;
-
+	private String questionImgPath;
+	private String answerImgPath;
 	public static textItemListener textItemListener;
 	public qPanelController(qPanel view,QuizCreationView parentView,QuizEntity quizEntity) {
 		this.view = view;
@@ -225,29 +226,24 @@ public class qPanelController implements Serializable{
 		private transient File fileSave;
 		private transient BufferedImage image;
 		private String questionLbl;
-		private String questionImgPath;
+		
 		public void actionPerformed(ActionEvent e) {
 			// TODO Auto-generated method stub
 			returnVal=qFileChooser.showSaveDialog(view.getQuestionDataPanel());
 			if(returnVal==qFileChooser.APPROVE_OPTION)
 			{
 				qImgFile = qFileChooser.getSelectedFile();				
-				try {
-					questionLbl = view.getQuestionLbl().getText()+".PNG";
-					questionImgPath = quizPath +"/" + questionLbl;
-					fileExtension = Files.getFileExtension(qImgFile.getCanonicalPath());
-					image = ImageIO.read(qImgFile); 	
-					fileSave = new File(questionImgPath);
-					ImageIO.write(image,fileExtension , fileSave);
-					qImgFile = fileSave;
-					view.getqImage().setVisible(true);
-					view.getRemoveQuestionImageBtn().setVisible(true);
-					view.getQuestionDataPanel().revalidate();
-					QuizCreationController.saveFlag=0;
-				} catch (IOException e2) {
-					// TODO Auto-generated catch block
-					e2.printStackTrace();
-				}
+				questionLbl = view.getQuestionLbl().getText()+".PNG";
+				questionImgPath = quizPath +"/" + questionLbl;
+				//fileExtension = Files.getFileExtension(qImgFile.getCanonicalPath());
+				//image = ImageIO.read(qImgFile); 	
+				//fileSave = new File(questionImgPath);
+				//ImageIO.write(image,fileExtension , fileSave);
+				//qImgFile = fileSave;
+				view.getqImage().setVisible(true);
+				view.getRemoveQuestionImageBtn().setVisible(true);
+				view.getQuestionDataPanel().revalidate();
+				QuizCreationController.saveFlag=0;
 			}
 		}
 		
@@ -258,29 +254,24 @@ public class qPanelController implements Serializable{
 		private transient File fileSave;
 		private transient BufferedImage image;
 		private String answerLbl;
-		private String answerImgPath;
+		
 		public void actionPerformed(ActionEvent e) {
 			// TODO Auto-generated method stub
 			returnVal=aFileChooser.showSaveDialog(view.getAnswerPanel());
 			if(returnVal==aFileChooser.APPROVE_OPTION)
 			{
 				aImgFile = aFileChooser.getSelectedFile();				
-				try {
-					answerLbl = "Answer"+view.getQuestionNumber()+".PNG";
-					answerImgPath = quizPath +"/" + answerLbl;
-					fileExtension = Files.getFileExtension(aImgFile.getCanonicalPath());
-					image = ImageIO.read(aImgFile); 	
-					fileSave = new File(answerImgPath);
-					ImageIO.write(image,fileExtension , fileSave);
-					aImgFile = fileSave;
-					view.getRemoveAnswerImageBtn().setVisible(true);
-					view.getbtnViewAnswerImage().setVisible(true);
-					view.getQuestionDataPanel().revalidate();
-					QuizCreationController.saveFlag=0;
-				} catch (IOException e2) {
-					// TODO Auto-generated catch block
-					e2.printStackTrace();
-				}
+				answerLbl = "Answer"+view.getQuestionNumber()+".PNG";
+				answerImgPath = quizPath +"/" + answerLbl;
+				//fileExtension = Files.getFileExtension(aImgFile.getCanonicalPath());
+				//image = ImageIO.read(aImgFile); 	
+				//aImgFile = new File(answerImgPath);
+				//ImageIO.write(image,fileExtension , fileSave);
+				//aImgFile = fileSave;
+				view.getRemoveAnswerImageBtn().setVisible(true);
+				view.getbtnViewAnswerImage().setVisible(true);
+				view.getQuestionDataPanel().revalidate();
+				QuizCreationController.saveFlag=0;
 			}
 		}
 		
@@ -358,6 +349,39 @@ public class qPanelController implements Serializable{
 		view.getRemoveAnswerImageBtn().setVisible(false);
 		view.getbtnViewAnswerImage().setVisible(false);
 		view.getQuestionDataPanel().revalidate();
+	}
+	
+	public void saveImages()
+	{
+		BufferedImage image;
+		File fileSave;
+		if(qImgFile!=null){
+			try {
+				fileExtension = Files.getFileExtension(qImgFile.getCanonicalPath());
+				
+				image = ImageIO.read(qImgFile); 	
+				fileSave = new File(questionImgPath);
+				ImageIO.write(image,fileExtension , fileSave);
+				qImgFile = fileSave;
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} 	
+		}
+		if(aImgFile!=null)
+		{
+			try {
+				fileExtension = Files.getFileExtension(aImgFile.getCanonicalPath());
+				
+				image = ImageIO.read(aImgFile); 	
+				fileSave = new File(answerImgPath);
+				ImageIO.write(image,fileExtension , fileSave);
+				aImgFile = fileSave;
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} 	
+		}
 	}
 	
 	public qPanel getQuestionPanel() {
