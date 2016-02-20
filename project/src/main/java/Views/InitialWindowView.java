@@ -23,6 +23,8 @@ import java.awt.Point;
 import java.awt.TextField;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseListener;
 
 import javax.swing.JSeparator;
 import javax.swing.SwingConstants;
@@ -302,8 +304,11 @@ public class InitialWindowView extends ViewPanel {
 		return tree;
 	}
 	public void setTree(JTree tree) {
+		MouseListener[] mouseListener = this.tree.getMouseListeners();
 		remove(this.tree);
 		this.tree = tree;
+		if(mouseListener.length>1)
+		this.tree.addMouseListener((MouseAdapter) mouseListener[1]);
 		add(this.tree);
 		this.tree.setBounds(0, 30, MainFrameController.view.getWidth(),MainFrameController.view.getHeight());
 		revalidate();		
