@@ -144,15 +144,17 @@ public class qPanelController implements Serializable{
 			MainFrameController.view.repaint();
 			if(qImgFile!=null)
 			{
-				qImgFile=null;
-				questionImgPath="";
+//				qImgFile=null;
+//				questionImgPath="";
 //				qImgFile.delete();
+				renameQuestionImage();				
 			}
 			if(aImgFile!=null)
 			{
 //				aImgFile.delete();
-				aImgFile=null;	
-				answerImgPath="";
+//				aImgFile=null;	
+//				answerImgPath="";
+				renameAnswerImage();
 			}
 			QuizCreationController.qPanels.remove(view.getQuestionNumber()-1);		
 			fixColors();
@@ -334,8 +336,9 @@ public class qPanelController implements Serializable{
 	{
 		public void actionPerformed(ActionEvent e) {
 			// TODO Auto-generated method stub
-			qImgFile=null;	
-			questionImgPath="";
+//			qImgFile=null;	
+//			questionImgPath="";
+			renameQuestionImage();
 			view.getRemoveQuestionImageBtn().setVisible(false);
 			view.getqImage().setVisible(false);
 			view.getQuestionDataPanel().revalidate();
@@ -351,13 +354,47 @@ public class qPanelController implements Serializable{
 			QuizCreationController.saveFlag=0;
 		}
 	}
+	
+	public void renameQuestionImage()
+	{
+		BufferedImage bufferedImage = null;
+		File tempFile = new File(quizPath+"/"+
+		"Question"+view.getQuestionNumber()+"D"+".PNG");
+		try {
+			bufferedImage = ImageIO.read(qImgFile);
+			ImageIO.write(bufferedImage,fileExtension , tempFile);
+			qImgFile.delete();
+			qImgFile=tempFile;
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
 	public void removeAnswerImage()
 	{
-		aImgFile=null;	
-		answerImgPath="";
+//		aImgFile=null;	
+//		answerImgPath="";
+		renameAnswerImage();
 		view.getRemoveAnswerImageBtn().setVisible(false);
 		view.getbtnViewAnswerImage().setVisible(false);
 		view.getQuestionDataPanel().revalidate();
+	}
+	
+	public void renameAnswerImage()
+	{
+		BufferedImage bufferedImage = null;
+		File tempFile = new File(quizPath+"/"+
+		"Answer"+view.getQuestionNumber()+"D"+".PNG");
+		try {
+			bufferedImage = ImageIO.read(aImgFile);
+			ImageIO.write(bufferedImage,fileExtension , tempFile);
+			aImgFile.delete();
+			aImgFile=tempFile;
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	
 	public void saveImages()
@@ -370,9 +407,10 @@ public class qPanelController implements Serializable{
 				questionImgPath = quizPath +"/" + questionLbl;
 				fileExtension = Files.getFileExtension(qImgFile.getCanonicalPath());
 				
-				image = ImageIO.read(qImgFile); 	
+				image = ImageIO.read(qImgFile); 
+				qImgFile.delete();
 				fileSave = new File(questionImgPath);
-				ImageIO.write(image,fileExtension , fileSave);
+				ImageIO.write(image,fileExtension , fileSave);			
 				qImgFile = fileSave;
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
@@ -387,8 +425,10 @@ public class qPanelController implements Serializable{
 				fileExtension = Files.getFileExtension(aImgFile.getCanonicalPath());
 				
 				image = ImageIO.read(aImgFile); 	
+				aImgFile.delete();
 				fileSave = new File(answerImgPath);
 				ImageIO.write(image,fileExtension , fileSave);
+				
 				aImgFile = fileSave;
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
