@@ -143,9 +143,17 @@ public class qPanelController implements Serializable{
 			parentView.panel.revalidate();
 			MainFrameController.view.repaint();
 			if(qImgFile!=null)
-				qImgFile.delete();
+			{
+				qImgFile=null;
+				questionImgPath="";
+//				qImgFile.delete();
+			}
 			if(aImgFile!=null)
-				aImgFile.delete();
+			{
+//				aImgFile.delete();
+				aImgFile=null;	
+				answerImgPath="";
+			}
 			QuizCreationController.qPanels.remove(view.getQuestionNumber()-1);		
 			fixColors();
 			for (int i = view.getQuestionNumber()-1; i < QuizCreationController.qPanels.size(); i++) {
@@ -153,27 +161,27 @@ public class qPanelController implements Serializable{
 				QuizCreationController.qPanels.get(i).view.getQuestionLbl().setText("Question"+(i+1));
 
 				
-				try {
-					if(QuizCreationController.qPanels.get(i).qImgFile!=null){
-					File tempFile = new File(QuizCreationController.qPanels.get(i).quizPath+"/"+
-							"Question"+(i+1)+".PNG");
-					bufferedImage = ImageIO.read(QuizCreationController.qPanels.get(i).qImgFile);
-					ImageIO.write(bufferedImage,QuizCreationController.qPanels.get(i).fileExtension , tempFile);
-					QuizCreationController.qPanels.get(i).qImgFile.delete();
-					QuizCreationController.qPanels.get(i).qImgFile=tempFile;
-					}
-					if(QuizCreationController.qPanels.get(i).aImgFile!=null){
-					File tempFile = new File(QuizCreationController.qPanels.get(i).quizPath+"/"+
-							"Answer"+(i+1)+".PNG");
-					bufferedImage = ImageIO.read(QuizCreationController.qPanels.get(i).aImgFile);
-					ImageIO.write(bufferedImage,QuizCreationController.qPanels.get(i).fileExtension , tempFile);
-					QuizCreationController.qPanels.get(i).aImgFile.delete();
-					QuizCreationController.qPanels.get(i).aImgFile=tempFile;
-					}
-				} catch (IOException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}	
+//				try {
+//					if(QuizCreationController.qPanels.get(i).qImgFile!=null){
+//					File tempFile = new File(QuizCreationController.qPanels.get(i).quizPath+"/"+
+//							"Question"+(i+1)+".PNG");
+//					bufferedImage = ImageIO.read(QuizCreationController.qPanels.get(i).qImgFile);
+//					ImageIO.write(bufferedImage,QuizCreationController.qPanels.get(i).fileExtension , tempFile);
+//					QuizCreationController.qPanels.get(i).qImgFile.delete();
+//					QuizCreationController.qPanels.get(i).qImgFile=tempFile;
+//					}
+//					if(QuizCreationController.qPanels.get(i).aImgFile!=null){
+//					File tempFile = new File(QuizCreationController.qPanels.get(i).quizPath+"/"+
+//							"Answer"+(i+1)+".PNG");
+//					bufferedImage = ImageIO.read(QuizCreationController.qPanels.get(i).aImgFile);
+//					ImageIO.write(bufferedImage,QuizCreationController.qPanels.get(i).fileExtension , tempFile);
+//					QuizCreationController.qPanels.get(i).aImgFile.delete();
+//					QuizCreationController.qPanels.get(i).aImgFile=tempFile;
+//					}
+//				} catch (IOException e1) {
+//					// TODO Auto-generated catch block
+//					e1.printStackTrace();
+//				}	
 				
 			}
 		}
