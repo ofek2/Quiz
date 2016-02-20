@@ -221,7 +221,6 @@ public class InitialWindowController {
 				QuizCreationView quizCreationView = new QuizCreationView();
 				QuizCreationController quizCreationController = new QuizCreationController(quizCreationView,result,view);			
 				quizCreationView.getQuizName().setText(quizName);
-				quizCreationController.setSaveComplete(1);
 				QuizCreationController.saveFlag=1;
 				if(popUpMenuFlag==1)
 				editQuizdialog.setVisible(false);
@@ -253,7 +252,7 @@ public class InitialWindowController {
 				quizFolder = new File(new File(".").getCanonicalPath()+"/OnlineQuizChecker"+"/"+(String)view.getCoursesIds().getSelectedItem()+"/"+quizName);
 				if(!quizFolder.exists())
 				{
-					quizFolder.mkdir();
+				//	quizFolder.mkdir();
 			
 					QuizCreationView quizCreationView = new QuizCreationView();
 					QuizEntity quizEntity = new QuizEntity(quizName,25,quizFolder);
@@ -425,7 +424,6 @@ public class InitialWindowController {
 		}
 		try {
 			view.setTree(new JTree(InitialWindowView.filesTree(new File(new File(".").getCanonicalPath()+"/OnlineQuizChecker"))));
-//			view.getTree().addMouseListener(treeMouseListener());
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
