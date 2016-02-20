@@ -39,7 +39,7 @@ public class QuizCreationController implements Serializable {
 	protected static ArrayList<qPanelController> qPanels;
 	private HtmlBuilder htmlBuilder;
 	public static int saveFlag=1;
-	private int saveComplete=0;
+//	private int saveComplete=0;
 	private transient InitialWindowView initialWindowView;
 	private windowListener windowListener;
 	public QuizCreationController(QuizCreationView view,QuizEntity entity, InitialWindowView initialWindowView) {
@@ -306,16 +306,16 @@ public class QuizCreationController implements Serializable {
 			exitFlag=JOptionPane.showConfirmDialog(null,"You made an unsaved changes, all of this changes will be lost,\n do you want to keep the application progress?","Alert",JOptionPane.YES_NO_OPTION);
 			if(exitFlag==JOptionPane.YES_OPTION)
 				{
-				if(saveComplete==0)
-				{
-				//	entity.getQuizFolder().delete();
-					try {
-						initialWindowView.setTree(new JTree(InitialWindowView.filesTree(new File(new File(".").getCanonicalPath()+"/OnlineQuizChecker"))));
-					} catch (IOException e1) {
-						// TODO Auto-generated catch block
-						e1.printStackTrace();
-					}
-				}
+//				if(saveComplete==0)
+//				{
+//				//	entity.getQuizFolder().delete();
+//					try {
+//						initialWindowView.setTree(new JTree(InitialWindowView.filesTree(new File(new File(".").getCanonicalPath()+"/OnlineQuizChecker"))));
+//					} catch (IOException e1) {
+//						// TODO Auto-generated catch block
+//						e1.printStackTrace();
+//					}
+//				}
 				MainFrameController.view.changeContentPane(initialWindowView);
 				MainFrameController.view.removeWindowListener(windowListener);
 				MainFrameController.view.addWindowListener(MainFrameController.view.windowListener);
@@ -323,23 +323,23 @@ public class QuizCreationController implements Serializable {
 			}
 			else
 			{	
-				try {
-					if(saveComplete==0)
-					{
-						//entity.getQuizFolder().delete();
-						
-						
-						JTree newTree = new JTree(InitialWindowView.filesTree(new File(new File(".").getCanonicalPath()+"/OnlineQuizChecker")));
-						initialWindowView.setTree(newTree);
-						
-					}
+//				try {
+//					if(saveComplete==0)
+//					{
+//						//entity.getQuizFolder().delete();
+//						
+//						
+//						JTree newTree = new JTree(InitialWindowView.filesTree(new File(new File(".").getCanonicalPath()+"/OnlineQuizChecker")));
+//						initialWindowView.setTree(newTree);
+//						
+//					}
 					MainFrameController.view.changeContentPane(initialWindowView);
 					MainFrameController.view.removeWindowListener(windowListener);
 					MainFrameController.view.addWindowListener(MainFrameController.view.windowListener);
-				} catch (IOException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}
+//				} catch (IOException e1) {
+//					// TODO Auto-generated catch block
+//					e1.printStackTrace();
+//				}
 
 			}
 		}
@@ -354,16 +354,16 @@ public class QuizCreationController implements Serializable {
 			exitFlag=JOptionPane.showConfirmDialog(null,"You made an unsaved changes, all of this changes will be lost,\n do you want to keep the application progress?","Alert",JOptionPane.YES_NO_OPTION);
 			if(exitFlag==JOptionPane.YES_OPTION)
 				{
-				if(saveComplete==0)
-				{
-					entity.getQuizFolder().delete();
-					try {
-						initialWindowView.setTree(new JTree(InitialWindowView.filesTree(new File(new File(".").getCanonicalPath()+"/OnlineQuizChecker"))));
-					} catch (IOException e1) {
-						// TODO Auto-generated catch block
-						e1.printStackTrace();
-					}
-				}
+//				if(saveComplete==0)
+//				{
+//					entity.getQuizFolder().delete();
+//					try {
+//						initialWindowView.setTree(new JTree(InitialWindowView.filesTree(new File(new File(".").getCanonicalPath()+"/OnlineQuizChecker"))));
+//					} catch (IOException e1) {
+//						// TODO Auto-generated catch block
+//						e1.printStackTrace();
+//					}
+//				}
 				MainFrameController.view.changeContentPane(initialWindowView);	
 				MainFrameController.view.removeWindowListener(this);
 				MainFrameController.view.addWindowListener(MainFrameController.view.windowListener);
@@ -371,19 +371,19 @@ public class QuizCreationController implements Serializable {
 			}
 			else
 			{	
-				try {
-					if(saveComplete==0)
-					{
-						entity.getQuizFolder().delete();
-						initialWindowView.setTree(new JTree(InitialWindowView.filesTree(new File(new File(".").getCanonicalPath()+"/OnlineQuizChecker"))));
-					}
+//				try {
+//					if(saveComplete==0)
+//					{
+//						entity.getQuizFolder().delete();
+//						initialWindowView.setTree(new JTree(InitialWindowView.filesTree(new File(new File(".").getCanonicalPath()+"/OnlineQuizChecker"))));
+//					}
 					MainFrameController.view.changeContentPane(initialWindowView);
 					MainFrameController.view.removeWindowListener(this);
 					MainFrameController.view.addWindowListener(MainFrameController.view.windowListener);
-				} catch (IOException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}
+//				} catch (IOException e1) {
+//					// TODO Auto-generated catch block
+//					e1.printStackTrace();
+//				}
 
 			}
 		}
