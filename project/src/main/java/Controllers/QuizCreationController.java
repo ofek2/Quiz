@@ -150,99 +150,149 @@ public class QuizCreationController implements Serializable {
 		public void actionPerformed(ActionEvent e) {
 			// TODO Auto-generated method stub
 			saveFlag=1;
-			try {
-				htmlBuilder = new HtmlBuilder();
-			} catch (FileNotFoundException e2) {
-				// TODO Auto-generated catch block
-				e2.printStackTrace();
-			} catch (ParserConfigurationException e2) {
-				// TODO Auto-generated catch block
-				e2.printStackTrace();
-			}
-			htmlBuilder.initiateHtml();
-			// -------add the title information to the html file here---------///
+			saveQuiz();
+		
+		
+	}
+	public void saveQuiz()
+	{
+		if(!entity.getQuizFolder().exists())
+		{
+			entity.getQuizFolder().mkdir();
+		}
+		else
+		{
 			
-			//--------------------------------------------------------------------
+			recursiveDelete(entity.getQuizFolder());
 			
-			for (int i=0;i<qPanels.size();i++)
+		}
+		for(int i=0;i<qPanels.size();i++)
+			qPanels.get(i).saveImages();
+		try {
+			htmlBuilder = new HtmlBuilder();
+		} catch (FileNotFoundException e2) {
+			// TODO Auto-generated catch block
+			e2.printStackTrace();
+		} catch (ParserConfigurationException e2) {
+			// TODO Auto-generated catch block
+			e2.printStackTrace();
+		}
+		htmlBuilder.initiateHtml();
+		// -------add the title information to the html file here---------///
+		
+		//--------------------------------------------------------------------
+		
+		for (int i=0;i<qPanels.size();i++)
+		{
+			qPanel tempQpanel= qPanels.get(i).view;
+			qPanelController tempQController = qPanels.get(i);
+			int index =tempQpanel.getAnswerTypeCb().getSelectedIndex();
+			String answerType = tempQpanel.getAnswerTypeCb().getItemAt(index); 
+			ArrayList<String> choices;
+			String score;
+			
+			if(tempQpanel.getScoreTextField().getText().isEmpty())
 			{
-				qPanel tempQpanel= qPanels.get(i).view;
-				qPanelController tempQController = qPanels.get(i);
-				int index =tempQpanel.getAnswerTypeCb().getSelectedIndex();
-				String answerType = tempQpanel.getAnswerTypeCb().getItemAt(index); 
-				ArrayList<String> choices;
-				String score;
-				
-				if(tempQpanel.getScoreTextField().getText().isEmpty())
-				{
-					score = "0";
-					tempQpanel.getScoreTextField().setText(score);
-				}
-				else 
-					score = tempQpanel.getScoreTextField().getText();
-				String questionImageName = "";
-				htmlBuilder.addQuestion(i+1,answerType ,score);
-				
-				if(tempQController.getqImgFile()!=null)
-				{
-					questionImageName= tempQController.getqImgFile().getName();
-//					questionImagePath= tempQController.getqImgFile().getPath();
-				}
-				htmlBuilder.addQuestionData(i+1, tempQpanel.getTextAreaQ().getText(), questionImageName);
-				String answer="";
-				if(answerType.equals("Multiple Choice"))
-				{
+				score = "0";
+				tempQpanel.getScoreTextField().setText(score);
+			}
+			else 
+				score = tempQpanel.getScoreTextField().getText();
+			String questionImageName = "";
+			htmlBuilder.addQuestion(i+1,answerType ,score);
+			
+			if(tempQController.getqImgFile()!=null)
+			{
+				questionImageName= tempQController.getqImgFile().getName();
+//				questionImagePath= tempQController.getqImgFile().getPath();
+			}
+			htmlBuilder.addQuestionData(i+1, tempQpanel.getTextAreaQ().getText(), questionImageName);
+			String answer="";
+			if(answerType.equals("Multiple Choice"))
+			{
 
-					
-					choices = new ArrayList<String>();
-					
-					for (int j=0;j<tempQpanel.getMultipleChoicePanelController().cBfControllers.size();j++)
-					{
-						if(tempQpanel.getMultipleChoicePanelController().cBfControllers.get(j).view.getAnswerCheckBox().isSelected())
-							answer+=(j+1)+" ";
-						choices.add(tempQpanel.getMultipleChoicePanelController().cBfControllers.get(j).view.getAnswerTextOption().getText());
-					}
-					String type;
-					String[] splited = answer.split("\\s");
-					if(splited.length>1)type="Multiple Choice";
-					else type="Singel Choice";
-					htmlBuilder.addAnswersData(i+1,type,choices);
-					htmlBuilder.addLecturerAnswers(i+1,type, choices, answer);
+				
+				choices = new ArrayList<String>();
+				
+				for (int j=0;j<tempQpanel.getMultipleChoicePanelController().cBfControllers.size();j++)
+				{
+					if(tempQpanel.getMultipleChoicePanelController().cBfControllers.get(j).view.getAnswerCheckBox().isSelected())
+						answer+=(j+1)+" ";
+					choices.add(tempQpanel.getMultipleChoicePanelController().cBfControllers.get(j).view.getAnswerTextOption().getText());
 				}
+				String type;
+				String[] splited = answer.split("\\s");
+				if(splited.length>1)type="Multiple Choice";
+				else type="Singel Choice";
+				htmlBuilder.addAnswersData(i+1,type,choices);
+				htmlBuilder.addLecturerAnswers(i+1,type, choices, answer);
+			}
+			else
+			{
+				if(answerType.equals("Free Text"))
+					answer = tempQController.view.getTextAreaA().getText();
 				else
 				{
-					if(answerType.equals("Free Text"))
-						answer = tempQController.view.getTextAreaA().getText();
-					else
-					{
-						if(tempQController.getaImgFile()!=null)
-						answer = tempQController.getaImgFile().getPath();
-					}
-					htmlBuilder.addAnswersData(i+1, answerType);
-					htmlBuilder.addLecturerAnswers(i+1,answerType,answer);
+					if(tempQController.getaImgFile()!=null)
+					answer = tempQController.getaImgFile().getPath();
 				}
-			
+				htmlBuilder.addAnswersData(i+1, answerType);
+				htmlBuilder.addLecturerAnswers(i+1,answerType,answer);
 			}
-			
-			try {
-				htmlBuilder.writeHtml(entity.getQuizFolder().getCanonicalPath()+"/"+entity.getName());
-				initialWindowView.setTree(new JTree(InitialWindowView.filesTree(new File(new File(".").getCanonicalPath()+"/OnlineQuizChecker"))));
-				QuizObjectEntity quizObjectEntity = new QuizObjectEntity(entity, qPanels);
-				FileOutputStream fos = new FileOutputStream(entity.getQuizFolder().getCanonicalPath()+"/"+entity.getName()+".ser");
-				ObjectOutputStream oos = new ObjectOutputStream(fos);
-				oos.writeObject(quizObjectEntity);
-				oos.close();
-				JOptionPane.showMessageDialog(null, "All of the data saved successfully");
-
-			} catch (TransformerException e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
-			} catch (IOException e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
-			}
+		
 		}
 		
+		try {
+			htmlBuilder.writeHtml(entity.getQuizFolder().getCanonicalPath()+"/"+entity.getName());
+			initialWindowView.setTree(new JTree(InitialWindowView.filesTree(new File(new File(".").getCanonicalPath()+"/OnlineQuizChecker"))));
+			QuizObjectEntity quizObjectEntity = new QuizObjectEntity(entity, qPanels);
+			FileOutputStream fos = new FileOutputStream(entity.getQuizFolder().getCanonicalPath()+"/"+entity.getName()+".ser");
+			ObjectOutputStream oos = new ObjectOutputStream(fos);
+			oos.writeObject(quizObjectEntity);
+			oos.close();
+			JOptionPane.showMessageDialog(null, "All of the data saved successfully");
+
+		} catch (TransformerException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+	}
+	}
+	private void recursiveDelete(File file) {
+        if (!file.exists())
+            return;
+        if (file.isDirectory()) {
+            for (File f : file.listFiles()) {
+                recursiveDelete(f);
+            }
+        }
+        if(fileCanBeDeleted(file)&&!file.isDirectory())
+        file.delete();
+    }
+	private boolean fileCanBeDeleted(File file)
+	{
+		for(int i=0;i<qPanels.size();i++)
+		{
+			if(qPanels.get(i).getqImgFile()!=null)
+			{
+				if(qPanels.get(i).getqImgFile().getPath().equals(file.getPath()))
+				{
+				
+					return false;
+				}
+			}
+			if(qPanels.get(i).getaImgFile()!=null)
+			{
+				if(qPanels.get(i).getaImgFile().getPath().equals(file.getPath()))
+				{
+					return false;
+				}
+			}
+		}
+		return true;
 	}
 	class exitMenuListener implements ActionListener
 	{
@@ -256,7 +306,7 @@ public class QuizCreationController implements Serializable {
 				{
 				if(saveComplete==0)
 				{
-					entity.getQuizFolder().delete();
+				//	entity.getQuizFolder().delete();
 					try {
 						initialWindowView.setTree(new JTree(InitialWindowView.filesTree(new File(new File(".").getCanonicalPath()+"/OnlineQuizChecker"))));
 					} catch (IOException e1) {
@@ -274,7 +324,7 @@ public class QuizCreationController implements Serializable {
 				try {
 					if(saveComplete==0)
 					{
-						entity.getQuizFolder().delete();
+						//entity.getQuizFolder().delete();
 						initialWindowView.setTree(new JTree(InitialWindowView.filesTree(new File(new File(".").getCanonicalPath()+"/OnlineQuizChecker"))));
 					}
 					MainFrameController.view.changeContentPane(initialWindowView);

@@ -250,7 +250,7 @@ public class InitialWindowController {
 				quizFolder = new File(new File(".").getCanonicalPath()+"/OnlineQuizChecker"+"/"+(String)view.getCoursesIds().getSelectedItem()+"/"+quizName);
 				if(!quizFolder.exists())
 				{
-					quizFolder.mkdir();
+					//quizFolder.mkdir();
 			
 					QuizCreationView quizCreationView = new QuizCreationView();
 					QuizEntity quizEntity = new QuizEntity(quizName,25,quizFolder);

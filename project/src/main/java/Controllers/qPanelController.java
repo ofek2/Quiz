@@ -176,7 +176,6 @@ public class qPanelController implements Serializable{
 				}	
 				
 			}
-
 		}
 			private void fixColors() {
 				for(int i=0;i<QuizCreationController.qPanels.size();i++)
@@ -327,7 +326,8 @@ public class qPanelController implements Serializable{
 	{
 		public void actionPerformed(ActionEvent e) {
 			// TODO Auto-generated method stub
-			qImgFile.delete();	
+			qImgFile=null;	
+			questionImgPath="";
 			view.getRemoveQuestionImageBtn().setVisible(false);
 			view.getqImage().setVisible(false);
 			view.getQuestionDataPanel().revalidate();
@@ -345,7 +345,8 @@ public class qPanelController implements Serializable{
 	}
 	public void removeAnswerImage()
 	{
-		aImgFile.delete();	
+		aImgFile=null;	
+		answerImgPath="";
 		view.getRemoveAnswerImageBtn().setVisible(false);
 		view.getbtnViewAnswerImage().setVisible(false);
 		view.getQuestionDataPanel().revalidate();
@@ -357,6 +358,8 @@ public class qPanelController implements Serializable{
 		File fileSave;
 		if(qImgFile!=null){
 			try {
+				String questionLbl = view.getQuestionLbl().getText()+".PNG";
+				questionImgPath = quizPath +"/" + questionLbl;
 				fileExtension = Files.getFileExtension(qImgFile.getCanonicalPath());
 				
 				image = ImageIO.read(qImgFile); 	
@@ -371,6 +374,8 @@ public class qPanelController implements Serializable{
 		if(aImgFile!=null)
 		{
 			try {
+				String answerLbl = "Answer"+view.getQuestionNumber()+".PNG";
+				answerImgPath = quizPath +"/" + answerLbl;
 				fileExtension = Files.getFileExtension(aImgFile.getCanonicalPath());
 				
 				image = ImageIO.read(aImgFile); 	
