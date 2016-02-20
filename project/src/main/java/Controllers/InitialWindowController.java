@@ -59,9 +59,7 @@ public class InitialWindowController {
 	private JPopupMenu rootPopupMenu;
 	private JMenuItem edit;
 	private JMenuItem remove;
-
 	private JMenuItem add;
-	public static MouseAdapter mouseadapter;
 	public static ArrayList<CourseEntity> coursesFiles;
 	public InitialWindowController(InitialWindowView view) {
 //		coursesFiles = new ArrayList<File>();
@@ -85,8 +83,7 @@ public class InitialWindowController {
 		view.createCourseBtnAddListener(new CreateCourseBtnListener());
 		view.removeCourseBtnAddListener(new RemoveCourseBtnListener());
 		view.coursesIdsEditAddItemListener(new coursesIdsEditAddItemListener());
-		treeMouseListener();
-		view.getTree().addMouseListener(mouseadapter);
+		view.getTree().addMouseListener(treeMouseListener());
 
 //		remove.addActionListener(l);
 		add.addActionListener(new AddCourseListener());
@@ -94,18 +91,20 @@ public class InitialWindowController {
 		
 //		view.getTree().setComponentPopupMenu(jPopupMenu());
 	}
-	public void treeMouseListener()
+	public MouseAdapter treeMouseListener()
 	{
-		
-	 mouseadapter = new MouseAdapter(){
+		MouseAdapter adapter;
+		return adapter = new MouseAdapter(){
 			public void mousePressed(MouseEvent e) {
 				if(e.getButton() == MouseEvent.BUTTON3)
 				{
+//					System.out.println("123");
 	                TreePath pathForLocation = view.getTree().getPathForLocation(e.getPoint().x, e.getPoint().y);
 	                if(pathForLocation != null){
 	                	DefaultMutableTreeNode selectedNode = (DefaultMutableTreeNode) pathForLocation.getLastPathComponent();
 //	                	System.out.print(selectedNode.getParent().toString());
 	                	String chosenFileName=pathForLocation.getLastPathComponent().toString();
+	                	System.out.println(chosenFileName);
 	                	pathForLocation.getLastPathComponent();
 //	                	System.out.print(pathForLocation.getLastPathComponent().toString());
 	                	if(chosenFileName.equals("OnlineQuizChecker"))
@@ -125,9 +124,8 @@ public class InitialWindowController {
 	
 	private JPopupMenu quizPopupMenu(String chosenFileName)
 	{
-//		edit.removeAll();
-//		edit = new JMenuItem("edit quiz"); 	
 		quizPopupMenu.remove(edit);
+		edit = new JMenuItem("edit quiz"); 	
 		edit.addActionListener(new EditQuizBtnListener(chosenFileName));
 		quizPopupMenu.add(edit);
 		return quizPopupMenu;
@@ -223,6 +221,8 @@ public class InitialWindowController {
 				QuizCreationView quizCreationView = new QuizCreationView();
 				QuizCreationController quizCreationController = new QuizCreationController(quizCreationView,result,view);			
 				quizCreationView.getQuizName().setText(quizName);
+				quizCreationController.setSaveComplete(1);
+				QuizCreationController.saveFlag=1;
 				if(popUpMenuFlag==1)
 				editQuizdialog.setVisible(false);
 				MainFrameController.view.changeContentPane(quizCreationView);			
@@ -253,7 +253,7 @@ public class InitialWindowController {
 				quizFolder = new File(new File(".").getCanonicalPath()+"/OnlineQuizChecker"+"/"+(String)view.getCoursesIds().getSelectedItem()+"/"+quizName);
 				if(!quizFolder.exists())
 				{
-					//quizFolder.mkdir();
+					quizFolder.mkdir();
 			
 					QuizCreationView quizCreationView = new QuizCreationView();
 					QuizEntity quizEntity = new QuizEntity(quizName,25,quizFolder);
@@ -262,7 +262,8 @@ public class InitialWindowController {
 					newQuizDialog.setVisible(false);
 					MainFrameController.view.changeContentPane(quizCreationView);
 					QuizCreationController.saveFlag=1;
-					view.setTree(new JTree(InitialWindowView.filesTree(new File(new File(".").getCanonicalPath()+"/OnlineQuizChecker"))));
+//					view.setTree(new JTree(InitialWindowView.filesTree(new File(new File(".").getCanonicalPath()+"/OnlineQuizChecker"))));
+//					view.getTree().addMouseListener(treeMouseListener());
 				}
 				else
 				{
@@ -424,6 +425,7 @@ public class InitialWindowController {
 		}
 		try {
 			view.setTree(new JTree(InitialWindowView.filesTree(new File(new File(".").getCanonicalPath()+"/OnlineQuizChecker"))));
+//			view.getTree().addMouseListener(treeMouseListener());
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
