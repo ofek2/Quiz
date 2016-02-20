@@ -4,6 +4,8 @@ import java.awt.Color;
 import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseListener;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 import java.io.File;
@@ -325,7 +327,13 @@ public class QuizCreationController implements Serializable {
 					if(saveComplete==0)
 					{
 						//entity.getQuizFolder().delete();
-						initialWindowView.setTree(new JTree(InitialWindowView.filesTree(new File(new File(".").getCanonicalPath()+"/OnlineQuizChecker"))));
+						
+						
+						JTree newTree = new JTree(InitialWindowView.filesTree(new File(new File(".").getCanonicalPath()+"/OnlineQuizChecker")));
+					
+						newTree.addMouseListener(InitialWindowController.mouseadapter);
+						initialWindowView.setTree(newTree);
+						
 					}
 					MainFrameController.view.changeContentPane(initialWindowView);
 					MainFrameController.view.removeWindowListener(windowListener);

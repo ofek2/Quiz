@@ -59,7 +59,9 @@ public class InitialWindowController {
 	private JPopupMenu rootPopupMenu;
 	private JMenuItem edit;
 	private JMenuItem remove;
+
 	private JMenuItem add;
+	public static MouseAdapter mouseadapter;
 	public static ArrayList<CourseEntity> coursesFiles;
 	public InitialWindowController(InitialWindowView view) {
 //		coursesFiles = new ArrayList<File>();
@@ -83,7 +85,8 @@ public class InitialWindowController {
 		view.createCourseBtnAddListener(new CreateCourseBtnListener());
 		view.removeCourseBtnAddListener(new RemoveCourseBtnListener());
 		view.coursesIdsEditAddItemListener(new coursesIdsEditAddItemListener());
-		view.getTree().addMouseListener(treeMouseListener());
+		treeMouseListener();
+		view.getTree().addMouseListener(mouseadapter);
 
 //		remove.addActionListener(l);
 		add.addActionListener(new AddCourseListener());
@@ -91,10 +94,10 @@ public class InitialWindowController {
 		
 //		view.getTree().setComponentPopupMenu(jPopupMenu());
 	}
-	public MouseAdapter treeMouseListener()
+	public void treeMouseListener()
 	{
-		MouseAdapter adapter;
-		return adapter = new MouseAdapter(){
+		
+	 mouseadapter = new MouseAdapter(){
 			public void mousePressed(MouseEvent e) {
 				if(e.getButton() == MouseEvent.BUTTON3)
 				{
