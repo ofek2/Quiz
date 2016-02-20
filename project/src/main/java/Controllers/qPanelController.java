@@ -408,7 +408,7 @@ public class qPanelController implements Serializable{
 				fileExtension = Files.getFileExtension(qImgFile.getCanonicalPath());
 				
 				image = ImageIO.read(qImgFile); 
-				qImgFile.delete();
+//				qImgFile.delete();
 				fileSave = new File(questionImgPath);
 				ImageIO.write(image,fileExtension , fileSave);			
 				qImgFile = fileSave;
@@ -425,7 +425,7 @@ public class qPanelController implements Serializable{
 				fileExtension = Files.getFileExtension(aImgFile.getCanonicalPath());
 				
 				image = ImageIO.read(aImgFile); 	
-				aImgFile.delete();
+//				aImgFile.delete();
 				fileSave = new File(answerImgPath);
 				ImageIO.write(image,fileExtension , fileSave);
 				
