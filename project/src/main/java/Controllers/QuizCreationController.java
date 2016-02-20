@@ -271,31 +271,34 @@ public class QuizCreationController implements Serializable {
                 recursiveDelete(f);
             }
         }
-        if(fileCanBeDeleted(file)&&!file.isDirectory())
+//        if(fileCanBeDeleted(file)&&!file.isDirectory())
+        if((file.getName().equals("Question1D.PNG")||file.getName().equals("Answer1D.PNG"))
+        		&&!file.isDirectory())
         file.delete();
     }
-	private boolean fileCanBeDeleted(File file)
-	{
-		for(int i=0;i<qPanels.size();i++)
-		{
-			if(qPanels.get(i).getqImgFile()!=null)
-			{
-				if(qPanels.get(i).getqImgFile().getPath().equals(file.getPath()))
-				{
-				
-					return false;
-				}
-			}
-			if(qPanels.get(i).getaImgFile()!=null)
-			{
-				if(qPanels.get(i).getaImgFile().getPath().equals(file.getPath()))
-				{
-					return false;
-				}
-			}
-		}
-		return true;
-	}
+//	private boolean fileCanBeDeleted(File file)
+//	{
+//		for(int i=0;i<qPanels.size();i++)
+//		{
+//			if(qPanels.get(i).getqImgFile()!=null)
+//			{
+////				if(qPanels.get(i).getqImgFile().getPath().equals(file.getPath()))
+//				if(("Question"+(i+1)+".PNG").equals(file.getName()))
+//				{	
+//					return false;
+//				}
+//			}
+//			if(qPanels.get(i).getaImgFile()!=null)
+//			{
+////				if(qPanels.get(i).getaImgFile().getPath().equals(file.getPath()))
+//				if(("Answer"+(i+1)+".PNG").equals(file.getName()))
+//				{
+//					return false;
+//				}
+//			}
+//		}
+//		return true;
+//	}
 	class exitMenuListener implements ActionListener
 	{
 		private int exitFlag;
@@ -364,6 +367,7 @@ public class QuizCreationController implements Serializable {
 //						e1.printStackTrace();
 //					}
 //				}
+				/////delete the d from the image name
 				MainFrameController.view.changeContentPane(initialWindowView);	
 				MainFrameController.view.removeWindowListener(this);
 				MainFrameController.view.addWindowListener(MainFrameController.view.windowListener);
