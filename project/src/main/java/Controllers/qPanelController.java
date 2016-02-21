@@ -14,6 +14,7 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.io.Serializable;
+
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
@@ -21,6 +22,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JScrollPane;
 import javax.swing.ScrollPaneConstants;
+
 import com.google.common.io.Files;
 
 import Entities.QuizEntity;
@@ -34,10 +36,10 @@ public class qPanelController implements Serializable{
 	private QuizCreationView parentView;
 	private transient JFileChooser qFileChooser;
 	private transient JFileChooser aFileChooser;
-	private String quizPath;
+	private static String quizPath;
 	private File qImgFile;
 	private File aImgFile;
-	private String fileExtension;
+	private static String fileExtension;
 	private JLabel qImageIcon=null;
 	private String questionImgPath;
 	private String answerImgPath;
@@ -357,17 +359,20 @@ public class qPanelController implements Serializable{
 	
 	public void renameQuestionImage()
 	{
-		BufferedImage bufferedImage = null;
-		File tempFile = new File(quizPath+"/"+
-		"Question"+view.getQuestionNumber()+"D"+".PNG");
 		try {
-			bufferedImage = ImageIO.read(qImgFile);
-			ImageIO.write(bufferedImage,fileExtension , tempFile);
-			qImgFile.delete();
-			qImgFile=tempFile;
-		} catch (IOException e) {
+			if(qImgFile.getParent().equals(quizPath))
+			{
+				BufferedImage bufferedImage = null;
+				File tempFile = new File(quizPath+"/"+
+				"Question"+view.getQuestionNumber()+"D"+".PNG");
+				bufferedImage = ImageIO.read(qImgFile);
+				ImageIO.write(bufferedImage,fileExtension , tempFile);
+				qImgFile.delete();
+				qImgFile=tempFile;
+			}
+		} catch (IOException e1) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			e1.printStackTrace();
 		}
 	}
 	
@@ -383,20 +388,42 @@ public class qPanelController implements Serializable{
 	
 	public void renameAnswerImage()
 	{
-		BufferedImage bufferedImage = null;
-		File tempFile = new File(quizPath+"/"+
-		"Answer"+view.getQuestionNumber()+"D"+".PNG");
 		try {
-			bufferedImage = ImageIO.read(aImgFile);
-			ImageIO.write(bufferedImage,fileExtension , tempFile);
-			aImgFile.delete();
-			aImgFile=tempFile;
-		} catch (IOException e) {
+			if(aImgFile.getParent().equals(quizPath))
+			{
+				BufferedImage bufferedImage = null;
+				File tempFile = new File(quizPath+"/"+
+				"Answer"+view.getQuestionNumber()+"D"+".PNG");
+				bufferedImage = ImageIO.read(aImgFile);
+				ImageIO.write(bufferedImage,fileExtension , tempFile);
+				aImgFile.delete();
+				aImgFile=tempFile;
+			}
+		} catch (IOException e1) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			e1.printStackTrace();
 		}
+
 	}
-	
+	public static void renameQandAImagesToOrigin(File file)
+	{
+		try {
+			if(file.getName().contains("D"))
+				{
+					String str = file.getName().replace("D", "");
+					BufferedImage bufferedImage = null;
+					File tempFile = new File(quizPath+"/"+str);				
+						bufferedImage = ImageIO.read(file);
+					ImageIO.write(bufferedImage,fileExtension , tempFile);
+					file.delete();
+					file=tempFile;
+				} 
+			}	
+			catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+	}
 	public void saveImages()
 	{
 		BufferedImage image;
@@ -408,9 +435,13 @@ public class qPanelController implements Serializable{
 				fileExtension = Files.getFileExtension(qImgFile.getCanonicalPath());
 				
 				image = ImageIO.read(qImgFile); 
-//				qImgFile.delete();
 				fileSave = new File(questionImgPath);
-				ImageIO.write(image,fileExtension , fileSave);			
+				ImageIO.write(image,fileExtension , fileSave);		
+				if(qImgFile.getParent().equals(quizPath))
+				{
+				if(!qImgFile.getName().equals(questionLbl))
+				qImgFile.delete();
+				}
 				qImgFile = fileSave;
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
@@ -425,10 +456,13 @@ public class qPanelController implements Serializable{
 				fileExtension = Files.getFileExtension(aImgFile.getCanonicalPath());
 				
 				image = ImageIO.read(aImgFile); 	
-//				aImgFile.delete();
 				fileSave = new File(answerImgPath);
 				ImageIO.write(image,fileExtension , fileSave);
-				
+				if(aImgFile.getParent().equals(quizPath))
+				{
+				if(!aImgFile.getName().equals(answerLbl))
+				aImgFile.delete();
+				}
 				aImgFile = fileSave;
 			} catch (IOException e) {
 				// TODO Auto-generated catch block

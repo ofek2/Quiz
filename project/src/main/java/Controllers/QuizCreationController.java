@@ -14,6 +14,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
+import java.nio.file.Files;
 import java.util.ArrayList;
 
 import javax.swing.JFrame;
@@ -21,6 +22,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JTree;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
+import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.TransformerException;
 
@@ -276,6 +278,7 @@ public class QuizCreationController implements Serializable {
         		&&!file.isDirectory())
         file.delete();
     }
+	
 //	private boolean fileCanBeDeleted(File file)
 //	{
 //		for(int i=0;i<qPanels.size();i++)
@@ -319,6 +322,13 @@ public class QuizCreationController implements Serializable {
 //						e1.printStackTrace();
 //					}
 //				}
+//		///		for(int i=0;i<qPanels.size();i++)////////////////////////////////////
+//		///			qPanels.get(i).renameQandAImagesToOrigin();///////////////
+				for(File file: entity.getQuizFolder().listFiles())
+				{
+					if(file.getName().contains(".PNG"))
+						qPanelController.renameQandAImagesToOrigin(file);
+				}
 				MainFrameController.view.changeContentPane(initialWindowView);
 				MainFrameController.view.removeWindowListener(windowListener);
 				MainFrameController.view.addWindowListener(MainFrameController.view.windowListener);
@@ -368,6 +378,12 @@ public class QuizCreationController implements Serializable {
 //					}
 //				}
 				/////delete the d from the image name
+//				for(int i=0;i<qPanels.size();i++)/////////////////////////////
+				for(File file: entity.getQuizFolder().listFiles())
+				{
+					if(file.getName().contains(".PNG"))
+						qPanelController.renameQandAImagesToOrigin(file);
+				}
 				MainFrameController.view.changeContentPane(initialWindowView);	
 				MainFrameController.view.removeWindowListener(this);
 				MainFrameController.view.addWindowListener(MainFrameController.view.windowListener);
