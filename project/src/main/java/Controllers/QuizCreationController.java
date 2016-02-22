@@ -161,17 +161,11 @@ public class QuizCreationController implements Serializable {
 	public void saveQuiz()
 	{
 		if(!entity.getQuizFolder().exists())
-		{
 			entity.getQuizFolder().mkdir();
-		}
-		else
-		{
-			
-			recursiveDelete(entity.getQuizFolder());
-			
-		}
 		for(int i=0;i<qPanels.size();i++)
 			qPanels.get(i).saveImages();
+		recursiveDelete(entity.getQuizFolder());
+
 		try {
 			htmlBuilder = new HtmlBuilder();
 		} catch (FileNotFoundException e2) {
