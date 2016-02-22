@@ -326,7 +326,7 @@ public class QuizCreationController implements Serializable {
 //		///			qPanels.get(i).renameQandAImagesToOrigin();///////////////
 				for(File file: entity.getQuizFolder().listFiles())
 				{
-					if(file.getName().contains(".PNG"))
+					if(file.getName().endsWith(".PNG"))
 						qPanelController.renameQandAImagesToOrigin(file);
 				}
 				MainFrameController.view.changeContentPane(initialWindowView);
@@ -381,7 +381,7 @@ public class QuizCreationController implements Serializable {
 //				for(int i=0;i<qPanels.size();i++)/////////////////////////////
 				for(File file: entity.getQuizFolder().listFiles())
 				{
-					if(file.getName().contains(".PNG"))
+					if(file.getName().endsWith(".PNG"))
 						qPanelController.renameQandAImagesToOrigin(file);
 				}
 				MainFrameController.view.changeContentPane(initialWindowView);	
