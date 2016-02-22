@@ -61,6 +61,7 @@ public class InitialWindowController {
 	private JMenuItem remove;
 	private JMenuItem add;
 	public static ArrayList<CourseEntity> coursesFiles;
+	private coursesIdsEditAddItemListener idsEditAddItemListener;
 	public InitialWindowController(InitialWindowView view) {
 //		coursesFiles = new ArrayList<File>();
 		this.view=view;		
@@ -82,7 +83,8 @@ public class InitialWindowController {
 		view.editQuizBtnAddListener(new EditQuizBtnListener());
 		view.createCourseBtnAddListener(new CreateCourseBtnListener());
 		view.removeCourseBtnAddListener(new RemoveCourseBtnListener());
-		view.coursesIdsEditAddItemListener(new coursesIdsEditAddItemListener());
+		idsEditAddItemListener = new coursesIdsEditAddItemListener();
+		view.coursesIdsEditAddItemListener(idsEditAddItemListener);
 		view.getTree().addMouseListener(treeMouseListener());
 
 //		remove.addActionListener(l);
@@ -104,13 +106,13 @@ public class InitialWindowController {
 	                	DefaultMutableTreeNode selectedNode = (DefaultMutableTreeNode) pathForLocation.getLastPathComponent();
 //	                	System.out.print(selectedNode.getParent().toString());
 	                	String chosenFileName=pathForLocation.getLastPathComponent().toString();
-	                	System.out.println(chosenFileName);
+//	                	System.out.println(chosenFileName);
 	                	pathForLocation.getLastPathComponent();
 //	                	System.out.print(pathForLocation.getLastPathComponent().toString());
 	                	if(chosenFileName.equals("OnlineQuizChecker"))
 	                    view.getTree().setComponentPopupMenu(rootPopupMenu());   
 	                	else if(selectedNode.getParent().toString().equals("OnlineQuizChecker"))
-		                    view.getTree().setComponentPopupMenu(removeCoursePopupMenu()); 
+		                    view.getTree().setComponentPopupMenu(removeCoursePopupMenu(chosenFileName)); 
 	                	else
 		                    view.getTree().setComponentPopupMenu(quizPopupMenu(chosenFileName)); 
 	                } else
@@ -130,8 +132,11 @@ public class InitialWindowController {
 		quizPopupMenu.add(edit);
 		return quizPopupMenu;
 	}
-	private JPopupMenu removeCoursePopupMenu()
+	private JPopupMenu removeCoursePopupMenu(String chosenFileName)
 	{
+		coursePopupMenu.remove(remove);
+		remove = new JMenuItem("remove course"); 	
+		remove.addActionListener(new RemoveCourseBtnListener(chosenFileName));
 		coursePopupMenu.add(remove);
 		return coursePopupMenu;
 	}
@@ -197,17 +202,17 @@ public class InitialWindowController {
 		
 		public EditQuizBtnListener()
 		{
-			popUpMenuFlag=1;
+			popUpMenuFlag=0;
 		}
 		public EditQuizBtnListener(String quizName)
 		{
 			this.quizName = quizName;
-			popUpMenuFlag=0;
+			popUpMenuFlag=1;
 		}	
 		public void actionPerformed(ActionEvent e) {
 			// TODO Auto-generated method stub
 			// read object from file
-			if(popUpMenuFlag==1)
+			if(popUpMenuFlag==0)
 				quizName = view.getQuizzes().getItemAt(view.getQuizzes().getSelectedIndex());
 			String quizFile = quizName+".ser";
 			String path;
@@ -222,7 +227,7 @@ public class InitialWindowController {
 				QuizCreationController quizCreationController = new QuizCreationController(quizCreationView,result,view);			
 				quizCreationView.getQuizName().setText(quizName);
 				QuizCreationController.saveFlag=1;
-				if(popUpMenuFlag==1)
+				if(popUpMenuFlag==0)
 				editQuizdialog.setVisible(false);
 				MainFrameController.view.changeContentPane(quizCreationView);			
 			} catch (FileNotFoundException e1) {
@@ -285,13 +290,34 @@ public class InitialWindowController {
 	
 	class RemoveCourseBtnListener implements ActionListener
 	{
-
+		private String courseName;
+		private int popUpMenuFlag;
+		private File courseFolder;
+		public RemoveCourseBtnListener()
+		{
+			popUpMenuFlag=0;
+		}
+		public RemoveCourseBtnListener(String courseName)
+		{
+			this.courseName = courseName;
+			popUpMenuFlag=1;
+		}	
+		
+		
 		public void actionPerformed(ActionEvent e) {
 			// TODO Auto-generated method stub
 			try {
-				File file = new File(new File(".").getCanonicalPath()+"/OnlineQuizChecker/"+(String)view.getRemoveCourses().getSelectedItem());
-				removeFolder(file);
-				coursesFiles.remove(view.getRemoveCourses().getSelectedIndex());
+				if(popUpMenuFlag==0)
+				{
+					courseFolder = new File(new File(".").getCanonicalPath()+"/OnlineQuizChecker/"+(String)view.getRemoveCourses().getSelectedItem());
+					coursesFiles.remove(view.getRemoveCourses().getSelectedIndex());
+				}
+				else
+				{
+					courseFolder = new File(new File(".").getCanonicalPath()+"/OnlineQuizChecker/"+courseName);
+					coursesFiles.remove(CourseEntity.getIndex(courseName));
+				}
+				removeFolder(courseFolder);
 				coursesUpdate();
 			} catch (IOException e1) {
 				// TODO Auto-generated catch block
@@ -417,10 +443,14 @@ public class InitialWindowController {
 	{
 		view.getCoursesIds().removeAllItems();
 		view.getRemoveCourses().removeAllItems();
+		view.getCoursesIdsEdit().removeItemListener(idsEditAddItemListener);
+		view.getCoursesIdsEdit().removeAllItems();
+		view.coursesIdsEditAddItemListener(idsEditAddItemListener);
 		for(int i=0;i<InitialWindowController.coursesFiles.size();i++)
 		{	
 			view.getCoursesIds().addItem(InitialWindowController.coursesFiles.get(i).getCourseFolderName());		
 			view.getRemoveCourses().addItem(InitialWindowController.coursesFiles.get(i).getCourseFolderName());
+			view.getCoursesIdsEdit().addItem(InitialWindowController.coursesFiles.get(i).getCourseFolderName());
 		}
 		try {
 			view.setTree(new JTree(InitialWindowView.filesTree(new File(new File(".").getCanonicalPath()+"/OnlineQuizChecker"))));

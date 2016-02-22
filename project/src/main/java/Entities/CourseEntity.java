@@ -57,5 +57,13 @@ public class CourseEntity {
 		return i;
 			
 	}
+	public static int getIndex(String courseName)
+	{
+		int i;
+		for(i=0;i<InitialWindowController.coursesFiles.size();i++)
+			if(InitialWindowController.coursesFiles.get(i).courseFolderName.equals(courseName))
+				return i;
+		return -1;
+	}
 	
 }
