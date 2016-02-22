@@ -144,14 +144,14 @@ public class qPanelController implements Serializable{
 			parentView.panel.remove(view);
 			parentView.panel.revalidate();
 			MainFrameController.view.repaint();
-			if(qImgFile!=null)
+			if(qImgFile.exists())
 			{
 //				qImgFile=null;
 //				questionImgPath="";
 //				qImgFile.delete();
 				renameQuestionImage();				
 			}
-			if(aImgFile!=null)
+			if(aImgFile.exists())
 			{
 //				aImgFile.delete();
 //				aImgFile=null;	
@@ -428,7 +428,7 @@ public class qPanelController implements Serializable{
 	{
 		BufferedImage image;
 		File fileSave;
-		if(qImgFile!=null){
+		if(qImgFile!=null&&!qImgFile.getName().contains("D")){
 			try {
 				String questionLbl = view.getQuestionLbl().getText()+".PNG";
 				questionImgPath = quizPath +"/" + questionLbl;
@@ -448,7 +448,7 @@ public class qPanelController implements Serializable{
 				e.printStackTrace();
 			} 	
 		}
-		if(aImgFile!=null)
+		if(aImgFile!=null&&!aImgFile.getName().contains("D"))
 		{
 			try {
 				String answerLbl = "Answer"+view.getQuestionNumber()+".PNG";
