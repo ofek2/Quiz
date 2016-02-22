@@ -37,7 +37,7 @@ public class HtmlBuilder {
 		DocumentBuilder builder = builderFactory.newDocumentBuilder();
 		document = builder.newDocument();
 		
-		InputStream in = new FileInputStream(new File("CanvasScript.html"));
+		InputStream in = new FileInputStream(new File("HtmlHead.html"));
 		parser = new HtmlParser(in);
 	}
 	
@@ -110,6 +110,12 @@ public class HtmlBuilder {
 		questionTextPara.appendChild(document.createTextNode(questionText));
 		
 		divBody.appendChild(qText);
+		
+		Element qImage= document.createElement("qImage");
+		Element img = document.createElement("img");
+		img.setAttribute("src", questionImageName);
+		qImage.appendChild(img);
+		divBody.appendChild(qImage);
 		/*
 		Element speakerBtnSpan = document.createElement("span");
 		speakerBtnSpan.setAttribute("class", "col-xs-8");
@@ -124,11 +130,7 @@ public class HtmlBuilder {
 		
 		questions.get(qNumber).getFirstChild().appendChild(divBody);
 		
-		Element qImage= document.createElement("qImage");
-		Element img = document.createElement("img");
-		img.setAttribute("src", questionImageName);
-		qImage.appendChild(img);
-		questions.get(qNumber).getFirstChild().appendChild(qImage);
+		
 	}
 	public void addAnswersData(int questionNumber,String type,ArrayList<String> choices)
 	{
