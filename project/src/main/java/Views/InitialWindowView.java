@@ -276,9 +276,6 @@ public class InitialWindowView extends ViewPanel {
 		studentIdLbl.setBounds(4, 39, 46, 14);
 		registerStudentDialogPanel.add(studentIdLbl);
 		
-		removeCourseBtn = new JButton("remove course");
-		removeCourseBtn.setBounds(42, 120, 109, 23);
-		removeCourseDialogPanel.add(removeCourseBtn);
 	}
 	public void addQuizManagementListeners(ActionListener[] listener)
 	{
