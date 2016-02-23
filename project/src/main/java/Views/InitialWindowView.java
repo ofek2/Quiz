@@ -1,6 +1,7 @@
 package Views;
 
 import javax.swing.ComboBoxModel;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.JPanel;
 import javax.swing.JMenuBar;
 import javax.swing.JMenu;
@@ -42,6 +43,7 @@ import java.awt.Button;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Vector;
 
 import javax.swing.JLabel;
 import javax.swing.JButton;
@@ -76,6 +78,8 @@ public class InitialWindowView extends ViewPanel {
 	private JButton removeCourseBtn;
 	
 	private JTree tree;
+	private JPanel registerStudentDialogPanel;
+	private JComboBox<String> registerStudentCourseCB;
 	/**
 	 * Create the panel.
 	 */
@@ -134,23 +138,24 @@ public class InitialWindowView extends ViewPanel {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		Vector<String> vec = new Vector<String>();
+		for(int i=0;i<InitialWindowController.coursesFiles.size();i++)
+			vec.add(InitialWindowController.coursesFiles.get(i).getCourseFolderName());
+		DefaultComboBoxModel<String> coursesIdsModel = new DefaultComboBoxModel<String>(vec);
 		
+		//New quiz dialog
 		newQuizDialogPanel = new JPanel();
 		newQuizDialogPanel.setLayout(null);
 		newQuizDialogPanel.setBackground(Color.RED);
 		newQuizDialogPanel.setSize(300, 220);
 		newQuizDialogPanel.setVisible(true);
 		
-				
-		
-		Label label = new Label("Course Code:");
+		Label label = new Label("Course Id:");
 		label.setBounds(13, 28, 80, 19);
 		newQuizDialogPanel.add(label);
 		
-		coursesIds = new JComboBox<String>();
+		coursesIds = new JComboBox<String>(coursesIdsModel);
 		coursesIds.setBounds(100, 27, 180, 20);
-		for(int i=0;i<InitialWindowController.coursesFiles.size();i++)
-			coursesIds.addItem(InitialWindowController.coursesFiles.get(i).getCourseFolderName());		
 		coursesIds.setSelectedIndex(0);
 		newQuizDialogPanel.add(coursesIds);
 		
@@ -167,19 +172,18 @@ public class InitialWindowView extends ViewPanel {
 		createNewQuizBtn.setBounds(newQuizDialogPanel.getSize().width/2-createNewQuizBtn.getPreferredSize().width/2, 121, createNewQuizBtn.getPreferredSize().width, createNewQuizBtn.getPreferredSize().height);
 		newQuizDialogPanel.add(createNewQuizBtn);
 		
+		//Edit quiz dialog
 		editQuizDialogPanel = new JPanel();
 		editQuizDialogPanel.setLayout(null);
 		editQuizDialogPanel.setSize(300,220);
 		editQuizDialogPanel.setBackground(Color.RED);
 		
-		Label label2 = new Label("Course Code:");
+		Label label2 = new Label("Course Id:");
 		label2.setBounds(13, 28, 80, 19);
 		editQuizDialogPanel.add(label2);
 		
-		coursesIdsEdit = new JComboBox<String>();
+		coursesIdsEdit = new JComboBox<String>(coursesIdsModel);
 		coursesIdsEdit.setBounds(100, 27, 180, 20);
-		for(int i=0;i<InitialWindowController.coursesFiles.size();i++)
-			coursesIdsEdit.addItem(InitialWindowController.coursesFiles.get(i).getCourseFolderName());		
 		coursesIdsEdit.setSelectedIndex(0);
 		editQuizDialogPanel.add(coursesIdsEdit);
 		
@@ -202,58 +206,79 @@ public class InitialWindowView extends ViewPanel {
 		editQuizBtn = new JButton("Edit Quiz");
 		editQuizBtn.setBounds(editQuizDialogPanel.getSize().width/2-editQuizBtn.getPreferredSize().width/2, 121, editQuizBtn.getPreferredSize().width, editQuizBtn.getPreferredSize().height);
 		editQuizDialogPanel.add(editQuizBtn);
-		
 		editQuizDialogPanel.setVisible(true);
 		
+		//New course dialog
 		newCourseDialogPanel = new JPanel();
 		newCourseDialogPanel.setLayout(null);
 		newCourseDialogPanel.setBackground(Color.CYAN);
-		newCourseDialogPanel.setSize(220,220);
-		
+		newCourseDialogPanel.setSize(300,220);
 		
 		JLabel lblCourseId = new JLabel("Course Id:");
-		lblCourseId.setBounds(10, 45, 70, 14);
+		lblCourseId.setBounds(13, 28, 80, 19);
 		newCourseDialogPanel.add(lblCourseId);
 		
 		newCourseId = new JTextField();
-		newCourseId.setBounds(93, 42, 86, 20);
+		newCourseId.setBounds(100, 27, 180, 20);
 		newCourseDialogPanel.add(newCourseId);
 		newCourseId.setColumns(10);
+		
+		JLabel lblNewLabel = new JLabel("Course Name:");
+		lblNewLabel.setBounds(13, 58, 84, 14);
+		newCourseDialogPanel.add(lblNewLabel);
+		
+		newCourseName = new JTextField();
+		newCourseName.setBounds(100, 59, 180, 20);
+		newCourseDialogPanel.add(newCourseName);
+		newCourseName.setColumns(10);
 		
 		createNewCourseBtn = new JButton("Create Course");
 		createNewCourseBtn.setBounds(newQuizDialogPanel.getSize().width/2-createNewCourseBtn.getPreferredSize().width/2, 121, createNewCourseBtn.getPreferredSize().width, createNewCourseBtn.getPreferredSize().height);
 		newCourseDialogPanel.add(createNewCourseBtn);
 		
-		JLabel lblNewLabel = new JLabel("Course Name:");
-		lblNewLabel.setBounds(10, 81, 84, 14);
-		newCourseDialogPanel.add(lblNewLabel);
-		
-		newCourseName = new JTextField();
-		newCourseName.setBounds(93, 78, 86, 20);
-		newCourseDialogPanel.add(newCourseName);
-		newCourseName.setColumns(10);
-		
+		//Remove course dialog
 		removeCourseDialogPanel = new JPanel();
 		removeCourseDialogPanel.setLayout(null);
 		removeCourseDialogPanel.setBackground(Color.lightGray);
-		removeCourseDialogPanel.setSize(220,220);
+		removeCourseDialogPanel.setSize(300,150);
 		
+		JLabel lblCourse = new JLabel("Course Id:");
+		lblCourse.setBounds(13, 20, 80, 19);
+		removeCourseDialogPanel.add(lblCourse);
 		
-		removeCourses = new JComboBox<String>();
-		removeCourses.setBounds(100, 27, 86, 20);
-		for(int i=0;i<InitialWindowController.coursesFiles.size();i++)
-			removeCourses.addItem(InitialWindowController.coursesFiles.get(i).getCourseFolderName());		
+		removeCourses = new JComboBox<String>(coursesIdsModel);
+		removeCourses.setBounds(100, 20, 186, 20);
 		removeCourses.setSelectedIndex(0);
 		removeCourseDialogPanel.add(removeCourses);
 		
-		JLabel lblCourse = new JLabel("Course:");
-		lblCourse.setBounds(4, 39, 46, 14);
-		removeCourseDialogPanel.add(lblCourse);
+		removeCourseBtn = new JButton("remove course");
+		removeCourseBtn.setBounds(removeCourseDialogPanel.getSize().width/2-removeCourseBtn.getPreferredSize().width/2, 60, removeCourseBtn.getPreferredSize().width, removeCourseBtn.getPreferredSize().height);
+		removeCourseDialogPanel.add(removeCourseBtn);
+		
+		
+		//Register Student
+		
+		registerStudentDialogPanel = new JPanel();
+		registerStudentDialogPanel.setLayout(null);
+		registerStudentDialogPanel.setBackground(Color.lightGray);
+		registerStudentDialogPanel.setSize(220,300);
+		
+		JLabel lblCourse1 = new JLabel("Course Id:");
+		lblCourse1.setBounds(4, 39, 46, 14);
+		registerStudentDialogPanel.add(lblCourse1);
+		
+		registerStudentCourseCB = new JComboBox<String>(coursesIdsModel);
+		registerStudentCourseCB.setBounds(100, 27, 86, 20);
+		registerStudentCourseCB.setSelectedIndex(0);
+		registerStudentDialogPanel.add(registerStudentCourseCB);
+		
+		JLabel studentIdLbl = new JLabel("Student's Id:");
+		studentIdLbl.setBounds(4, 39, 46, 14);
+		registerStudentDialogPanel.add(studentIdLbl);
 		
 		removeCourseBtn = new JButton("remove course");
 		removeCourseBtn.setBounds(42, 120, 109, 23);
 		removeCourseDialogPanel.add(removeCourseBtn);
-		
 	}
 	public void addQuizManagementListeners(ActionListener[] listener)
 	{
@@ -300,6 +325,12 @@ public class InitialWindowView extends ViewPanel {
 		return removeCourseDialogPanel;
 	}
 	
+	public JPanel getRegisterStudentDialogPanel() {
+		return registerStudentDialogPanel;
+	}
+	public JComboBox<String> getRegisterStudentCourseCB() {
+		return registerStudentCourseCB;
+	}
 	public JTree getTree() {
 		return tree;
 	}

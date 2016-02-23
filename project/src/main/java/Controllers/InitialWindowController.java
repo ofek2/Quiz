@@ -63,6 +63,7 @@ public class InitialWindowController {
 	private JMenuItem add;
 	public static ArrayList<CourseEntity> coursesFiles;
 	private coursesIdsEditAddItemListener idsEditAddItemListener;
+	public JDialog registerStudentDialog;
 	public InitialWindowController(InitialWindowView view) {
 //		coursesFiles = new ArrayList<File>();
 		this.view=view;		
@@ -411,7 +412,7 @@ public class InitialWindowController {
 		public void actionPerformed(ActionEvent e) {
 			// TODO Auto-generated method stub
 			newCourseDialog = new JDialog(MainFrameController.view,"New Course Dialog");
-			newCourseDialog.setSize(220,220);
+			newCourseDialog.setSize(300,220);
 			newCourseDialog.setLocationRelativeTo(MainFrameController.view);
 			newCourseDialog.setVisible(true);
 			newCourseDialog.setResizable(false);
@@ -425,8 +426,8 @@ public class InitialWindowController {
 		public void actionPerformed(ActionEvent e) {
 			// TODO Auto-generated method stub
 			removeCourseDialog = new JDialog(MainFrameController.view,"Remove Course Dialog");
+			removeCourseDialog.setSize(300,150);
 			removeCourseDialog.setLocationRelativeTo(MainFrameController.view);
-			removeCourseDialog.setSize(220,220);
 			removeCourseDialog.setVisible(true);
 			removeCourseDialog.setResizable(false);
 			removeCourseDialog.getContentPane().add(view.getRemoveCourseDialogPanel());
@@ -439,7 +440,12 @@ public class InitialWindowController {
 
 		public void actionPerformed(ActionEvent e) {
 			// TODO Auto-generated method stub
-			
+			registerStudentDialog = new JDialog(MainFrameController.view,"Register Student Dialog");
+			registerStudentDialog.setSize(220,300);
+			registerStudentDialog.setLocationRelativeTo(MainFrameController.view);
+			registerStudentDialog.setVisible(true);
+			registerStudentDialog.setResizable(false);
+			registerStudentDialog.getContentPane().add(view.getRegisterStudentDialogPanel());
 		}
 		
 	}
