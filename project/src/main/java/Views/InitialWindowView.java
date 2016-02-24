@@ -337,6 +337,10 @@ public class InitialWindowView extends ViewPanel {
 	{
 		coursesIdsEdit.addItemListener(listener);
 	}
+	public void registerStudentBtnAddListener(ActionListener listener)
+	{
+		register.addActionListener(listener);
+	}
 	public JPanel getNewQuizDialogPanel() {
 		return newQuizDialogPanel;
 	}

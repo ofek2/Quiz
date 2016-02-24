@@ -17,8 +17,10 @@ import java.awt.event.WindowListener;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
@@ -86,6 +88,7 @@ public class InitialWindowController {
 		view.editQuizBtnAddListener(new EditQuizBtnListener());
 		view.createCourseBtnAddListener(new CreateCourseBtnListener());
 		view.removeCourseBtnAddListener(new RemoveCourseBtnListener());
+		view.registerStudentBtnAddListener(new registerStudentBtnListener());
 		idsEditAddItemListener = new coursesIdsEditAddItemListener();
 		view.coursesIdsEditAddItemListener(idsEditAddItemListener);
 		view.getTree().addMouseListener(treeMouseListener());
@@ -349,7 +352,28 @@ public class InitialWindowController {
 		}
 		
 	}
-	
+	class registerStudentBtnListener implements ActionListener
+	{
+
+		public void actionPerformed(ActionEvent e) {
+			// TODO Auto-generated method stub
+			
+			/*
+			FileInputStream fis;
+			fis = new FileInputStream(path);
+			ObjectInputStream ois = new ObjectInputStream(fis);
+			QuizObjectEntity result = (QuizObjectEntity) ois.readObject();
+			ois.close();		
+			
+			FileOutputStream fos = new FileOutputStream(entity.getQuizFolder().getCanonicalPath()+"/"+entity.getName()+".ser");
+			ObjectOutputStream oos = new ObjectOutputStream(fos);
+			oos.writeObject(quizObjectEntity);
+			oos.close();*/
+			
+			
+		}
+		
+	}
 	
 	class NewQuizListener implements ActionListener
 	{
