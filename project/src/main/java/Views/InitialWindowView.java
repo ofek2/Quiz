@@ -77,9 +77,14 @@ public class InitialWindowView extends ViewPanel {
 	private JComboBox<String> removeCourses;
 	private JButton removeCourseBtn;
 	
-	private JTree tree;
 	private JPanel registerStudentDialogPanel;
 	private JComboBox<String> registerStudentCourseCB;
+	private JTextField studentId;
+	private JTextField studentName;
+	private JTextField studentEmail;
+	private JButton register;
+	
+	private JTree tree;
 	/**
 	 * Create the panel.
 	 */
@@ -261,21 +266,44 @@ public class InitialWindowView extends ViewPanel {
 		registerStudentDialogPanel = new JPanel();
 		registerStudentDialogPanel.setLayout(null);
 		registerStudentDialogPanel.setBackground(Color.lightGray);
-		registerStudentDialogPanel.setSize(220,300);
+		registerStudentDialogPanel.setSize(350,230);
 		
 		JLabel lblCourse1 = new JLabel("Course Id:");
-		lblCourse1.setBounds(4, 39, 46, 14);
+		lblCourse1.setBounds(13, 28, 80, 19);
 		registerStudentDialogPanel.add(lblCourse1);
 		
 		registerStudentCourseCB = new JComboBox<String>(coursesIdsModel);
-		registerStudentCourseCB.setBounds(100, 27, 86, 20);
+		registerStudentCourseCB.setBounds(120, 27, 180, 20);
 		registerStudentCourseCB.setSelectedIndex(0);
 		registerStudentDialogPanel.add(registerStudentCourseCB);
 		
 		JLabel studentIdLbl = new JLabel("Student's Id:");
-		studentIdLbl.setBounds(4, 39, 46, 14);
+		studentIdLbl.setBounds(13, 58, 100, 19);
 		registerStudentDialogPanel.add(studentIdLbl);
 		
+		studentId = new JTextField();
+		studentId.setBounds(120, 57, 180, 20);
+		registerStudentDialogPanel.add(studentId);
+		
+		JLabel studentNameLbl = new JLabel("Student's Name:");
+		studentNameLbl.setBounds(13, 88, 100, 19);
+		registerStudentDialogPanel.add(studentNameLbl);
+		
+		studentName = new JTextField();
+		studentName.setBounds(120, 87, 180, 20);
+		registerStudentDialogPanel.add(studentName);
+		
+		JLabel studentEmailLbl = new JLabel("Student's Email:");
+		studentEmailLbl.setBounds(13, 118, 100, 19);
+		registerStudentDialogPanel.add(studentEmailLbl);
+		
+		studentEmail = new JTextField();
+		studentEmail.setBounds(120, 118, 180, 20);
+		registerStudentDialogPanel.add(studentEmail);
+		
+		register = new JButton("Register");
+		register.setBounds(registerStudentDialogPanel.getSize().width/2-register.getPreferredSize().width/2, 150, register.getPreferredSize().width, register.getPreferredSize().height);
+		registerStudentDialogPanel.add(register);
 	}
 	public void addQuizManagementListeners(ActionListener[] listener)
 	{

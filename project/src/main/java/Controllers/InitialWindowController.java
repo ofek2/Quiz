@@ -441,7 +441,7 @@ public class InitialWindowController {
 		public void actionPerformed(ActionEvent e) {
 			// TODO Auto-generated method stub
 			registerStudentDialog = new JDialog(MainFrameController.view,"Register Student Dialog");
-			registerStudentDialog.setSize(220,300);
+			registerStudentDialog.setSize(350,230);
 			registerStudentDialog.setLocationRelativeTo(MainFrameController.view);
 			registerStudentDialog.setVisible(true);
 			registerStudentDialog.setResizable(false);
