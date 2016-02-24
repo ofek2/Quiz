@@ -21,6 +21,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.net.InetAddress;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
@@ -43,6 +44,7 @@ import Entities.Constants;
 import Entities.CourseEntity;
 import Entities.QuizEntity;
 import Entities.QuizObjectEntity;
+import Entities.StudentEntity;
 import Views.GradingWindowView;
 import Views.InitialWindowView;
 import Views.Main;
@@ -88,11 +90,10 @@ public class InitialWindowController {
 		view.editQuizBtnAddListener(new EditQuizBtnListener());
 		view.createCourseBtnAddListener(new CreateCourseBtnListener());
 		view.removeCourseBtnAddListener(new RemoveCourseBtnListener());
-		view.registerStudentBtnAddListener(new registerStudentBtnListener());
 		idsEditAddItemListener = new coursesIdsEditAddItemListener();
 		view.coursesIdsEditAddItemListener(idsEditAddItemListener);
 		view.getTree().addMouseListener(treeMouseListener());
-
+		view.registerStudentBtnAddListener(new registerStudentBtnListener());
 //		remove.addActionListener(l);
 		add.addActionListener(new AddCourseListener());
 		
@@ -170,12 +171,83 @@ public class InitialWindowController {
 		return rootPopupMenu;
 	}
 	
+	class registerStudentBtnListener implements ActionListener
+	{
+		private int overWrite=JOptionPane.YES_OPTION;
+		
+		public void actionPerformed(ActionEvent e) {
+			// TODO Auto-generated method stub
+			try{
+				if(view.getStudentId().getText().isEmpty())
+					JOptionPane.showMessageDialog(null,
+							"Please enter the student's id",
+							"Alert",JOptionPane.ERROR_MESSAGE);
+				else if (Integer.parseInt(view.getStudentId().getText())<=0)
+					JOptionPane.showMessageDialog(null,
+							"The student's id must be larger from 0",
+							"Alert",JOptionPane.ERROR_MESSAGE);
+				else if(view.getStudentName().getText().isEmpty())
+					JOptionPane.showMessageDialog(null,
+							"Please enter the student's name",
+							"Alert",JOptionPane.ERROR_MESSAGE);
+				else if(view.getStudentEmail().getText().isEmpty())
+					JOptionPane.showMessageDialog(null,
+							"Please enter the student's email",
+							"Alert",JOptionPane.ERROR_MESSAGE);
+				else{
+				///check if the email is correct
+				
+				String courseName = (String) view.getRegisterStudentCourseCB().getSelectedItem();
+				int courseIndexInCoursesArray = CourseEntity.getIndex(courseName);
+				String coursePath = coursesFiles.get(courseIndexInCoursesArray).getCourseFolder().getCanonicalPath();
+				String studentId = view.getStudentId().getText();
+				if(new File(coursePath + "/Students/" + studentId +".ser").exists())
+					overWrite = JOptionPane.showConfirmDialog(null,
+							"This student is already exists and his data will be overwritten, \n do you want to keep the application progress?"
+							,"Alert",JOptionPane.YES_NO_OPTION);
+				if(overWrite==JOptionPane.YES_OPTION)
+					{
+					StudentEntity studentEntity = new StudentEntity(courseName,
+							studentId,
+							view.getStudentName().getText(),
+							view.getStudentEmail().getText());
+					FileOutputStream fos = new FileOutputStream(
+							coursePath + "/Students/" + studentId +".ser");
+					ObjectOutputStream oos = new ObjectOutputStream(fos);
+					oos.writeObject(studentEntity);
+					oos.close();
+					JOptionPane.showMessageDialog(null, "The student registered successfully");
+					view.setTree(new JTree(InitialWindowView.filesTree(new File(new File(".").getCanonicalPath()+"/OnlineQuizChecker"))));
+					registerStudentDialog.setVisible(false);///////////////////////					
+					}
+				else if(overWrite==JOptionPane.NO_OPTION||overWrite==JOptionPane.CLOSED_OPTION)
+					;
+				}
+			}
+			catch(NumberFormatException e1) { 
+				JOptionPane.showMessageDialog(null,
+						"Please enter integers only in the student's id",
+						"Alert",JOptionPane.ERROR_MESSAGE);
+		    }
+			catch(NullPointerException e2) {
+				JOptionPane.showMessageDialog(null,
+						"Please enter integers only in the student id",
+						"Alert",JOptionPane.ERROR_MESSAGE);
+		    } catch (IOException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+		}
+		
+	}
+	
 	class CreateCourseBtnListener implements ActionListener
 	{
 		private File courseFolder;
 		private String courseId;
 		private String courseName;
 		private CourseEntity courseEntity;
+		private File studentsFolder;
 		public void actionPerformed(ActionEvent e) {
 			// TODO Auto-generated method stub
 			courseName = view.getNewCourseName().getText();
@@ -187,11 +259,13 @@ public class InitialWindowController {
 			else{
 				try {
 					courseFolder = new File(new File(".").getCanonicalPath()+"/OnlineQuizChecker"+"/"+CourseEntity.getCourseFolderName(courseId, courseName));
+					studentsFolder = new File(courseFolder.getCanonicalPath()+"/Students");
 					courseEntity = new CourseEntity(courseFolder, courseId, courseName);
 					if(!courseEntity.CourseExist())
 					{
 						courseFolder.mkdir();			
 						coursesFiles.add(courseEntity.checkPosition(),courseEntity);
+						studentsFolder.mkdir();
 						coursesUpdate();
 //						newCourseDialog.setVisible(false);
 
@@ -352,28 +426,7 @@ public class InitialWindowController {
 		}
 		
 	}
-	class registerStudentBtnListener implements ActionListener
-	{
-
-		public void actionPerformed(ActionEvent e) {
-			// TODO Auto-generated method stub
-			
-			/*
-			FileInputStream fis;
-			fis = new FileInputStream(path);
-			ObjectInputStream ois = new ObjectInputStream(fis);
-			QuizObjectEntity result = (QuizObjectEntity) ois.readObject();
-			ois.close();		
-			
-			FileOutputStream fos = new FileOutputStream(entity.getQuizFolder().getCanonicalPath()+"/"+entity.getName()+".ser");
-			ObjectOutputStream oos = new ObjectOutputStream(fos);
-			oos.writeObject(quizObjectEntity);
-			oos.close();*/
-			
-			
-		}
-		
-	}
+	
 	
 	class NewQuizListener implements ActionListener
 	{
@@ -465,7 +518,7 @@ public class InitialWindowController {
 		public void actionPerformed(ActionEvent e) {
 			// TODO Auto-generated method stub
 			registerStudentDialog = new JDialog(MainFrameController.view,"Register Student Dialog");
-			registerStudentDialog.setSize(350,230);
+			registerStudentDialog.setSize(250,300);
 			registerStudentDialog.setLocationRelativeTo(MainFrameController.view);
 			registerStudentDialog.setVisible(true);
 			registerStudentDialog.setResizable(false);
