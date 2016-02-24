@@ -77,14 +77,13 @@ public class InitialWindowView extends ViewPanel {
 	private JComboBox<String> removeCourses;
 	private JButton removeCourseBtn;
 	
+	private JTree tree;
 	private JPanel registerStudentDialogPanel;
 	private JComboBox<String> registerStudentCourseCB;
 	private JTextField studentId;
 	private JTextField studentName;
 	private JTextField studentEmail;
-	private JButton register;
-	
-	private JTree tree;
+	private JButton registerStudentBtn;
 	/**
 	 * Create the panel.
 	 */
@@ -266,44 +265,59 @@ public class InitialWindowView extends ViewPanel {
 		registerStudentDialogPanel = new JPanel();
 		registerStudentDialogPanel.setLayout(null);
 		registerStudentDialogPanel.setBackground(Color.lightGray);
-		registerStudentDialogPanel.setSize(350,230);
+		registerStudentDialogPanel.setSize(250,300);
 		
 		JLabel lblCourse1 = new JLabel("Course Id:");
-		lblCourse1.setBounds(13, 28, 80, 19);
+		lblCourse1.setBounds(4, 40, 100, 20);
 		registerStudentDialogPanel.add(lblCourse1);
 		
 		registerStudentCourseCB = new JComboBox<String>(coursesIdsModel);
-		registerStudentCourseCB.setBounds(120, 27, 180, 20);
+		registerStudentCourseCB.setBounds(105, 40, 120, 20);
 		registerStudentCourseCB.setSelectedIndex(0);
 		registerStudentDialogPanel.add(registerStudentCourseCB);
 		
 		JLabel studentIdLbl = new JLabel("Student's Id:");
-		studentIdLbl.setBounds(13, 58, 100, 19);
+		studentIdLbl.setBounds(4, 90, 100, 20);
 		registerStudentDialogPanel.add(studentIdLbl);
 		
 		studentId = new JTextField();
-		studentId.setBounds(120, 57, 180, 20);
+		studentId.setBounds(105, 90, 120, 20);
 		registerStudentDialogPanel.add(studentId);
+		studentId.setColumns(10);
 		
-		JLabel studentNameLbl = new JLabel("Student's Name:");
-		studentNameLbl.setBounds(13, 88, 100, 19);
+		JLabel studentNameLbl = new JLabel("Student's name:");
+		studentNameLbl.setBounds(4, 140, 100, 20);
 		registerStudentDialogPanel.add(studentNameLbl);
 		
 		studentName = new JTextField();
-		studentName.setBounds(120, 87, 180, 20);
+		studentName.setBounds(105, 140, 120, 20);
 		registerStudentDialogPanel.add(studentName);
+		studentName.setColumns(10);
 		
-		JLabel studentEmailLbl = new JLabel("Student's Email:");
-		studentEmailLbl.setBounds(13, 118, 100, 19);
+		JLabel studentEmailLbl = new JLabel("Student's email:");
+		studentEmailLbl.setBounds(4, 190, 100, 20);
 		registerStudentDialogPanel.add(studentEmailLbl);
 		
 		studentEmail = new JTextField();
-		studentEmail.setBounds(120, 118, 180, 20);
+		studentEmail.setBounds(105, 190, 120, 20);
 		registerStudentDialogPanel.add(studentEmail);
+		studentEmail.setColumns(10);
 		
-		register = new JButton("Register");
-		register.setBounds(registerStudentDialogPanel.getSize().width/2-register.getPreferredSize().width/2, 150, register.getPreferredSize().width, register.getPreferredSize().height);
-		registerStudentDialogPanel.add(register);
+		registerStudentBtn = new JButton("Register");
+		registerStudentBtn.setBounds(125-registerStudentBtn.getPreferredSize().width/2,220,
+				registerStudentBtn.getPreferredSize().width,
+				registerStudentBtn.getPreferredSize().height);	
+		registerStudentDialogPanel.add(registerStudentBtn);
+		
+	}
+	public JTextField getStudentId() {
+		return studentId;
+	}
+	public JTextField getStudentName() {
+		return studentName;
+	}
+	public JTextField getStudentEmail() {
+		return studentEmail;
 	}
 	public void addQuizManagementListeners(ActionListener[] listener)
 	{
@@ -316,6 +330,10 @@ public class InitialWindowView extends ViewPanel {
 		for (int i = 0; i < listener.length; i++) {
 			mnCourseManagement.getItem(i).addActionListener(listener[i]);
 		}
+	}
+	public void registerStudentBtnAddListener(ActionListener listener)
+	{
+		registerStudentBtn.addActionListener(listener);
 	}
 	public void createQuizBtnAddListener(ActionListener listener)
 	{
@@ -336,10 +354,6 @@ public class InitialWindowView extends ViewPanel {
 	public void coursesIdsEditAddItemListener(ItemListener listener)
 	{
 		coursesIdsEdit.addItemListener(listener);
-	}
-	public void registerStudentBtnAddListener(ActionListener listener)
-	{
-		register.addActionListener(listener);
 	}
 	public JPanel getNewQuizDialogPanel() {
 		return newQuizDialogPanel;
@@ -407,7 +421,7 @@ public class InitialWindowView extends ViewPanel {
 		if(file.isDirectory())
 			for(File child: file.listFiles())
 			{
-				if(child.isDirectory())
+				if(child.isDirectory()||file.getName().equals("Students"))
 				treeNode.add(filesTree(child));
 			}
 		return treeNode;
