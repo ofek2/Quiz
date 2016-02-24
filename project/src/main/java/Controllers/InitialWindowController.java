@@ -61,23 +61,32 @@ public class InitialWindowController {
 	private JPopupMenu quizPopupMenu;
 	private JPopupMenu coursePopupMenu;
 	private JPopupMenu rootPopupMenu;
+	private JPopupMenu studentsFolderPopupMenu;
+	private JPopupMenu studentsFilePopupMenu;
 	private JMenuItem editQuiz;
 	private JMenuItem removeQuiz;
 	private JMenuItem removeCourse;
-	private JMenuItem add;
+	private JMenuItem addCourse;
+	private JMenuItem registerStudent;
+	private JMenuItem removeStudent;
 	public static ArrayList<CourseEntity> coursesFiles;
 	private coursesIdsEditAddItemListener idsEditAddItemListener;
 	public JDialog registerStudentDialog;
+	public JDialog removeStudentDialog;
 	public InitialWindowController(InitialWindowView view) {
 //		coursesFiles = new ArrayList<File>();
 		this.view=view;		
 		quizPopupMenu= new JPopupMenu();
 		coursePopupMenu= new JPopupMenu();
 		rootPopupMenu= new JPopupMenu();
+		studentsFolderPopupMenu = new JPopupMenu();
+		studentsFilePopupMenu = new JPopupMenu();
 		editQuiz = new JMenuItem("edit quiz");
 		removeQuiz = new JMenuItem("remove quiz");
 		removeCourse = new JMenuItem("remove course");
-		add = new JMenuItem("add course");
+		addCourse = new JMenuItem("add course");
+		registerStudent = new JMenuItem("register student");
+		removeStudent = new JMenuItem("remove student");
 		addListeners();	
 	}
 	private void addListeners()
@@ -95,8 +104,8 @@ public class InitialWindowController {
 		view.getTree().addMouseListener(treeMouseListener());
 		view.registerStudentBtnAddListener(new registerStudentBtnListener());
 //		remove.addActionListener(l);
-		add.addActionListener(new AddCourseListener());
-		
+		addCourse.addActionListener(new AddCourseListener());
+		registerStudent.addActionListener(new RegisterStudentListener());
 		
 //		view.getTree().setComponentPopupMenu(jPopupMenu());
 	}
@@ -112,6 +121,7 @@ public class InitialWindowController {
 	                if(pathForLocation != null){
 	                	DefaultMutableTreeNode selectedNode = (DefaultMutableTreeNode) pathForLocation.getLastPathComponent();
 //	                	System.out.print(selectedNode.getParent().toString());
+//	                	System.out.print(selectedNode.getParent().getParent().toString());
 	                	String chosenFileName=pathForLocation.getLastPathComponent().toString();
 //	                	System.out.println(chosenFileName);
 	                	pathForLocation.getLastPathComponent();
@@ -120,8 +130,16 @@ public class InitialWindowController {
 	                    view.getTree().setComponentPopupMenu(rootPopupMenu());   
 	                	else if(selectedNode.getParent().toString().equals("OnlineQuizChecker"))
 		                    view.getTree().setComponentPopupMenu(removeCoursePopupMenu(chosenFileName)); 
-	                	else
-		                    view.getTree().setComponentPopupMenu(quizPopupMenu(chosenFileName,selectedNode.getParent().toString())); 
+	                	else if(selectedNode.getParent().getParent().toString().equals("OnlineQuizChecker"))
+	                	{
+	                		if(chosenFileName.equals("Students"))
+	                			 view.getTree().setComponentPopupMenu(registerStudentPopupMenu());
+	                		else
+	                			view.getTree().setComponentPopupMenu(quizPopupMenu(chosenFileName,selectedNode.getParent().toString())); 
+		                    
+	                	}
+	                	else if(selectedNode.getParent().toString().equals("Students"))
+	                		view.getTree().setComponentPopupMenu(removeStudentPopupMenu(chosenFileName));
 	                } else
 	                	view.getTree().setComponentPopupMenu(null);
 
@@ -167,8 +185,21 @@ public class InitialWindowController {
 	}
 	private JPopupMenu rootPopupMenu()
 	{
-		rootPopupMenu.add(add);
+		rootPopupMenu.add(addCourse);
 		return rootPopupMenu;
+	}
+	private JPopupMenu registerStudentPopupMenu()
+	{
+		studentsFolderPopupMenu.add(registerStudent);
+		return studentsFolderPopupMenu;
+	}
+	private JPopupMenu removeStudentPopupMenu(String chosenFileName)
+	{
+		studentsFilePopupMenu.remove(removeStudent);
+		removeStudent = new JMenuItem("remove student"); 	
+//		removeStudent.addActionListener(new RemoveStudentBtnListener(chosenFileName));
+		studentsFilePopupMenu.add(removeStudent);
+		return studentsFilePopupMenu;
 	}
 	
 	class registerStudentBtnListener implements ActionListener
@@ -531,7 +562,12 @@ public class InitialWindowController {
 
 		public void actionPerformed(ActionEvent e) {
 			// TODO Auto-generated method stub
-			
+			removeStudentDialog = new JDialog(MainFrameController.view,"Remove Student Dialog");
+			removeStudentDialog.setSize(250,300);
+			removeStudentDialog.setLocationRelativeTo(MainFrameController.view);
+			removeStudentDialog.setVisible(true);
+			removeStudentDialog.setResizable(false);
+			removeStudentDialog.getContentPane().add(view.getRemoveStudentDialogPanel());
 		}
 		
 	}

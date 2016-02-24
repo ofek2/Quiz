@@ -84,6 +84,11 @@ public class InitialWindowView extends ViewPanel {
 	private JTextField studentName;
 	private JTextField studentEmail;
 	private JButton registerStudentBtn;
+	
+	
+	private JPanel removeStudentDialogPanel;
+	
+
 	/**
 	 * Create the panel.
 	 */
@@ -309,7 +314,14 @@ public class InitialWindowView extends ViewPanel {
 				registerStudentBtn.getPreferredSize().height);	
 		registerStudentDialogPanel.add(registerStudentBtn);
 		
+		removeStudentDialogPanel = new JPanel();
+		removeStudentDialogPanel.setLayout(null);
+		removeStudentDialogPanel.setBackground(Color.lightGray);
+		removeStudentDialogPanel.setSize(250,300);
+		
 	}
+
+	
 	public JTextField getStudentId() {
 		return studentId;
 	}
@@ -367,7 +379,9 @@ public class InitialWindowView extends ViewPanel {
 	public JPanel getRemoveCourseDialogPanel() {
 		return removeCourseDialogPanel;
 	}
-	
+	public JPanel getRemoveStudentDialogPanel() {
+		return removeStudentDialogPanel;
+	}
 	public JPanel getRegisterStudentDialogPanel() {
 		return registerStudentDialogPanel;
 	}
@@ -417,7 +431,12 @@ public class InitialWindowView extends ViewPanel {
 	}
 	public static DefaultMutableTreeNode filesTree(File file)
 	{
-		DefaultMutableTreeNode treeNode = new DefaultMutableTreeNode(file.getName());
+		String fileName = file.getName();
+		DefaultMutableTreeNode treeNode;
+		if(fileName.endsWith(".ser"))
+			treeNode = new DefaultMutableTreeNode(fileName.subSequence(0,fileName.length()-5));
+		else
+			treeNode = new DefaultMutableTreeNode(fileName);
 		if(file.isDirectory())
 			for(File child: file.listFiles())
 			{
