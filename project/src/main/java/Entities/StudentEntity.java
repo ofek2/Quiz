@@ -1,14 +1,25 @@
 package Entities;
 
-public class StudentEntity {
+import java.io.Serializable;
+
+public class StudentEntity implements Serializable{
+	private String studentCourse;
 	private String studentId;
 	private String studentName;
 	private String studentEmail;
-	public StudentEntity(String studentId, String studentName, String studentEmail) {
+	public StudentEntity(String studentCourse, String studentId,
+			String studentName, String studentEmail) {
 		super();
+		this.studentCourse = studentCourse;
 		this.studentId = studentId;
 		this.studentName = studentName;
 		this.studentEmail = studentEmail;
+	}
+	public String getStudentCourse() {
+		return studentCourse;
+	}
+	public void setStudentCourse(String studentCourse) {
+		this.studentCourse = studentCourse;
 	}
 	public String getStudentId() {
 		return studentId;
@@ -28,5 +39,7 @@ public class StudentEntity {
 	public void setStudentEmail(String studentEmail) {
 		this.studentEmail = studentEmail;
 	}
+
+	
 	
 }
