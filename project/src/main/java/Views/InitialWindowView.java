@@ -500,6 +500,10 @@ public class InitialWindowView extends ViewPanel {
 	{
 		removeStudentsIds.addItemListener(listener);
 	}
+	public void gradeQuizBtnAddListener(ActionListener listener)
+	{
+		gradeBtn.addActionListener(listener);
+	}
 	public JPanel getNewQuizDialogPanel() {
 		return newQuizDialogPanel;
 	}
@@ -576,6 +580,7 @@ public class InitialWindowView extends ViewPanel {
 	public JComboBox getRemoveCourses() {
 		return removeCourses;
 	}
+	
 	public static DefaultMutableTreeNode filesTree(File file)
 	{
 		String fileName = file.getName();

@@ -23,28 +23,18 @@ public class MainFrameController {
 	 
 	public MainFrameController(MainFrameView view) {
 		this.view=view;
-		
-		try {
-			appFolder= new File(new File(".").getCanonicalPath()+"/OnlineQuizChecker");
-			if(!appFolder.exists())
-				appFolder.mkdir();
-			else
-				overWrite=JOptionPane.showConfirmDialog(null,"The application folder already exists, all of the existing data will be lost,\n do you want to keep the application progress?","Alert",JOptionPane.YES_NO_OPTION);
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
+	
+		loadApplicationFolder();
 		if(overWrite==JOptionPane.YES_OPTION)
 		{
 		//load the courses folders into the array list
 		///////////////////////////////////////////////////////////////////////////////////////////////
-		initialWindowController.coursesFiles=new ArrayList<CourseEntity>();
-		for(File folder:appFolder.listFiles())
-		{
-			String[] splitedName = folder.getName().split(",");
-			initialWindowController.coursesFiles.add(new CourseEntity(folder, splitedName[0], splitedName[1]));
-		}
+			initialWindowController.coursesFiles=new ArrayList<CourseEntity>();
+			for(File folder:appFolder.listFiles())
+			{
+				String[] splitedName = folder.getName().split(",");
+				initialWindowController.coursesFiles.add(new CourseEntity(folder, splitedName[0], splitedName[1]));
+			}
 		
 			/*try {
 			temp1=new File(new File(".").getCanonicalPath()+"/OnlineQuizChecker"+"/"+"1,a");
@@ -64,15 +54,28 @@ public class MainFrameController {
 			e.printStackTrace();
 		}*/
 		////////////////////////////////////////////////////////////////////////////////////////////////
-		InitialWindowView initialWindowView = new InitialWindowView();
-		initialWindowController = new InitialWindowController(initialWindowView);
-		this.view.changeContentPane(initialWindowView);
-		}
-		else if(overWrite==JOptionPane.NO_OPTION||overWrite==JOptionPane.CLOSED_OPTION)
-			System.exit(1);
+			InitialWindowView initialWindowView = new InitialWindowView();
+			initialWindowController = new InitialWindowController(initialWindowView);
+			this.view.changeContentPane(initialWindowView);
+			}
+			else if(overWrite==JOptionPane.NO_OPTION||overWrite==JOptionPane.CLOSED_OPTION)
+				System.exit(1);
 			
 		
 		
 	}
-	
+	public void loadApplicationFolder()
+	{
+		
+		try {
+			appFolder= new File(new File(".").getCanonicalPath()+"/OnlineQuizChecker");
+			if(!appFolder.exists())
+				appFolder.mkdir();
+			else
+				overWrite=JOptionPane.showConfirmDialog(null,"The application folder already exists, all of the existing data will be lost,\n do you want to keep the application progress?","Alert",JOptionPane.YES_NO_OPTION);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
 }
