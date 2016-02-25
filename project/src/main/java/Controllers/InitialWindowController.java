@@ -286,7 +286,7 @@ public class InitialWindowController {
 					view.getRemoveStudentsIds().addItemListener(removeStudentsIdsAddItemListener);
 					view.setTree(new JTree(InitialWindowView.filesTree(new File(new File(".").getCanonicalPath()+"/OnlineQuizChecker"))));
 					JOptionPane.showMessageDialog(null, "The student removed successfully");
-					removeStudentDialog.setVisible(false);///////////////////////		
+			//		removeStudentDialog.setVisible(false);///////////////////////		
 					}
 				} catch (IOException e1) {
 					// TODO Auto-generated catch block
