@@ -1,17 +1,18 @@
 package Views;
 import javax.swing.JMenuBar;
-import com.jgoodies.forms.layout.FormLayout;
-import com.jgoodies.forms.layout.ColumnSpec;
-import com.jgoodies.forms.layout.RowSpec;
-import com.jgoodies.forms.layout.FormSpecs;
+import Controllers.MainFrameController;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
-import java.awt.Choice;
-import java.awt.List;
+import java.awt.Color;
 import java.awt.event.ActionListener;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
+import javax.swing.border.EtchedBorder;
+import javax.swing.table.DefaultTableModel;
 
 public class GradingWindowView extends ViewPanel {
 	private JMenu mnFile;
+	private JTable table;
 
 	/**
 	 * Create the panel.
@@ -20,20 +21,34 @@ public class GradingWindowView extends ViewPanel {
 		setLayout(null);
 		
 		JMenuBar menuBar = new JMenuBar();
-		menuBar.setBounds(0, 0, 800, 30);
+		menuBar.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
+		menuBar.setBackground(Color.WHITE);
+		menuBar.setBounds(0, 0, MainFrameController.view.getWidth(), 30);
 		add(menuBar);
 		
 		mnFile = new JMenu("File");
 		menuBar.add(mnFile);
 		
-		JMenuItem mntmSend = new JMenuItem("Send");
+		JMenuItem mntmSend = new JMenuItem("Send Grades");
 		mnFile.add(mntmSend);
-		
-		JMenuItem mntmSave = new JMenuItem("Save");
-		mnFile.add(mntmSave);
 		
 		JMenuItem mntmExit = new JMenuItem("Exit");
 		mnFile.add(mntmExit);
+		
+		JScrollPane scrollPane = new JScrollPane();
+		scrollPane.setBounds(MainFrameController.view.getContentPane().getWidth()/4,70, MainFrameController.view.getContentPane().getWidth()/2, MainFrameController.view.getContentPane().getHeight()-100);
+		add(scrollPane);
+		
+		table = new JTable();
+		table.setModel(new DefaultTableModel(
+			new Object[][] {
+				{null, null, null, null},
+			},
+			new String[] {
+				"Student Id", "Student Name", "Grade", "Options"
+			}
+		));
+		scrollPane.setViewportView(table);
 
 	}
 	public void addFileListeners(ActionListener[] listener)

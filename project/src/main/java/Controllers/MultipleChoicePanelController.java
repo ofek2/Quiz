@@ -1,9 +1,7 @@
 package Controllers;
 
-import java.awt.Dimension;
 import java.io.Serializable;
 import java.util.ArrayList;
-
 import Views.MultipleChoicePanel;
 import Views.checkBoxFieldPanel;
 

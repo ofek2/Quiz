@@ -22,7 +22,7 @@ public class GradingWindowController {
 	}
 	private void addListeners()
 	{
-		ActionListener[] fileListeners = {new SendListener(),new SaveListener(),new ExitListener()};
+		ActionListener[] fileListeners = {new SendListener(),new ExitListener()};
 		view.addFileListeners(fileListeners);
 		
 	}
@@ -36,15 +36,7 @@ public class GradingWindowController {
 		}
 		
 	}
-	class SaveListener implements ActionListener
-	{
-
-		public void actionPerformed(ActionEvent e) {
-			// TODO Auto-generated method stub
-			
-		}
-		
-	}
+	
 	class ExitListener implements ActionListener
 	{
 

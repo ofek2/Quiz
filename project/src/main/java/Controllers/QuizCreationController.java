@@ -1,35 +1,27 @@
 package Controllers;
 
 import java.awt.Color;
-import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseListener;
+import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-import java.awt.event.WindowListener;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
-import java.nio.file.Files;
 import java.util.ArrayList;
-
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JTree;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
-import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.TransformerException;
-
 import Entities.QuizEntity;
 import Entities.QuizObjectEntity;
 import Views.InitialWindowView;
-import Views.MainFrameView;
 import Views.QuizCreationView;
 import Views.qPanel;
 import project.HtmlBuilder;
@@ -351,7 +343,7 @@ public class QuizCreationController implements Serializable {
 			}
 		}
 	}
-	class windowListener implements WindowListener,Serializable
+	class windowListener extends WindowAdapter implements Serializable
 	{
 		private int exitFlag;
 		public void windowClosing(WindowEvent e) {
@@ -401,39 +393,6 @@ public class QuizCreationController implements Serializable {
 
 			}
 		}
-
-		public void windowActivated(WindowEvent e) {
-			// TODO Auto-generated method stub
-			
-		}
-
-		public void windowClosed(WindowEvent e) {
-			// TODO Auto-generated method stub
-			
-		}
-
-		public void windowDeactivated(WindowEvent e) {
-			// TODO Auto-generated method stub
-			
-		}
-
-		public void windowDeiconified(WindowEvent e) {
-			// TODO Auto-generated method stub
-			
-		}
-
-		public void windowIconified(WindowEvent e) {
-			// TODO Auto-generated method stub
-			
-		}
-
-		public void windowOpened(WindowEvent e) {
-			// TODO Auto-generated method stub
-			
-		}
-
-		
-		
 	}
 
 }

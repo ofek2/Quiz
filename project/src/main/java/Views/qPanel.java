@@ -1,45 +1,31 @@
 package Views;
 
+import java.awt.CardLayout;
 import java.awt.Dimension;
-
-import javax.swing.JPanel;
-import javax.swing.border.EtchedBorder;
-import javax.swing.filechooser.FileNameExtensionFilter;
-
-import Controllers.MainFrameController;
-import Controllers.MultipleChoicePanelController;
-import Controllers.QuizCreationController;
-import Controllers.qPanelController;
-
-import java.awt.GridBagLayout;
-
-import javax.swing.JLabel;
-
-import java.awt.GridBagConstraints;
 import java.awt.Font;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemListener;
-import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.io.Serializable;
-
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
-import javax.swing.JTextField;
 import javax.swing.JCheckBox;
-import javax.swing.JScrollPane;
-import javax.swing.JTextArea;
 import javax.swing.JComboBox;
 import javax.swing.JFileChooser;
-
-import java.awt.CardLayout;
-
-import javax.swing.DefaultComboBoxModel;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JSeparator;
+import javax.swing.JTextArea;
+import javax.swing.JTextField;
 import javax.swing.SwingConstants;
-
-import java.awt.Color;
-import java.awt.event.ActionEvent;
+import javax.swing.border.EtchedBorder;
+import javax.swing.filechooser.FileNameExtensionFilter;
+import Controllers.MainFrameController;
+import Controllers.MultipleChoicePanelController;
 
 public class qPanel extends JPanel implements Serializable{
 	//title

@@ -5,11 +5,6 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.io.Serializable;
-import java.util.ArrayList;
-
-import javax.swing.JPanel;
-
-import Views.MultipleChoicePanel;
 import Views.checkBoxFieldPanel;
 
 public class checkBoxFieldController implements Serializable {

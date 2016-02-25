@@ -1,60 +1,34 @@
 package Views;
 
-import javax.swing.ComboBoxModel;
-import javax.swing.DefaultComboBoxModel;
 import javax.swing.JPanel;
 import javax.swing.JMenuBar;
 import javax.swing.JMenu;
-
 import java.awt.Color;
-
 import javax.swing.JMenuItem;
-import javax.swing.border.BevelBorder;
-import javax.swing.border.CompoundBorder;
-import javax.swing.UIManager;
-import javax.swing.border.LineBorder;
 import javax.swing.border.EtchedBorder;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.JTree;
-
-import java.awt.BorderLayout;
-import java.awt.CardLayout;
 import java.awt.Component;
-import java.awt.Point;
-import java.awt.TextField;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseListener;
-
 import javax.swing.JSeparator;
-import javax.swing.SwingConstants;
-
 import java.awt.Dimension;
 import java.awt.Cursor;
-
 import javax.swing.JTextField;
-
 import java.awt.Label;
-
 import javax.swing.JComboBox;
-
-import java.awt.Button;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.ObjectInputStream;
-import java.util.ArrayList;
 import java.util.Vector;
-
 import javax.swing.JLabel;
 import javax.swing.JButton;
-
 import Controllers.InitialWindowController;
 import Controllers.MainFrameController;
-import Controllers.qPanelController;
-import Entities.Constants;
 import Entities.StudentEntity;
 
 public class InitialWindowView extends ViewPanel {
@@ -95,6 +69,10 @@ public class InitialWindowView extends ViewPanel {
 	private JComboBox<String> removeStudentsIds;
 	private JLabel chosenRemoveStudentNameLbl;
 	private JButton removeStudentBtn;
+	
+	private JPanel gradeQuizDialogPanel;
+	private JComboBox<String> courseIdGradeCB;
+	private JComboBox<String> quizzesToGrade;
 	/**
 	 * Create the panel.
 	 */
@@ -328,6 +306,7 @@ public class InitialWindowView extends ViewPanel {
 				registerStudentBtn.getPreferredSize().height);	
 		registerStudentDialogPanel.add(registerStudentBtn);
 		
+		//Remove Student Dialog
 		removeStudentDialogPanel = new JPanel();
 		removeStudentDialogPanel.setLayout(null);
 		removeStudentDialogPanel.setBackground(Color.lightGray);
@@ -371,7 +350,43 @@ public class InitialWindowView extends ViewPanel {
 				removeStudentBtn.getPreferredSize().height);	
 		removeStudentDialogPanel.add(removeStudentBtn);
 		
+		//Grade Quiz
+		gradeQuizDialogPanel = new JPanel();
+		gradeQuizDialogPanel.setLayout(null);
+		gradeQuizDialogPanel.setBackground(Color.ORANGE);
+		gradeQuizDialogPanel.setSize(300,220);
 		
+		JLabel coursesIdsGradeLbl = new JLabel("Course Id:");
+		coursesIdsGradeLbl.setBounds(13, 28, 80, 19);
+		gradeQuizDialogPanel.add(coursesIdsGradeLbl);
+		
+		courseIdGradeCB = new JComboBox<String>();
+		for(String item:vec)
+			courseIdGradeCB.addItem(item);
+		courseIdGradeCB.setBounds(100, 27, 180, 20);
+		courseIdGradeCB.setSelectedIndex(0);
+		gradeQuizDialogPanel.add(courseIdGradeCB);
+		
+		Label quizNameLbl = new Label("Quiz Name:");
+		label3.setBounds(13, 70, 80, 19);
+		newQuizDialogPanel.add(label3);
+		editQuizDialogPanel.add(label3);
+		
+		quizzes = new JComboBox<String>();
+		quizzes.setBounds(100, 69, 180, 20);
+		if(InitialWindowController.coursesFiles.size()>0)
+		{
+		for(File child: InitialWindowController.coursesFiles.get(0).getCourseFolder().listFiles())
+			quizzes.addItem(child.getName());
+		}
+		else
+			quizzes.addItem("");
+		editQuizDialogPanel.add(quizzes);
+		
+		editQuizBtn = new JButton("Edit Quiz");
+		editQuizBtn.setBounds(editQuizDialogPanel.getSize().width/2-editQuizBtn.getPreferredSize().width/2, 121, editQuizBtn.getPreferredSize().width, editQuizBtn.getPreferredSize().height);
+		editQuizDialogPanel.add(editQuizBtn);
+		editQuizDialogPanel.setVisible(true);
 	}
 	public void loadStudents(int index)
 	{

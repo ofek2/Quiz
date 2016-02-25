@@ -3,14 +3,9 @@ package Controllers;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
-
 import javax.swing.JOptionPane;
-
 import Views.InitialWindowView;
-import Views.Main;
 import Views.MainFrameView;
-import Views.QuizCreationView;
-import Controllers.QuizCreationController;
 import Entities.CourseEntity;
 
 public class MainFrameController {

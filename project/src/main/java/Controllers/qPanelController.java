@@ -14,7 +14,6 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.io.Serializable;
-
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
@@ -22,9 +21,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JScrollPane;
 import javax.swing.ScrollPaneConstants;
-
 import com.google.common.io.Files;
-
 import Entities.QuizEntity;
 import Views.QuizCreationView;
 import Views.qPanel;

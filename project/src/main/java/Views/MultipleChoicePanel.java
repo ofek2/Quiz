@@ -1,19 +1,13 @@
 package Views;
 
-import java.awt.Dimension;
 import java.awt.Font;
-import java.util.ArrayList;
-
 import javax.swing.BoxLayout;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.ScrollPaneConstants;
-
-import Controllers.checkBoxFieldController;
 import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
-import java.awt.Insets;
 import java.io.Serializable;
 
 public class MultipleChoicePanel extends JPanel implements Serializable{

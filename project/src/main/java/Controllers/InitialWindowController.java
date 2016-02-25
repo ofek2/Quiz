@@ -1,19 +1,11 @@
 package Controllers;
 
-import java.awt.Dimension;
-import java.awt.Frame;
-import java.awt.GraphicsEnvironment;
-import java.awt.Rectangle;
-import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
-import java.awt.event.WindowEvent;
-import java.awt.event.WindowListener;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -21,38 +13,23 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import java.net.InetAddress;
-import java.nio.file.Files;
-import java.nio.file.Path;
 import java.util.ArrayList;
-import java.util.Vector;
-
-import javax.swing.ComboBoxModel;
-import javax.swing.DefaultComboBoxModel;
 import javax.swing.JComboBox;
 import javax.swing.JDialog;
-import javax.swing.JFrame;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
-import javax.swing.JPanel;
 import javax.swing.JPopupMenu;
-import javax.swing.JTextField;
 import javax.swing.JTree;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.TreePath;
 
-import Controllers.qPanelController.removeBtnListener;
-import Entities.Constants;
 import Entities.CourseEntity;
 import Entities.QuizEntity;
 import Entities.QuizObjectEntity;
 import Entities.StudentEntity;
 import Views.GradingWindowView;
 import Views.InitialWindowView;
-import Views.Main;
-import Views.MainFrameView;
 import Views.QuizCreationView;
-import javafx.scene.control.ComboBox;
 
 public class InitialWindowController {
 	private InitialWindowView view;
@@ -78,7 +55,7 @@ public class InitialWindowController {
 	public JDialog registerStudentDialog;
 	public JDialog removeStudentDialog;
 	public InitialWindowController(InitialWindowView view) {
-//		coursesFiles = new ArrayList<File>();
+
 		this.view=view;		
 		quizPopupMenu= new JPopupMenu();
 		coursePopupMenu= new JPopupMenu();

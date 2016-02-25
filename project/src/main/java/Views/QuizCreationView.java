@@ -1,20 +1,8 @@
 package Views;
-import java.awt.FlowLayout;
 import java.awt.Font;
 
 import javax.swing.JPanel;
 import javax.swing.JButton;
-
-import com.jgoodies.forms.layout.FormLayout;
-import com.jgoodies.forms.layout.ColumnSpec;
-import com.jgoodies.forms.layout.FormSpecs;
-import com.jgoodies.forms.layout.RowSpec;
-
-import Controllers.MainFrameController;
-import Controllers.MultipleChoicePanelController;
-import Controllers.qPanelController;
-import Entities.Constants;
-import javafx.scene.shape.Box;
 
 import javax.swing.JLabel;
 import javax.swing.JMenu;
@@ -22,43 +10,24 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 
 import java.awt.event.ActionListener;
-import java.io.Serializable;
-import java.awt.event.ActionEvent;
-
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
 
 import java.awt.Dimension;
 
-import javax.swing.JFrame;
 import javax.swing.JScrollPane;
 import javax.swing.JSpinner;
 import javax.swing.ScrollPaneConstants;
-import javax.swing.SpinnerListModel;
 import javax.swing.SpinnerNumberModel;
-import javax.swing.JInternalFrame;
-
 import java.awt.GraphicsEnvironment;
 import java.awt.Rectangle;
-import java.awt.ScrollPane;
-import java.awt.GridBagLayout;
-import java.awt.GridBagConstraints;
-import java.awt.Insets;
-
-import javax.swing.GroupLayout;
-import javax.swing.GroupLayout.Alignment;
 import javax.swing.border.EtchedBorder;
 import javax.swing.border.TitledBorder;
 import javax.swing.event.ChangeListener;
 
-import java.awt.BorderLayout;
-import java.awt.CardLayout;
 import java.awt.Color;
 import java.awt.GridLayout;
 
-import javax.swing.SpringLayout;
-
-import java.awt.Component;
 import java.awt.Cursor;
 
 

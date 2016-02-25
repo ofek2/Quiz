@@ -4,14 +4,8 @@ import java.awt.GraphicsEnvironment;
 import java.awt.Rectangle;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
-import java.io.File;
-import java.io.IOException;
 import java.io.Serializable;
-
 import javax.swing.JFrame;
-import javax.swing.JOptionPane;
-import javax.swing.JTree;
-
 import Controllers.MainFrameController;
 
 

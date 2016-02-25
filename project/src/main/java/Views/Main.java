@@ -1,8 +1,5 @@
 package Views;
 
-import javax.swing.UIManager;
-import javax.swing.UnsupportedLookAndFeelException;
-
 import Controllers.MainFrameController;
 
 public class Main{
