@@ -13,12 +13,14 @@ public class MainFrameController {
 	private File appFolder;
 	private InitialWindowController initialWindowController;
 	private int overWrite=JOptionPane.YES_OPTION;
-	
+	/*
 	///////////////////////////
 	File temp1;
 	File temp2;
 	File temp3;
 	///////////////////////////
+	  */
+	 
 	public MainFrameController(MainFrameView view) {
 		this.view=view;
 		
