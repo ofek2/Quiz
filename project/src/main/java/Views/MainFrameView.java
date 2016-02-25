@@ -6,10 +6,13 @@ import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 import java.io.Serializable;
 import javax.swing.JFrame;
+import javax.swing.UIManager;
+import javax.swing.UnsupportedLookAndFeelException;
+
 import Controllers.MainFrameController;
 
 
-public class MainFrameView extends JFrame {
+public class MainFrameView extends JFrame implements Serializable{
 	
 	/**
 	 * Create the frame.
@@ -17,6 +20,21 @@ public class MainFrameView extends JFrame {
 	public static windowListener windowListener;
 	public MainFrameView() {
 		super();
+		/*try {
+			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (InstantiationException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IllegalAccessException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (UnsupportedLookAndFeelException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}*/
 /////////////////////////////////		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 /////////////////////////////////		setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 		windowListener = new windowListener();

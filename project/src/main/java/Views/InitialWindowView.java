@@ -72,7 +72,7 @@ public class InitialWindowView extends ViewPanel {
 	
 	private JPanel gradeQuizDialogPanel;
 	private JComboBox<String> courseIdGradeCB;
-	private JComboBox<String> quizzesToGrade;
+	public JComboBox<String> quizzesToGrade;
 	/**
 	 * Create the panel.
 	 */
@@ -511,6 +511,10 @@ public class InitialWindowView extends ViewPanel {
 	}
 	public JPanel getRegisterStudentDialogPanel() {
 		return registerStudentDialogPanel;
+	}
+	
+	public JPanel getGradeQuizDialogPanel() {
+		return gradeQuizDialogPanel;
 	}
 	public JComboBox<String> getRegisterStudentCourseCB() {
 		return registerStudentCourseCB;
