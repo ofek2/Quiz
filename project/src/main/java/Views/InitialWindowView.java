@@ -41,7 +41,10 @@ import javax.swing.JComboBox;
 
 import java.awt.Button;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.ObjectInputStream;
 import java.util.ArrayList;
 import java.util.Vector;
 
@@ -52,6 +55,7 @@ import Controllers.InitialWindowController;
 import Controllers.MainFrameController;
 import Controllers.qPanelController;
 import Entities.Constants;
+import Entities.StudentEntity;
 
 public class InitialWindowView extends ViewPanel {
 	private JMenu mnQuizMngMenu;
@@ -87,8 +91,10 @@ public class InitialWindowView extends ViewPanel {
 	
 	
 	private JPanel removeStudentDialogPanel;
-	
-
+	private JComboBox<String> removeStudentCourseCB;
+	private JComboBox<String> removeStudentsIds;
+	private JLabel chosenRemoveStudentNameLbl;
+	private JButton removeStudentBtn;
 	/**
 	 * Create the panel.
 	 */
@@ -270,14 +276,14 @@ public class InitialWindowView extends ViewPanel {
 		registerStudentDialogPanel = new JPanel();
 		registerStudentDialogPanel.setLayout(null);
 		registerStudentDialogPanel.setBackground(Color.lightGray);
-		registerStudentDialogPanel.setSize(250,300);
+		registerStudentDialogPanel.setSize(270,300);
 		
 		JLabel lblCourse1 = new JLabel("Course Id:");
 		lblCourse1.setBounds(4, 40, 100, 20);
 		registerStudentDialogPanel.add(lblCourse1);
 		
 		registerStudentCourseCB = new JComboBox<String>(coursesIdsModel);
-		registerStudentCourseCB.setBounds(105, 40, 120, 20);
+		registerStudentCourseCB.setBounds(105, 40, 150, 20);
 		registerStudentCourseCB.setSelectedIndex(0);
 		registerStudentDialogPanel.add(registerStudentCourseCB);
 		
@@ -286,7 +292,7 @@ public class InitialWindowView extends ViewPanel {
 		registerStudentDialogPanel.add(studentIdLbl);
 		
 		studentId = new JTextField();
-		studentId.setBounds(105, 90, 120, 20);
+		studentId.setBounds(105, 90, 150, 20);
 		registerStudentDialogPanel.add(studentId);
 		studentId.setColumns(10);
 		
@@ -295,7 +301,7 @@ public class InitialWindowView extends ViewPanel {
 		registerStudentDialogPanel.add(studentNameLbl);
 		
 		studentName = new JTextField();
-		studentName.setBounds(105, 140, 120, 20);
+		studentName.setBounds(105, 140, 150, 20);
 		registerStudentDialogPanel.add(studentName);
 		studentName.setColumns(10);
 		
@@ -304,7 +310,7 @@ public class InitialWindowView extends ViewPanel {
 		registerStudentDialogPanel.add(studentEmailLbl);
 		
 		studentEmail = new JTextField();
-		studentEmail.setBounds(105, 190, 120, 20);
+		studentEmail.setBounds(105, 190, 150, 20);
 		registerStudentDialogPanel.add(studentEmail);
 		studentEmail.setColumns(10);
 		
@@ -317,10 +323,91 @@ public class InitialWindowView extends ViewPanel {
 		removeStudentDialogPanel = new JPanel();
 		removeStudentDialogPanel.setLayout(null);
 		removeStudentDialogPanel.setBackground(Color.lightGray);
-		removeStudentDialogPanel.setSize(250,300);
+		removeStudentDialogPanel.setSize(270,300);
+		
+		JLabel lblRemoveStudentCourse = new JLabel("Course Id:");
+		lblRemoveStudentCourse.setBounds(4, 20, 80, 20);
+		removeStudentDialogPanel.add(lblRemoveStudentCourse);
+		
+		removeStudentCourseCB = new JComboBox<String>(coursesIdsModel);
+		removeStudentCourseCB.setBounds(105, 20, 150, 20);
+		removeStudentCourseCB.setSelectedIndex(0);
+		removeStudentDialogPanel.add(removeStudentCourseCB);
+		
+		JLabel removeStudentIdLbl = new JLabel("Student's Id:");
+		removeStudentIdLbl.setBounds(4, 70, 80, 20);
+		removeStudentDialogPanel.add(removeStudentIdLbl);
+		
+		JLabel removeStudentNameLbl = new JLabel("Student's name:");
+		removeStudentNameLbl.setBounds(4, 120, 100, 20);
+		removeStudentDialogPanel.add(removeStudentNameLbl);
+		
+		removeStudentsIds = new JComboBox<String>();
+		removeStudentsIds.setBounds(105, 70, 150, 20);
+		
+		chosenRemoveStudentNameLbl = new JLabel("");
+		chosenRemoveStudentNameLbl.setBounds(105, 120, 150, 20);
+		
+		if(InitialWindowController.coursesFiles.size()>0)
+				loadStudents(removeStudentCourseCB.getSelectedIndex());
+		else
+			removeStudentsIds.addItem("");
+		removeStudentDialogPanel.add(removeStudentsIds);
+		removeStudentDialogPanel.add(chosenRemoveStudentNameLbl);
+		
+		removeStudentBtn = new JButton("Remove");
+		removeStudentBtn.setBounds(125-removeStudentBtn.getPreferredSize().width/2,220,
+				removeStudentBtn.getPreferredSize().width,
+				removeStudentBtn.getPreferredSize().height);	
+		removeStudentDialogPanel.add(removeStudentBtn);
+		
 		
 	}
+	public void loadStudents(int index)
+	{
+		File studentsFolder;
+		try {
+			removeStudentsIds.removeAllItems();
+			studentsFolder = new File(InitialWindowController.
+					coursesFiles.get(index).getCourseFolder().getCanonicalPath()+"/Students");
+			for(File child: studentsFolder.listFiles())
+				removeStudentsIds.addItem((String) child.getName()
+						.subSequence(0,child.getName().length()-4));
+			if(studentsFolder.listFiles().length>0)
+				loadStudentNameToRemoveLbl(studentsFolder.listFiles()[0].getPath());
+//				chosenRemoveStudentNameLbl.setText(loadStudentNameToRemoveLbl
+//						(studentsFolder.listFiles()[0].getPath()));
+			else
+				chosenRemoveStudentNameLbl.setText("");
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}		
+	}
+	
 
+	public void loadStudentNameToRemoveLbl(String path)
+	{
+	FileInputStream fis;
+	try {
+		fis = new FileInputStream(path);
+		ObjectInputStream ois = new ObjectInputStream(fis);
+		StudentEntity result = (StudentEntity) ois.readObject();
+		ois.close();
+		chosenRemoveStudentNameLbl.setText(result.getStudentName());
+//		return result.getStudentName();
+	} catch (FileNotFoundException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	} catch (IOException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	} catch (ClassNotFoundException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	}
+//	return "";
+	}
 	
 	public JTextField getStudentId() {
 		return studentId;
@@ -363,9 +450,21 @@ public class InitialWindowView extends ViewPanel {
 	{
 		editQuizBtn.addActionListener(listener);
 	}
+	public void removeStudentBtnAddListener(ActionListener listener)
+	{
+		removeStudentBtn.addActionListener(listener);
+	}
 	public void coursesIdsEditAddItemListener(ItemListener listener)
 	{
 		coursesIdsEdit.addItemListener(listener);
+	}
+	public void removeStudentCourseCBAddItemListener(ItemListener listener)
+	{
+		removeStudentCourseCB.addItemListener(listener);
+	}
+	public void removeStudentsIdsCBAddItemListener(ItemListener listener)
+	{
+		removeStudentsIds.addItemListener(listener);
 	}
 	public JPanel getNewQuizDialogPanel() {
 		return newQuizDialogPanel;
@@ -387,6 +486,12 @@ public class InitialWindowView extends ViewPanel {
 	}
 	public JComboBox<String> getRegisterStudentCourseCB() {
 		return registerStudentCourseCB;
+	}
+	public JComboBox<String> getRemoveStudentCourseCB() {
+		return removeStudentCourseCB;
+	}
+	public JComboBox<String> getRemoveStudentsIds() {
+		return removeStudentsIds;
 	}
 	public JTree getTree() {
 		return tree;
@@ -434,7 +539,7 @@ public class InitialWindowView extends ViewPanel {
 		String fileName = file.getName();
 		DefaultMutableTreeNode treeNode;
 		if(fileName.endsWith(".ser"))
-			treeNode = new DefaultMutableTreeNode(fileName.subSequence(0,fileName.length()-5));
+			treeNode = new DefaultMutableTreeNode(fileName.subSequence(0,fileName.length()-4));
 		else
 			treeNode = new DefaultMutableTreeNode(fileName);
 		if(file.isDirectory())

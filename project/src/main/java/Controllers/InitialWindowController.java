@@ -71,6 +71,8 @@ public class InitialWindowController {
 	private JMenuItem removeStudent;
 	public static ArrayList<CourseEntity> coursesFiles;
 	private coursesIdsEditAddItemListener idsEditAddItemListener;
+	private removeStudentCourseCBAddItemListener removeStudentCourseAddItemListener;
+	private removeStudentsIdsCBAddItemListener removeStudentsIdsAddItemListener;
 	public JDialog registerStudentDialog;
 	public JDialog removeStudentDialog;
 	public InitialWindowController(InitialWindowView view) {
@@ -100,9 +102,14 @@ public class InitialWindowController {
 		view.createCourseBtnAddListener(new CreateCourseBtnListener());
 		view.removeCourseBtnAddListener(new RemoveCourseBtnListener());
 		idsEditAddItemListener = new coursesIdsEditAddItemListener();
+		removeStudentCourseAddItemListener = new removeStudentCourseCBAddItemListener();
+		removeStudentsIdsAddItemListener = new removeStudentsIdsCBAddItemListener();
 		view.coursesIdsEditAddItemListener(idsEditAddItemListener);
+		view.removeStudentCourseCBAddItemListener(removeStudentCourseAddItemListener);
+		view.removeStudentsIdsCBAddItemListener(removeStudentsIdsAddItemListener);
 		view.getTree().addMouseListener(treeMouseListener());
 		view.registerStudentBtnAddListener(new registerStudentBtnListener());
+		view.removeStudentBtnAddListener(new removeStudentBtnListener());
 //		remove.addActionListener(l);
 		addCourse.addActionListener(new AddCourseListener());
 		registerStudent.addActionListener(new RegisterStudentListener());
@@ -139,7 +146,8 @@ public class InitialWindowController {
 		                    
 	                	}
 	                	else if(selectedNode.getParent().toString().equals("Students"))
-	                		view.getTree().setComponentPopupMenu(removeStudentPopupMenu(chosenFileName));
+	                		view.getTree().setComponentPopupMenu(removeStudentPopupMenu(chosenFileName
+	                				,selectedNode.getParent().getParent().toString()));
 	                } else
 	                	view.getTree().setComponentPopupMenu(null);
 
@@ -193,13 +201,88 @@ public class InitialWindowController {
 		studentsFolderPopupMenu.add(registerStudent);
 		return studentsFolderPopupMenu;
 	}
-	private JPopupMenu removeStudentPopupMenu(String chosenFileName)
+	private JPopupMenu removeStudentPopupMenu(String chosenFileName,String studentCourse)
 	{
 		studentsFilePopupMenu.remove(removeStudent);
 		removeStudent = new JMenuItem("remove student"); 	
-//		removeStudent.addActionListener(new RemoveStudentBtnListener(chosenFileName));
+		removeStudent.addActionListener(new removeStudentBtnListener(chosenFileName,studentCourse));
 		studentsFilePopupMenu.add(removeStudent);
 		return studentsFilePopupMenu;
+	}
+	
+	class removeStudentCourseCBAddItemListener implements ItemListener
+	{
+
+		public void itemStateChanged(ItemEvent e) {
+			// TODO Auto-generated method stub
+			JComboBox temp = (JComboBox)e.getSource();
+			view.getRemoveStudentsIds().removeItemListener(removeStudentsIdsAddItemListener);
+			view.loadStudents(temp.getSelectedIndex());
+			view.getRemoveStudentsIds().addItemListener(removeStudentsIdsAddItemListener);
+		}
+		
+	}
+	
+	class removeStudentsIdsCBAddItemListener implements ItemListener
+	{
+
+		public void itemStateChanged(ItemEvent e) {
+			// TODO Auto-generated method stub
+			JComboBox temp = (JComboBox)e.getSource();
+			try {
+				view.loadStudentNameToRemoveLbl(coursesFiles.
+						get(view.getRemoveStudentCourseCB().getSelectedIndex()).
+						getCourseFolder().getCanonicalPath()
+						+"/Students/"+(String) temp.getSelectedItem()+".ser");
+			} catch (IOException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+		}
+		
+	}
+	
+	class removeStudentBtnListener implements ActionListener
+	{
+		private String studentId;
+		private String studentCourse;
+		private int popUpMenuFlag; 
+		private File studentFile;
+		public removeStudentBtnListener()
+		{
+			popUpMenuFlag=0;
+		}
+		public removeStudentBtnListener(String studentId,String studentCourse)
+		{
+			this.studentId = studentId;
+			this.studentCourse = studentCourse;
+			popUpMenuFlag=1;
+		}
+		
+		public void actionPerformed(ActionEvent e) {
+			// TODO Auto-generated method stub
+				try {
+					if(popUpMenuFlag==1)
+					studentFile = new File(new File(".").getCanonicalPath()
+									+"/OnlineQuizChecker"+"/"+
+									studentCourse+"/Students/"+studentId+".ser");
+					if(popUpMenuFlag==0)
+						studentFile = new File(new File(".").getCanonicalPath()
+								+"/OnlineQuizChecker"+"/"+
+								(String)view.getRemoveStudentCourseCB().getSelectedItem()
+								+"/Students/"+(String)view.getRemoveStudentsIds().getSelectedItem()
+								+".ser");
+					studentFile.delete();
+					view.getRemoveStudentsIds().removeItemListener(removeStudentsIdsAddItemListener);
+					view.loadStudents(view.getRemoveStudentCourseCB().getSelectedIndex());
+					view.getRemoveStudentsIds().addItemListener(removeStudentsIdsAddItemListener);
+					view.setTree(new JTree(InitialWindowView.filesTree(new File(new File(".").getCanonicalPath()+"/OnlineQuizChecker"))));
+				} catch (IOException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+		}
+		
 	}
 	
 	class registerStudentBtnListener implements ActionListener
@@ -250,6 +333,9 @@ public class InitialWindowController {
 					JOptionPane.showMessageDialog(null, "The student registered successfully");
 					view.setTree(new JTree(InitialWindowView.filesTree(new File(new File(".").getCanonicalPath()+"/OnlineQuizChecker"))));
 					registerStudentDialog.setVisible(false);///////////////////////					
+					view.getRemoveStudentsIds().removeItemListener(removeStudentsIdsAddItemListener);
+					view.loadStudents(view.getRemoveStudentCourseCB().getSelectedIndex());
+					view.getRemoveStudentsIds().addItemListener(removeStudentsIdsAddItemListener);
 					}
 				else if(overWrite==JOptionPane.NO_OPTION||overWrite==JOptionPane.CLOSED_OPTION)
 					;
@@ -549,7 +635,7 @@ public class InitialWindowController {
 		public void actionPerformed(ActionEvent e) {
 			// TODO Auto-generated method stub
 			registerStudentDialog = new JDialog(MainFrameController.view,"Register Student Dialog");
-			registerStudentDialog.setSize(250,300);
+			registerStudentDialog.setSize(270,300);
 			registerStudentDialog.setLocationRelativeTo(MainFrameController.view);
 			registerStudentDialog.setVisible(true);
 			registerStudentDialog.setResizable(false);
@@ -563,11 +649,12 @@ public class InitialWindowController {
 		public void actionPerformed(ActionEvent e) {
 			// TODO Auto-generated method stub
 			removeStudentDialog = new JDialog(MainFrameController.view,"Remove Student Dialog");
-			removeStudentDialog.setSize(250,300);
+			removeStudentDialog.setSize(270,300);
 			removeStudentDialog.setLocationRelativeTo(MainFrameController.view);
 			removeStudentDialog.setVisible(true);
 			removeStudentDialog.setResizable(false);
 			removeStudentDialog.getContentPane().add(view.getRemoveStudentDialogPanel());
+			view.loadStudents(view.getRemoveStudentCourseCB().getSelectedIndex());
 		}
 		
 	}
@@ -585,12 +672,20 @@ public class InitialWindowController {
 		view.getCoursesIdsEdit().removeItemListener(idsEditAddItemListener);
 		view.getCoursesIdsEdit().removeAllItems();
 		view.coursesIdsEditAddItemListener(idsEditAddItemListener);
+		//
+		view.getRemoveStudentsIds().removeItemListener(removeStudentsIdsAddItemListener);
+		view.getRemoveStudentCourseCB().removeItemListener(removeStudentCourseAddItemListener);
+		view.getRemoveStudentCourseCB().removeAllItems();		
+		//
 		for(int i=0;i<InitialWindowController.coursesFiles.size();i++)
 		{	
 			view.getCoursesIds().addItem(InitialWindowController.coursesFiles.get(i).getCourseFolderName());		
 			view.getRemoveCourses().addItem(InitialWindowController.coursesFiles.get(i).getCourseFolderName());
 			view.getCoursesIdsEdit().addItem(InitialWindowController.coursesFiles.get(i).getCourseFolderName());
+			view.getRemoveStudentCourseCB().addItem(InitialWindowController.coursesFiles.get(i).getCourseFolderName());
 		}
+		view.getRemoveStudentsIds().addItemListener(removeStudentsIdsAddItemListener);
+		view.getRemoveStudentCourseCB().addItemListener(removeStudentCourseAddItemListener);
 		try {
 			view.setTree(new JTree(InitialWindowView.filesTree(new File(new File(".").getCanonicalPath()+"/OnlineQuizChecker"))));
 		} catch (IOException e) {
