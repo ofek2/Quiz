@@ -73,6 +73,7 @@ public class InitialWindowView extends ViewPanel {
 	private JPanel gradeQuizDialogPanel;
 	private JComboBox<String> courseIdGradeCB;
 	public JComboBox<String> quizzesToGrade;
+	private JButton gradeBtn;
 	/**
 	 * Create the panel.
 	 */
@@ -151,7 +152,8 @@ public class InitialWindowView extends ViewPanel {
 		for(String item:vec)
 			coursesIds.addItem(item);
 		coursesIds.setBounds(100, 27, 180, 20);
-		coursesIds.setSelectedIndex(0);
+		if(InitialWindowController.coursesFiles.size()>0)
+				coursesIds.setSelectedIndex(0);
 		newQuizDialogPanel.add(coursesIds);
 		
 		Label label1 = new Label("Quiz Name:");
@@ -181,6 +183,7 @@ public class InitialWindowView extends ViewPanel {
 		for(String item:vec)
 			coursesIdsEdit.addItem(item);
 		coursesIdsEdit.setBounds(100, 27, 180, 20);
+		if(InitialWindowController.coursesFiles.size()>0)
 		coursesIdsEdit.setSelectedIndex(0);
 		editQuizDialogPanel.add(coursesIdsEdit);
 		
@@ -247,6 +250,7 @@ public class InitialWindowView extends ViewPanel {
 		for(String item:vec)
 			removeCourses.addItem(item);
 		removeCourses.setBounds(100, 20, 186, 20);
+		if(InitialWindowController.coursesFiles.size()>0)
 		removeCourses.setSelectedIndex(0);
 		removeCourseDialogPanel.add(removeCourses);
 		
@@ -270,6 +274,7 @@ public class InitialWindowView extends ViewPanel {
 		for(String item:vec)
 			registerStudentCourseCB.addItem(item);
 		registerStudentCourseCB.setBounds(105, 40, 150, 20);
+		if(InitialWindowController.coursesFiles.size()>0)
 		registerStudentCourseCB.setSelectedIndex(0);
 		registerStudentDialogPanel.add(registerStudentCourseCB);
 		
@@ -320,6 +325,7 @@ public class InitialWindowView extends ViewPanel {
 		for(String item:vec)
 			removeStudentCourseCB.addItem(item);
 		removeStudentCourseCB.setBounds(105, 20, 150, 20);
+		if(InitialWindowController.coursesFiles.size()>0)
 		removeStudentCourseCB.setSelectedIndex(0);
 		removeStudentDialogPanel.add(removeStudentCourseCB);
 		
@@ -364,29 +370,29 @@ public class InitialWindowView extends ViewPanel {
 		for(String item:vec)
 			courseIdGradeCB.addItem(item);
 		courseIdGradeCB.setBounds(100, 27, 180, 20);
+		if(InitialWindowController.coursesFiles.size()>0)
 		courseIdGradeCB.setSelectedIndex(0);
 		gradeQuizDialogPanel.add(courseIdGradeCB);
 		
 		Label quizNameLbl = new Label("Quiz Name:");
-		label3.setBounds(13, 70, 80, 19);
-		newQuizDialogPanel.add(label3);
-		editQuizDialogPanel.add(label3);
+		quizNameLbl.setBounds(13, 70, 80, 19);
+		gradeQuizDialogPanel.add(quizNameLbl);
 		
-		quizzes = new JComboBox<String>();
-		quizzes.setBounds(100, 69, 180, 20);
+		quizzesToGrade = new JComboBox<String>();
+		quizzesToGrade.setBounds(100, 69, 180, 20);
 		if(InitialWindowController.coursesFiles.size()>0)
 		{
 		for(File child: InitialWindowController.coursesFiles.get(0).getCourseFolder().listFiles())
-			quizzes.addItem(child.getName());
+			quizzesToGrade.addItem(child.getName());
 		}
 		else
-			quizzes.addItem("");
-		editQuizDialogPanel.add(quizzes);
+			quizzesToGrade.addItem("");
+		gradeQuizDialogPanel.add(quizzesToGrade);
 		
-		editQuizBtn = new JButton("Edit Quiz");
-		editQuizBtn.setBounds(editQuizDialogPanel.getSize().width/2-editQuizBtn.getPreferredSize().width/2, 121, editQuizBtn.getPreferredSize().width, editQuizBtn.getPreferredSize().height);
-		editQuizDialogPanel.add(editQuizBtn);
-		editQuizDialogPanel.setVisible(true);
+		gradeBtn = new JButton("Grade Quiz");
+		gradeBtn.setBounds(gradeQuizDialogPanel.getSize().width/2-gradeBtn.getPreferredSize().width/2, 121, gradeBtn.getPreferredSize().width, gradeBtn.getPreferredSize().height);
+		gradeQuizDialogPanel.add(gradeBtn);
+		gradeQuizDialogPanel.setVisible(true);
 	}
 	public void loadStudents(int index)
 	{
@@ -524,6 +530,10 @@ public class InitialWindowView extends ViewPanel {
 	}
 	public JComboBox<String> getRemoveStudentsIds() {
 		return removeStudentsIds;
+	}
+	
+	public JComboBox<String> getCourseIdGradeCB() {
+		return courseIdGradeCB;
 	}
 	public JTree getTree() {
 		return tree;

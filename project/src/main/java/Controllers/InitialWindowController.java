@@ -37,6 +37,7 @@ public class InitialWindowController {
 	private JDialog editQuizdialog;
 	private JDialog newCourseDialog;
 	private JDialog removeCourseDialog;
+	private JDialog gradeQuizDialog;
 	private JPopupMenu quizPopupMenu;
 	private JPopupMenu coursePopupMenu;
 	private JPopupMenu rootPopupMenu;
@@ -572,10 +573,23 @@ public class InitialWindowController {
 
 		public void actionPerformed(ActionEvent e) {
 			// TODO Auto-generated method stub
+			gradeQuizDialog = new JDialog(MainFrameController.view,"Grade Quiz Dialog");
+			
+			gradeQuizDialog.setSize(300,220);
+			gradeQuizDialog.setLocationRelativeTo(MainFrameController.view.getContentPane());
+			gradeQuizDialog.setVisible(true);
+			gradeQuizDialog.setResizable(false);
+			gradeQuizDialog.getContentPane().add(view.getGradeQuizDialogPanel());
+			
+			view.quizzesToGrade.removeAllItems();
+			for(File child: coursesFiles.get(view.getCourseIdGradeCB().getSelectedIndex()).getCourseFolder().listFiles())
+				view.quizzesToGrade.addItem(child.getName());
+			view.getGradeQuizDialogPanel().revalidate();
+			/*
 			GradingWindowView gradingWindowView = new GradingWindowView();
 			GradingWindowController gradingWindowController = new GradingWindowController(gradingWindowView);
 			MainFrameController.view.changeContentPane(gradingWindowView);
-			gradingWindowController.setPreviousView(view);
+			gradingWindowController.setPreviousView(view);*/
 		}
 		
 	}

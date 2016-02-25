@@ -38,7 +38,13 @@ public class MainFrameController {
 		//load the courses folders into the array list
 		///////////////////////////////////////////////////////////////////////////////////////////////
 		initialWindowController.coursesFiles=new ArrayList<CourseEntity>();
-		try {
+		for(File folder:appFolder.listFiles())
+		{
+			String[] splitedName = folder.getName().split(",");
+			initialWindowController.coursesFiles.add(new CourseEntity(folder, splitedName[0], splitedName[1]));
+		}
+		
+			/*try {
 			temp1=new File(new File(".").getCanonicalPath()+"/OnlineQuizChecker"+"/"+"1,a");
 			temp2=new File(new File(".").getCanonicalPath()+"/OnlineQuizChecker"+"/"+"2,b");
 			temp3=new File(new File(".").getCanonicalPath()+"/OnlineQuizChecker"+"/"+"3,c");
@@ -54,7 +60,7 @@ public class MainFrameController {
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}
+		}*/
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		InitialWindowView initialWindowView = new InitialWindowView();
 		initialWindowController = new InitialWindowController(initialWindowView);
