@@ -156,7 +156,7 @@ public class InitialWindowView extends ViewPanel {
 		Vector<String> vec = new Vector<String>();
 		for(int i=0;i<InitialWindowController.coursesFiles.size();i++)
 			vec.add(InitialWindowController.coursesFiles.get(i).getCourseFolderName());
-		DefaultComboBoxModel<String> coursesIdsModel = new DefaultComboBoxModel<String>(vec);
+		//DefaultComboBoxModel<String> coursesIdsModel = new DefaultComboBoxModel<String>(vec);
 		
 		//New quiz dialog
 		newQuizDialogPanel = new JPanel();
@@ -169,7 +169,9 @@ public class InitialWindowView extends ViewPanel {
 		label.setBounds(13, 28, 80, 19);
 		newQuizDialogPanel.add(label);
 		
-		coursesIds = new JComboBox<String>(coursesIdsModel);
+		coursesIds = new JComboBox<String>();
+		for(String item:vec)
+			coursesIds.addItem(item);
 		coursesIds.setBounds(100, 27, 180, 20);
 		coursesIds.setSelectedIndex(0);
 		newQuizDialogPanel.add(coursesIds);
@@ -197,7 +199,9 @@ public class InitialWindowView extends ViewPanel {
 		label2.setBounds(13, 28, 80, 19);
 		editQuizDialogPanel.add(label2);
 		
-		coursesIdsEdit = new JComboBox<String>(coursesIdsModel);
+		coursesIdsEdit = new JComboBox<String>();
+		for(String item:vec)
+			coursesIdsEdit.addItem(item);
 		coursesIdsEdit.setBounds(100, 27, 180, 20);
 		coursesIdsEdit.setSelectedIndex(0);
 		editQuizDialogPanel.add(coursesIdsEdit);
@@ -261,7 +265,9 @@ public class InitialWindowView extends ViewPanel {
 		lblCourse.setBounds(13, 20, 80, 19);
 		removeCourseDialogPanel.add(lblCourse);
 		
-		removeCourses = new JComboBox<String>(coursesIdsModel);
+		removeCourses = new JComboBox<String>();
+		for(String item:vec)
+			removeCourses.addItem(item);
 		removeCourses.setBounds(100, 20, 186, 20);
 		removeCourses.setSelectedIndex(0);
 		removeCourseDialogPanel.add(removeCourses);
@@ -282,7 +288,9 @@ public class InitialWindowView extends ViewPanel {
 		lblCourse1.setBounds(4, 40, 100, 20);
 		registerStudentDialogPanel.add(lblCourse1);
 		
-		registerStudentCourseCB = new JComboBox<String>(coursesIdsModel);
+		registerStudentCourseCB = new JComboBox<String>();
+		for(String item:vec)
+			registerStudentCourseCB.addItem(item);
 		registerStudentCourseCB.setBounds(105, 40, 150, 20);
 		registerStudentCourseCB.setSelectedIndex(0);
 		registerStudentDialogPanel.add(registerStudentCourseCB);
@@ -329,7 +337,9 @@ public class InitialWindowView extends ViewPanel {
 		lblRemoveStudentCourse.setBounds(4, 20, 80, 20);
 		removeStudentDialogPanel.add(lblRemoveStudentCourse);
 		
-		removeStudentCourseCB = new JComboBox<String>(coursesIdsModel);
+		removeStudentCourseCB = new JComboBox<String>();
+		for(String item:vec)
+			removeStudentCourseCB.addItem(item);
 		removeStudentCourseCB.setBounds(105, 20, 150, 20);
 		removeStudentCourseCB.setSelectedIndex(0);
 		removeStudentDialogPanel.add(removeStudentCourseCB);
@@ -553,5 +563,6 @@ public class InitialWindowView extends ViewPanel {
 			}
 		return treeNode;
 	}
+	
 	
 }

@@ -25,8 +25,10 @@ import java.net.InetAddress;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
+import java.util.Vector;
 
 import javax.swing.ComboBoxModel;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.JComboBox;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
@@ -614,6 +616,7 @@ public class InitialWindowController {
 
 		public void actionPerformed(ActionEvent e) {
 			// TODO Auto-generated method stub
+			
 			newCourseDialog = new JDialog(MainFrameController.view,"New Course Dialog");
 			newCourseDialog.setSize(300,220);
 			newCourseDialog.setLocationRelativeTo(MainFrameController.view);
@@ -687,11 +690,11 @@ public class InitialWindowController {
 		view.getRemoveStudentCourseCB().removeAllItems();		
 		//
 		for(int i=0;i<InitialWindowController.coursesFiles.size();i++)
-		{	
-			view.getCoursesIds().addItem(InitialWindowController.coursesFiles.get(i).getCourseFolderName());		
-			view.getRemoveCourses().addItem(InitialWindowController.coursesFiles.get(i).getCourseFolderName());
-			view.getCoursesIdsEdit().addItem(InitialWindowController.coursesFiles.get(i).getCourseFolderName());
-			view.getRemoveStudentCourseCB().addItem(InitialWindowController.coursesFiles.get(i).getCourseFolderName());
+		{	String item = InitialWindowController.coursesFiles.get(i).getCourseFolderName();
+			view.getCoursesIds().addItem(item);		
+			view.getRemoveCourses().addItem(item);
+			view.getCoursesIdsEdit().addItem(item);
+			view.getRemoveStudentCourseCB().addItem(item);
 		}
 		view.getRemoveStudentsIds().addItemListener(removeStudentsIdsAddItemListener);
 		view.getRemoveStudentCourseCB().addItemListener(removeStudentCourseAddItemListener);
@@ -703,6 +706,28 @@ public class InitialWindowController {
 		}
 
 	}
+	/*public void coursesUpdate(){
+		view.getCoursesIdsEdit().removeItemListener(idsEditAddItemListener);
+		view.getRemoveStudentsIds().removeItemListener(removeStudentsIdsAddItemListener);
+		view.getRemoveStudentCourseCB().removeItemListener(removeStudentCourseAddItemListener);
+		
+		view.coursesIdsEditAddItemListener(idsEditAddItemListener);
+		view.getRemoveStudentsIds().addItemListener(removeStudentsIdsAddItemListener);
+		view.getRemoveStudentCourseCB().addItemListener(removeStudentCourseAddItemListener);
+		
+		Vector<String> coursesIds = new Vector<String>();
+		for(int i=0;i<InitialWindowController.coursesFiles.size();i++)
+			coursesIds.add(InitialWindowController.coursesFiles.get(i).getCourseFolderName());
+		DefaultComboBoxModel<String> model = new DefaultComboBoxModel<String>(coursesIds);
+		view.setComboBoxesModel(model);
+		
+		try {
+			view.setTree(new JTree(InitialWindowView.filesTree(new File(new File(".").getCanonicalPath()+"/OnlineQuizChecker"))));
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}*/
 	public void loadQuizzesToComboBox(int courseIndex)
 	{
 		
