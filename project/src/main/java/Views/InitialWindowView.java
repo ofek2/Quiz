@@ -378,7 +378,10 @@ public class InitialWindowView extends ViewPanel {
 //				chosenRemoveStudentNameLbl.setText(loadStudentNameToRemoveLbl
 //						(studentsFolder.listFiles()[0].getPath()));
 			else
+			{
+				removeStudentsIds.addItem("");
 				chosenRemoveStudentNameLbl.setText("");
+			}
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

@@ -262,6 +262,12 @@ public class InitialWindowController {
 		public void actionPerformed(ActionEvent e) {
 			// TODO Auto-generated method stub
 				try {
+					if(((String)view.getRemoveStudentsIds().getSelectedItem()).equals(""))
+						JOptionPane.showMessageDialog(null,
+								"This student does not exists,Please choose another one",
+								"Alert",JOptionPane.ERROR_MESSAGE);
+					else
+					{
 					if(popUpMenuFlag==1)
 					studentFile = new File(new File(".").getCanonicalPath()
 									+"/OnlineQuizChecker"+"/"+
@@ -277,6 +283,9 @@ public class InitialWindowController {
 					view.loadStudents(view.getRemoveStudentCourseCB().getSelectedIndex());
 					view.getRemoveStudentsIds().addItemListener(removeStudentsIdsAddItemListener);
 					view.setTree(new JTree(InitialWindowView.filesTree(new File(new File(".").getCanonicalPath()+"/OnlineQuizChecker"))));
+					JOptionPane.showMessageDialog(null, "The student removed successfully");
+					removeStudentDialog.setVisible(false);///////////////////////		
+					}
 				} catch (IOException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
