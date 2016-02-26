@@ -597,6 +597,32 @@ public class InitialWindowView extends ViewPanel {
 			}
 		return treeNode;
 	}
+	
+	
+	public JButton getCreateNewQuizBtn() {
+		return createNewQuizBtn;
+	}
+	public JButton getEditQuizBtn() {
+		return editQuizBtn;
+	}
+	public JButton getCreateNewCourseBtn() {
+		return createNewCourseBtn;
+	}
+	public JButton getRemoveCourseBtn() {
+		return removeCourseBtn;
+	}
+	public JButton getRegisterStudentBtn() {
+		return registerStudentBtn;
+	}
+	public JLabel getChosenRemoveStudentNameLbl() {
+		return chosenRemoveStudentNameLbl;
+	}
+	public JButton getRemoveStudentBtn() {
+		return removeStudentBtn;
+	}
+	public JButton getGradeBtn() {
+		return gradeBtn;
+	}
 	public void loadQuizzesToEditCB(File [] coursesFiles)
 	{
 		
