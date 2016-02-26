@@ -3,9 +3,15 @@ package Controllers;
 import java.awt.Container;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
+
+import Entities.StudentEntity;
 import Views.GradingWindowView;
 import Views.ViewPanel;
+import project.CustomTable;
 
 public class GradingWindowController {
 	private GradingWindowView view;
@@ -26,9 +32,10 @@ public class GradingWindowController {
 		view.addFileListeners(fileListeners);
 		
 	}
-	public void loadStudentsToTable(String courseName,String quizName)
+	public void loadStudentsToTable(ArrayList<StudentEntity> students)
 	{
-		
+		CustomTable studentsTable = new CustomTable(students);
+		view.setTable(studentsTable);
 	}
 	class SendListener implements ActionListener
 	{
