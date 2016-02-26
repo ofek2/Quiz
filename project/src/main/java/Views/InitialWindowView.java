@@ -597,6 +597,23 @@ public class InitialWindowView extends ViewPanel {
 			}
 		return treeNode;
 	}
-	
+	public void loadQuizzesToEditCB(File [] coursesFiles)
+	{
+		
+		quizzes.removeAllItems();
+		if(coursesFiles!=null)
+		for(File child:coursesFiles)
+			quizzes.addItem(child.getName());
+		editQuizDialogPanel.revalidate();
+	}
+	public void loadQuizzesToGradeCB(File [] coursesFiles)
+	{
+		
+		quizzesToGrade.removeAllItems();
+		if(coursesFiles!=null)
+		for(File child:coursesFiles)
+			quizzesToGrade.addItem(child.getName());
+		gradeQuizDialogPanel.revalidate();
+	}
 	
 }

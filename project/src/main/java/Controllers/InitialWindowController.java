@@ -408,6 +408,7 @@ public class InitialWindowController {
 		private String courseName;
 		private CourseEntity courseEntity;
 		private File studentsFolder;
+		private File quizzesFolder;
 		public void actionPerformed(ActionEvent e) {
 			// TODO Auto-generated method stub
 			courseName = view.getNewCourseName().getText();
@@ -420,12 +421,14 @@ public class InitialWindowController {
 				try {
 					courseFolder = new File(new File(".").getCanonicalPath()+"/OnlineQuizChecker"+"/"+CourseEntity.getCourseFolderName(courseId, courseName));
 					studentsFolder = new File(courseFolder.getCanonicalPath()+"/Students");
+					quizzesFolder = new File(courseFolder.getCanonicalPath()+"/Quizzes");
 					courseEntity = new CourseEntity(courseFolder, courseId, courseName);
 					if(!courseEntity.CourseExist())
 					{
 						courseFolder.mkdir();			
 						coursesFiles.add(courseEntity.checkPosition(),courseEntity);
 						studentsFolder.mkdir();
+						quizzesFolder.mkdir();
 						coursesUpdate();
 //						newCourseDialog.setVisible(false);
 
@@ -449,7 +452,8 @@ public class InitialWindowController {
 		public void itemStateChanged(ItemEvent e) {
 			// TODO Auto-generated method stub
 			JComboBox temp = (JComboBox)e.getSource();
-			loadQuizzesToComboBox(temp.getSelectedIndex());
+			
+			view.loadQuizzesToEditCB(getQuizzesFolder(temp.getSelectedIndex()));
 		}
 		
 	}
@@ -475,7 +479,7 @@ public class InitialWindowController {
 			String quizFile = quizName+".ser";
 			String path;
 			try {
-				path = coursesFiles.get(view.getCoursesIdsEdit().getSelectedIndex()).getCourseFolder().getCanonicalPath()+"/"+quizName+"/"+quizFile;
+				path = coursesFiles.get(view.getCoursesIdsEdit().getSelectedIndex()).getCourseFolder().getCanonicalPath()+"/Quizzes/"+quizName+"/"+quizFile;
 				FileInputStream fis;
 				fis = new FileInputStream(path);
 				ObjectInputStream ois = new ObjectInputStream(fis);
@@ -512,7 +516,7 @@ public class InitialWindowController {
 				JOptionPane.showMessageDialog(null,"This quiz name is empty, please choose another name","Alert",JOptionPane.ERROR_MESSAGE);
 		else{
 			try {
-				quizFolder = new File(new File(".").getCanonicalPath()+"/OnlineQuizChecker"+"/"+(String)view.getCoursesIds().getSelectedItem()+"/"+quizName);
+				quizFolder = new File(new File(".").getCanonicalPath()+"/OnlineQuizChecker/"+(String)view.getCoursesIds().getSelectedItem()+"/Quizzes/"+quizName);
 				if(!quizFolder.exists())
 				{
 				//	quizFolder.mkdir();
@@ -627,8 +631,8 @@ public class InitialWindowController {
 			editQuizdialog.setVisible(true);
 			editQuizdialog.setResizable(false);
 			editQuizdialog.getContentPane().add(view.getEditQuizDialogPanel());
-			
-			loadQuizzesToComboBox(view.getCoursesIdsEdit().getSelectedIndex());
+			int courseIndex = view.getCoursesIdsEdit().getSelectedIndex();
+			view.loadQuizzesToEditCB(getQuizzesFolder(courseIndex));
 			
 	
 		}
@@ -647,13 +651,9 @@ public class InitialWindowController {
 			gradeQuizDialog.setResizable(false);
 			gradeQuizDialog.getContentPane().add(view.getGradeQuizDialogPanel());
 			
-			view.quizzesToGrade.removeAllItems();
-			for(File child: coursesFiles.get(view.getCourseIdGradeCB().getSelectedIndex()).getCourseFolder().listFiles())
-			{
-				if(!child.getName().equals("Students"))
-				view.quizzesToGrade.addItem(child.getName());
-			}
-			view.getGradeQuizDialogPanel().revalidate();
+			int courseIndex = view.getCourseIdGradeCB().getSelectedIndex();
+			view.loadQuizzesToGradeCB(getQuizzesFolder(courseIndex));
+			
 			
 		}
 		
@@ -733,6 +733,14 @@ public class InitialWindowController {
 				removeFolder(child);
 		file.delete();
 	}
+	public File[] getQuizzesFolder(int selectedIndex) {
+
+		File [] courseFiles = coursesFiles.get(selectedIndex).getCourseFolder().listFiles();
+		for(int i=0;i<courseFiles.length;i++)
+			if(courseFiles[i].getName().equals("Quizzes"))
+				return courseFiles[i].listFiles();
+		return null;
+	}
 	public void coursesUpdate()
 	{
 		view.getCoursesIds().removeAllItems();
@@ -784,13 +792,13 @@ public class InitialWindowController {
 			e.printStackTrace();
 		}
 	}*/
-	public void loadQuizzesToComboBox(int courseIndex)
+	/*public void loadQuizzesToComboBox(int courseIndex)
 	{
 		
 		view.quizzes.removeAllItems();
 		for(File child: coursesFiles.get(courseIndex).getCourseFolder().listFiles())
 			view.quizzes.addItem(child.getName());
 		view.getEditQuizDialogPanel().revalidate();
-	}
+	}*/
 	
 }
