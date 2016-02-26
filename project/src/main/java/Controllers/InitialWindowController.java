@@ -63,6 +63,7 @@ public class InitialWindowController {
 		view.coursesIdsEditAddItemListener(idsEditAddItemListener);
 		view.removeStudentCourseCBAddItemListener(removeStudentCourseAddItemListener);
 		view.removeStudentsIdsCBAddItemListener(removeStudentsIdsAddItemListener);
+		view.courseIdGradeAddItemListener(new courseIdGradeItemListener());
 		view.getTree().addMouseListener(menuController.dialogsBtnsController.popUpMenusController.treeMouseListener());
 		
 //		remove.addActionListener(l);
@@ -872,7 +873,17 @@ public class InitialWindowController {
 		}
 		
 	}
+	class courseIdGradeItemListener implements ItemListener
+	{
 
+		public void itemStateChanged(ItemEvent e) {
+			// TODO Auto-generated method stub
+			JComboBox temp = (JComboBox)e.getSource();
+			
+			view.loadQuizzesToGradeCB(getQuizzesFolder(temp.getSelectedIndex()));
+		}
+		
+	}
 	public void removeFolder(File file)
 	{
 		if(file.isDirectory())

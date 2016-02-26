@@ -504,6 +504,10 @@ public class InitialWindowView extends ViewPanel {
 	{
 		gradeBtn.addActionListener(listener);
 	}
+	public void courseIdGradeAddItemListener(ItemListener listener)
+	{
+		courseIdGradeCB.addItemListener(listener);
+	}
 	public JPanel getNewQuizDialogPanel() {
 		return newQuizDialogPanel;
 	}
