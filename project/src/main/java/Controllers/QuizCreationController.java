@@ -153,10 +153,14 @@ public class QuizCreationController implements Serializable {
 	public void saveQuiz()
 	{
 		if(!entity.getQuizFolder().exists())
+		{
 			entity.getQuizFolder().mkdir();
+			entity.getQuizFormFolder().mkdir();
+			entity.getStudentsAnswersFolder().mkdir();
+		}
 		for(int i=0;i<qPanels.size();i++)
 			qPanels.get(i).saveImages();
-		recursiveDelete(entity.getQuizFolder());
+		recursiveDelete(entity.getQuizFormFolder());
 
 		try {
 			htmlBuilder = new HtmlBuilder();
@@ -233,10 +237,10 @@ public class QuizCreationController implements Serializable {
 		}
 		
 		try {
-			htmlBuilder.writeHtml(entity.getQuizFolder().getCanonicalPath()+"/"+entity.getName());
+			htmlBuilder.writeHtml(entity.getQuizFormFolder().getCanonicalPath()+"/"+entity.getName());
 			initialWindowView.setTree(new JTree(InitialWindowView.filesTree(new File(new File(".").getCanonicalPath()+"/OnlineQuizChecker"))));
 			QuizObjectEntity quizObjectEntity = new QuizObjectEntity(entity, qPanels);
-			FileOutputStream fos = new FileOutputStream(entity.getQuizFolder().getCanonicalPath()+"/"+entity.getName()+".ser");
+			FileOutputStream fos = new FileOutputStream(entity.getQuizFormFolder().getCanonicalPath()+"/"+entity.getName()+".ser");
 			ObjectOutputStream oos = new ObjectOutputStream(fos);
 			oos.writeObject(quizObjectEntity);
 			oos.close();
@@ -300,7 +304,7 @@ public class QuizCreationController implements Serializable {
 				{
 //				if(saveComplete==0)
 //				{
-//				//	entity.getQuizFolder().delete();
+//				//	entity.getQuizFormFolder().delete();
 //					try {
 //						initialWindowView.setTree(new JTree(InitialWindowView.filesTree(new File(new File(".").getCanonicalPath()+"/OnlineQuizChecker"))));
 //					} catch (IOException e1) {
@@ -310,7 +314,7 @@ public class QuizCreationController implements Serializable {
 //				}
 //		///		for(int i=0;i<qPanels.size();i++)////////////////////////////////////
 //		///			qPanels.get(i).renameQandAImagesToOrigin();///////////////
-				for(File file: entity.getQuizFolder().listFiles())
+				for(File file: entity.getQuizFormFolder().listFiles())
 				{
 					if(file.getName().endsWith(".PNG"))
 						qPanelController.renameQandAImagesToOrigin(file);
@@ -325,7 +329,7 @@ public class QuizCreationController implements Serializable {
 //				try {
 //					if(saveComplete==0)
 //					{
-//						//entity.getQuizFolder().delete();
+//						//entity.getQuizFormFolder().delete();
 //						
 //						
 //						JTree newTree = new JTree(InitialWindowView.filesTree(new File(new File(".").getCanonicalPath()+"/OnlineQuizChecker")));
@@ -355,7 +359,7 @@ public class QuizCreationController implements Serializable {
 				{
 //				if(saveComplete==0)
 //				{
-//					entity.getQuizFolder().delete();
+//					entity.getQuizFormFolder().delete();
 //					try {
 //						initialWindowView.setTree(new JTree(InitialWindowView.filesTree(new File(new File(".").getCanonicalPath()+"/OnlineQuizChecker"))));
 //					} catch (IOException e1) {
@@ -365,7 +369,7 @@ public class QuizCreationController implements Serializable {
 //				}
 				/////delete the d from the image name
 //				for(int i=0;i<qPanels.size();i++)/////////////////////////////
-				for(File file: entity.getQuizFolder().listFiles())
+				for(File file: entity.getQuizFormFolder().listFiles())
 				{
 					if(file.getName().endsWith(".PNG"))
 						qPanelController.renameQandAImagesToOrigin(file);
@@ -380,7 +384,7 @@ public class QuizCreationController implements Serializable {
 //				try {
 //					if(saveComplete==0)
 //					{
-//						entity.getQuizFolder().delete();
+//						entity.getQuizFormFolder().delete();
 //						initialWindowView.setTree(new JTree(InitialWindowView.filesTree(new File(new File(".").getCanonicalPath()+"/OnlineQuizChecker"))));
 //					}
 					MainFrameController.view.changeContentPane(initialWindowView);

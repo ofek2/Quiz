@@ -59,7 +59,7 @@ public class qPanelController implements Serializable{
 		qFileChooser=this.view.getQuestionFileChooser();
 		aFileChooser=this.view.getAnswerFileChooser();
 		try {
-			quizPath = quizEntity.getQuizFolder().getCanonicalPath();
+			quizPath = quizEntity.getQuizFormFolder().getCanonicalPath();
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

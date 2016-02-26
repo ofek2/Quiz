@@ -579,6 +579,9 @@ public class InitialWindowController {
 			public void createNewQuiz(String quizName,String courseName)
 			{
 				File quizFolder;
+				File quizFormFolder;
+				File studentsFilesFolder;
+				
 				if(quizName.isEmpty())
 					JOptionPane.showMessageDialog(null,"This quiz name is empty, please choose another name","Alert",JOptionPane.ERROR_MESSAGE);
 				else{
@@ -586,8 +589,10 @@ public class InitialWindowController {
 						quizFolder = new File(new File(".").getCanonicalPath()+"/OnlineQuizChecker/"+courseName+"/Quizzes/"+quizName);
 						if(!quizFolder.exists())
 						{
+							quizFormFolder = new File(quizFolder.getCanonicalPath()+"/Form");
+							studentsFilesFolder = new File(quizFolder.getCanonicalPath()+"/StudentsAnswers");
 							QuizCreationView quizCreationView = new QuizCreationView();
-							QuizEntity quizEntity = new QuizEntity(quizName,25,quizFolder);
+							QuizEntity quizEntity = new QuizEntity(quizName,quizFolder,quizFormFolder,studentsFilesFolder,25);
 							new QuizCreationController(quizCreationView,quizEntity,view);
 							quizCreationView.getQuizName().setText(quizName);
 							

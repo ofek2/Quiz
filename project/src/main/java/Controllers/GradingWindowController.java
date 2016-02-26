@@ -26,7 +26,7 @@ public class GradingWindowController {
 		view.addFileListeners(fileListeners);
 		
 	}
-	
+	//public void loadStudentsToTable(String courseName)
 	class SendListener implements ActionListener
 	{
 
