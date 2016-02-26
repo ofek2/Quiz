@@ -57,4 +57,17 @@ public class GradingWindowView extends ViewPanel {
 			mnFile.getItem(i).addActionListener(listener[i]);
 		}
 	}
+	public JMenu getMnFile() {
+		return mnFile;
+	}
+	public void setMnFile(JMenu mnFile) {
+		this.mnFile = mnFile;
+	}
+	public JTable getTable() {
+		return table;
+	}
+	public void setTable(JTable table) {
+		this.table = table;
+	}
+	
 }
