@@ -14,6 +14,7 @@ import javax.swing.UIManager;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableCellRenderer;
 
+import Views.GradingWindowView;
 import Entities.StudentEntity;
 
 public class CustomTable extends JTable{
@@ -33,10 +34,13 @@ public class CustomTable extends JTable{
 			studentsArr[i][2] = (String)"Not yet graded";
 			studentsArr[i][3] = students.get(i).getStudentName();
 		}
-		
-		setModel(new DefaultTableModel(studentsArr,new String[] {"Student Id", "Student Name", "Grade", "Options"}));
-		getColumn("Options").setCellRenderer(new ButtonRenderer());
-		getColumn("Options").setCellEditor( new ButtonEditor(new JCheckBox()));
+//		jTable = ;
+		GradingWindowView.setTable(new JTable(studentsArr,new String[] {"Student Id", "Student Name", "Grade", "Options"}));
+		//		System.out.println(studentsArr[0][0]);
+//		getModel().setValueAt(studentsArr[0][0],1,0 );
+//		setModel(new DefaultTableModel(studentsArr,new String[] {"Student Id", "Student Name", "Grade", "Options"}));
+//		getColumn("Options").setCellRenderer(new ButtonRenderer());
+//		getColumn("Options").setCellEditor( new ButtonEditor(new JCheckBox()));
 	}
 	class ButtonRenderer extends JButton implements TableCellRenderer {
 

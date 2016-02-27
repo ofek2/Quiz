@@ -34,9 +34,8 @@ public class GradingWindowController {
 	}
 	public void loadStudentsToTable(ArrayList<StudentEntity> students)
 	{
-	//	CustomTable studentsTable = new CustomTable(students);
-		view.table= new CustomTable(students);
-		view.revalidate();
+		CustomTable studentsTable = new CustomTable(students);
+//		view.setTable(studentsTable);
 	}
 	class SendListener implements ActionListener
 	{
