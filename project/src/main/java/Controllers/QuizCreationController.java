@@ -25,6 +25,7 @@ import Views.InitialWindowView;
 import Views.QuizCreationView;
 import Views.qPanel;
 import project.HtmlBuilder;
+import project.ObjectFileManager;
 
 public class QuizCreationController implements Serializable {
 	private QuizCreationView view;
@@ -33,9 +34,9 @@ public class QuizCreationController implements Serializable {
 	protected static ArrayList<qPanelController> qPanels;
 	private HtmlBuilder htmlBuilder;
 	public static int saveFlag=1;
-//	private int saveComplete=0;
 	private transient InitialWindowView initialWindowView;
 	private windowListener windowListener;
+	
 	public QuizCreationController(QuizCreationView view,QuizEntity entity, InitialWindowView initialWindowView) {
 		ActionListener[] fileMenuListeners = {new saveMenuListener(),new exitMenuListener()};
 		this.view = view;
@@ -198,7 +199,7 @@ public class QuizCreationController implements Serializable {
 			if(tempQController.getqImgFile()!=null)
 			{
 				questionImageName= tempQController.getqImgFile().getName();
-//				questionImagePath= tempQController.getqImgFile().getPath();
+
 			}
 			htmlBuilder.addQuestionData(i+1, tempQpanel.getTextAreaQ().getText(), questionImageName);
 			String answer="";
@@ -240,10 +241,9 @@ public class QuizCreationController implements Serializable {
 			htmlBuilder.writeHtml(entity.getQuizFormFolder().getCanonicalPath()+"/"+entity.getName());
 			initialWindowView.setTree(new JTree(InitialWindowView.filesTree(new File(new File(".").getCanonicalPath()+"/OnlineQuizChecker"))));
 			QuizObjectEntity quizObjectEntity = new QuizObjectEntity(entity, qPanels);
-			FileOutputStream fos = new FileOutputStream(entity.getQuizFormFolder().getCanonicalPath()+"/"+entity.getName()+".ser");
-			ObjectOutputStream oos = new ObjectOutputStream(fos);
-			oos.writeObject(quizObjectEntity);
-			oos.close();
+			String path = entity.getQuizFormFolder().getCanonicalPath()+"/"+entity.getName()+".ser";
+			ObjectFileManager fileManager = new ObjectFileManager();
+			fileManager.saveObject(quizObjectEntity, path);
 			JOptionPane.showMessageDialog(null, "All of the data saved successfully");
 
 		} catch (TransformerException e1) {
@@ -263,35 +263,12 @@ public class QuizCreationController implements Serializable {
                 recursiveDelete(f);
             }
         }
-//        if(fileCanBeDeleted(file)&&!file.isDirectory())
         if((file.getName().equals("Question1D.PNG")||file.getName().equals("Answer1D.PNG"))
         		&&!file.isDirectory())
         file.delete();
     }
 	
-//	private boolean fileCanBeDeleted(File file)
-//	{
-//		for(int i=0;i<qPanels.size();i++)
-//		{
-//			if(qPanels.get(i).getqImgFile()!=null)
-//			{
-////				if(qPanels.get(i).getqImgFile().getPath().equals(file.getPath()))
-//				if(("Question"+(i+1)+".PNG").equals(file.getName()))
-//				{	
-//					return false;
-//				}
-//			}
-//			if(qPanels.get(i).getaImgFile()!=null)
-//			{
-////				if(qPanels.get(i).getaImgFile().getPath().equals(file.getPath()))
-//				if(("Answer"+(i+1)+".PNG").equals(file.getName()))
-//				{
-//					return false;
-//				}
-//			}
-//		}
-//		return true;
-//	}
+
 	class exitMenuListener implements ActionListener
 	{
 		private int exitFlag;
@@ -302,18 +279,7 @@ public class QuizCreationController implements Serializable {
 			exitFlag=JOptionPane.showConfirmDialog(null,"You made an unsaved changes, all of this changes will be lost,\n do you want to keep the application progress?","Alert",JOptionPane.YES_NO_OPTION);
 			if(exitFlag==JOptionPane.YES_OPTION)
 				{
-//				if(saveComplete==0)
-//				{
-//				//	entity.getQuizFormFolder().delete();
-//					try {
-//						initialWindowView.setTree(new JTree(InitialWindowView.filesTree(new File(new File(".").getCanonicalPath()+"/OnlineQuizChecker"))));
-//					} catch (IOException e1) {
-//						// TODO Auto-generated catch block
-//						e1.printStackTrace();
-//					}
-//				}
-//		///		for(int i=0;i<qPanels.size();i++)////////////////////////////////////
-//		///			qPanels.get(i).renameQandAImagesToOrigin();///////////////
+//			
 				for(File file: entity.getQuizFormFolder().listFiles())
 				{
 					if(file.getName().endsWith(".PNG"))
@@ -326,16 +292,7 @@ public class QuizCreationController implements Serializable {
 			}
 			else
 			{	
-//				try {
-//					if(saveComplete==0)
-//					{
-//						//entity.getQuizFormFolder().delete();
-//						
-//						
-//						JTree newTree = new JTree(InitialWindowView.filesTree(new File(new File(".").getCanonicalPath()+"/OnlineQuizChecker")));
-//						initialWindowView.setTree(newTree);
-//						
-//					}
+
 					MainFrameController.view.changeContentPane(initialWindowView);
 					MainFrameController.view.removeWindowListener(windowListener);
 					MainFrameController.view.addWindowListener(MainFrameController.view.windowListener);

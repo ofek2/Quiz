@@ -569,6 +569,13 @@ public class InitialWindowView extends ViewPanel {
 	public void setQuizzes(JComboBox<String> quizzes) {
 		this.quizzes = quizzes;
 	}
+	
+	public JComboBox<String> getQuizzesToGrade() {
+		return quizzesToGrade;
+	}
+	public void setQuizzesToGrade(JComboBox<String> quizzesToGrade) {
+		this.quizzesToGrade = quizzesToGrade;
+	}
 	public JTextField getNewQuizName() {
 		return newQuizName;
 	}
