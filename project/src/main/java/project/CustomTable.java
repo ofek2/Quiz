@@ -34,8 +34,10 @@ public class CustomTable extends JTable{
 			studentsArr[i][2] = (String)"Not yet graded";
 			studentsArr[i][3] = students.get(i).getStudentName();
 		}
-//		jTable = ;
-		GradingWindowView.setTable(new JTable(studentsArr,new String[] {"Student Id", "Student Name", "Grade", "Options"}));
+		JTable jTable = new JTable(studentsArr,new String[] {"Student Id", "Student Name", "Grade", "Options"});
+		jTable.getColumn("Options").setCellRenderer(new ButtonRenderer());
+		jTable.getColumn("Options").setCellEditor( new ButtonEditor(new JCheckBox()));
+		GradingWindowView.setTable(jTable);
 		//		System.out.println(studentsArr[0][0]);
 //		getModel().setValueAt(studentsArr[0][0],1,0 );
 //		setModel(new DefaultTableModel(studentsArr,new String[] {"Student Id", "Student Name", "Grade", "Options"}));
