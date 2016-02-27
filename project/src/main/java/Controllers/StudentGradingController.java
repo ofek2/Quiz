@@ -19,7 +19,10 @@ public class StudentGradingController {
 
 		public void actionPerformed(ActionEvent e) {
 			// TODO Auto-generated method stub
+			
+			
 			GradingOperation gradingOperation = new GradingOperation(view);
+			MainFrameController.view.changeContentPane(gradingOperation);
 		}
 		
 	}

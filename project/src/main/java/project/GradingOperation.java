@@ -4,9 +4,11 @@ import java.io.File;
 import java.io.IOException;
 
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.beans.value.ObservableValue;
 import javafx.concurrent.Worker;
 import javafx.concurrent.Worker.State;
+import javafx.embed.swing.JFXPanel;
 import javafx.geometry.HPos;
 import javafx.geometry.VPos;
 import javafx.scene.Node;
@@ -23,32 +25,39 @@ import javax.swing.event.ChangeListener;
 
 import Views.Main;
 import Views.StudentGradingPanel;
+import Views.ViewPanel;
 import netscape.javascript.JSObject;
 
-@SuppressWarnings("restriction")
-public class GradingOperation extends Application {
-	private Scene scene;
+
+public class GradingOperation extends ViewPanel{
+	//private final Scene scene;
+	private final JFXPanel fxPanel;
 	private StudentGradingPanel studentGradingPanel;
 
 	public GradingOperation(StudentGradingPanel studentGradingPanel) {
 		this.studentGradingPanel = studentGradingPanel;
-		launch(Main.mainArgs);
-	}
-
-	@Override
-	public void start(Stage stage) {
-		// create the scene
-		stage.setTitle("Web View");
-		scene = new Scene(new Browser(), 750, 500, Color.web("#666970"));
-		stage.setScene(scene);
-		// scene.getStylesheets().add("webviewsample/BrowserToolbar.css");
-		stage.show();
+	    fxPanel = new JFXPanel();
 		
+		add(fxPanel);
+		  Platform.runLater(new Runnable() {
+		      @Override
+		      public void run() {
+		        initFX(fxPanel);
+		      }
+		    });
 	}
 
-//	 public static void main(String[] args){
-//	 launch(args);
-//	 }
+	
+
+
+	protected void initFX(JFXPanel fxPanel) {
+		// TODO Auto-generated method stub
+		final Scene scene = new Scene(new Browser(), 750, 500, Color.web("#666970"));
+		fxPanel.setScene(scene);
+	}
+
+
+
 
 	class Browser extends Region {
 
@@ -62,7 +71,7 @@ public class GradingOperation extends Application {
 			try {
 				webEngine
 						.load(new File(".").getCanonicalPath()
-								+"/OnlineQuizChecker/2,b/Quizzes/1/StudentsAnswers/1.html");
+								+"/OnlineQuizChecker/1,sss/Quizzes/shit/StudentsAnswers/shit.html");
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -116,4 +125,6 @@ public class GradingOperation extends Application {
 			System.out.print(str);
 		}
 	}
+
+	
 }
