@@ -14,7 +14,8 @@ import javax.swing.table.DefaultTableModel;
 
 public class GradingWindowView extends ViewPanel {
 	private JMenu mnFile;
-	public CustomTable table;
+	public static JTable table;
+	public static JScrollPane scrollPane;
 
 	/**
 	 * Create the panel.
@@ -37,19 +38,19 @@ public class GradingWindowView extends ViewPanel {
 		JMenuItem mntmExit = new JMenuItem("Exit");
 		mnFile.add(mntmExit);
 		
-		JScrollPane scrollPane = new JScrollPane();
+		scrollPane = new JScrollPane();
 		scrollPane.setBounds(MainFrameController.view.getContentPane().getWidth()/4,70, MainFrameController.view.getContentPane().getWidth()/2, MainFrameController.view.getContentPane().getHeight()-100);
 		add(scrollPane);
 		
-		table = new CustomTable();
-		table.setModel(new DefaultTableModel(
-			new Object[][] {
-				{null, null, null, null},
-			},
-			new String[] {
-				"Student Id", "Student Name", "Grade", "Options"
-			}
-		));
+//		table = new CustomTable();
+//		table.setModel(new DefaultTableModel(
+//			new Object[][] {
+//				{null, null, null, null},
+//			},
+//			new String[] {
+//				"Student Id", "Student Name", "Grade", "Options"
+//			}
+//		));
 		scrollPane.setViewportView(table);
 
 	}
@@ -65,11 +66,12 @@ public class GradingWindowView extends ViewPanel {
 	public void setMnFile(JMenu mnFile) {
 		this.mnFile = mnFile;
 	}
-	public CustomTable getTable() {
+	public JTable getTable() {
 		return table;
 	}
-	public void setTable(CustomTable table) {
-		this.table = table;
+	public static void setTable(JTable customTable) {
+		table = customTable;
+		scrollPane.setViewportView(table);
 	}
 	
 }
