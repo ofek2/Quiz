@@ -10,6 +10,7 @@ import javax.swing.table.DefaultTableModel;
 
 import Entities.StudentEntity;
 import Views.GradingWindowView;
+import Views.StudentGradingPanel;
 import Views.ViewPanel;
 import project.CustomTable;
 
@@ -32,10 +33,22 @@ public class GradingWindowController {
 		view.addFileListeners(fileListeners);
 		
 	}
+	/*public void loadStudentsToTable(ArrayList<StudentEntity> students)
+	{
+	//	CustomTable studentsTable = new CustomTable(students);
+		view.table= new CustomTable(students);
+		view.revalidate();
+	}*/
 	public void loadStudentsToTable(ArrayList<StudentEntity> students)
 	{
-		CustomTable studentsTable = new CustomTable(students);
-//		view.setTable(studentsTable);
+		for(int i=0;i<students.size();i++)
+		{
+			StudentGradingPanel sview = new StudentGradingPanel(students.get(i).getStudentId(), students.get(i).getStudentName());
+			StudentGradingController scontrol = new StudentGradingController(sview);
+			view.tablePanel.add(sview);
+		
+		}
+		view.tablePanel.revalidate();
 	}
 	class SendListener implements ActionListener
 	{
