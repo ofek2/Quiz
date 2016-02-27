@@ -424,7 +424,7 @@ public class InitialWindowController {
 					String quizFile = quizName+".ser";
 					String path;
 					try {
-						path = coursesFiles.get(view.getCoursesIdsEdit().getSelectedIndex()).getCourseFolder().getCanonicalPath()+"/Quizzes/"+quizName+"/"+quizFile;
+						path = coursesFiles.get(view.getCoursesIdsEdit().getSelectedIndex()).getCourseFolder().getCanonicalPath()+"/Quizzes/"+quizName+"/Form/"+quizFile;
 						FileInputStream fis;
 						fis = new FileInputStream(path);
 						ObjectInputStream ois = new ObjectInputStream(fis);
@@ -619,7 +619,8 @@ public class InitialWindowController {
 				                		view.getTree().setComponentPopupMenu(removeStudentPopupMenu(chosenFileName
 				                				,selectedNode.getParent().getParent().toString()));
 				                	else if(selectedNode.getParent().toString().equals("Quizzes"))
-				                		view.getTree().setComponentPopupMenu(quizPopupMenu(chosenFileName,selectedNode.getParent().toString())); 
+				                		view.getTree().setComponentPopupMenu(quizPopupMenu(chosenFileName,selectedNode
+				                				.getParent().getParent().toString())); 
 				                } else
 				                	view.getTree().setComponentPopupMenu(null);
 
@@ -644,7 +645,7 @@ public class InitialWindowController {
 						public void actionPerformed(ActionEvent e) {
 							// TODO Auto-generated method stub
 							try {
-								removeFolder(new File(new File(".").getCanonicalPath()+"/OnlineQuizChecker"+"/"+quizCourseName+"/"+quizName));
+								removeFolder(new File(new File(".").getCanonicalPath()+"/OnlineQuizChecker"+"/"+quizCourseName+"/Quizzes/"+quizName));
 								view.setTree(new JTree(InitialWindowView.filesTree(new File(new File(".").getCanonicalPath()+"/OnlineQuizChecker"))));
 							} catch (IOException e1) {
 								// TODO Auto-generated catch block
