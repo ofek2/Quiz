@@ -553,6 +553,10 @@ public class InitialWindowController {
 					GradingWindowController gradingWindowController = new GradingWindowController(gradingWindowView);
 					MainFrameController.view.changeContentPane(gradingWindowView);
 					gradingWindowController.setPreviousView(view);
+					ArrayList<StudentEntity> students = new ArrayList<StudentEntity>();
+					students.add(new StudentEntity("1,sss", "31314151","shit","someshit@wkra.cd"));
+					students.add(new StudentEntity("1,sss", "234141","shst","somdat@wkra.cd"));
+					gradingWindowController.loadStudentsToTable(students);
 				}
 				
 			}

@@ -14,7 +14,7 @@ import javax.swing.table.DefaultTableModel;
 
 public class GradingWindowView extends ViewPanel {
 	private JMenu mnFile;
-	private CustomTable table;
+	public CustomTable table;
 
 	/**
 	 * Create the panel.
