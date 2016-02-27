@@ -1,6 +1,8 @@
 package Views;
 import javax.swing.JMenuBar;
 import Controllers.MainFrameController;
+import project.CustomTable;
+
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
 import java.awt.Color;
@@ -12,7 +14,7 @@ import javax.swing.table.DefaultTableModel;
 
 public class GradingWindowView extends ViewPanel {
 	private JMenu mnFile;
-	private JTable table;
+	private CustomTable table;
 
 	/**
 	 * Create the panel.
@@ -39,7 +41,7 @@ public class GradingWindowView extends ViewPanel {
 		scrollPane.setBounds(MainFrameController.view.getContentPane().getWidth()/4,70, MainFrameController.view.getContentPane().getWidth()/2, MainFrameController.view.getContentPane().getHeight()-100);
 		add(scrollPane);
 		
-		table = new JTable();
+		table = new CustomTable();
 		table.setModel(new DefaultTableModel(
 			new Object[][] {
 				{null, null, null, null},
@@ -63,10 +65,10 @@ public class GradingWindowView extends ViewPanel {
 	public void setMnFile(JMenu mnFile) {
 		this.mnFile = mnFile;
 	}
-	public JTable getTable() {
+	public CustomTable getTable() {
 		return table;
 	}
-	public void setTable(JTable table) {
+	public void setTable(CustomTable table) {
 		this.table = table;
 	}
 	
