@@ -52,7 +52,7 @@ public class GradingOperation extends ViewPanel{
 
 	protected void initFX(JFXPanel fxPanel) {
 		// TODO Auto-generated method stub
-		final Scene scene = new Scene(new Browser(), 750, 500, Color.web("#666970"));
+		final Scene scene = new Scene(new Browser(), 1250, 800, Color.web("#666970"));
 		fxPanel.setScene(scene);
 	}
 
@@ -70,7 +70,7 @@ public class GradingOperation extends ViewPanel{
 			// load the web page
 			try {
 				webEngine
-						.load(new File(".").getCanonicalPath()
+						.load("file:///"+new File(".").getCanonicalPath()
 								+"/OnlineQuizChecker/1,sss/Quizzes/shit/StudentsAnswers/shit.html");
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
