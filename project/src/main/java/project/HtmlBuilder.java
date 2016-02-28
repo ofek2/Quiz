@@ -78,6 +78,7 @@ public class HtmlBuilder {
 		Element input = document.createElement("input");
 		input.setAttribute("id", "score");
 		input.setAttribute("type", "hidden");
+		input.setAttribute("onchange", "Desktop.receiveInput(this.value)");
 		scoreSpan.appendChild(input);
 		scoreSpan.appendChild(document.createTextNode("/"));
 		

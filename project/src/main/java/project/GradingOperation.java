@@ -33,9 +33,10 @@ public class GradingOperation extends ViewPanel{
 	//private final Scene scene;
 	private final JFXPanel fxPanel;
 	private StudentGradingPanel studentGradingPanel;
-
-	public GradingOperation(StudentGradingPanel studentGradingPanel) {
+	private String studentQuizPath;
+	public GradingOperation(StudentGradingPanel studentGradingPanel, String studentQuizPath) {
 		this.studentGradingPanel = studentGradingPanel;
+		this.studentQuizPath = studentQuizPath;
 	    fxPanel = new JFXPanel();
 		
 		add(fxPanel);
@@ -68,14 +69,15 @@ public class GradingOperation extends ViewPanel{
 			// apply the styles
 			getStyleClass().add("browser");
 			// load the web page
-			try {
+//			try {
 				webEngine
-						.load("file:///"+new File(".").getCanonicalPath()
-								+"/OnlineQuizChecker/1,sss/Quizzes/shit/StudentsAnswers/shit.html");
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+						.load("file:///"+studentQuizPath);
+//				new File(".").getCanonicalPath()
+//				+"/OnlineQuizChecker/1,sss/Quizzes/shit/StudentsAnswers/shit.html");
+//			} catch (IOException e) {
+//				// TODO Auto-generated catch block
+//				e.printStackTrace();
+//			}
 			// add the web view to the scene
 			getChildren().add(browser);
 			webEngine
@@ -87,12 +89,12 @@ public class GradingOperation extends ViewPanel{
 
 									JSObject jsobj = (JSObject) webEngine
 											.executeScript("window");
-									jsobj.setMember("app", new Bridge());
+									jsobj.setMember("Desktop", new Desktop());
 								}
 							});
 
 			JSObject jsobj = (JSObject) webEngine.executeScript("window");
-			jsobj.setMember("app", new Bridge());
+			jsobj.setMember("Desktop", new Desktop());
 		}
 
 		private Node createSpacer() {
@@ -119,8 +121,8 @@ public class GradingOperation extends ViewPanel{
 		}
 	}
 
-	public class Bridge {
-		public void exit(String str) {
+	public class Desktop {
+		public void receiveInput(String str) {
 			// Platform.exit();
 			System.out.print(str);
 		}

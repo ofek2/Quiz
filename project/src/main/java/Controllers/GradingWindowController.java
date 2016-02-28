@@ -35,12 +35,17 @@ public class GradingWindowController {
 		
 	}
 
-	public void loadStudentsToTable(ArrayList<StudentQuizEntity> students)
+//	public void loadStudentsToTable(ArrayList<StudentQuizEntity> students)
+	public void loadStudentsToTable(ArrayList<String> students, ArrayList<String> studentsQuizzesPaths)
 	{
 		for(int i=0;i<students.size();i++)
 		{
-			StudentGradingPanel sview = new StudentGradingPanel(students.get(i).getStudentEntity().getStudentId(), students.get(i).getStudentEntity().getStudentName());
-			StudentGradingController scontrol = new StudentGradingController(sview);
+//			StudentGradingPanel sview = new StudentGradingPanel(
+//			students.get(i).getStudentEntity().getStudentId(),
+//			students.get(i).getStudentEntity().getStudentName());
+			StudentGradingPanel sview = new StudentGradingPanel(students.get(i));
+			StudentGradingController scontrol = new StudentGradingController(sview
+					,studentsQuizzesPaths.get(i));
 			view.tablePanel.add(sview);
 		
 		}

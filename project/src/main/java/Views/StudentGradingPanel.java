@@ -17,7 +17,8 @@ public class StudentGradingPanel extends JPanel{
 	private JLabel lblStudentname;
 	private JButton gradeBtn;
 	private JLabel lblGrade;
-	public StudentGradingPanel(String studentId,String studentName)
+	public StudentGradingPanel(String studentId)
+//			,String studentName)
 	{
 		setLayout(new GridLayout(0, 4, 0, 0));
 		setMaximumSize(new Dimension(10000, 40));
@@ -26,10 +27,10 @@ public class StudentGradingPanel extends JPanel{
 		lblStudentid.setHorizontalAlignment(SwingConstants.CENTER);
 		add(lblStudentid);
 		
-		lblStudentname = new JLabel(studentName);
-		lblStudentname.setBorder(new LineBorder(new Color(0, 0, 0)));
-		lblStudentname.setHorizontalAlignment(SwingConstants.CENTER);
-		add(lblStudentname);
+//		lblStudentname = new JLabel(studentName);
+//		lblStudentname.setBorder(new LineBorder(new Color(0, 0, 0)));
+//		lblStudentname.setHorizontalAlignment(SwingConstants.CENTER);
+//		add(lblStudentname);
 		
 		lblGrade = new JLabel("Not yet graded");
 		lblGrade.setBorder(new LineBorder(new Color(0, 0, 0)));

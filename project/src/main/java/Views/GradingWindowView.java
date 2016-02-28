@@ -54,18 +54,20 @@ public class GradingWindowView extends ViewPanel {
 		tablePanel = new JPanel();
 		tablePanel.setLayout(new BoxLayout(tablePanel, BoxLayout.Y_AXIS));
 		JPanel titlePanel = new JPanel();
-		titlePanel.setLayout(new GridLayout(0, 4, 0, 0));
+//		titlePanel.setLayout(new GridLayout(0, 4, 0, 0));
+		titlePanel.setLayout(new GridLayout(0, 3, 0, 0));
 		titlePanel.setMaximumSize(new Dimension(10000, 60));
 		titlePanel.setBackground(Color.white);
+		
 		JLabel lblStudentid = new JLabel("Student Id");
 		lblStudentid.setBorder(new LineBorder(new Color(0, 0, 0)));
 		lblStudentid.setHorizontalAlignment(SwingConstants.CENTER);
 		titlePanel.add(lblStudentid);
 		
-		JLabel lblStudentname = new JLabel("Student Name");
-		lblStudentname.setBorder(new LineBorder(new Color(0, 0, 0)));
-		lblStudentname.setHorizontalAlignment(SwingConstants.CENTER);
-		titlePanel.add(lblStudentname);
+//		JLabel lblStudentname = new JLabel("Student Name");
+//		lblStudentname.setBorder(new LineBorder(new Color(0, 0, 0)));
+//		lblStudentname.setHorizontalAlignment(SwingConstants.CENTER);
+//		titlePanel.add(lblStudentname);
 		
 		JLabel lblGrade = new JLabel("Grade");
 		lblGrade.setBorder(new LineBorder(new Color(0, 0, 0)));

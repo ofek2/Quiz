@@ -32,7 +32,7 @@ public class ObjectFileManager {
 		}
 		return true;
 	}
-	public Object loadObject(String path)
+	public static Object loadObject(String path)
 	{
 		FileInputStream fis;
 		try {
