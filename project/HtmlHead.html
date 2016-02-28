@@ -175,20 +175,34 @@
         }
     }
 </script>
-  
+          <script>
+            function updateFinalScore()
+            {
+                var finalScore=parseInt("0");
+                var inputs = document.getElementsByTagName("input");
+                for(var i=0;i!=inputs.length;i++)
+                {
+                 
+                    if(inputs[i].getAttribute("id") == "score")
+                    finalScore+=Number(inputs[i].value);
+                }
+               
+               document.getElementById("finalScore").innerHTML=finalScore;
+            }
+        </script>
  		       <style>
             textarea {
                 width:100%;
             }
-            h1 {
-                font-size:7vw;
+                     h1 {
+                font-size:24px;
             }
             p {
-                font-size:4vw;
+                font-size:14px;
             }
-            
-            #score {
-                width:26;
+           #score {
+                width:30px;
+                color:black;
             }
             #sketchpad {
                 background-color:white;

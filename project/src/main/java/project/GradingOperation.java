@@ -74,7 +74,8 @@ public class GradingOperation extends ViewPanel implements Runnable{
 		gradingMenu.add(mntmExit);
 		mntmExit.addActionListener(new ExitListener());
 //		ActionListener[] fileListeners = {new SaveListener(),new ExitListener()};
-		fxPanel.setSize(1250, 800);
+		fxPanel.setBounds(MainFrameController.view.getContentPane().getWidth()/8,70,MainFrameController.view.getContentPane().getWidth()*6/8, 800);
+		fxPanel.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
 		add(fxPanel);
 //		run = new Runnable() {///////////////////
 //			
@@ -103,14 +104,14 @@ public class GradingOperation extends ViewPanel implements Runnable{
 	@Override
 	public void run() {
 		// TODO Auto-generated method stub
-		System.out.println("1");
+		//System.out.println("1");
 		initFX(fxPanel);
 	}
 	
 
 	protected void initFX(JFXPanel fxPanel) {
 		// TODO Auto-generated method stub
-		final Scene scene = new Scene(new Browser(), 1250, 800, Color.web("#666970"));
+		final Scene scene = new Scene(new Browser(), MainFrameController.view.getContentPane().getWidth()*6/8, 800, Color.web("#666970"));
 		fxPanel.setScene(scene);
 		
 	}

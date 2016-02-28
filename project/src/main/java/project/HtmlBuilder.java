@@ -83,31 +83,24 @@ public class HtmlBuilder {
 		divPrim.appendChild(divHead);
 		
 		Element h1 = document.createElement("h1");
-		Element rowSpan = document.createElement("span");
-		rowSpan.setAttribute("class", "row");
+		divHead.appendChild(h1);
+	
+		Element div = document.createElement("div");
+		div.setAttribute("align","right");
 		
-		Element titleSpan = document.createElement("span");
-		titleSpan.appendChild(document.createTextNode("Question "+qNumber));
-		titleSpan.setAttribute("class", "col-xs-8");
-		rowSpan.appendChild(titleSpan);
-		
-		Element scoreSpan = document.createElement("span");
-		scoreSpan.setAttribute("class", "col-lg-4");
 		Element input = document.createElement("input");
 		input.setAttribute("id", "score");
 		input.setAttribute("type", "hidden");
+		input.setAttribute("maxlength", "2");
 		input.setAttribute("onchange", "Desktop.receiveInput(this.value,"+qNumber+");updateFinalScore();");
-		scoreSpan.appendChild(input);
-		scoreSpan.appendChild(document.createTextNode("/"));
-		
+		div.appendChild(input);
+		div.appendChild(document.createTextNode("/"));
 		Element qScore = document.createElement("qScore");
 		qScore.appendChild(document.createTextNode(score));
-		scoreSpan.appendChild(qScore);
-		rowSpan.appendChild(scoreSpan);
-		h1.appendChild(rowSpan);
-	
-		divHead.appendChild(h1);
-		// add h1 element
+		div.appendChild(qScore);
+		h1.appendChild(div);
+		h1.appendChild(document.createTextNode("Question "+qNumber));
+		
 		questions.add(questionElement);
 		mainDivElement.appendChild(questionElement);
 	}
