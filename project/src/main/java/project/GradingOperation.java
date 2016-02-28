@@ -122,9 +122,9 @@ public class GradingOperation extends ViewPanel{
 	}
 
 	public class Desktop {
-		public void receiveInput(String str) {
+		public void receiveInput(String score,String questionNumber) {
 			// Platform.exit();
-			System.out.print(str);
+			System.out.print(score+","+questionNumber);
 		}
 	}
 
