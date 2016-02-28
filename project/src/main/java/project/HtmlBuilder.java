@@ -50,7 +50,25 @@ public class HtmlBuilder {
 		mainDivElement.setAttribute("class", "container-fluid");
 		bodyElement.appendChild(mainDivElement);
 	}
-	
+	public void addTitleInfo(String quizTitle)
+	{
+		Element qTitle = document.createElement("QTitle");
+		mainDivElement.appendChild(qTitle);
+		Element div = document.createElement("div");
+		div.setAttribute("class", "jumbotron");
+		qTitle.appendChild(div);
+		Element header = document.createElement("h1");
+		header.setAttribute("id","title");
+		header.setAttribute("align","center");
+		header.appendChild(document.createTextNode(quizTitle));
+		div.appendChild(header);
+		Element finalScore = document.createElement("label");
+		finalScore.appendChild(document.createTextNode("Final Score:"));
+		Element scoreText = document.createElement("u");
+		scoreText.setAttribute("id", "finalScore");
+		finalScore.appendChild(scoreText);
+		div.appendChild(finalScore);
+	}
 	public void addQuestion(int qNumber,String type,String score)
 	{
 		Element questionElement = document.createElement("Q"+qNumber);
@@ -78,7 +96,7 @@ public class HtmlBuilder {
 		Element input = document.createElement("input");
 		input.setAttribute("id", "score");
 		input.setAttribute("type", "hidden");
-		input.setAttribute("onchange", "Desktop.receiveInput(this.value,"+qNumber+")");
+		input.setAttribute("onchange", "Desktop.receiveInput(this.value,"+qNumber+");updateFinalScore();");
 		scoreSpan.appendChild(input);
 		scoreSpan.appendChild(document.createTextNode("/"));
 		

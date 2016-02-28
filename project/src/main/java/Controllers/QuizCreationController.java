@@ -174,7 +174,7 @@ public class QuizCreationController implements Serializable {
 		}
 		htmlBuilder.initiateHtml();
 		// -------add the title information to the html file here---------///
-		
+		htmlBuilder.addTitleInfo(entity.getName());
 		//--------------------------------------------------------------------
 		
 		for (int i=0;i<qPanels.size();i++)
