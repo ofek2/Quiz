@@ -20,7 +20,7 @@ public class StudentGradingPanel extends JPanel{
 	public StudentGradingPanel(String studentId)
 //			,String studentName)
 	{
-		setLayout(new GridLayout(0, 4, 0, 0));
+		setLayout(new GridLayout(0, 3, 0, 0));
 		setMaximumSize(new Dimension(10000, 40));
 		lblStudentid = new JLabel(studentId);
 		lblStudentid.setBorder(new LineBorder(new Color(0, 0, 0)));
