@@ -41,7 +41,7 @@ import netscape.javascript.JSObject;
 
 public class GradingOperation extends ViewPanel implements Runnable{
 	//private final Scene scene;
-	private final JFXPanel fxPanel;
+	private JFXPanel fxPanel;
 	private StudentGradingPanel studentGradingPanel;
 	private String studentQuizPath;
 	private JMenu gradingMenu;
@@ -56,6 +56,7 @@ public class GradingOperation extends ViewPanel implements Runnable{
 		this.previousView = previousView;
 		setLayout(null);
 		fxPanel = new JFXPanel();
+		Platform.setImplicitExit(false);
 		JMenuBar menuBar = new JMenuBar();
 		menuBar.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
 		menuBar.setBackground(java.awt.Color.WHITE);
@@ -143,6 +144,7 @@ public class GradingOperation extends ViewPanel implements Runnable{
 //			Platform.runLater(new Thread(run));
 //			if(thread.isAlive())
 //				thread.destroy();
+//			Platform.exit();
 			MainFrameController.view.changeContentPane((ViewPanel)previousView);
 //			thread.interrupt();
 
