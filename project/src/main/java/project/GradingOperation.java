@@ -1,7 +1,12 @@
 package project;
 
+import java.awt.BorderLayout;
+import java.awt.Container;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.IOException;
+import java.lang.management.PlatformLoggingMXBean;
 
 import javafx.application.Application;
 import javafx.application.Platform;
@@ -21,43 +26,130 @@ import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
 import javafx.stage.Stage;
 
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
+import javax.swing.border.EtchedBorder;
 import javax.swing.event.ChangeListener;
 
+import Controllers.MainFrameController;
 import Views.Main;
 import Views.StudentGradingPanel;
 import Views.ViewPanel;
 import netscape.javascript.JSObject;
 
 
-public class GradingOperation extends ViewPanel{
+public class GradingOperation extends ViewPanel implements Runnable{
 	//private final Scene scene;
 	private final JFXPanel fxPanel;
 	private StudentGradingPanel studentGradingPanel;
 	private String studentQuizPath;
-	public GradingOperation(StudentGradingPanel studentGradingPanel, String studentQuizPath) {
+	private JMenu gradingMenu;
+	private Container previousView;
+	private Runnable run;
+	private Thread thread;
+	@SuppressWarnings("deprecation")
+	public GradingOperation(StudentGradingPanel studentGradingPanel,
+			String studentQuizPath, Container previousView) {
 		this.studentGradingPanel = studentGradingPanel;
 		this.studentQuizPath = studentQuizPath;
-	    fxPanel = new JFXPanel();
+		this.previousView = previousView;
+		setLayout(null);
+		fxPanel = new JFXPanel();
+		JMenuBar menuBar = new JMenuBar();
+		menuBar.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
+		menuBar.setBackground(java.awt.Color.WHITE);
+		menuBar.setBounds(0, 0, MainFrameController.view.getWidth(), 30);
+		add(menuBar);
 		
+		gradingMenu = new JMenu("File");
+		menuBar.add(gradingMenu);
+		
+		JMenuItem mntmSave = new JMenuItem("Save");
+		gradingMenu.add(mntmSave);
+		mntmSave.addActionListener(new SaveListener());
+		
+		JMenuItem mntmExit = new JMenuItem("Exit");
+		gradingMenu.add(mntmExit);
+		mntmExit.addActionListener(new ExitListener());
+//		ActionListener[] fileListeners = {new SaveListener(),new ExitListener()};
+		fxPanel.setSize(1250, 800);
 		add(fxPanel);
-		  Platform.runLater(new Runnable() {
-		      @Override
-		      public void run() {
-		        initFX(fxPanel);
-		      }
-		    });
+//		run = new Runnable() {///////////////////
+//			
+//			@Override
+//			public void run() {
+//				// TODO Auto-generated method stub
+//				initFX(fxPanel);
+//			}
+//		};
+//		if(thread.isAlive())
+//			thread.destroy();
+		thread = new Thread(this);/////////////
+//		thread.start();
+		
+		Platform.runLater(thread);//////////////////
+//		Platform.runLater(this);
+//		  Platform.runLater(new Runnable() {
+//		      @Override
+//		      public void run() {
+//		    	  System.out.println("1");
+//		        initFX(fxPanel);
+//		      }
+//		    });
 	}
-
 	
-
+	@Override
+	public void run() {
+		// TODO Auto-generated method stub
+		System.out.println("1");
+		initFX(fxPanel);
+	}
+	
 
 	protected void initFX(JFXPanel fxPanel) {
 		// TODO Auto-generated method stub
 		final Scene scene = new Scene(new Browser(), 1250, 800, Color.web("#666970"));
 		fxPanel.setScene(scene);
+		
 	}
 
+	
+//	public void addFileListeners(ActionListener[] listener)
+//	{
+//		for (int i = 0; i < listener.length; i++) {
+//			gradingMenu.getItem(i).addActionListener(listener[i]);
+//		}
+//	}
 
+	
+	class SaveListener implements ActionListener
+	{
+
+		public void actionPerformed(ActionEvent e) {
+			// TODO Auto-generated method stub
+			
+			
+		}
+		
+	}
+	
+	class ExitListener implements ActionListener
+	{
+
+//		@SuppressWarnings("deprecation")
+		public void actionPerformed(ActionEvent e) {
+			// TODO Auto-generated method stub
+//			Platform.runLater(new Thread(run));
+//			if(thread.isAlive())
+//				thread.destroy();
+			MainFrameController.view.changeContentPane((ViewPanel)previousView);
+//			thread.interrupt();
+
+//			thread.stop();
+		}
+		
+	}
 
 
 	class Browser extends Region {
@@ -128,5 +220,5 @@ public class GradingOperation extends ViewPanel{
 		}
 	}
 
-	
+
 }

@@ -45,7 +45,7 @@ public class GradingWindowController {
 //			students.get(i).getStudentEntity().getStudentName());
 			StudentGradingPanel sview = new StudentGradingPanel(students.get(i));
 			StudentGradingController scontrol = new StudentGradingController(sview
-					,studentsQuizzesPaths.get(i));
+					,studentsQuizzesPaths.get(i),view);
 			view.tablePanel.add(sview);
 		
 		}

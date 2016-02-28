@@ -569,6 +569,7 @@ public class InitialWindowController {
 			public void initiateGradingProcess(ArrayList<String> students, ArrayList<String> studentsQuizzesPaths) {
 				GradingWindowView gradingWindowView = new GradingWindowView();
 				GradingWindowController gradingWindowController = new GradingWindowController(gradingWindowView);
+				menuController.gradeQuizDialog.setVisible(false);
 				MainFrameController.view.changeContentPane(gradingWindowView);
 				gradingWindowController.setPreviousView(view);
 				gradingWindowController.loadStudentsToTable(students,studentsQuizzesPaths);

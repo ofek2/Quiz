@@ -1,5 +1,6 @@
 package Controllers;
 
+import java.awt.Container;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
@@ -10,11 +11,13 @@ import Views.StudentGradingPanel;
 public class StudentGradingController {
 	public StudentGradingPanel view;
 	private String studentQuizPath;
-	public StudentGradingController(StudentGradingPanel view, String studentQuizPath)
+	private Container previousView;
+	public StudentGradingController(StudentGradingPanel view, String studentQuizPath, Container previousView)
 	{
 		this.view=view;
 		this.view.gradeBtnAddActionListener(new gradeBtnAddActionListener());
 		this.studentQuizPath=studentQuizPath;
+		this.previousView = previousView;
 	}
 	
 	class gradeBtnAddActionListener implements ActionListener
@@ -24,7 +27,7 @@ public class StudentGradingController {
 			// TODO Auto-generated method stub
 			
 			
-			GradingOperation gradingOperation = new GradingOperation(view,studentQuizPath);
+			GradingOperation gradingOperation = new GradingOperation(view,studentQuizPath,previousView);
 			MainFrameController.view.changeContentPane(gradingOperation);
 		}
 		
