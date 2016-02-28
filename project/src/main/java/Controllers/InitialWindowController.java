@@ -48,6 +48,7 @@ public class InitialWindowController {
 	private coursesIdsEditAddItemListener idsEditAddItemListener;
 	private removeStudentCourseCBAddItemListener removeStudentCourseAddItemListener;
 	private removeStudentsIdsCBAddItemListener removeStudentsIdsAddItemListener;
+	private courseIdGradeItemListener courseIdGradeItemListener;
 	public JDialog registerStudentDialog;
 	public JDialog removeStudentDialog;
 
@@ -64,10 +65,11 @@ public class InitialWindowController {
 		idsEditAddItemListener = new coursesIdsEditAddItemListener();
 		removeStudentCourseAddItemListener = new removeStudentCourseCBAddItemListener();
 		removeStudentsIdsAddItemListener = new removeStudentsIdsCBAddItemListener();
+		courseIdGradeItemListener = new courseIdGradeItemListener();
 		view.coursesIdsEditAddItemListener(idsEditAddItemListener);
 		view.removeStudentCourseCBAddItemListener(removeStudentCourseAddItemListener);
 		view.removeStudentsIdsCBAddItemListener(removeStudentsIdsAddItemListener);
-		view.courseIdGradeAddItemListener(new courseIdGradeItemListener());
+		view.courseIdGradeAddItemListener(courseIdGradeItemListener);
 		view.getTree().addMouseListener(menuController.dialogsBtnsController.popUpMenusController.treeMouseListener());
 
 		// remove.addActionListener(l);
@@ -765,8 +767,9 @@ public class InitialWindowController {
 		public void itemStateChanged(ItemEvent e) {
 			// TODO Auto-generated method stub
 			JComboBox temp = (JComboBox) e.getSource();
-
+			
 			view.loadQuizzesToEditCB(getQuizzesFolder(temp.getSelectedIndex()));
+			
 		}
 
 	}
@@ -776,8 +779,9 @@ public class InitialWindowController {
 		public void itemStateChanged(ItemEvent e) {
 			// TODO Auto-generated method stub
 			JComboBox temp = (JComboBox) e.getSource();
-
+			view.getCourseIdGradeCB().removeItemListener(courseIdGradeItemListener);
 			view.loadQuizzesToGradeCB(getQuizzesFolder(temp.getSelectedIndex()));
+			view.getCourseIdGradeCB().addItemListener(courseIdGradeItemListener);
 		}
 
 	}
@@ -803,8 +807,16 @@ public class InitialWindowController {
 		view.getRemoveCourses().removeAllItems();
 		view.getCoursesIdsEdit().removeItemListener(idsEditAddItemListener);
 		view.getCoursesIdsEdit().removeAllItems();
+		view.getCourseIdGradeCB().removeItemListener(courseIdGradeItemListener);
+		view.getCourseIdGradeCB().removeAllItems();
+		
+		view.getRegisterStudentCourseCB().removeAllItems();
+		view.getCourseIdGradeCB().removeAllItems();
+		
+		view.getCourseIdGradeCB().addItemListener(courseIdGradeItemListener);
 		view.coursesIdsEditAddItemListener(idsEditAddItemListener);
 		//
+	
 		view.getRemoveStudentsIds().removeItemListener(removeStudentsIdsAddItemListener);
 		view.getRemoveStudentCourseCB().removeItemListener(removeStudentCourseAddItemListener);
 		view.getRemoveStudentCourseCB().removeAllItems();
@@ -815,9 +827,13 @@ public class InitialWindowController {
 			view.getRemoveCourses().addItem(item);
 			view.getCoursesIdsEdit().addItem(item);
 			view.getRemoveStudentCourseCB().addItem(item);
+			view.getRegisterStudentCourseCB().addItem(item);
+			view.getCourseIdGradeCB().addItem(item);
 		}
 		view.getRemoveStudentsIds().addItemListener(removeStudentsIdsAddItemListener);
 		view.getRemoveStudentCourseCB().addItemListener(removeStudentCourseAddItemListener);
+		
+		
 		try {
 			view.setTree(new JTree(
 					InitialWindowView.filesTree(new File(new File(".").getCanonicalPath() + "/OnlineQuizChecker"))));
