@@ -349,4 +349,8 @@ public class HtmlBuilder {
 	
 		questions.get(qNumber).getFirstChild().appendChild(divFooter);
 	}
+	public Document getDocument()
+	{
+		return document;
+	}
 }
