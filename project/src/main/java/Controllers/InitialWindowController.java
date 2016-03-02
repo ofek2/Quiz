@@ -32,6 +32,7 @@ import Entities.StudentQuizEntity;
 import Views.GradingWindowView;
 import Views.InitialWindowView;
 import Views.QuizCreationView;
+import Views.ReportsView;
 import project.ObjectFileManager;
 
 public class InitialWindowController {
@@ -154,7 +155,9 @@ public class InitialWindowController {
 
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
-
+				ReportsView reportsView = new ReportsView();
+				ReportsController reportsController = new ReportsController(reportsView,view);
+				MainFrameController.view.changeContentPane(reportsView);
 			}
 
 		}
