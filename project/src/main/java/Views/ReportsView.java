@@ -45,7 +45,6 @@ public class ReportsView extends ViewPanel {
 		reportsInfoPanel = new JPanel();
 		reportsInfoPanel.setBackground(Color.LIGHT_GRAY);
 		reportsInfoPanel.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
-//		reportsInfoPanel.setBounds(191, 11, 237, 263);
 		add(reportsInfoPanel);
 		reportsInfoPanel.setLayout(null);
 		reportsInfoPanel.setBounds(reportsInfoPanelStartX
