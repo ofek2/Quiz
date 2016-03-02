@@ -16,6 +16,7 @@ import javax.xml.transform.stream.StreamResult;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
 
 public class HtmlBuilder {
 
@@ -309,6 +310,13 @@ public class HtmlBuilder {
 			form.appendChild(canvas);
 	
 		}
+	}
+	public void removeLecturerAnswers()
+	{
+		NodeList answers = document.getElementsByTagName("answer");
+		
+		for(int i=0;i<answers.getLength();i++)
+			answers.item(i).getParentNode().removeChild(answers.item(i));
 	}
 	public void writeHtml(String path) throws TransformerException{
 		// write the content into HTML file

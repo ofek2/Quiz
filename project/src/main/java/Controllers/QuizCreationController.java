@@ -209,7 +209,7 @@ public class QuizCreationController implements Serializable {
 				
 				choices = new ArrayList<String>();
 				
-				for (int j=0;j<tempQpanel.getMultipleChoicePanelController().cBfControllers.size()-1;j++)
+				for (int j=0;j<tempQpanel.getMultipleChoicePanelController().cBfControllers.size();j++)
 				{
 					if(tempQpanel.getMultipleChoicePanelController().cBfControllers.get(j).view.getAnswerCheckBox().isSelected())
 						answer+=(j+1)+" ";
@@ -238,6 +238,8 @@ public class QuizCreationController implements Serializable {
 		}
 		
 		try {
+			htmlBuilder.writeHtml(entity.getQuizFormFolder().getCanonicalPath()+"/"+entity.getName()+"WithAnswers");
+			htmlBuilder.removeLecturerAnswers();
 			htmlBuilder.writeHtml(entity.getQuizFormFolder().getCanonicalPath()+"/"+entity.getName());
 			initialWindowView.setTree(new JTree(InitialWindowView.filesTree(new File(new File(".").getCanonicalPath()+"/OnlineQuizChecker"))));
 			QuizObjectEntity quizObjectEntity = new QuizObjectEntity(entity, qPanels);
