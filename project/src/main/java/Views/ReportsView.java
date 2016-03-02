@@ -2,12 +2,16 @@ package Views;
 
 import javax.swing.JPanel;
 import javax.swing.JLabel;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.JComboBox;
 import javax.swing.JButton;
 import javax.swing.JSeparator;
 import javax.swing.border.EtchedBorder;
+import javax.swing.table.DefaultTableModel;
 
+import project.CustomTable;
 import Controllers.InitialWindowController;
 import Controllers.MainFrameController;
 
@@ -33,6 +37,8 @@ public class ReportsView extends ViewPanel {
 	private JSeparator separator2;
 	private JButton btnExportExcelFile;
 	private JButton btnBack;
+	public JTable table;
+	public JScrollPane scrollPane;
 	private int width= (int) ((MainFrameController.view.getContentPane().getWidth()-20)/4);
 	private int height= (int) ((MainFrameController.view.getContentPane().getHeight())/2.5);
 	private int reportsInfoPanelStartX = MainFrameController.view.getContentPane().getWidth()-20-width;
@@ -102,6 +108,13 @@ public class ReportsView extends ViewPanel {
 		btnBack.setBounds((int)(width/1.5), 340, 79, 23);
 		reportsInfoPanel.add(btnBack);
 		
+		scrollPane = new JScrollPane();
+		scrollPane.setBounds(MainFrameController.view.getContentPane().getWidth()/4,70, MainFrameController.view.getContentPane().getWidth()/2, MainFrameController.view.getContentPane().getHeight()-100);
+		//scrollPane.setBounds(50,70,300,250);
+		add(scrollPane);
+		
+//		table = new CustomTable();
+		scrollPane.setViewportView(table);
 	}
 	
 	public JPanel getReportsInfoPanel() {
@@ -138,5 +151,11 @@ public class ReportsView extends ViewPanel {
 	{
 		btnBack.addActionListener(listener);
 	}
-	
+	public JTable getTable() {
+		return table;
+	}
+	public void setTable(JTable customTable) {
+		table = customTable;
+		scrollPane.setViewportView(table);
+	}
 }
