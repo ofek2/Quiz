@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
+import Entities.QuizEntity;
 import Entities.StudentEntity;
 import Entities.StudentQuizEntity;
 import Views.GradingWindowView;
@@ -17,9 +18,11 @@ import project.CustomTable;
 
 public class GradingWindowController {
 	private GradingWindowView view;
+
 	private Container previousView;
 	public GradingWindowController(GradingWindowView view) {
 		this.view = view;
+	
 		addListeners();
 	}
 	public Container getPreviousView() {
@@ -35,17 +38,13 @@ public class GradingWindowController {
 		
 	}
 
-//	public void loadStudentsToTable(ArrayList<StudentQuizEntity> students)
-	public void loadStudentsToTable(ArrayList<String> students, ArrayList<String> studentsQuizzesPaths)
+	public void loadStudentsToTable(ArrayList<String> students, ArrayList<String> studentsQuizzesPaths,String originalQuizFormPath)
 	{
 		for(int i=0;i<students.size();i++)
 		{
-//			StudentGradingPanel sview = new StudentGradingPanel(
-//			students.get(i).getStudentEntity().getStudentId(),
-//			students.get(i).getStudentEntity().getStudentName());
 			StudentGradingPanel sview = new StudentGradingPanel(students.get(i));
 			StudentGradingController scontrol = new StudentGradingController(sview
-					,studentsQuizzesPaths.get(i),view);
+					,studentsQuizzesPaths.get(i),originalQuizFormPath,view);
 			view.tablePanel.add(sview);
 		
 		}
@@ -70,4 +69,6 @@ public class GradingWindowController {
 		}
 		
 	}
+
+	
 }

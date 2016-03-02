@@ -535,7 +535,6 @@ public class InitialWindowController {
 				}
 
 			}
-
 			class gradeQuizBtnListener implements ActionListener {
 
 				public void actionPerformed(ActionEvent e) {
@@ -544,9 +543,11 @@ public class InitialWindowController {
 //						ArrayList<StudentQuizEntity> studentsInQuiz = new ArrayList<StudentQuizEntity>();
 						ArrayList<String> studentsInQuiz = new ArrayList<String>();
 						ArrayList<String> studentsQuizzesPaths = new ArrayList<String>();
+						String courseName = (String)view.getCourseIdGradeCB().getSelectedItem();
+						String quizName = (String)view.getQuizzesToGrade().getSelectedItem();
 						String path = new File(".").getCanonicalPath()+"/OnlineQuizChecker/"+
-					(String)view.getCourseIdGradeCB().getSelectedItem()+"/Quizzes/"+
-								(String)view.getQuizzesToGrade().getSelectedItem()+"/StudentsAnswers";
+								courseName+"/Quizzes/"+
+								quizName+"/StudentsAnswers";
 						File studentsAnswersFolder = new File(path);
 						if(studentsAnswersFolder.listFiles().length>0)
 						for(File child:studentsAnswersFolder.listFiles())
@@ -555,8 +556,10 @@ public class InitialWindowController {
 							studentsQuizzesPaths.add(child.getCanonicalPath());
 //							studentsInQuiz.add((StudentQuizEntity) ObjectFileManager.loadObject(child.getCanonicalPath()));
 						}
-						
-						initiateGradingProcess(studentsInQuiz,studentsQuizzesPaths);
+						String formPath = new File(".").getCanonicalPath()+"/OnlineQuizChecker/"+
+								courseName+"/Quizzes/"+
+											quizName+"/Form/"+quizName+"WithAnswers.html";
+						initiateGradingProcess(studentsInQuiz,studentsQuizzesPaths,formPath);
 					} catch (IOException e1) {
 						// TODO Auto-generated catch block
 						e1.printStackTrace();
@@ -569,14 +572,15 @@ public class InitialWindowController {
 			}
 
 //			public void initiateGradingProcess(ArrayList<StudentQuizEntity> students) {
-			public void initiateGradingProcess(ArrayList<String> students, ArrayList<String> studentsQuizzesPaths) {
+			public void initiateGradingProcess(ArrayList<String> students, ArrayList<String> studentsQuizzesPaths,String originalQuizFormPath) {
 				GradingWindowView gradingWindowView = new GradingWindowView();
 				GradingWindowController gradingWindowController = new GradingWindowController(gradingWindowView);
 				menuController.gradeQuizDialog.setVisible(false);
 				MainFrameController.view.changeContentPane(gradingWindowView);
 				gradingWindowController.setPreviousView(view);
-				gradingWindowController.loadStudentsToTable(students,studentsQuizzesPaths);
+				gradingWindowController.loadStudentsToTable(students,studentsQuizzesPaths,originalQuizFormPath);
 			}
+
 
 			class PopUpMenusController {
 				private JPopupMenu newQuizPopupMenu;

@@ -14,9 +14,11 @@ import java.awt.Dimension;
 
 public class StudentGradingPanel extends JPanel{
 	private JLabel lblStudentid;
-	private JLabel lblStudentname;
+	//private JLabel lblStudentname;
 	private JButton gradeBtn;
 	private JLabel lblGrade;
+	
+	public final static String notGraded="Not yet graded";
 	public StudentGradingPanel(String studentId)
 //			,String studentName)
 	{
@@ -32,7 +34,7 @@ public class StudentGradingPanel extends JPanel{
 //		lblStudentname.setHorizontalAlignment(SwingConstants.CENTER);
 //		add(lblStudentname);
 		
-		lblGrade = new JLabel("Not yet graded");
+		lblGrade = new JLabel(notGraded);
 		lblGrade.setBorder(new LineBorder(new Color(0, 0, 0)));
 		lblGrade.setHorizontalAlignment(SwingConstants.CENTER);
 		add(lblGrade);
@@ -50,4 +52,24 @@ public class StudentGradingPanel extends JPanel{
 	{
 		lblGrade.setText(text);
 	}
+	public JLabel getLblStudentid() {
+		return lblStudentid;
+	}
+	public void setLblStudentid(JLabel lblStudentid) {
+		this.lblStudentid = lblStudentid;
+	}
+	
+	public JButton getGradeBtn() {
+		return gradeBtn;
+	}
+	public void setGradeBtn(JButton gradeBtn) {
+		this.gradeBtn = gradeBtn;
+	}
+	public JLabel getLblGrade() {
+		return lblGrade;
+	}
+	public void setLblGrade(JLabel lblGrade) {
+		this.lblGrade = lblGrade;
+	}
+	
 }
