@@ -209,14 +209,14 @@ public class QuizCreationController implements Serializable {
 				
 				choices = new ArrayList<String>();
 				
-				for (int j=0;j<tempQpanel.getMultipleChoicePanelController().cBfControllers.size();j++)
+				for (int j=0;j<tempQpanel.getMultipleChoicePanelController().cBfControllers.size()-1;j++)
 				{
 					if(tempQpanel.getMultipleChoicePanelController().cBfControllers.get(j).view.getAnswerCheckBox().isSelected())
 						answer+=(j+1)+" ";
 					choices.add(tempQpanel.getMultipleChoicePanelController().cBfControllers.get(j).view.getAnswerTextOption().getText());
 				}
 				String type;
-				String[] splited = answer.split("\\s");
+				String[] splited = answer.trim().split("\\s");
 				if(splited.length>1)type="Multiple Choice";
 				else type="Singel Choice";
 				htmlBuilder.addAnswersData(i+1,type,choices);

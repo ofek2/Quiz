@@ -90,12 +90,14 @@ public class HtmlBuilder {
 		
 		Element input = document.createElement("input");
 		input.setAttribute("id", "score");
+		input.setAttribute("name", "ScoreQ"+qNumber);
 		input.setAttribute("type", "hidden");
 		input.setAttribute("maxlength", "2");
 		input.setAttribute("onchange", "Desktop.receiveInput(this.value,"+qNumber+");updateFinalScore();");
 		div.appendChild(input);
 		div.appendChild(document.createTextNode("/"));
 		Element qScore = document.createElement("qScore");
+		qScore.setAttribute("id", "qScoreQ"+qNumber);
 		qScore.appendChild(document.createTextNode(score));
 		div.appendChild(qScore);
 		h1.appendChild(div);
@@ -135,6 +137,7 @@ public class HtmlBuilder {
 		questions.get(qNumber).getFirstChild().getChildNodes().item(1).appendChild(qAnswers);
 		
 		Element form = document.createElement("form");
+		form.setAttribute("name", "Q"+questionNumber);
 		qAnswers.appendChild(form);
 		
 		Element divListGroup = document.createElement("div");
@@ -179,6 +182,7 @@ public class HtmlBuilder {
 		questions.get(qNumber).getFirstChild().getChildNodes().item(1).appendChild(qAnswers);
 		
 		Element form = document.createElement("form");
+		form.setAttribute("name", "Q"+questionNumber);
 		qAnswers.appendChild(form);
 		if(type.equals("Free Text"))
 		{
@@ -205,7 +209,8 @@ public class HtmlBuilder {
 		answers.setAttribute("value",answer);
 		
 		questions.get(qNumber).appendChild(answers);
-		
+		Element script = document.createElement("script");
+		script.appendChild(document.createTextNode("myFunction('Q"+questionNumber+"',document.getElementsByName(\"ScoreQ"+questionNumber+"\"));"));
 		Element divAnswer = document.createElement("div");
 		divAnswer.setAttribute("class", "panel panel-default");
 		answers.appendChild(divAnswer);
@@ -221,8 +226,6 @@ public class HtmlBuilder {
 		Element divBody = document.createElement("div");
 		divBody.setAttribute("class", "panel-body");
 		divAnswer.appendChild(divBody);
-		
-		
 		
 		Element form = document.createElement("form");
 		divBody.appendChild(form);
