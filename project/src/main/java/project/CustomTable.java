@@ -15,34 +15,45 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableCellRenderer;
 
 import Views.GradingWindowView;
+import Views.ReportsView;
 import Entities.StudentEntity;
 
 public class CustomTable extends JTable{
 
-	public CustomTable()
+//	public CustomTable()
+//	{
+//		super();
+//	}
+	public CustomTable(ReportsView view)
+//	(ArrayList<StudentEntity> students)
 	{
-		super();
-	}
-	public CustomTable(ArrayList<StudentEntity> students)
-	{
-		super();
-		Object [][] studentsArr = new Object[students.size()][4];
-		for(int i=0;i<students.size();i++)
+//		super();
+		Object [][] studentsArr = new Object[2][4];
+		for(int i=0;i<2;i++)
 		{
-			studentsArr[i][0] = students.get(i).getStudentId(); 
-			studentsArr[i][1] = students.get(i).getStudentName();
-			studentsArr[i][2] = (String)"Not yet graded";
-			studentsArr[i][3] = students.get(i).getStudentName();
+//			studentsArr[i][0] = students.get(i).getStudentId(); 
+//			studentsArr[i][1] = students.get(i).getStudentName();
+//			studentsArr[i][2] = (String)"Not yet graded";
+//			studentsArr[i][3] = students.get(i).getStudentName();
+			
+			studentsArr[i][0] = i; 
+			studentsArr[i][1] = i;
+			studentsArr[i][2] = i;
+//			studentsArr[i][3] = i;
 		}
+		
 		JTable jTable = new JTable(studentsArr,new String[] {"Student Id", "Student Name", "Grade", "Options"});
-		jTable.getColumn("Options").setCellRenderer(new ButtonRenderer());
-		jTable.getColumn("Options").setCellEditor( new ButtonEditor(new JCheckBox()));
-		GradingWindowView.setTable(jTable);
+//		JTable jTable = new JTable(10,10);
+		view.setTable(jTable);
+//		ReportsView.table.getColumn("Options").setCellRenderer(new ButtonRenderer());
+//		ReportsView.table.getColumn("Options").setCellEditor( new ButtonEditor(new JCheckBox()));
+//		GradingWindowView.setTable(ReportsView.table);
 		//		System.out.println(studentsArr[0][0]);
 //		getModel().setValueAt(studentsArr[0][0],1,0 );
 //		setModel(new DefaultTableModel(studentsArr,new String[] {"Student Id", "Student Name", "Grade", "Options"}));
-//		getColumn("Options").setCellRenderer(new ButtonRenderer());
-//		getColumn("Options").setCellEditor( new ButtonEditor(new JCheckBox()));
+		jTable.getColumn("Options").setCellRenderer(new ButtonRenderer());
+		jTable.getColumn("Options").setCellEditor( new ButtonEditor(new JCheckBox()));
+//		defaultEditorsByColumnClass.
 	}
 	class ButtonRenderer extends JButton implements TableCellRenderer {
 
@@ -60,6 +71,7 @@ public class CustomTable extends JTable{
 		      setBackground(UIManager.getColor("Button.background"));
 		    }
 		    setText((value == null) ? "" : value.toString());
+//		    setText("shit");
 		    return this;
 		  }
 		}
@@ -81,44 +93,45 @@ public class CustomTable extends JTable{
 		    button.setOpaque(true);
 		    button.addActionListener(new ActionListener() {
 		      public void actionPerformed(ActionEvent e) {
-		        fireEditingStopped();
+//		        fireEditingStopped();
+//		    	  button.setText("shit");
 		      }
 		    });
 		  }
 
-		  public Component getTableCellEditorComponent(JTable table, Object value,
-		      boolean isSelected, int row, int column) {
-		    if (isSelected) {
-		      button.setForeground(table.getSelectionForeground());
-		      button.setBackground(table.getSelectionBackground());
-		    } else {
-		      button.setForeground(table.getForeground());
-		      button.setBackground(table.getBackground());
-		    }
-		    label = (value == null) ? "" : value.toString();
-		    button.setText(label);
-		    isPushed = true;
-		    return button;
-		  }
+//		  public Component getTableCellEditorComponent(JTable table, Object value,
+//		      boolean isSelected, int row, int column) {
+//		    if (isSelected) {
+//		      button.setForeground(table.getSelectionForeground());
+//		      button.setBackground(table.getSelectionBackground());
+//		    } else {
+//		      button.setForeground(table.getForeground());
+//		      button.setBackground(table.getBackground());
+//		    }
+//		    label = (value == null) ? "" : value.toString();
+//		    button.setText(label);
+//		    isPushed = true;
+//		    return button;
+//		  }
 
-		  public Object getCellEditorValue() {
-		    if (isPushed) {
-		      // 
-		      // 
-		      JOptionPane.showMessageDialog(button, label + ": Ouch!");
-		      // System.out.println(label + ": Ouch!");
-		    }
-		    isPushed = false;
-		    return new String(label);
-		  }
+//		  public Object getCellEditorValue() {
+//		    if (isPushed) {
+//		      // 
+//		      // 
+//		      JOptionPane.showMessageDialog(button, label + ": Ouch!");
+//		      // System.out.println(label + ": Ouch!");
+//		    }
+//		    isPushed = false;
+//		    return new String(label);
+//		  }
 
-		  public boolean stopCellEditing() {
-		    isPushed = false;
-		    return super.stopCellEditing();
-		  }
-
-		  protected void fireEditingStopped() {
-		    super.fireEditingStopped();
-		  }
+//		  public boolean stopCellEditing() {
+//		    isPushed = false;
+//		    return super.stopCellEditing();
+//		  }
+//
+//		  protected void fireEditingStopped() {
+//		    super.fireEditingStopped();
+//		  }
 		}
 }
