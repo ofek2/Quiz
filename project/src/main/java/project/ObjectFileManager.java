@@ -15,7 +15,7 @@ public class ObjectFileManager {
 	{
 		//this.path=path;
 	}
-	public boolean saveObject(Object obj,String path)
+	public static boolean saveObject(Object obj,String path)
 	{
 		FileOutputStream fos;
 		try {

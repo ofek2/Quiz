@@ -245,8 +245,7 @@ public class QuizCreationController implements Serializable {
 			initialWindowView.setTree(new JTree(InitialWindowView.filesTree(new File(new File(".").getCanonicalPath()+"/OnlineQuizChecker"))));
 			QuizObjectEntity quizObjectEntity = new QuizObjectEntity(entity, qPanels);
 			String path = entity.getQuizFormFolder().getCanonicalPath()+"/"+entity.getName()+".ser";
-			ObjectFileManager fileManager = new ObjectFileManager();
-			fileManager.saveObject(quizObjectEntity, path);
+			ObjectFileManager.saveObject(quizObjectEntity, path);
 			JOptionPane.showMessageDialog(null, "All of the data saved successfully");
 
 		} catch (TransformerException e1) {
