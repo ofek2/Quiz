@@ -239,9 +239,9 @@ public class QuizCreationController implements Serializable {
 		}
 		
 		try {
-			htmlBuilder.writeHtml(entity.getQuizFormFolder().getCanonicalPath()+"/"+entity.getName()+"WithAnswers");
+			htmlBuilder.writeHtml(entity.getQuizFormFolder().getCanonicalPath()+"/"+entity.getName()+"WithAnswers.html");
 			htmlBuilder.removeLecturerAnswers();
-			htmlBuilder.writeHtml(entity.getQuizFormFolder().getCanonicalPath()+"/"+entity.getName());
+			htmlBuilder.writeHtml(entity.getQuizFormFolder().getCanonicalPath()+"/"+entity.getName()+".html");
 			initialWindowView.setTree(new JTree(InitialWindowView.filesTree(new File(new File(".").getCanonicalPath()+"/OnlineQuizChecker"))));
 			QuizObjectEntity quizObjectEntity = new QuizObjectEntity(entity, qPanels);
 			String path = entity.getQuizFormFolder().getCanonicalPath()+"/"+entity.getName()+".ser";
