@@ -216,7 +216,8 @@ public class QuizCreationController implements Serializable {
 					choices.add(tempQpanel.getMultipleChoicePanelController().cBfControllers.get(j).view.getAnswerTextOption().getText());
 				}
 				String type;
-				String[] splited = answer.trim().split("\\s");
+				answer=answer.trim();
+				String[] splited = answer.split("\\s");
 				if(splited.length>1)type="Multiple Choice";
 				else type="Singel Choice";
 				htmlBuilder.addAnswersData(i+1,type,choices);
