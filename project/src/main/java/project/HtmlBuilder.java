@@ -3,16 +3,19 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.OutputKeys;
 import javax.xml.transform.Transformer;
+import javax.xml.transform.TransformerConfigurationException;
 import javax.xml.transform.TransformerException;
 import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
+
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
@@ -28,12 +31,20 @@ public class HtmlBuilder {
 	
 	public HtmlBuilder() throws ParserConfigurationException, FileNotFoundException{
 		questions=new ArrayList<Element>();
+		
 		DocumentBuilderFactory builderFactory = DocumentBuilderFactory.newInstance();
+		//builderFactory.setFeature("http://apache.org/xml/features/nonvalidating/load-dtd-grammar",false);
+		//builderFactory.setFeature("http://apache.org/xml/features/xinclude/fixup-language", false);
 		DocumentBuilder builder = builderFactory.newDocumentBuilder();
 		document = builder.newDocument();
 		
-		InputStream in = new FileInputStream(new File("HtmlHead.html"));
+		
+		
+		InputStream in = new FileInputStream(new File("HtmlHead.xml"));
 		parser = new HtmlParser(in);
+	
+		
+
 	}
 	
 	public void initiateHtml(){
@@ -67,6 +78,7 @@ public class HtmlBuilder {
 		finalScore.appendChild(document.createTextNode("Final Score:"));
 		Element scoreText = document.createElement("u");
 		scoreText.setAttribute("id", "finalScore");
+		scoreText.appendChild(document.createTextNode("   "));
 		finalScore.appendChild(scoreText);
 		div.appendChild(finalScore);
 	}
@@ -95,6 +107,7 @@ public class HtmlBuilder {
 		input.setAttribute("type", "hidden");
 		input.setAttribute("maxlength", "2");
 		input.setAttribute("onchange", "Desktop.receiveInput(this.value,"+qNumber+");updateFinalScore();");
+		input.appendChild(document.createTextNode(" "));
 		div.appendChild(input);
 		div.appendChild(document.createTextNode("/"));
 		Element qScore = document.createElement("qScore");
@@ -133,7 +146,8 @@ public class HtmlBuilder {
 	public void addAnswersData(int questionNumber,String type,ArrayList<String> choices)
 	{
 		int qNumber = questionNumber-1;
-		
+		if(type.equals("Singel Choice"))
+			questions.get(qNumber).setAttribute("type", "Singel Choice");
 		Element qAnswers = document.createElement("qAnswers");
 		questions.get(qNumber).getFirstChild().getChildNodes().item(1).appendChild(qAnswers);
 		
@@ -212,6 +226,8 @@ public class HtmlBuilder {
 		questions.get(qNumber).appendChild(answers);
 		Element script = document.createElement("script");
 		script.appendChild(document.createTextNode("myFunction('Q"+questionNumber+"',document.getElementsByName(\"ScoreQ"+questionNumber+"\"));"));
+		answers.appendChild(script);
+		
 		Element divAnswer = document.createElement("div");
 		divAnswer.setAttribute("class", "panel panel-default");
 		answers.appendChild(divAnswer);
@@ -313,16 +329,47 @@ public class HtmlBuilder {
 	}
 	public void removeLecturerAnswers()
 	{
+		
 		NodeList answers = document.getElementsByTagName("answer");
 		
-		for(int i=0;i<answers.getLength();i++)
+		for(int i=answers.getLength()-1;i>=0;i--)
+		{
+			
 			answers.item(i).getParentNode().removeChild(answers.item(i));
+		}
+	}
+	public void prepareQuizForGrading(String studentQuizPath,String originalQuizFormPath)
+	{
+		
+		InputStream in,in2;
+		try {
+			in = new FileInputStream(new File(originalQuizFormPath));
+			HtmlParser original = new HtmlParser(in);
+			in2 = new FileInputStream(new File(studentQuizPath));
+			HtmlParser prepared = new HtmlParser(in2);
+			NodeList answerElements = original.document.getElementsByTagName("answer");
+			for(int i=0;i<answerElements.getLength();i++)
+			{
+				NodeList questionElement = prepared.document.getElementsByTagName("Q"+(i+1));
+				Node question = questionElement.item(i);
+				Node answer = prepared.document.importNode(answerElements.item(i), true);
+				question.appendChild(answer);
+			}
+			prepared.writeHtml(studentQuizPath);
+			
+		} catch (FileNotFoundException | TransformerException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 	}
 	public void writeHtml(String path) throws TransformerException{
 		// write the content into HTML file
+		
 		TransformerFactory transformerFactory = TransformerFactory.newInstance();
 		Transformer transformer = transformerFactory.newTransformer();
 		transformer.setOutputProperty(OutputKeys.OMIT_XML_DECLARATION, "yes");
+		transformer.setOutputProperty(OutputKeys.METHOD, "xml");
 		transformer.setOutputProperty(OutputKeys.ENCODING, "UTF-8");
 		transformer.setOutputProperty(OutputKeys.INDENT, "yes");
 		DOMSource source = new DOMSource(document);
