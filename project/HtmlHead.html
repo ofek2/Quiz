@@ -1,9 +1,9 @@
  <head>
-        <meta charset="utf-8"></meta>
-          <meta name="viewport" content="width=device-width, initial-scale=1"></meta>
-          <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"></link>
-          <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
-          <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+        <meta charset="utf-8"> </meta>
+          <meta name="viewport" content="width=device-width" initial-scale="1"> </meta>
+          <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"> </link>
+          <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"> </script>
+          <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"> </script>
            <script type="text/javascript">
     // Variables for referencing the canvas and 2dcanvas context
     var canvas,ctx;
@@ -175,33 +175,87 @@
         }
     }
 </script>
-          <script>
-            function updateFinalScore()
-            {
-                var finalScore=parseInt("0");
+        <script>
+            function updateFinalScore() {
+                var finalScore = parseInt("0");
                 var inputs = document.getElementsByTagName("input");
-                for(var i=0;i!=inputs.length;i++)
-                {
-                 
-                    if(inputs[i].getAttribute("id") == "score")
-                    finalScore+=Number(inputs[i].value);
+                for (var i = 0; i != inputs.length; i++) {
+
+                    if (inputs[i].id == "score")
+                        finalScore += Number(inputs[i].value);
                 }
-               
-               document.getElementById("finalScore").innerHTML=finalScore;
+
+                document.getElementById("finalScore").innerHTML = finalScore;
             }
-        </script>
- 		       <style>
+            function check(input)
+            {
+                input.setAttribute("checked","checked");
+            }
+function myFunction(formName,score) {
+
+    var inputs = document.forms.namedItem(formName).getElementsByTagName("input");
+    var i;
+    var questionTag = document.getElementsByTagName(formName)[0];
+    
+    var answer = questionTag.getElementsByTagName("answer")[0].getAttribute("value");   
+    var splitedAnswer = answer.split(" ");
+    
+	score[0].setAttribute("disabled","disabled");
+	
+    if(splitedAnswer.length == 1)
+    {
+        if(inputs[splitedAnswer[0]-1].checked==false)
+        {
+            score[0].value="0";
+            return;
+        }
+    }
+    else
+    {
+    for(i=0;i!=splitedAnswer.length;i++)
+    {  
+       	  if(inputs[splitedAnswer[i]-1].checked)             
+           	inputs[splitedAnswer[i]-1].checked = false;
+     	  else if(!inputs[splitedAnswer[i]-1].checked)            
+           	inputs[splitedAnswer[i]-1].checked = true;	
+           	
+    }
+    
+    for(i=0;i!=inputs.length;i++)
+    {
+        if(inputs[i].checked)
+        {
+                for(var j=0;j!=inputs.length;j++)
+                      inputs[j].checked=inputs[j].defaultChecked;
+            
+            score[0].value="0";                       
+            return;
+        }
+    }
+   
+    }
+   
+    var qScoreId = "q"+score[0].getAttribute("name");
+    score[0].value=document.getElementById(qScoreId).innerHTML;
+    for(i=0;i!=inputs.length;i++)
+      inputs[i].checked=inputs[i].defaultChecked;
+    
+    updateFinalScore();
+ 
+}
+</script>
+ 		              <style>
             textarea {
                 width:100%;
             }
-                     h1 {
+            h1 {
                 font-size:24px;
             }
             p {
                 font-size:14px;
             }
-           #score {
-                width:30px;
+            #score {
+                width:38px;
                 color:black;
             }
             #sketchpad {
@@ -218,11 +272,17 @@
                 background-color:lightgreen;
             }
             img {
- 			  	padding: 0;
-			 	display: block;
-		    	margin: 0 auto;
-  				max-width: 95vw;
-}
+                padding: 0;
+                display: block;
+                margin: 0 auto;
+                max-width: 95vw;
+            }
+            input:disabled{
+          		opacity:1;
+          	    background-color:white;
+                border:2px solid #888;
+                border-radius:4px;
+            }
         </style>
      
     </head>
