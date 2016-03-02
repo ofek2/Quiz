@@ -40,7 +40,7 @@ public class HtmlBuilder {
 		
 		
 		
-		InputStream in = new FileInputStream(new File("HtmlHead.xml"));
+		InputStream in = new FileInputStream(new File("HtmlHead.html"));
 		parser = new HtmlParser(in);
 	
 		
@@ -347,11 +347,13 @@ public class HtmlBuilder {
 			HtmlParser original = new HtmlParser(in);
 			in2 = new FileInputStream(new File(studentQuizPath));
 			HtmlParser prepared = new HtmlParser(in2);
+/////////////Copy Lecturer Answers To The Quiz and Auto check multiple choice questions/////////////
 			NodeList answerElements = original.document.getElementsByTagName("answer");
 			for(int i=0;i<answerElements.getLength();i++)
 			{
 				NodeList questionElement = prepared.document.getElementsByTagName("Q"+(i+1));
-				Node question = questionElement.item(i);
+				
+				Node question = questionElement.item(0);
 				Node answer = prepared.document.importNode(answerElements.item(i), true);
 				question.appendChild(answer);
 			}
@@ -373,7 +375,7 @@ public class HtmlBuilder {
 		transformer.setOutputProperty(OutputKeys.ENCODING, "UTF-8");
 		transformer.setOutputProperty(OutputKeys.INDENT, "yes");
 		DOMSource source = new DOMSource(document);
-		StreamResult result = new StreamResult(new File(path+".html"));
+		StreamResult result = new StreamResult(new File(path));
 
 		// Output to console for testing
 		// StreamResult result = new StreamResult(System.out);
