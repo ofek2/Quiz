@@ -122,17 +122,6 @@ public class HtmlBuilder {
 		img.setAttribute("src", questionImageName);
 		qImage.appendChild(img);
 		divBody.appendChild(qImage);
-		/*
-		Element speakerBtnSpan = document.createElement("span");
-		speakerBtnSpan.setAttribute("class", "col-xs-8");
-		Element input = document.createElement("input");
-		input.setAttribute("type", "button");
-		input.setAttribute("src", "g.gif");
-		input.setAttribute("onClick", "Android.listen()");
-		qText.appendChild(input);
-		speakerBtnSpan.appendChild(input);
-		rowSpan.appendChild(speakerBtnSpan);
-		*/
 		
 		questions.get(qNumber).getFirstChild().appendChild(divBody);
 		
@@ -246,11 +235,15 @@ public class HtmlBuilder {
 		{
 			Element divListItem = document.createElement("div");
 			divListItem.setAttribute("class", "list-group-item ");
+			divListItem.setAttribute("name","answerInput");
+			//divListItem.setAttribute("value", value);
 			//check if this is a correct answer
 			for(int j=0;j<splited.length;j++)
 			{
 				if(splited[j].equals(String.valueOf(i+1)))
+				{
 					divListItem.setAttribute("class", "list-group-item list-group-item-success");
+				}
 					
 			}
 			divListItem.appendChild(document.createTextNode((i+1)+". "+choices.get(i)));
