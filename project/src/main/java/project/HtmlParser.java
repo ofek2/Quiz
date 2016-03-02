@@ -47,7 +47,7 @@ public class HtmlParser {
 		transformer.setOutputProperty(OutputKeys.ENCODING, "UTF-8");
 		transformer.setOutputProperty(OutputKeys.INDENT, "yes");
 		DOMSource source = new DOMSource(document);
-		StreamResult result = new StreamResult(new File(path+".html"));
+		StreamResult result = new StreamResult(new File(path));
 	
 		// Output to console for testing
 		// StreamResult result = new StreamResult(System.out);

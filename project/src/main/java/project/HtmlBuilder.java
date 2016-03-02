@@ -205,6 +205,7 @@ public class HtmlBuilder {
 			textarea.setAttribute("class","form-control");
 			textarea.setAttribute("rows", "4");
 			textarea.setAttribute("cols", "50");
+			textarea.appendChild(document.createTextNode(" "));
 			form.appendChild(textarea);
 	
 		}
@@ -347,7 +348,9 @@ public class HtmlBuilder {
 			HtmlParser original = new HtmlParser(in);
 			in2 = new FileInputStream(new File(studentQuizPath));
 			HtmlParser prepared = new HtmlParser(in2);
-/////////////Copy Lecturer Answers To The Quiz and Auto check multiple choice questions/////////////
+			
+//----------Copy Lecturer Answers To The Quiz and Auto check multiple choice questions----------//
+			
 			NodeList answerElements = original.document.getElementsByTagName("answer");
 			for(int i=0;i<answerElements.getLength();i++)
 			{
@@ -357,6 +360,34 @@ public class HtmlBuilder {
 				Node answer = prepared.document.importNode(answerElements.item(i), true);
 				question.appendChild(answer);
 			}
+//----------Disable All Inputs and Reveal Score Text Boxes--------------------------------//
+			NodeList inputs = prepared.document.getElementsByTagName("input");
+			for(int i=0;i<inputs.getLength();i++)
+			{
+				Element input = (Element)inputs.item(i);
+				if(!input.getAttribute("id").equals("score"))
+				{
+					input.removeAttribute("onClick");
+					input.setAttribute("disabled","disabled");
+				}
+				else
+				{
+					input.setAttribute("type", "text");
+				}
+			}
+			
+			NodeList textAreas = prepared.document.getElementsByTagName("textarea");
+			for(int i=0;i<textAreas.getLength();i++)
+			{
+				Element textArea = (Element)textAreas.item(i);
+				textArea.setAttribute("disabled","disabled");
+			}
+			//add someshit about the canvas here ----------
+			//-------//
+			
+
+			
+
 			prepared.writeHtml(studentQuizPath);
 			
 		} catch (FileNotFoundException | TransformerException e) {
