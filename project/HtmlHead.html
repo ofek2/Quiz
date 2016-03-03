@@ -207,6 +207,7 @@ function myFunction(formName,score) {
         if(inputs[splitedAnswer[0]-1].checked==false)
         {
             score[0].value="0";
+            updateFinalScore();
             return;
         }
     }
@@ -228,7 +229,8 @@ function myFunction(formName,score) {
                 for(var j=0;j!=inputs.length;j++)
                       inputs[j].checked=inputs[j].defaultChecked;
             
-            score[0].value="0";                       
+            score[0].value="0";   
+            updateFinalScore();
             return;
         }
     }
