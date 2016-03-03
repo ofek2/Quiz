@@ -24,7 +24,7 @@ public class CTable extends JPanel{
 	private void initiatePanel() {
 		// TODO Auto-generated method stub
 		setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
-		ArrayList<JComponent> titleRowItems = new ArrayList<JComponent>();
+		ArrayList<Object> titleRowItems = new ArrayList<Object>();
 		titleRowItems.add(new JLabel("Student Id"));
 		for (JButton button : titleButtons) {
 			titleRowItems.add(button);
@@ -34,18 +34,23 @@ public class CTable extends JPanel{
 		{
 			titleRow.addListener(i, new titleButtonListener());
 		}
-		rows.add(titleRow);
+		
 		add(titleRow);
 		
 	}
-	
+	@Override
+	public Component add(Component comp) {
+		super.add(comp);
+		rows.add((RepRow) comp);
+		return comp;
+	};
 	class titleButtonListener implements ActionListener
 	{
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			// TODO Auto-generated method stub
-			
+			System.out.println("shitty");
 		}
 		
 	}

@@ -19,6 +19,7 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.util.ArrayList;
 import java.util.Vector;
 
 
@@ -109,11 +110,16 @@ public class ReportsView extends ViewPanel {
 		reportsInfoPanel.add(btnBack);
 		
 		scrollPane = new JScrollPane();
-		scrollPane.setBounds(10,50, MainFrameController.view.getContentPane().getWidth()/2, MainFrameController.view.getContentPane().getHeight()-20);
+		scrollPane.setBounds(10,20, MainFrameController.view.getContentPane().getWidth()/2, MainFrameController.view.getContentPane().getHeight()-70);
+		
 		//scrollPane.setBounds(50,70,300,250);
 		add(scrollPane);
 		JButton [] titleButtons = {new JButton("Quiz1"),new JButton("Quiz2"),new JButton("Quiz3"),new JButton("AVG")};
 		table = new CTable(titleButtons);
+		ArrayList<Object> labels = new ArrayList<>();
+		for(int i =0;i<5;i++)
+		labels.add(new JLabel("shit"));
+		table.add(new RepRow(labels, 1));
 		scrollPane.setViewportView(table);
 	}
 	

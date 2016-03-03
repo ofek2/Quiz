@@ -18,21 +18,25 @@ import java.util.ArrayList;
 
 public class RepRow extends JPanel {
 
-	private ArrayList<JComponent> rowItems;
+	private ArrayList<Object> rowItems;
 	private int rowIndex;
 	/**
 	 * Create the panel.
 	 */
-	public RepRow(ArrayList<JComponent> rowItems,int rowIndex) {
+	public RepRow(ArrayList<Object> rowItems,int rowIndex) {
 		this.rowItems = rowItems;
 		this.rowIndex = rowIndex;
+		
 		setLayout(new GridLayout(1, rowItems.size(), 0, 0));
+		
 		setMaximumSize(new Dimension(10000, 25));
-		for (JComponent object : rowItems) {
-			object.setBorder(new LineBorder(new Color(0, 0, 0)));
+		for (Object object : rowItems) {
+			((JComponent) object).setBorder(new LineBorder(new Color(0, 0, 0)));
+		
 			if(object instanceof JLabel)
 			((JLabel)object).setHorizontalAlignment(SwingConstants.CENTER);
-			add(object);
+			
+			add((Component) object);
 		}
 	}
 	public void addListener(int index,ActionListener listener)
@@ -43,10 +47,10 @@ public class RepRow extends JPanel {
 		}
 	}
 	
-	public ArrayList<JComponent> getRowItems() {
+	public ArrayList<Object> getRowItems() {
 		return rowItems;
 	}
-	public void setRowItems(ArrayList<JComponent> rowItems) {
+	public void setRowItems(ArrayList<Object> rowItems) {
 		this.rowItems = rowItems;
 	}
 	public int getRowIndex() {
