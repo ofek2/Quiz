@@ -37,7 +37,7 @@ public class ReportsView extends ViewPanel {
 	private JSeparator separator2;
 	private JButton btnExportExcelFile;
 	private JButton btnBack;
-	public JTable table;
+	public CTable table;
 	public JScrollPane scrollPane;
 	private int width= (int) ((MainFrameController.view.getContentPane().getWidth()-20)/4);
 	private int height= (int) ((MainFrameController.view.getContentPane().getHeight())/2.5);
@@ -109,11 +109,11 @@ public class ReportsView extends ViewPanel {
 		reportsInfoPanel.add(btnBack);
 		
 		scrollPane = new JScrollPane();
-		scrollPane.setBounds(MainFrameController.view.getContentPane().getWidth()/4,70, MainFrameController.view.getContentPane().getWidth()/2, MainFrameController.view.getContentPane().getHeight()-100);
+		scrollPane.setBounds(10,50, MainFrameController.view.getContentPane().getWidth()/2, MainFrameController.view.getContentPane().getHeight()-20);
 		//scrollPane.setBounds(50,70,300,250);
 		add(scrollPane);
-		
-//		table = new CustomTable();
+		JButton [] titleButtons = {new JButton("Quiz1"),new JButton("Quiz2"),new JButton("Quiz3"),new JButton("AVG")};
+		table = new CTable(titleButtons);
 		scrollPane.setViewportView(table);
 	}
 	
@@ -151,11 +151,5 @@ public class ReportsView extends ViewPanel {
 	{
 		btnBack.addActionListener(listener);
 	}
-	public JTable getTable() {
-		return table;
-	}
-	public void setTable(JTable customTable) {
-		table = customTable;
-		scrollPane.setViewportView(table);
-	}
+	
 }

@@ -44,7 +44,7 @@ public class CustomTable extends JTable{
 		
 		JTable jTable = new JTable(studentsArr,new String[] {"Student Id", "Student Name", "Grade", "Options"});
 //		JTable jTable = new JTable(10,10);
-		view.setTable(jTable);
+		//view.setTable(jTable);
 //		ReportsView.table.getColumn("Options").setCellRenderer(new ButtonRenderer());
 //		ReportsView.table.getColumn("Options").setCellEditor( new ButtonEditor(new JCheckBox()));
 //		GradingWindowView.setTable(ReportsView.table);

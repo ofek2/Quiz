@@ -13,7 +13,7 @@ public class ReportsController {
 	public ReportsController(ReportsView view, Container previousView) {
 		this.view = view;
 		this.previousView = previousView;
-		view.table = new CustomTable(view);
+		//view.table = new CustomTable(view);
 	}
 	
 	
