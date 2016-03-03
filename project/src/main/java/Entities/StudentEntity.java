@@ -5,12 +5,17 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.Serializable;
+import java.util.ArrayList;
+
+import Controllers.qPanelController;
 
 public class StudentEntity implements Serializable{
 	private String studentCourse;
 	private String studentId;
 	private String studentName;
 	private String studentEmail;
+//	private QuizScore quizScore;
+	private ArrayList<QuizScore> quizzesScores;
 	public StudentEntity(String studentCourse, String studentId,
 			String studentName, String studentEmail) {
 		super();
@@ -18,6 +23,7 @@ public class StudentEntity implements Serializable{
 		this.studentId = studentId;
 		this.studentName = studentName;
 		this.studentEmail = studentEmail;
+		this.quizzesScores = new ArrayList<QuizScore>();
 	}
 	public String getStudentCourse() {
 		return studentCourse;
@@ -43,5 +49,48 @@ public class StudentEntity implements Serializable{
 	public void setStudentEmail(String studentEmail) {
 		this.studentEmail = studentEmail;
 	}
-
+	public void addQuizScore(String quizName,String quizScore)
+	{
+		quizzesScores.add(new QuizScore(quizName, quizScore));
+	}
+	public void setQuizScore(String quizName,String quizScore)
+	{
+		boolean flag=false;
+		for (int i = 0; i < quizzesScores.size(); i++) {
+			if(quizzesScores.get(i).quizName.equals(quizName))
+			{
+				flag = true;
+				quizzesScores.get(i).score = quizScore;
+			}
+		}		
+		if(flag==false)
+			addQuizScore(quizName,quizScore);
+	}
+	public void removeQuiz(String quizName)
+	{
+		for (int i = 0; i < quizzesScores.size(); i++) {
+			if(quizzesScores.get(i).quizName.equals(quizName))
+				quizzesScores.remove(i);
+		}		
+	}
+	public String getScore(String quizName)
+	{
+		for (int i = 0; i < quizzesScores.size(); i++) {
+			if(quizzesScores.get(i).quizName.equals(quizName))
+				return quizzesScores.get(i).score;
+		}
+		return "-1";
+	}
+	class QuizScore implements Serializable
+	{
+		private String quizName;
+		private String score;
+		
+		public QuizScore(String quizName, String score) {
+			super();
+			this.quizName = quizName;
+			this.score = score;
+		}
+		
+	}
 }

@@ -645,6 +645,8 @@ public class InitialWindowController {
 									else if (selectedNode.getParent().toString().equals("Quizzes"))
 										view.getTree().setComponentPopupMenu(quizPopupMenu(chosenFileName,
 												selectedNode.getParent().getParent().toString()));
+									else
+										view.getTree().setComponentPopupMenu(null);
 								} else
 									view.getTree().setComponentPopupMenu(null);
 
@@ -671,6 +673,8 @@ public class InitialWindowController {
 							try {
 								removeFolder(new File(new File(".").getCanonicalPath() + "/OnlineQuizChecker/"
 										+ quizCourseName + "/Quizzes/" + quizName));
+								updateStudentsEntityQuizzes(new File(new File(".").getCanonicalPath() + "/OnlineQuizChecker/"
+										+ courseName + "/Students"),quizName);
 								view.setTree(new JTree(InitialWindowView
 										.filesTree(new File(new File(".").getCanonicalPath() + "/OnlineQuizChecker"))));
 							} catch (IOException e1) {
@@ -735,7 +739,24 @@ public class InitialWindowController {
 			public PopUpMenusController getPopUpMenusController() {
 				return popUpMenusController;
 			}
-
+			
+			public void updateStudentsEntityQuizzes(File file,String quizName) {
+					for (File child : file.listFiles())
+					{
+						try {
+							StudentEntity result =
+							(StudentEntity) ObjectFileManager.loadObject(child.getCanonicalPath());
+							result.removeQuiz(quizName);
+							FileOutputStream fos = new FileOutputStream(child.getCanonicalPath());
+							ObjectOutputStream oos = new ObjectOutputStream(fos);
+							oos.writeObject(result);
+							oos.close();
+						} catch (IOException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+					}
+			}
 		}
 	}
 
