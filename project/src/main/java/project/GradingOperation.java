@@ -236,7 +236,7 @@ public class GradingOperation extends ViewPanel implements Runnable{
 		InputStream in;
 		public void receiveInput(String score,String questionNumber) {
 			// Platform.exit();
-			System.out.print(score+","+questionNumber);
+			//System.out.print(score+","+questionNumber);
 			insertScoreToHTML(studentQuizPath,score,questionNumber);
 		}
 
@@ -244,7 +244,7 @@ public class GradingOperation extends ViewPanel implements Runnable{
 				String questionNumber) {			
 			
 			try {
-				System.out.println("-"+questionNumber+"-");
+			//	System.out.println("-"+questionNumber+"-");
 				File studentQuizFile = new File(studentQuizPath);
 				in = new FileInputStream(studentQuizFile);
 				HtmlParser studentQuiz = new HtmlParser(in);

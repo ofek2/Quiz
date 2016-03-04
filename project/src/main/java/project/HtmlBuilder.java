@@ -27,6 +27,7 @@ public class HtmlBuilder {
 	private HtmlParser parser;
 	private Element bodyElement;
 	private Element mainDivElement;
+	private Element scoreScript;
 	private ArrayList<Element> questions;
 	
 	public HtmlBuilder() throws ParserConfigurationException, FileNotFoundException{
@@ -61,6 +62,10 @@ public class HtmlBuilder {
 		mainDivElement = document.createElement("div");
 		mainDivElement.setAttribute("class", "container-fluid");
 		bodyElement.appendChild(mainDivElement);
+		
+		scoreScript = document.createElement("script");
+		scoreScript.setAttribute("id", "scoreScript");
+		bodyElement.appendChild(scoreScript);
 	}
 	public void addTitleInfo(String quizTitle)
 	{
@@ -106,7 +111,7 @@ public class HtmlBuilder {
 		input.setAttribute("name", "ScoreQ"+qNumber);
 		input.setAttribute("type", "hidden");
 		input.setAttribute("maxlength", "2");
-		input.setAttribute("onchange", "Desktop.receiveInput(this.value,"+qNumber+");updateFinalScore();");
+		input.setAttribute("oninput", "Desktop.receiveInput(this.value,"+qNumber+");updateFinalScore();");
 		input.appendChild(document.createTextNode(" "));
 		div.appendChild(input);
 		div.appendChild(document.createTextNode("/"));
@@ -225,9 +230,9 @@ public class HtmlBuilder {
 		answers.setAttribute("value",answer);
 		
 		questions.get(qNumber).appendChild(answers);
-		Element script = document.createElement("script");
-		script.appendChild(document.createTextNode("myFunction('Q"+questionNumber+"',document.getElementsByName(\"ScoreQ"+questionNumber+"\"));"));
-		answers.appendChild(script);
+		
+		scoreScript.appendChild(document.createTextNode("myFunction('Q"+questionNumber+"',document.getElementsByName(\"ScoreQ"+questionNumber+"\"));"));
+	
 		
 		Element divAnswer = document.createElement("div");
 		divAnswer.setAttribute("class", "panel panel-default");
@@ -338,6 +343,8 @@ public class HtmlBuilder {
 			
 			answers.item(i).getParentNode().removeChild(answers.item(i));
 		}
+		//delete script for auto scoring
+		scoreScript.getParentNode().removeChild(scoreScript);
 	}
 	public void prepareQuizForGrading(String studentQuizPath,String originalQuizFormPath)
 	{
@@ -360,6 +367,15 @@ public class HtmlBuilder {
 				Node answer = prepared.document.importNode(answerElements.item(i), true);
 				question.appendChild(answer);
 			}
+			NodeList scripts = original.document.getElementsByTagName("script");
+			Node script;
+			for(int i =0; i<scripts.getLength();i++)
+				if(((Element)scripts.item(i)).getAttribute("id").equals("scoreScript"))
+				{
+					script = prepared.document.importNode(scripts.item(i),true);
+					prepared.document.getElementsByTagName("body").item(0).appendChild(script);
+				}
+			
 //----------Disable All Inputs and Reveal Score Text Boxes--------------------------------//
 			NodeList inputs = prepared.document.getElementsByTagName("input");
 			for(int i=0;i<inputs.getLength();i++)
