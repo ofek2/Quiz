@@ -35,7 +35,7 @@ import Views.ReportsView;
 
 
 public class ReportsController {
-	public ReportsView view;
+	public static ReportsView view;
 	private Container previousView;
 	private ArrayList<String> quizzesNames;
 	private ArrayList<Object> quizzesScores;
@@ -158,7 +158,7 @@ public class ReportsController {
 			}		
 			avg = avg/(i+1);
 			quizzesScores.add(new JLabel(String.format("%.2f",avg)));
-			System.out.println(tableRowToWrite);
+//			System.out.println(tableRowToWrite);
 			table.add(new RepRow(quizzesScores, tableRowToWrite));			
 			view.getScrollPane().setViewportView(table);
 		} catch (IOException e) {

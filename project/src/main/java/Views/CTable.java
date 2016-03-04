@@ -12,6 +12,10 @@ import javax.swing.JComponent;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+import Controllers.MainFrameController;
+import Controllers.ReportsController;
+import project.GradesDistributionGraph;
+
 public class CTable extends JPanel{
 	private JButton [] titleButtons;
 	private ArrayList<RepRow> rows;
@@ -32,7 +36,7 @@ public class CTable extends JPanel{
 		RepRow titleRow = new RepRow(titleRowItems,0);
 		for (int i=1;i<titleRow.getRowItems().size();i++)
 		{
-			titleRow.addListener(i, new titleButtonListener());
+			titleRow.addListener(i, new titleButtonListener(i));
 		}
 		
 		add(titleRow);
@@ -46,11 +50,29 @@ public class CTable extends JPanel{
 	};
 	class titleButtonListener implements ActionListener
 	{
+		
+		private int quizCoulmn;
+		private ArrayList<String> quizScores;
+		public titleButtonListener(int quizCoulmn) {
+			super();
+			this.quizCoulmn = quizCoulmn;
+		}
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			// TODO Auto-generated method stub
-			System.out.println("shitty");
+//			System.out.println("shitty");
+			quizScores = new ArrayList<String>();
+			for (int i = 1; i < rows.size(); i++) {
+				quizScores.add(((JLabel)rows.get(i).getRowItems().get(quizCoulmn)).getText());
+			}
+			GradesDistributionGraph gradesDistributionGraph = 
+					new GradesDistributionGraph(quizScores, ReportsController.view);
+			MainFrameController.view.changeContentPane(gradesDistributionGraph);
+//			for (int i = 0; i < quizScores.size(); i++) {
+//				System.out.println(quizScores.get(i));
+//			}
+			
 		}
 		
 	}
