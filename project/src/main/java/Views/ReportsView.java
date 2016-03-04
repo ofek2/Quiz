@@ -16,6 +16,7 @@ import Controllers.InitialWindowController;
 import Controllers.MainFrameController;
 
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
@@ -38,8 +39,10 @@ public class ReportsView extends ViewPanel {
 	private JSeparator separator2;
 	private JButton btnExportExcelFile;
 	private JButton btnBack;
-	public CTable table;
+	public CTable table = null;
 	public JScrollPane scrollPane;
+	private JButton [] titleButtons;
+	private JPanel emptyJpanel;
 	private int width= (int) ((MainFrameController.view.getContentPane().getWidth()-20)/4);
 	private int height= (int) ((MainFrameController.view.getContentPane().getHeight())/2.5);
 	private int reportsInfoPanelStartX = MainFrameController.view.getContentPane().getWidth()-20-width;
@@ -114,13 +117,14 @@ public class ReportsView extends ViewPanel {
 		
 		//scrollPane.setBounds(50,70,300,250);
 		add(scrollPane);
-		JButton [] titleButtons = {new JButton("Quiz1"),new JButton("Quiz2"),new JButton("Quiz3"),new JButton("AVG")};
-		table = new CTable(titleButtons);
-		ArrayList<Object> labels = new ArrayList<>();
-		for(int i =0;i<5;i++)
-		labels.add(new JLabel("shit"));
-		table.add(new RepRow(labels, 1));
-		scrollPane.setViewportView(table);
+//		JButton [] titleButtons = {new JButton("Quiz1"),new JButton("Quiz2"),new JButton("Quiz3"),new JButton("AVG")};
+//		table = new CTable(titleButtons);
+//		ArrayList<Object> labels = new ArrayList<>();
+//		for(int i =0;i<5;i++)
+//		for(int i =0;i<2;i++)
+//		labels.add(new JLabel("shit"));
+//		table.add(new RepRow(labels, 1));
+//		scrollPane.setViewportView(table);
 	}
 	
 	public JPanel getReportsInfoPanel() {
@@ -141,6 +145,56 @@ public class ReportsView extends ViewPanel {
 	public void setReportsStudentsIds(JComboBox<String> reportsStudentsIds) {
 		this.reportsStudentsIds = reportsStudentsIds;
 	}	
+	public JButton[] getTitleButtons() {
+		return titleButtons;
+	}
+
+	public void setTitleButtons(int size,ArrayList<String> quizzesNames) {
+		titleButtons = new JButton[size];
+		for (int i = 0; i < titleButtons.length; i++) {
+			titleButtons[i] = new JButton(quizzesNames.get(i));
+		}
+//		if (table!=null) {
+//			System.out.println("12");
+//			table.removeAllItems();
+//			scrollPane.setViewportView(table);
+////			revalidate();
+//		}
+//		else{
+		CTable table = new CTable(titleButtons);
+		ArrayList<Object> labels = new ArrayList<>();
+//		for(int i =0;i<5;i++)
+		for(int i =0;i<size+1;i++)
+		labels.add(new JLabel("shit"));
+		table.add(new RepRow(labels, 1));
+		scrollPane.setViewportView(table);
+//		revalidate();
+//		}
+	}
+
+	public CTable getTable() {
+		return table;
+	}
+
+	public void setTable(CTable table) {
+		this.table = table;
+	}
+//	public void removeAllItems()
+//	{
+//		for (int i = 0; i < table.getRows().size(); i++) {
+//			table.remove((Component)table.getRows().get(0));
+//		}
+//		
+//	}
+	
+	public JScrollPane getScrollPane() {
+		return scrollPane;
+	}
+
+	public void setScrollPane(JScrollPane scrollPane) {
+		this.scrollPane = scrollPane;
+	}
+
 	public void btnReportsShowGradesAddListener(ActionListener listener)
 	{
 		btnReportsShowGrades.addActionListener(listener);

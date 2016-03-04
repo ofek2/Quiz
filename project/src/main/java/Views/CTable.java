@@ -54,7 +54,6 @@ public class CTable extends JPanel{
 		}
 		
 	}
-
 	public JButton[] getTitleButtons() {
 		return titleButtons;
 	}
@@ -66,6 +65,13 @@ public class CTable extends JPanel{
 	}
 	public void setRows(ArrayList<RepRow> rows) {
 		this.rows = rows;
+	}
+	public void removeAllItems()
+	{
+		for (int i = 0; i < rows.size(); i++) {
+			remove((Component)rows.get(i));
+		}
+		
 	}
 	
 }
