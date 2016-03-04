@@ -93,6 +93,7 @@ public class ReportsView extends ViewPanel {
 		reportsInfoPanel.add(lblReportsStudentId);
 		
 		reportsStudentsIds = new JComboBox<String>();
+		reportsStudentsIds.addItem("");
 		reportsStudentsIds.setBounds((int)(width/5)+60, 160, 160, 20);
 		reportsInfoPanel.add(reportsStudentsIds);
 		
@@ -149,29 +150,33 @@ public class ReportsView extends ViewPanel {
 		return titleButtons;
 	}
 
-	public void setTitleButtons(int size,ArrayList<String> quizzesNames) {
-		titleButtons = new JButton[size];
-		for (int i = 0; i < titleButtons.length; i++) {
-			titleButtons[i] = new JButton(quizzesNames.get(i));
-		}
-//		if (table!=null) {
-//			System.out.println("12");
-//			table.removeAllItems();
-//			scrollPane.setViewportView(table);
-////			revalidate();
+//	public void setTitleButtons(int size,ArrayList<String> quizzesNames) {
+//		titleButtons = new JButton[size];
+//		for (int i = 0; i < titleButtons.length; i++) {
+//			titleButtons[i] = new JButton(quizzesNames.get(i));
 //		}
-//		else{
-		CTable table = new CTable(titleButtons);
-		ArrayList<Object> labels = new ArrayList<>();
-//		for(int i =0;i<5;i++)
-		for(int i =0;i<size+1;i++)
-		labels.add(new JLabel("shit"));
-		table.add(new RepRow(labels, 1));
-		scrollPane.setViewportView(table);
-//		revalidate();
-//		}
-	}
+////		if (table!=null) {
+////			System.out.println("12");
+////			table.removeAllItems();
+////			scrollPane.setViewportView(table);
+//////			revalidate();
+////		}
+////		else{
+//		CTable table = new CTable(titleButtons);
+//		ArrayList<Object> labels = new ArrayList<>();
+////		for(int i =0;i<5;i++)
+//		for(int i =0;i<size+1;i++)
+//		labels.add(new JLabel("shit"));
+//		table.add(new RepRow(labels, 1));
+//		scrollPane.setViewportView(table);
+////		revalidate();
+////		}
+//	}
 
+	public void setTitleButtons(JButton[] titleButtons) {
+		this.titleButtons = titleButtons;
+	}
+	
 	public CTable getTable() {
 		return table;
 	}
