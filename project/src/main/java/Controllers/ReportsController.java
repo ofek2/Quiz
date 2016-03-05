@@ -4,11 +4,16 @@ import java.awt.Container;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Iterator;
 
 //import com.google.api.services.drive.model.File;
+
+
+
 
 
 
@@ -32,6 +37,7 @@ import Entities.StudentEntity;
 import Views.CTable;
 import Views.RepRow;
 import Views.ReportsView;
+import Views.ViewPanel;
 
 
 public class ReportsController {
@@ -41,12 +47,57 @@ public class ReportsController {
 	private ArrayList<Object> quizzesScores;
 	private String coursePath;
 	private SearchStudent searchStudent;
+	private CTable table;
 	public ReportsController(ReportsView view, Container previousView) {
 		this.view = view;
 		this.previousView = previousView;
 		view.btnReportsShowGradesAddListener(new produceReports());	
 		searchStudent = new SearchStudent();
+		view.mntmExitAddListener(new ExitListener());
+		view.btnExportExcelFileAddListener(new ExportExcelFileListener());
 		//view.table = new CustomTable(view);
+	}
+	
+	class ExitListener implements ActionListener
+	{
+
+		public void actionPerformed(ActionEvent e) {
+			// TODO Auto-generated method stub
+			MainFrameController.view.changeContentPane((ViewPanel)previousView);
+		}
+		
+	}
+	
+	class ExportExcelFileListener implements ActionListener
+	{
+
+		public void actionPerformed(ActionEvent e) {
+			// TODO Auto-generated method stub
+			  String fileName = coursePath+"/Report.xls";
+
+			  PrintWriter out;
+			try {
+				FileWriter excelFile = new FileWriter(fileName);
+				out = new PrintWriter(excelFile);
+				for (int i = 1; i < table.getRows().size(); i++) {
+					for (int j = 0; j < quizzesNames.size()+1; j++) {
+						out = new PrintWriter(excelFile);
+						out.print(((JLabel)table.getRows().get(i).getRowItems().get(j)).getText()+",");
+					}
+					out.println();
+				}
+//				out.println("a,b,c,d");
+//				out.println("e,f,g,h");
+//				out.println("i,j,k,l");
+				out.close();
+			} catch (IOException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+			  
+		}
+		
+		
 	}
 	
 	class produceReports implements ActionListener
@@ -103,7 +154,7 @@ public class ReportsController {
 		for (int i = 0; i < titleButtons.length; i++) {
 			titleButtons[i] = new JButton(quizzesNames.get(i));
 		}
-		CTable table = new CTable(titleButtons);
+		table = new CTable(titleButtons);
 		ArrayList<Object> labels = new ArrayList<>();		
 		File students = new File(coursePath+"/Students");
 		

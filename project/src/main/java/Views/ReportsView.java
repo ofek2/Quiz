@@ -1,5 +1,8 @@
 package Views;
 
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.JLabel;
 import javax.swing.JScrollPane;
@@ -43,6 +46,8 @@ public class ReportsView extends ViewPanel {
 	public JScrollPane scrollPane;
 	private JButton [] titleButtons;
 	private JPanel emptyJpanel;
+	private JMenu mnFile;
+	private JMenuItem mntmExit;
 	private int width= (int) ((MainFrameController.view.getContentPane().getWidth()-20)/4);
 	private int height= (int) ((MainFrameController.view.getContentPane().getHeight())/2.5);
 	private int reportsInfoPanelStartX = MainFrameController.view.getContentPane().getWidth()-20-width;
@@ -58,7 +63,7 @@ public class ReportsView extends ViewPanel {
 		add(reportsInfoPanel);
 		reportsInfoPanel.setLayout(null);
 		reportsInfoPanel.setBounds(reportsInfoPanelStartX
-				,20, width, height);
+				,35, width, height);
 		
 		lblReportsCourseId = new JLabel("Course id:");
 		lblReportsCourseId.setBounds((int)(width/5)-20, 40, 80, 14);
@@ -109,13 +114,24 @@ public class ReportsView extends ViewPanel {
 		btnExportExcelFile.setBounds((int)(width/3), 280, 130, 23);
 		reportsInfoPanel.add(btnExportExcelFile);
 		
-		btnBack = new JButton("Back");
-		btnBack.setBounds((int)(width/1.5), 340, 79, 23);
-		reportsInfoPanel.add(btnBack);
+//		btnBack = new JButton("Back");
+//		btnBack.setBounds((int)(width/1.5), 340, 79, 23);
+//		reportsInfoPanel.add(btnBack);
 		
 		scrollPane = new JScrollPane();
-		scrollPane.setBounds(10,20, MainFrameController.view.getContentPane().getWidth()/2, MainFrameController.view.getContentPane().getHeight()-70);
+		scrollPane.setBounds(10,35, MainFrameController.view.getContentPane().getWidth()/2, MainFrameController.view.getContentPane().getHeight()-70);
+				
+		JMenuBar menuBar = new JMenuBar();
+		menuBar.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
+		menuBar.setBackground(Color.WHITE);
+		menuBar.setBounds(0, 0, MainFrameController.view.getWidth(), 30);
+		add(menuBar);
 		
+		mnFile = new JMenu("File");
+		menuBar.add(mnFile);
+		
+		JMenuItem mntmExit = new JMenuItem("Exit");
+		mnFile.add(mntmExit);
 		//scrollPane.setBounds(50,70,300,250);
 		add(scrollPane);
 //		JButton [] titleButtons = {new JButton("Quiz1"),new JButton("Quiz2"),new JButton("Quiz3"),new JButton("AVG")};
@@ -212,9 +228,9 @@ public class ReportsView extends ViewPanel {
 	{
 		btnExportExcelFile.addActionListener(listener);
 	}
-	public void btnBackAddListener(ActionListener listener)
+	public void mntmExitAddListener(ActionListener listener)
 	{
-		btnBack.addActionListener(listener);
+		mnFile.getItem(0).addActionListener(listener);
 	}
 	
 }
