@@ -26,12 +26,12 @@ public class DropBoxSimple {
 	private AppKeyPair appKeys;
 	private WebAuthSession session;
 	private RequestTokenPair pair;
-
+	private boolean authenticated ;
 	public DropBoxSimple() {
 
 		appKeys = new AppKeyPair(APP_KEY, APP_SECRET);
 		session = new WebAuthSession(appKeys, Session.AccessType.DROPBOX);
-
+		authenticated = false;
 	}
 
 	public String getAuthorizationUrl() {
@@ -50,23 +50,30 @@ public class DropBoxSimple {
 
 	// This function authenticates new user
 	public void startSession() {
-		boolean authenticated = false;
+		
 
-//		while (!authenticated) {
+		if(!authenticated)
+		{
 			try {
 				session.retrieveWebAccessToken(pair);
 
 				authenticated = true;
 			} catch (Exception e) {
-				System.out.println("+1+");
+			
 			}
-//		}
+
 			if (authenticated) {
 				AccessTokenPair tokens = session.getAccessTokenPair();
 				
 				api = new DropboxAPI<WebAuthSession>(session);
+				try {
+					System.out.println(api.accountInfo().displayName);
+				} catch (DropboxException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 			}
-
+		}
 	}
 
 	// This function authenticates an authorized user

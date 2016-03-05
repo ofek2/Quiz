@@ -63,10 +63,10 @@ public class DropBoxAuthenticationView extends Application{
 //			try {
 			dbx = new DropBoxSimple();
 			String url = dbx.getAuthorizationUrl();
-			webEngine.setOnVisibilityChanged(new EventHandler<WebEvent<Boolean>>() {
+			webEngine.setOnStatusChanged(new EventHandler<WebEvent<String>>() {
 				
 				@Override
-				public void handle(WebEvent<Boolean> arg0) {
+				public void handle(WebEvent<String> event) {
 					// TODO Auto-generated method stub
 					dbx.startSession();
 				}
