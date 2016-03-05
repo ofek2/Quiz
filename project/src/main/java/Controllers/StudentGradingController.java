@@ -56,7 +56,10 @@ public class StudentGradingController {
 	{
 		System.out.println(quizScore);
 			if(!quizScore.equals("-1"))
+			{
 				view.getLblGrade().setText(quizScore);
+				view.getGradeBtn().setText("Edit");
+			}
 	}
 	class gradeBtnAddActionListener implements ActionListener
 	{
