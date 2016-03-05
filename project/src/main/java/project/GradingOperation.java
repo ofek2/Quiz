@@ -273,6 +273,7 @@ public class GradingOperation extends ViewPanel implements Runnable{
 						oos.writeObject(result);
 						oos.close();
 						studentGradingPanel.getLblGrade().setText(score);
+						if(studentGradingPanel.getGradeBtn().getText().equals("Grade"))
 						studentGradingPanel.getGradeBtn().setText("Edit");
 					} catch (IOException e) {
 						// TODO Auto-generated catch block
