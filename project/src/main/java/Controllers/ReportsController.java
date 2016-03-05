@@ -79,10 +79,14 @@ public class ReportsController {
 			try {
 				FileWriter excelFile = new FileWriter(fileName);
 				out = new PrintWriter(excelFile);
+				out.print("Student Id"+"\t");
+				for (int i = 0; i < quizzesNames.size(); i++) {
+					out.print(quizzesNames.get(i)+"\t");
+				}
+				out.println();
 				for (int i = 1; i < table.getRows().size(); i++) {
 					for (int j = 0; j < quizzesNames.size()+1; j++) {
-						out = new PrintWriter(excelFile);
-						out.print(((JLabel)table.getRows().get(i).getRowItems().get(j)).getText()+",");
+						out.print(((JLabel)table.getRows().get(i).getRowItems().get(j)).getText()+"\t");
 					}
 					out.println();
 				}
