@@ -1,14 +1,11 @@
 package Views;
 import javax.swing.JMenuBar;
 import Controllers.MainFrameController;
-import project.CustomTable;
-
 import javax.swing.BoxLayout;
 import javax.swing.JLabel;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
-
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.GridLayout;
