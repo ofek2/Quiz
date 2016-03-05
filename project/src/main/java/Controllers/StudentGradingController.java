@@ -52,7 +52,7 @@ public class StudentGradingController {
 		
 	}
 	
-	private void updateQuizScoreInView()
+	public void updateQuizScoreInView()
 	{
 		System.out.println(quizScore);
 			if(!quizScore.equals("-1"))

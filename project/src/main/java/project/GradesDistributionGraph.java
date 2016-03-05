@@ -12,7 +12,6 @@ import javax.swing.border.EtchedBorder;
 
 import project.GradingOperation.Browser;
 import project.GradingOperation.ExitListener;
-import project.GradingOperation.SaveListener;
 import javafx.application.Platform;
 import javafx.embed.swing.JFXPanel;
 import javafx.scene.Scene;

@@ -48,6 +48,7 @@ import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 
 import Controllers.MainFrameController;
+import Controllers.StudentGradingController;
 import Entities.StudentEntity;
 import Views.Main;
 import Views.StudentGradingPanel;
@@ -82,9 +83,6 @@ public class GradingOperation extends ViewPanel implements Runnable{
 		gradingMenu = new JMenu("File");
 		menuBar.add(gradingMenu);
 		
-		JMenuItem mntmSave = new JMenuItem("Save");
-		gradingMenu.add(mntmSave);
-		mntmSave.addActionListener(new SaveListener());
 		
 		JMenuItem mntmExit = new JMenuItem("Exit");
 		gradingMenu.add(mntmExit);
@@ -141,16 +139,6 @@ public class GradingOperation extends ViewPanel implements Runnable{
 //	}
 
 	
-	class SaveListener implements ActionListener
-	{
-
-		public void actionPerformed(ActionEvent e) {
-			// TODO Auto-generated method stub
-			
-			
-		}
-		
-	}
 	
 	class ExitListener implements ActionListener
 	{
@@ -284,6 +272,7 @@ public class GradingOperation extends ViewPanel implements Runnable{
 						ObjectOutputStream oos = new ObjectOutputStream(fos);
 						oos.writeObject(result);
 						oos.close();
+						studentGradingPanel.getLblGrade().setText(score);
 					} catch (IOException e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
