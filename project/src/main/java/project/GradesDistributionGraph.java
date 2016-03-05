@@ -37,7 +37,7 @@ public class GradesDistributionGraph extends ViewPanel implements Runnable{
     final static String fifth = "81-90";
     final static String last = "91-100";
     final static double[] partition={55,65,70,81,91,100};
-    private int[] partitionsPercentages = {0,0,0,0,0,0};
+    private double[] partitionsPercentages = {0,0,0,0,0,0};
 	public GradesDistributionGraph(ArrayList<String> quizScores,
 			Container previousView) {
 		this.quizScores = quizScores;
@@ -94,17 +94,15 @@ public class GradesDistributionGraph extends ViewPanel implements Runnable{
 				partitionsPercentages[3]+=1;
 			else if(Double.parseDouble(quizScores.get(i))<partition[4])
 				partitionsPercentages[4]+=1;
-			else if(Double.parseDouble(quizScores.get(i))<partition[5])
+			else if(Double.parseDouble(quizScores.get(i))<=partition[5])
 				partitionsPercentages[5]+=1;				
 		}
-        for (int i = 0; i < quizScores.size(); i++) {
-				partitionsPercentages[0]=(partitionsPercentages[0]/quizScores.size())*100;
-				partitionsPercentages[1]=(partitionsPercentages[1]/quizScores.size())*100;
-				partitionsPercentages[2]=(partitionsPercentages[2]/quizScores.size())*100;
-				partitionsPercentages[3]=(partitionsPercentages[3]/quizScores.size())*100;
-				partitionsPercentages[4]=(partitionsPercentages[4]/quizScores.size())*100;
-				partitionsPercentages[5]=(partitionsPercentages[5]/quizScores.size())*100;				
-		}
+        partitionsPercentages[0]=(partitionsPercentages[0]/quizScores.size())*100;
+		partitionsPercentages[1]=(partitionsPercentages[1]/quizScores.size())*100;
+		partitionsPercentages[2]=(partitionsPercentages[2]/quizScores.size())*100;
+		partitionsPercentages[3]=(partitionsPercentages[3]/quizScores.size())*100;
+		partitionsPercentages[4]=(partitionsPercentages[4]/quizScores.size())*100;
+		partitionsPercentages[5]=(partitionsPercentages[5]/quizScores.size())*100;
         series1.getData().add(new XYChart.Data(first, partitionsPercentages[0]));
         series1.getData().add(new XYChart.Data(second, partitionsPercentages[1]));
         series1.getData().add(new XYChart.Data(third, partitionsPercentages[2]));
