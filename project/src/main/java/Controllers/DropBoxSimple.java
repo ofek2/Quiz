@@ -52,19 +52,21 @@ public class DropBoxSimple {
 	public void startSession() {
 		boolean authenticated = false;
 
-		while (!authenticated) {
+//		while (!authenticated) {
 			try {
 				session.retrieveWebAccessToken(pair);
 
 				authenticated = true;
 			} catch (Exception e) {
-
+				System.out.println("+1+");
 			}
-		}
+//		}
+			if (authenticated) {
+				AccessTokenPair tokens = session.getAccessTokenPair();
+				
+				api = new DropboxAPI<WebAuthSession>(session);
+			}
 
-		AccessTokenPair tokens = session.getAccessTokenPair();
-	
-		api = new DropboxAPI<WebAuthSession>(session);
 	}
 
 	// This function authenticates an authorized user
