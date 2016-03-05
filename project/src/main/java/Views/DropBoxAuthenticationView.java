@@ -26,10 +26,10 @@ import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.web.WebEngine;
+import javafx.scene.web.WebEvent;
 import javafx.scene.web.WebView;
 import javafx.stage.Stage;
 import netscape.javascript.JSObject;
-
 import project.GradingOperation.Desktop;
 
 public class DropBoxAuthenticationView extends Application{
@@ -49,7 +49,7 @@ public class DropBoxAuthenticationView extends Application{
         stage.setScene(scene);
         stage.show();
        ////////////////////////////////////This is for later use://// new MainFrameController(new MainFrameView());
-       // dbx.startSession();
+        dbx.startSession();
     }
 	class Browser extends Region {
 
@@ -63,9 +63,17 @@ public class DropBoxAuthenticationView extends Application{
 //			try {
 			dbx = new DropBoxSimple();
 			String url = dbx.getAuthorizationUrl();
-	
+			webEngine.setOnVisibilityChanged(new EventHandler<WebEvent<Boolean>>() {
+				
+				@Override
+				public void handle(WebEvent<Boolean> arg0) {
+					// TODO Auto-generated method stub
+					dbx.startSession();
+				}
+			});
 			//System.out.println(url);
 				webEngine.load(url);
+				
 //				new File(".").getCanonicalPath()
 //				+"/OnlineQuizChecker/1,sss/Quizzes/shit/StudentsAnswers/shit.html");
 //			} catch (IOException e) {
