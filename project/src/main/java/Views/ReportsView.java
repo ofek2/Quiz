@@ -6,21 +6,14 @@ import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.JLabel;
 import javax.swing.JScrollPane;
-import javax.swing.JTable;
-import javax.swing.JTextField;
 import javax.swing.JComboBox;
 import javax.swing.JButton;
 import javax.swing.JSeparator;
 import javax.swing.border.EtchedBorder;
-import javax.swing.table.DefaultTableModel;
 import Controllers.InitialWindowController;
 import Controllers.MainFrameController;
 import java.awt.Color;
-import java.awt.Component;
-import java.awt.Dimension;
 import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
-import java.util.ArrayList;
 import java.util.Vector;
 
 
