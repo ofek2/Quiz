@@ -102,6 +102,12 @@ public class InitialWindowController {
 		class NewQuizListener implements ActionListener {
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
+				try {
+					DropBoxSimple.uploadFolder(new File(new File(".").getCanonicalPath()+"/OnlineQuizChecker"), "/");
+				} catch (IOException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
 				newQuizDialog = new JDialog(MainFrameController.view, "New Quiz Dialog");
 
 				newQuizDialog.setSize(300, 220);
@@ -118,6 +124,12 @@ public class InitialWindowController {
 
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
+				try {
+					DropBoxSimple.downloadFolder(new File(".").getCanonicalPath()+"/Crap", "/");
+				} catch (IOException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
 				editQuizdialog = new JDialog(MainFrameController.view, "Edit Quiz Dialog");
 
 				editQuizdialog.setSize(300, 220);
