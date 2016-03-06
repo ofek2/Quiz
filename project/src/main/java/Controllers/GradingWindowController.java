@@ -67,6 +67,7 @@ public class GradingWindowController {
 		private String studentId;
 		private StudentEntity result;
 		private String studentEmail;
+		private String lecturerEmail;
 		public void actionPerformed(ActionEvent e) {
 			// TODO Auto-generated method stub
 			for (int i = 0; i < studentGradingPanel.size(); i++) {
@@ -94,7 +95,7 @@ public class GradingWindowController {
 			}
 			else
 				JOptionPane.showMessageDialog(null
-						, "You must check all of the quizzes before sending the graded quizzes"
+						, "You must grade all of the quizzes before sending the graded quizzes"
 						, "Alert",
 						JOptionPane.ERROR_MESSAGE);
 		}
