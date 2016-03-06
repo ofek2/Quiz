@@ -1,5 +1,6 @@
 package Views;
 
+import java.io.File;
 import java.net.URL;
 
 import javax.swing.JFrame;
@@ -49,7 +50,7 @@ public class DropBoxAuthenticationView extends Application{
         stage.setScene(scene);
         stage.show();
        ////////////////////////////////////This is for later use://// new MainFrameController(new MainFrameView());
-        dbx.startSession();
+       
     }
 	class Browser extends Region {
 
@@ -68,7 +69,13 @@ public class DropBoxAuthenticationView extends Application{
 				@Override
 				public void handle(WebEvent<String> event) {
 					// TODO Auto-generated method stub
-					dbx.startSession();
+					if(dbx.startSession())
+					{
+						new MainFrameController(new MainFrameView());
+						Platform.exit();
+					
+			
+					}
 				}
 			});
 			//System.out.println(url);
