@@ -1,6 +1,9 @@
 package Views;
 
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.net.URL;
 
 import javax.swing.JFrame;
@@ -31,10 +34,12 @@ import javafx.scene.web.WebEvent;
 import javafx.scene.web.WebView;
 import javafx.stage.Stage;
 import netscape.javascript.JSObject;
+import project.DropBoxV1;
 import project.GradingOperation.Desktop;
 
 public class DropBoxAuthenticationView extends Application{
-	public static DropBoxSimple dbx;
+	//public static DropBoxSimple dbx;
+	public static DropBoxV1 dbx;
 	@Override
     public void start(Stage stage) {
         stage.setTitle("OnlineQuizChecker");
@@ -46,11 +51,11 @@ public class DropBoxAuthenticationView extends Application{
        
         //root.getChildren().addAll(browser);
       //  scene.setRoot(root);
- 
+      
         stage.setScene(scene);
         stage.show();
        ////////////////////////////////////This is for later use://// new MainFrameController(new MainFrameView());
-       
+    
     }
 	class Browser extends Region {
 
@@ -62,8 +67,12 @@ public class DropBoxAuthenticationView extends Application{
 		//	getStyleClass().add("browser");
 			// load the web page
 //			try {
-			dbx = new DropBoxSimple();
-			String url = dbx.getAuthorizationUrl();
+			
+			
+		/*dbx = new DropBoxSimple();
+			String url = dbx.getAuthorizationUrl();*/
+			
+			/*
 			webEngine.setOnStatusChanged(new EventHandler<WebEvent<String>>() {
 				
 				@Override
@@ -77,10 +86,29 @@ public class DropBoxAuthenticationView extends Application{
 			
 					}
 				}
-			});
+			});*/
 			//System.out.println(url);
+			dbx = new DropBoxV1();
+			String url = dbx.getAuthorizeationUrl();
+		
 				webEngine.load(url);
+			webEngine.setOnVisibilityChanged(new EventHandler<WebEvent<Boolean>>() {
 				
+				@Override
+				public void handle(WebEvent<Boolean> event) {
+					// TODO Auto-generated method stub
+					  try {
+						  System.out.println("someshit");
+							String code = new BufferedReader(new InputStreamReader(System.in)).readLine().trim();
+							String accessToken=	dbx.createTokenFromCode(code);
+							
+							dbx.createClient(accessToken);
+						} catch (IOException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+				}
+			});
 //				new File(".").getCanonicalPath()
 //				+"/OnlineQuizChecker/1,sss/Quizzes/shit/StudentsAnswers/shit.html");
 //			} catch (IOException e) {
@@ -89,7 +117,6 @@ public class DropBoxAuthenticationView extends Application{
 //			}
 			// add the web view to the scene
 			getChildren().add(browser);
-			
 		
 		}
 
@@ -118,6 +145,7 @@ public class DropBoxAuthenticationView extends Application{
 	}
     public static void main(String[] args) {
         launch(args);
+    	
     }
     
 	/*

@@ -22,14 +22,20 @@ import com.dropbox.client2.session.Session;
 import com.dropbox.client2.session.WebAuthSession;
 import com.dropbox.client2.session.WebAuthSession.WebAuthInfo;
 import com.dropbox.core.DbxAppInfo;
+import com.dropbox.core.DbxException;
+import com.dropbox.core.DbxOAuth1AccessToken;
+import com.dropbox.core.DbxOAuth1Upgrader;
 import com.dropbox.core.DbxRequestConfig;
+import com.dropbox.core.v1.DbxClientV1;
+import com.dropbox.core.v2.DbxClientV2;
 
 public class DropBoxSimple {
 	final String APP_KEY = "6uzu0uyprajxb0p";
 	final String APP_SECRET = "e7iwzdqp4rwtu88";
 
 	public static DropboxAPI<WebAuthSession> api;
-
+//	public static DbxClientV1 client;
+//	private  DbxRequestConfig config ;
 	private AppKeyPair appKeys;
 	private WebAuthSession session;
 	private RequestTokenPair pair;
@@ -38,6 +44,8 @@ public class DropBoxSimple {
 
 		appKeys = new AppKeyPair(APP_KEY, APP_SECRET);
 		session = new WebAuthSession(appKeys, Session.AccessType.APP_FOLDER);
+	//	config = new DbxRequestConfig(
+	//	            "JavaTutorial/1.0", Locale.getDefault().toString());
 		authenticated = false;
 	}
 
@@ -63,7 +71,10 @@ public class DropBoxSimple {
 		{
 			try {
 				session.retrieveWebAccessToken(pair);
-
+				//String accessToken=session.retrieveWebAccessToken(pair);
+				
+			//	client = new DbxClientV1(config, accessToken);
+		//		System.out.println(client.getAccountInfo().email);
 				authenticated = true;
 			} catch (Exception e) {
 			
@@ -86,11 +97,20 @@ public class DropBoxSimple {
 	}
 
 	// This function authenticates an authorized user
-	public void startSession(String key, String secret) {
+	/*public void startSession(String key, String secret) {
 		AccessTokenPair tokens = new AccessTokenPair(key, secret);
+		DbxOAuth1AccessToken acc = new DbxOAuth1AccessToken(tokens.key,tokens.secret);
+		
+		  DbxAppInfo appInfo = new DbxAppInfo(APP_KEY, APP_SECRET);
+	
+	       
+		
+		
+		
+		/*
 		session.setAccessTokenPair(tokens);
-		api = new DropboxAPI<WebAuthSession>(session);
-	}
+		api = new DropboxAPI<WebAuthSession>(session);*/
+//	}
 	public static void uploadFolder(File file,String path)
 	{
 		if (!file.exists())
