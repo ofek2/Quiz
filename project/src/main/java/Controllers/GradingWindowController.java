@@ -6,7 +6,22 @@ import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Properties;
 
+import javax.activation.DataHandler;
+import javax.activation.DataSource;
+import javax.activation.FileDataSource;
+import javax.mail.BodyPart;
+import javax.mail.Message;
+import javax.mail.MessagingException;
+import javax.mail.Multipart;
+import javax.mail.Session;
+import javax.mail.Transport;
+import javax.mail.internet.AddressException;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeBodyPart;
+import javax.mail.internet.MimeMessage;
+import javax.mail.internet.MimeMultipart;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
@@ -15,6 +30,7 @@ import project.ObjectFileManager;
 import Entities.QuizEntity;
 import Entities.StudentEntity;
 import Entities.StudentQuizEntity;
+import Views.DropBoxAuthenticationView;
 import Views.GradingWindowView;
 import Views.StudentGradingPanel;
 import Views.ViewPanel;
@@ -67,9 +83,13 @@ public class GradingWindowController {
 		private String studentId;
 		private StudentEntity result;
 		private String studentEmail;
-		private String lecturerEmail;
+		private String userEmail = DropBoxAuthenticationView.userEmail;
+	    private String host = "localhost";
+	    private Properties properties = System.getProperties();
 		public void actionPerformed(ActionEvent e) {
 			// TODO Auto-generated method stub
+		    properties.setProperty("mail.smtp.host", host);
+		    Session session = Session.getDefaultInstance(properties);
 			for (int i = 0; i < studentGradingPanel.size(); i++) {
 				if (studentGradingPanel.get(i).getGradeBtn().getText().equals("Grade")) {
 					allChecked = false;
@@ -86,7 +106,31 @@ public class GradingWindowController {
 								getParentFile().getParentFile().getCanonicalPath()
 								+"/Students/"+studentId+".ser");
 						studentEmail = result.getStudentEmail();
+				        MimeMessage message = new MimeMessage(session);
+				        message.setFrom(new InternetAddress(userEmail));
+				        message.addRecipient(Message.RecipientType.TO,
+				                                 new InternetAddress(studentEmail));
+				        message.setSubject("This is the Subject Line!");
+				        BodyPart messageBodyPart = new MimeBodyPart();
+				        messageBodyPart.setText("This is message body");
+				        Multipart multipart = new MimeMultipart();
+				        multipart.addBodyPart(messageBodyPart);
+				        messageBodyPart = new MimeBodyPart();
+				        DataSource source = 
+				        		new FileDataSource(studentQuizFile.getCanonicalPath());
+				        messageBodyPart.setDataHandler(new DataHandler(source));
+				        messageBodyPart.setFileName(studentQuizFile.getName());
+				        multipart.addBodyPart(messageBodyPart);
+				        message.setContent(multipart );
+				        Transport.send(message);
+				        System.out.println("Sent message successfully....");
 					} catch (IOException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					} catch (AddressException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					} catch (MessagingException e1) {
 						// TODO Auto-generated catch block
 						e1.printStackTrace();
 					}
