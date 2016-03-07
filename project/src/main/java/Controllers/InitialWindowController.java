@@ -6,6 +6,9 @@ import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -13,10 +16,12 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.io.Serializable;
 import java.util.ArrayList;
 
 import javax.swing.JComboBox;
 import javax.swing.JDialog;
+import javax.swing.JFrame;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPopupMenu;
@@ -24,6 +29,7 @@ import javax.swing.JTree;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.TreePath;
 
+import Controllers.QuizCreationController.windowListener;
 import Entities.CourseEntity;
 import Entities.QuizEntity;
 import Entities.QuizObjectEntity;
@@ -52,11 +58,15 @@ public class InitialWindowController {
 	private courseIdGradeItemListener courseIdGradeItemListener;
 	public JDialog registerStudentDialog;
 	public JDialog removeStudentDialog;
-
+	private windowListener windowListener;
 	public InitialWindowController(InitialWindowView view) {
 
 		this.view = view;
 		menuController = new MenuController();
+		windowListener = new windowListener();
+		MainFrameController.view.removeWindowListener(MainFrameController.view.windowListener);
+		MainFrameController.view.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+		MainFrameController.view.addWindowListener(windowListener);
 //		fileManager = new ObjectFileManager();
 		addListeners();
 	}
@@ -102,12 +112,7 @@ public class InitialWindowController {
 		class NewQuizListener implements ActionListener {
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
-				try {
-					DropBoxSimple.uploadFolder(new File(new File(".").getCanonicalPath()+"/OnlineQuizChecker"), "/");
-				} catch (IOException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}
+			
 				newQuizDialog = new JDialog(MainFrameController.view, "New Quiz Dialog");
 
 				newQuizDialog.setSize(300, 220);
@@ -124,12 +129,7 @@ public class InitialWindowController {
 
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
-				try {
-					DropBoxSimple.downloadFolder(new File(".").getCanonicalPath()+"/Crap", "/");
-				} catch (IOException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}
+			
 				editQuizdialog = new JDialog(MainFrameController.view, "Edit Quiz Dialog");
 
 				editQuizdialog.setSize(300, 220);
@@ -883,6 +883,14 @@ public class InitialWindowController {
 			e.printStackTrace();
 		}
 
+	}
+	class windowListener extends WindowAdapter implements Serializable
+	{
+		public void windowClosing(WindowEvent e) {
+		
+			DropBoxSimple.uploadFolder(new File(new File(".")+"/OnlineQuizChecker/"), "/");
+			System.exit(0);
+		}
 	}
 	/*
 	 * public void coursesUpdate(){

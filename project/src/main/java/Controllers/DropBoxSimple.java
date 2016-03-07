@@ -6,6 +6,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.Locale;
@@ -32,7 +33,7 @@ import com.dropbox.core.v2.DbxClientV2;
 public class DropBoxSimple {
 	final String APP_KEY = "6uzu0uyprajxb0p";
 	final String APP_SECRET = "e7iwzdqp4rwtu88";
-
+	public static String rootPath;
 	public static DropboxAPI<WebAuthSession> api;
 //	public static DbxClientV1 client;
 //	private  DbxRequestConfig config ;
@@ -41,17 +42,24 @@ public class DropBoxSimple {
 	private RequestTokenPair pair;
 	private boolean authenticated ;
 	public DropBoxSimple() {
-
+		try {
+			rootPath= new File(".").getCanonicalPath()+"/OnlineQuizChecker/";
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		appKeys = new AppKeyPair(APP_KEY, APP_SECRET);
 		session = new WebAuthSession(appKeys, Session.AccessType.APP_FOLDER);
 	//	config = new DbxRequestConfig(
 	//	            "JavaTutorial/1.0", Locale.getDefault().toString());
 		authenticated = false;
+		
 	}
 
 	public String getAuthorizationUrl() {
 		WebAuthInfo authInfo;
 		try {
+		
 			authInfo = session.getAuthInfo();
 			pair = authInfo.requestTokenPair;
 			String url = authInfo.url;
@@ -118,8 +126,9 @@ public class DropBoxSimple {
         if (file.isDirectory()) {
         	if(file.listFiles().length == 0)
 				try {
+					if(!file.getCanonicalPath().equals(rootPath))
 					api.createFolder(path+"/"+file.getName());
-				} catch (DropboxException e) {
+				} catch (DropboxException | IOException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}

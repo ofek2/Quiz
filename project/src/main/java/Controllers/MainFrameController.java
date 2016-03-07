@@ -75,8 +75,8 @@ public class MainFrameController {
 		
 		try {
 			appFolder= new File(new File(".").getCanonicalPath()+"/OnlineQuizChecker");
-			//DropBoxSimple.upload(appFolder, "/");
-			
+			recursiveDelete(appFolder);
+			DropBoxSimple.downloadFolder(appFolder.getCanonicalPath(), "/");
 			if(!appFolder.exists())
 				appFolder.mkdir();
 			else
@@ -87,4 +87,15 @@ public class MainFrameController {
 			e.printStackTrace();
 		}
 	}
+	private void recursiveDelete(File file) {
+        if (!file.exists())
+            return;
+        if (file.isDirectory()) {
+            for (File f : file.listFiles()) {
+                recursiveDelete(f);
+            }
+        }
+        file.delete();
+    }
+	
 }
