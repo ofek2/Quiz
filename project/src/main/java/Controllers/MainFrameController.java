@@ -8,6 +8,7 @@ import javax.swing.JOptionPane;
 
 import com.dropbox.client2.exception.DropboxException;
 
+import Views.DropBoxAuthenticationView;
 import Views.InitialWindowView;
 import Views.MainFrameView;
 import Entities.CourseEntity;
@@ -27,10 +28,11 @@ public class MainFrameController {
 	 
 	public MainFrameController(MainFrameView view) {
 		this.view=view;
-	
+		
 		loadApplicationFolder();
 		if(overWrite==JOptionPane.YES_OPTION)
 		{
+			System.out.println(DropBoxAuthenticationView.userEmail);
 		//load the courses folders into the array list
 		///////////////////////////////////////////////////////////////////////////////////////////////
 			initialWindowController.coursesFiles=new ArrayList<CourseEntity>();

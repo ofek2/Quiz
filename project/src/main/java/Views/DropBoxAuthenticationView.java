@@ -10,10 +10,16 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EtchedBorder;
 
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.w3c.dom.NodeList;
+
 import Controllers.DropBoxSimple;
 import Controllers.MainFrameController;
 import javafx.application.Application;
 import javafx.application.Platform;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.concurrent.Worker;
 import javafx.embed.swing.JFXPanel;
 import javafx.event.ActionEvent;
@@ -38,8 +44,9 @@ import project.DropBoxV1;
 import project.GradingOperation.Desktop;
 
 public class DropBoxAuthenticationView extends Application{
-	//public static DropBoxSimple dbx;
-	public static DropBoxV1 dbx;
+	public static DropBoxSimple dbx;
+	public static String userEmail;
+	//public static DropBoxV1 dbx;
 	@Override
     public void start(Stage stage) {
         stage.setTitle("OnlineQuizChecker");
@@ -69,10 +76,11 @@ public class DropBoxAuthenticationView extends Application{
 //			try {
 			
 			
-		/*dbx = new DropBoxSimple();
-			String url = dbx.getAuthorizationUrl();*/
+			dbx = new DropBoxSimple();
+			String url = dbx.getAuthorizationUrl();
+		
+			webEngine.load(url);
 			
-			/*
 			webEngine.setOnStatusChanged(new EventHandler<WebEvent<String>>() {
 				
 				@Override
@@ -80,15 +88,33 @@ public class DropBoxAuthenticationView extends Application{
 					// TODO Auto-generated method stub
 					if(dbx.startSession())
 					{
-						new MainFrameController(new MainFrameView());
-						Platform.exit();
+						webEngine.getLoadWorker().stateProperty()
+					    .addListener((obs, oldValue, newValue) -> {
+					      if (newValue == Worker.State.SUCCEEDED) {
+					    	  Document doc = webEngine.getDocument();
+
+							  NodeList divs = doc.getElementsByTagName("div");
+					
+								for (int i =0; i<divs.getLength();i++)
+									if(((Element)divs.item(i)).getAttribute("class")!=null)
+										if(((Element)divs.item(i)).getAttribute("class").equals("email force-no-break"))
+											userEmail=((Element)divs.item(i)).getTextContent();
+								
+								new MainFrameController(new MainFrameView());
+								Platform.exit();
+					      }
+					    });
+					
+					
+				
+					
 					
 			
 					}
 				}
-			});*/
+			});
 			//System.out.println(url);
-			dbx = new DropBoxV1();
+		/*	dbx = new DropBoxV1();
 			String url = dbx.getAuthorizeationUrl();
 		
 				webEngine.load(url);
@@ -108,7 +134,7 @@ public class DropBoxAuthenticationView extends Application{
 							e.printStackTrace();
 						}
 				}
-			});
+			});*/
 //				new File(".").getCanonicalPath()
 //				+"/OnlineQuizChecker/1,sss/Quizzes/shit/StudentsAnswers/shit.html");
 //			} catch (IOException e) {
