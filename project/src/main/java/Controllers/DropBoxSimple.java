@@ -184,11 +184,13 @@ public class DropBoxSimple {
 		    }
 		    else
 		    {
-		    	 outputStream = new FileOutputStream(file);
-		    	 downloadProgressOP = new JOptionPane("0% of files have been downloaded");
-		    	 downloadProgressD = new JDialog();
-		    	 downloadProgressD.setContentPane(downloadProgressOP);
-		    	 downloadProgressD.setVisible(true);
+		    	outputStream = new FileOutputStream(file);
+		    	downloadProgressOP = new JOptionPane("0% of files have been downloaded");
+		    	downloadProgressD = new JDialog();
+		    	downloadProgressD.setContentPane(downloadProgressOP);
+				downloadProgressD.setSize(400,200);
+				downloadProgressD.setLocationRelativeTo(null);
+		    	downloadProgressD.setVisible(true);	    	 
 		    	DropboxFileInfo info = api.getFile(dropPath, null, outputStream, progressListener);
 		    	downloadProgressD.setVisible(false);
 		    }
@@ -223,14 +225,9 @@ public class DropBoxSimple {
 		@Override
 		public void onProgress(long arg0, long arg1) {
 			// TODO Auto-generated method stub
-			downloadProgressD.setVisible(false);
-			downloadProgressD.setSize(400,200);
-			downloadProgressD.setLocationRelativeTo(null);
 			double percent = 100.0*(double)arg0/arg1;
-			downloadProgressOP = new JOptionPane(String.valueOf(percent)
+			downloadProgressOP.setMessage(String.format("%.2f",percent)
 					+"% of files have been downloaded");
-			downloadProgressD.setContentPane(downloadProgressOP);
-			downloadProgressD.setVisible(true);
 		}
 
 		@Override
