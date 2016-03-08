@@ -140,15 +140,16 @@ public class DropBoxSimple {
 					e.printStackTrace();
 				}
         	else{
+        		path=path+file.getName()+"/";
         	 for (File f : file.listFiles()) {
-        		 uploadFolder(f,path+"/"+f.getName());
+        		 uploadFolder(f,path+f.getName());
         	 }
         	}
         }
         else{
 		try {
 			FileInputStream in = new FileInputStream(file);
-			api.putFileOverwrite(path+"/"+file.getName(), in, file.length(), null);
+			api.putFileOverwrite(path+file.getName(), in, file.length(), null);
 		} catch (FileNotFoundException | DropboxException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
