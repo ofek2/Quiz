@@ -49,7 +49,7 @@ public class DropBoxSimple {
 	private static JDialog downloadProgressD;
 	public DropBoxSimple() {
 		try {
-			rootPath= new File(".").getCanonicalPath()+"/OnlineQuizChecker/";
+			rootPath= new File(".").getCanonicalPath()+"\\OnlineQuizChecker";
 			progressListener = new progListener();
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
@@ -134,15 +134,22 @@ public class DropBoxSimple {
         	if(file.listFiles().length == 0)
 				try {
 					if(!file.getCanonicalPath().equals(rootPath))
-					api.createFolder(path);
+					api.createFolder(path+file.getName());
 				} catch (DropboxException | IOException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
         	else{
-        		path=path+file.getName()+"/";
+        		try {
+        			System.out.println("The file path= "+file.getCanonicalPath()+"  "+rootPath);
+					if(!file.getCanonicalPath().equals(rootPath))
+					path=path+file.getName()+"/";
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
         	 for (File f : file.listFiles()) {
-        		 uploadFolder(f,path+f.getName());
+        		 uploadFolder(f,path);
         	 }
         	}
         }
@@ -189,6 +196,27 @@ public class DropBoxSimple {
 		   e.printStackTrace();
 		} 
 	}
+	public static void recursiveDeleteDropboxFolder(String path)
+	{
+		 try {
+			Entry existingFile =api.metadata(path, 0, null, true, null);
+			
+			if(existingFile.isDir)
+			{
+				for(int i = 0;i<existingFile.contents.size();i++)
+		    	{
+		    		recursiveDeleteDropboxFolder(path+"/"+existingFile.contents.get(i).fileName());
+		    	}
+				if(!path.equals("/"))
+				api.delete(path);
+			}
+			else
+				api.delete(path);
+		} catch (DropboxException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
 	class progListener extends ProgressListener
 	{
 		private int percent;
@@ -196,7 +224,9 @@ public class DropBoxSimple {
 		public void onProgress(long arg0, long arg1) {
 			// TODO Auto-generated method stub
 			downloadProgressD.setVisible(false);
-			double percent = (int)(100.0*(double)arg0/arg1);
+			downloadProgressD.setSize(400,200);
+			downloadProgressD.setLocationRelativeTo(null);
+			double percent = 100.0*(double)arg0/arg1;
 			downloadProgressOP = new JOptionPane(String.valueOf(percent)
 					+"% of files have been downloaded");
 			downloadProgressD.setContentPane(downloadProgressOP);
