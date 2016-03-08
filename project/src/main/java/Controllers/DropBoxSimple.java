@@ -50,6 +50,11 @@ public class DropBoxSimple {
 	public DropBoxSimple() {
 		try {
 			rootPath= new File(".").getCanonicalPath()+"\\OnlineQuizChecker";
+	    	downloadProgressOP = new JOptionPane("0% of files have been downloaded");
+	    	downloadProgressD = new JDialog();
+	    	downloadProgressD.setContentPane(downloadProgressOP);
+			downloadProgressD.setSize(400,200);
+			downloadProgressD.setLocationRelativeTo(null);
 			progressListener = new progListener();
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
@@ -185,14 +190,10 @@ public class DropBoxSimple {
 		    else
 		    {
 		    	outputStream = new FileOutputStream(file);
-		    	downloadProgressOP = new JOptionPane("0% of files have been downloaded");
-		    	downloadProgressD = new JDialog();
-		    	downloadProgressD.setContentPane(downloadProgressOP);
-				downloadProgressD.setSize(400,200);
-				downloadProgressD.setLocationRelativeTo(null);
+		
 		    	downloadProgressD.setVisible(true);	    	 
 		    	DropboxFileInfo info = api.getFile(dropPath, null, outputStream, progressListener);
-		    	downloadProgressD.setVisible(false);
+		    	//downloadProgressD.setVisible(false);
 		    }
 		} catch (Exception e) {
 		   e.printStackTrace();
@@ -233,7 +234,7 @@ public class DropBoxSimple {
 		@Override
 		public long progressInterval() {
 			// TODO Auto-generated method stub
-			return 200;
+			return 10;
 		}
 		
 	}
