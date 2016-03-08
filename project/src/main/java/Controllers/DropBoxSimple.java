@@ -182,7 +182,7 @@ public class DropBoxSimple {
 		    	 downloadProgressD.setContentPane(downloadProgressOP);
 		    	 downloadProgressD.setVisible(true);
 		    	DropboxFileInfo info = api.getFile(dropPath, null, outputStream, progressListener);
-		    	
+		    	downloadProgressD.setVisible(false);
 		    }
 		} catch (Exception e) {
 		   e.printStackTrace();
