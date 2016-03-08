@@ -11,6 +11,7 @@ import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.Locale;
 
+import javax.swing.JDialog;
 import javax.swing.JOptionPane;
 
 import com.dropbox.client2.DropboxAPI;
@@ -44,6 +45,8 @@ public class DropBoxSimple {
 	private RequestTokenPair pair;
 	private boolean authenticated;
 	private static progListener progressListener;
+	private static JOptionPane downloadProgressOP;
+	private static JDialog downloadProgressD;
 	public DropBoxSimple() {
 		try {
 			rootPath= new File(".").getCanonicalPath()+"/OnlineQuizChecker/";
@@ -174,6 +177,10 @@ public class DropBoxSimple {
 		    else
 		    {
 		    	 outputStream = new FileOutputStream(file);
+		    	 downloadProgressOP = new JOptionPane("0% of files have been downloaded");
+		    	 downloadProgressD = new JDialog();
+		    	 downloadProgressD.setContentPane(downloadProgressOP);
+		    	 downloadProgressD.setVisible(true);
 		    	DropboxFileInfo info = api.getFile(dropPath, null, outputStream, progressListener);
 		    	
 		    }
@@ -187,9 +194,12 @@ public class DropBoxSimple {
 		@Override
 		public void onProgress(long arg0, long arg1) {
 			// TODO Auto-generated method stub
+			downloadProgressD.setVisible(false);
 			double percent = (int)(100.0*(double)arg0/arg1);
-			JOptionPane.showMessageDialog(null, String.valueOf(percent)
+			downloadProgressOP = new JOptionPane(String.valueOf(percent)
 					+"% of files have been downloaded");
+			downloadProgressD.setContentPane(downloadProgressOP);
+			downloadProgressD.setVisible(true);
 		}
 
 		@Override
