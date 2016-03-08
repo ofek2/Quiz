@@ -187,7 +187,7 @@ public class DropBoxSimple {
 		@Override
 		public void onProgress(long arg0, long arg1) {
 			// TODO Auto-generated method stub
-			int percent = (int)(100.0*(double)arg0/arg1);
+			double percent = (int)(100.0*(double)arg0/arg1);
 			JOptionPane.showMessageDialog(null, String.valueOf(percent)
 					+"% of files have been downloaded");
 		}
