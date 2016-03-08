@@ -106,6 +106,7 @@ public class GradingWindowController {
 								getParentFile().getParentFile().getCanonicalPath()
 								+"/Students/"+studentId+".ser");
 						studentEmail = result.getStudentEmail();
+						System.out.println("StudentEmail ="+studentEmail);
 				        MimeMessage message = new MimeMessage(session);
 				        message.setFrom(new InternetAddress(userEmail));
 				        message.addRecipient(Message.RecipientType.TO,

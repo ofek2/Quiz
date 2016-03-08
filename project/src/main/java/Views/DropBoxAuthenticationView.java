@@ -46,9 +46,11 @@ import project.GradingOperation.Desktop;
 public class DropBoxAuthenticationView extends Application{
 	public static DropBoxSimple dbx;
 	public static String userEmail;
+	private Stage stage;
 	//public static DropBoxV1 dbx;
 	@Override
     public void start(Stage stage) {
+		this.stage=stage;
         stage.setTitle("OnlineQuizChecker");
         stage.setWidth(600);
         stage.setHeight(600);
@@ -101,7 +103,15 @@ public class DropBoxAuthenticationView extends Application{
 											userEmail=((Element)divs.item(i)).getTextContent();
 								
 								new MainFrameController(new MainFrameView());
-								Platform.exit();
+								stage.hide();
+								webEngine.setOnStatusChanged(new EventHandler<WebEvent<String>>() {
+									
+									@Override
+									public void handle(WebEvent<String> event) {
+										// TODO Auto-generated method stub
+										
+									}
+								});
 					      }
 					    });
 					

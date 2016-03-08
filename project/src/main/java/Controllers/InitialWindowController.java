@@ -887,7 +887,7 @@ public class InitialWindowController {
 	class windowListener extends WindowAdapter implements Serializable
 	{
 		public void windowClosing(WindowEvent e) {
-		
+			DropBoxSimple.recursiveDeleteDropboxFolder("/");
 			DropBoxSimple.uploadFolder(new File(new File(".")+"/OnlineQuizChecker/"), "/");
 			System.exit(0);
 		}
