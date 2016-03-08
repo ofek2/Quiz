@@ -11,6 +11,8 @@ import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.Locale;
 
+import javax.swing.JOptionPane;
+
 import com.dropbox.client2.DropboxAPI;
 import com.dropbox.client2.ProgressListener;
 import com.dropbox.client2.DropboxAPI.DropboxFileInfo;
@@ -40,10 +42,12 @@ public class DropBoxSimple {
 	private AppKeyPair appKeys;
 	private WebAuthSession session;
 	private RequestTokenPair pair;
-	private boolean authenticated ;
+	private boolean authenticated;
+	private static progListener progressListener;
 	public DropBoxSimple() {
 		try {
 			rootPath= new File(".").getCanonicalPath()+"/OnlineQuizChecker/";
+			progressListener = new progListener();
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -170,7 +174,7 @@ public class DropBoxSimple {
 		    else
 		    {
 		    	 outputStream = new FileOutputStream(file);
-		    	DropboxFileInfo info = api.getFile(dropPath, null, outputStream, null);
+		    	DropboxFileInfo info = api.getFile(dropPath, null, outputStream, progressListener);
 		    	
 		    }
 		} catch (Exception e) {
@@ -179,11 +183,19 @@ public class DropBoxSimple {
 	}
 	class progListener extends ProgressListener
 	{
-
+		private int percent;
 		@Override
 		public void onProgress(long arg0, long arg1) {
 			// TODO Auto-generated method stub
-		//	api.
+			int percent = (int)(100.0*(double)arg0/arg1);
+			JOptionPane.showMessageDialog(null, String.valueOf(percent)
+					+"% of files have been downloaded");
+		}
+
+		@Override
+		public long progressInterval() {
+			// TODO Auto-generated method stub
+			return 200;
 		}
 		
 	}
