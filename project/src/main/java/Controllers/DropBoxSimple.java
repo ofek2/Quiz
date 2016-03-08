@@ -127,14 +127,14 @@ public class DropBoxSimple {
         	if(file.listFiles().length == 0)
 				try {
 					if(!file.getCanonicalPath().equals(rootPath))
-					api.createFolder(path+"/"+file.getName());
+					api.createFolder(path);
 				} catch (DropboxException | IOException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
         	else{
         	 for (File f : file.listFiles()) {
-        		 uploadFolder(f,path+"/"+file.getName());
+        		 uploadFolder(f,path+"/"+f.getName());
         	 }
         	}
         }
