@@ -116,21 +116,7 @@ public class DropBoxSimple {
 		return false;
 	}
 
-	// This function authenticates an authorized user
-	/*public void startSession(String key, String secret) {
-		AccessTokenPair tokens = new AccessTokenPair(key, secret);
-		DbxOAuth1AccessToken acc = new DbxOAuth1AccessToken(tokens.key,tokens.secret);
-		
-		  DbxAppInfo appInfo = new DbxAppInfo(APP_KEY, APP_SECRET);
 	
-	       
-		
-		
-		
-		/*
-		session.setAccessTokenPair(tokens);
-		api = new DropboxAPI<WebAuthSession>(session);*/
-//	}
 	public static void uploadFolder(File file,String path)
 	{
 		if (!file.exists())
@@ -146,7 +132,7 @@ public class DropBoxSimple {
 				}
         	else{
         		try {
-        			System.out.println("The file path= "+file.getCanonicalPath()+"  "+rootPath);
+        		
 					if(!file.getCanonicalPath().equals(rootPath))
 					path=path+file.getName()+"/";
 				} catch (IOException e) {

@@ -1,47 +1,25 @@
 package Views;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.net.URL;
-
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.border.EtchedBorder;
-
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
-
 import Controllers.DropBoxSimple;
 import Controllers.MainFrameController;
 import javafx.application.Application;
-import javafx.application.Platform;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.concurrent.Worker;
-import javafx.embed.swing.JFXPanel;
-import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.HPos;
 import javafx.geometry.VPos;
-import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.Scene;
-import javafx.scene.control.Hyperlink;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.Region;
-import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebEvent;
 import javafx.scene.web.WebView;
 import javafx.stage.Stage;
-import netscape.javascript.JSObject;
-import project.DropBoxV1;
-import project.GradingOperation.Desktop;
 
 public class DropBoxAuthenticationView extends Application{
 	public static DropBoxSimple dbx;
