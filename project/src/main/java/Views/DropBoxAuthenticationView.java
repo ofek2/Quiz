@@ -78,7 +78,7 @@ public class DropBoxAuthenticationView extends Application{
 									if(((Element)divs.item(i)).getAttribute("class")!=null)
 										if(((Element)divs.item(i)).getAttribute("class").equals("email force-no-break"))
 											userEmail=((Element)divs.item(i)).getTextContent();
-								stage.hide();
+							//	stage.hide();
 								
 								new MainFrameController(new MainFrameView());
 								

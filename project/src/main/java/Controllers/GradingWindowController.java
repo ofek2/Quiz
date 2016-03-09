@@ -85,10 +85,11 @@ public class GradingWindowController {
 		private String studentEmail;
 		private String userEmail = DropBoxAuthenticationView.userEmail;
 	    private String host = "localhost";
-	    private Properties properties = System.getProperties();
+	    private Properties properties ;
 		public void actionPerformed(ActionEvent e) {
 			// TODO Auto-generated method stub
-		    properties.setProperty("mail.smtp.host", host);
+		   // properties.setProperty("mail.smtp.host", host);
+			properties = new Properties();
 		    Session session = Session.getDefaultInstance(properties);
 			for (int i = 0; i < studentGradingPanel.size(); i++) {
 				if (studentGradingPanel.get(i).getGradeBtn().getText().equals("Grade")) {
