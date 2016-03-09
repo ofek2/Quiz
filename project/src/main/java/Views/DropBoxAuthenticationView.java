@@ -1,8 +1,18 @@
 package Views;
 
+import java.io.IOException;
+import java.net.URI;
+import java.util.Arrays;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
+
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
+
+
+
 import Controllers.DropBoxSimple;
 import Controllers.MainFrameController;
 import javafx.application.Application;
@@ -25,7 +35,6 @@ public class DropBoxAuthenticationView extends Application{
 	public static DropBoxSimple dbx;
 	public static String userEmail;
 	private Stage stage;
-	//public static DropBoxV1 dbx;
 	@Override
     public void start(Stage stage) {
 		this.stage=stage;
@@ -33,15 +42,9 @@ public class DropBoxAuthenticationView extends Application{
         stage.setWidth(600);
         stage.setHeight(600);
         Scene scene = new Scene(new Browser(), 600,600, Color.web("#666970"));
-       // VBox root = new VBox();    
-      
-       
-        //root.getChildren().addAll(browser);
-      //  scene.setRoot(root);
-      
         stage.setScene(scene);
         stage.show();
-       ////////////////////////////////////This is for later use://// new MainFrameController(new MainFrameView());
+       
     
     }
 	class Browser extends Region {
@@ -50,15 +53,11 @@ public class DropBoxAuthenticationView extends Application{
 		final WebEngine webEngine = browser.getEngine();
 
 		public Browser() {
-			// apply the styles
-		//	getStyleClass().add("browser");
-			// load the web page
-//			try {
-			
+		
 			
 			dbx = new DropBoxSimple();
 			String url = dbx.getAuthorizationUrl();
-		
+			
 			webEngine.load(url);
 			
 			webEngine.setOnStatusChanged(new EventHandler<WebEvent<String>>() {
@@ -79,9 +78,11 @@ public class DropBoxAuthenticationView extends Application{
 									if(((Element)divs.item(i)).getAttribute("class")!=null)
 										if(((Element)divs.item(i)).getAttribute("class").equals("email force-no-break"))
 											userEmail=((Element)divs.item(i)).getTextContent();
+								stage.hide();
 								
 								new MainFrameController(new MainFrameView());
-								stage.hide();
+								
+								
 								webEngine.setOnStatusChanged(new EventHandler<WebEvent<String>>() {
 									
 									@Override

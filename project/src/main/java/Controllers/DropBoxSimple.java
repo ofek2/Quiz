@@ -47,10 +47,11 @@ public class DropBoxSimple {
 	private static progListener progressListener;
 	private static JOptionPane downloadProgressOP;
 	private static JDialog downloadProgressD;
+	private static double totalDropboxSize;
 	public DropBoxSimple() {
 		try {
 			rootPath= new File(".").getCanonicalPath()+"\\OnlineQuizChecker";
-	    	downloadProgressOP = new JOptionPane("0% of files have been downloaded");
+	    	downloadProgressOP = new JOptionPane("0% of files have been ");
 	    	downloadProgressD = new JDialog();
 	    	downloadProgressD.setContentPane(downloadProgressOP);
 			downloadProgressD.setSize(400,200);
@@ -119,6 +120,7 @@ public class DropBoxSimple {
 	
 	public static void uploadFolder(File file,String path)
 	{
+		
 		if (!file.exists())
             return;
         if (file.isDirectory()) {
@@ -147,7 +149,9 @@ public class DropBoxSimple {
         else{
 		try {
 			FileInputStream in = new FileInputStream(file);
-			api.putFileOverwrite(path+file.getName(), in, file.length(), null);
+			downloadProgressD.setVisible(true);	 
+			progressListener.setType("uploaded");
+			api.putFileOverwrite(path+file.getName(), in, file.length(), progressListener);
 		} catch (FileNotFoundException | DropboxException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -178,6 +182,7 @@ public class DropBoxSimple {
 		    	outputStream = new FileOutputStream(file);
 		
 		    	downloadProgressD.setVisible(true);	    	 
+		    	progressListener.setType("downloaded");
 		    	DropboxFileInfo info = api.getFile(dropPath, null, outputStream, progressListener);
 		    	//downloadProgressD.setVisible(false);
 		    }
@@ -206,22 +211,73 @@ public class DropBoxSimple {
 			e.printStackTrace();
 		}
 	}
+	public static long getDropboxTotalSize(String path,long sum)
+	{
+		 try {
+				Entry existingFile =api.metadata(path, 0, null, true, null);
+				
+				if(existingFile.isDir)
+				{
+					for(int i = 0;i<existingFile.contents.size();i++)
+			    	{
+						sum+=getDropboxTotalSize(path+"/"+existingFile.contents.get(i).fileName(),sum);
+			    	}
+					return sum;
+				}
+				else
+					return existingFile.bytes;
+			} catch (DropboxException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		 return 0;
+	}
 	class progListener extends ProgressListener
 	{
-		private int percent;
+		private double currentPercent;
+		private double percent;
+		private double lastPercent;
+		private double lastFileSize;
+		private String type;
+		public  progListener() {
+			// TODO Auto-generated constructor stub
+			currentPercent = 0f;
+			percent = 0f;
+			lastPercent=0f;
+			lastFileSize=0f;
+		}
 		@Override
 		public void onProgress(long arg0, long arg1) {
 			// TODO Auto-generated method stub
-			double percent = 100.0*(double)arg0/arg1;
-			downloadProgressOP.setMessage(String.format("%.2f",percent)
-					+"% of files have been downloaded");
+			
+			currentPercent = 100.0*(double)arg0/totalDropboxSize;
+			if(lastPercent> (double)arg0/arg1)
+			{
+				System.out.println(String.format("%.2f",100.0*(double)lastFileSize/totalDropboxSize));
+				percent +=100.0*(double)lastFileSize/totalDropboxSize;
+			}
+			lastFileSize = arg1;
+			lastPercent= 100.0*(double)arg0/arg1;
+			downloadProgressOP.setMessage(String.format("%.2f",percent+currentPercent)
+					+"% of files have been "+type);
 		}
 
 		@Override
 		public long progressInterval() {
 			// TODO Auto-generated method stub
-			return 10;
+			return 1;
 		}
-		
+		public void setType(String type)
+		{
+			this.type=type;
+		}
 	}
+	public double getTotalDropboxSize() {
+		return totalDropboxSize;
+	}
+
+	public static void setTotalDropboxSize(double size) {
+		totalDropboxSize = size;
+	}
+	
 }
