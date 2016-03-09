@@ -18,13 +18,7 @@ public class MainFrameController {
 	private File appFolder;
 	private InitialWindowController initialWindowController;
 	private int overWrite=JOptionPane.YES_OPTION;
-	/*
-	///////////////////////////
-	File temp1;
-	File temp2;
-	File temp3;
-	///////////////////////////
-	  */
+
 	 
 	public MainFrameController(MainFrameView view) {
 		this.view=view;
@@ -32,7 +26,6 @@ public class MainFrameController {
 		loadApplicationFolder();
 		if(overWrite==JOptionPane.YES_OPTION)
 		{
-			System.out.println(DropBoxAuthenticationView.userEmail);
 		//load the courses folders into the array list
 		///////////////////////////////////////////////////////////////////////////////////////////////
 			initialWindowController.coursesFiles=new ArrayList<CourseEntity>();
@@ -42,24 +35,6 @@ public class MainFrameController {
 				initialWindowController.coursesFiles.add(new CourseEntity(folder, splitedName[0], splitedName[1]));
 			}
 		
-			/*try {
-			temp1=new File(new File(".").getCanonicalPath()+"/OnlineQuizChecker"+"/"+"1,a");
-			temp2=new File(new File(".").getCanonicalPath()+"/OnlineQuizChecker"+"/"+"2,b");
-			temp3=new File(new File(".").getCanonicalPath()+"/OnlineQuizChecker"+"/"+"3,c");
-			initialWindowController.coursesFiles.add(new CourseEntity(temp1, "1", "a"));
-			initialWindowController.coursesFiles.add(new CourseEntity(temp2, "2", "b"));
-			initialWindowController.coursesFiles.add(new CourseEntity(temp3, "3", "c"));
-			if(!temp1.exists())
-			temp1.mkdir();
-			if(!temp2.exists())
-			temp2.mkdir();
-			if(!temp3.exists())
-			temp3.mkdir();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}*/
-		////////////////////////////////////////////////////////////////////////////////////////////////
 			InitialWindowView initialWindowView = new InitialWindowView();
 			initialWindowController = new InitialWindowController(initialWindowView);
 			this.view.changeContentPane(initialWindowView);
@@ -76,6 +51,16 @@ public class MainFrameController {
 		try {
 			appFolder= new File(new File(".").getCanonicalPath()+"/OnlineQuizChecker");
 			recursiveDelete(appFolder);
+			try {
+				long temp = DropBoxSimple.getDropboxTotalSize("/", 0);
+				System.out.println(temp);
+				DropBoxSimple.setTotalDropboxSize(temp);
+				//DropBoxSimple.setTotalDropboxSize(Double.parseDouble(DropBoxSimple.api.metadata("/", 0, null, true, null).size.split(" ")[0]));
+			
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 			DropBoxSimple.downloadFolder(appFolder.getCanonicalPath(), "/");
 			if(!appFolder.exists())
 				appFolder.mkdir();
