@@ -15,6 +15,7 @@ import javax.mail.BodyPart;
 import javax.mail.Message;
 import javax.mail.MessagingException;
 import javax.mail.Multipart;
+import javax.mail.PasswordAuthentication;
 import javax.mail.Session;
 import javax.mail.Transport;
 import javax.mail.internet.AddressException;
@@ -25,6 +26,8 @@ import javax.mail.internet.MimeMultipart;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
+
+import com.sun.mail.smtp.SMTPMessage;
 
 import project.ObjectFileManager;
 import Entities.QuizEntity;
@@ -89,15 +92,20 @@ public class GradingWindowController {
 		public void actionPerformed(ActionEvent e) {
 			// TODO Auto-generated method stub
 		   // properties.setProperty("mail.smtp.host", host);
-			 properties = new Properties();
-			 properties.put("mail.smtp.host", "smtp.gmail.com");
-			 properties.put("mail.smtp.port", "587");
-			 properties.put("mail.debug", "true");
-			 properties.put("mail.smtp.auth", "true");
-			 properties.put("mail.smtp.starttls.enable", "true");
-			 properties.put("mail.smtp.localhost", "localhost");
-			
-		    Session session = Session.getDefaultInstance(properties);
+			properties = new Properties();
+			properties.put("mail.smtp.host", "smtp.gmail.com");
+			properties.put("mail.smtp.socketFactory.port", "465");
+			properties.put("mail.smtp.socketFactory.class",
+		            "javax.net.ssl.SSLSocketFactory");
+			properties.put("mail.smtp.auth", "true");
+			properties.put("mail.smtp.port", "805");
+		    
+		    Session session = Session.getDefaultInstance(properties,   new javax.mail.Authenticator() {  
+	    	      protected PasswordAuthentication getPasswordAuthentication() {  
+	    	    return new PasswordAuthentication( "ofekaz24@gmail.com", "qwe123asd456");  
+	    	      }  
+	    	    });
+		  
 			for (int i = 0; i < studentGradingPanel.size(); i++) {
 				if (studentGradingPanel.get(i).getGradeBtn().getText().equals("Grade")) {
 					allChecked = false;
@@ -116,7 +124,7 @@ public class GradingWindowController {
 								+"/Students/"+studentId+".ser");
 						studentEmail = result.getStudentEmail();
 						System.out.println("StudentEmail ="+studentEmail);
-				        MimeMessage message = new MimeMessage(session);
+				       MimeMessage message = new MimeMessage(session);
 				        message.setFrom(new InternetAddress(userEmail));
 				        message.addRecipient(Message.RecipientType.TO,
 				                                 new InternetAddress(studentEmail));
@@ -132,12 +140,14 @@ public class GradingWindowController {
 				        messageBodyPart.setFileName(studentQuizFile.getName());
 				        multipart.addBodyPart(messageBodyPart);
 				        message.setContent(multipart );
+						SMTPMessage smtpmessage = new SMTPMessage(message);
 				        //Transport.send(message);
-				        Transport tr = session.getTransport("smtp");
+				     /*   Transport tr = session.getTransport("smtp");
 				        tr.connect("smtp.gmail.com", "ofekaz24@gmail.com", "qwe123asd456");
 				        message.saveChanges();
 				        tr.sendMessage(message, message.getAllRecipients());
-				        tr.close();
+				        tr.close();*/
+				        Transport.send(smtpmessage);
 				        System.out.println("Sent message successfully....");
 					} catch (IOException e1) {
 						// TODO Auto-generated catch block
