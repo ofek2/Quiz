@@ -16,6 +16,7 @@ import org.w3c.dom.NodeList;
 import Controllers.DropBoxSimple;
 import Controllers.MainFrameController;
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.concurrent.Worker;
 import javafx.event.EventHandler;
 import javafx.geometry.HPos;
@@ -78,7 +79,9 @@ public class DropBoxAuthenticationView extends Application{
 									if(((Element)divs.item(i)).getAttribute("class")!=null)
 										if(((Element)divs.item(i)).getAttribute("class").equals("email force-no-break"))
 											userEmail=((Element)divs.item(i)).getTextContent();
-							//	stage.hide();
+								//stage.close();
+								
+								//Platform.exit();
 								
 								new MainFrameController(new MainFrameView());
 								

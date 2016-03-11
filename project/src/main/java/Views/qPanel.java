@@ -229,6 +229,7 @@ public class qPanel extends JPanel implements Serializable{
 		add(separator, gbc_separator);
 		
 		answerPanel = new JPanel();
+		answerPanel.setOpaque(false);
 		GridBagConstraints gbc_answerPanel = new GridBagConstraints();
 		gbc_answerPanel.insets = new Insets(5, 0, 0, 0);
 		gbc_answerPanel.gridwidth = 12;
@@ -321,7 +322,7 @@ public class qPanel extends JPanel implements Serializable{
 		btnViewAnswerImage.setVisible(false);
 		freeDrawPanel.add(btnViewAnswerImage, gbc_btnViewAnswerImage);
 		freeTextPanel.setOpaque(false);
-		answerPanel.setOpaque(false);
+	
 		
 		listenChkBox = new JCheckBox("Enable listening");
 		GridBagConstraints gbc_chckbxNewCheckBox = new GridBagConstraints();

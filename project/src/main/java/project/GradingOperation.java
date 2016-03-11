@@ -72,8 +72,10 @@ public class GradingOperation extends ViewPanel implements Runnable{
 		this.studentQuizPath = studentQuizPath;
 		this.previousView = previousView;
 		setLayout(null);
-		fxPanel = new JFXPanel();
-		Platform.setImplicitExit(false);
+		thread = new Thread(this);
+		Platform.runLater(thread);
+		//fxPanel = new JFXPanel();
+		//Platform.setImplicitExit(false);
 		JMenuBar menuBar = new JMenuBar();
 		menuBar.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
 		menuBar.setBackground(java.awt.Color.WHITE);
@@ -88,9 +90,9 @@ public class GradingOperation extends ViewPanel implements Runnable{
 		gradingMenu.add(mntmExit);
 		mntmExit.addActionListener(new ExitListener());
 //		ActionListener[] fileListeners = {new SaveListener(),new ExitListener()};
-		fxPanel.setBounds(MainFrameController.view.getContentPane().getWidth()/8,70,MainFrameController.view.getContentPane().getWidth()*6/8, 800);
-		fxPanel.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
-		add(fxPanel);
+//		fxPanel.setBounds(MainFrameController.view.getContentPane().getWidth()/8,70,MainFrameController.view.getContentPane().getWidth()*6/8, 800);
+//		fxPanel.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
+//		add(fxPanel);
 //		run = new Runnable() {///////////////////
 //			
 //			@Override
@@ -101,10 +103,11 @@ public class GradingOperation extends ViewPanel implements Runnable{
 //		};
 //		if(thread.isAlive())
 //			thread.destroy();
-		thread = new Thread(this);/////////////
-//		thread.start();
+	//	thread = new Thread(this);/////////////
+		//thread.start();
 		
-		Platform.runLater(thread);//////////////////
+	//	Platform.runLater(thread);
+	//	Platform.exit();//////////////////
 //		Platform.runLater(this);
 //		  Platform.runLater(new Runnable() {
 //		      @Override
@@ -125,6 +128,11 @@ public class GradingOperation extends ViewPanel implements Runnable{
 
 	protected void initFX(JFXPanel fxPanel) {
 		// TODO Auto-generated method stub
+		fxPanel = new JFXPanel();
+		Platform.setImplicitExit(false);
+		fxPanel.setBounds(MainFrameController.view.getContentPane().getWidth()/8,70,MainFrameController.view.getContentPane().getWidth()*6/8, 800);
+		fxPanel.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
+		add(fxPanel);
 		final Scene scene = new Scene(new Browser(), MainFrameController.view.getContentPane().getWidth()*6/8, 800, Color.web("#666970"));
 		fxPanel.setScene(scene);
 		

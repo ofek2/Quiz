@@ -89,13 +89,21 @@ public class GradingWindowController {
 		public void actionPerformed(ActionEvent e) {
 			// TODO Auto-generated method stub
 		   // properties.setProperty("mail.smtp.host", host);
-			properties = new Properties();
+			 properties = new Properties();
+			 properties.put("mail.smtp.host", "smtp.gmail.com");
+			 properties.put("mail.smtp.port", "587");
+			 properties.put("mail.debug", "true");
+			 properties.put("mail.smtp.auth", "true");
+			 properties.put("mail.smtp.starttls.enable", "true");
+			 properties.put("mail.smtp.localhost", "localhost");
+			
 		    Session session = Session.getDefaultInstance(properties);
 			for (int i = 0; i < studentGradingPanel.size(); i++) {
 				if (studentGradingPanel.get(i).getGradeBtn().getText().equals("Grade")) {
 					allChecked = false;
 				}
 			}
+			
 			if (allChecked) {
 				for (int i = 0; i < studentsQuizzesPaths.size(); i++) {
 					studentQuizFile = new File(studentsQuizzesPaths.get(i));
@@ -124,7 +132,12 @@ public class GradingWindowController {
 				        messageBodyPart.setFileName(studentQuizFile.getName());
 				        multipart.addBodyPart(messageBodyPart);
 				        message.setContent(multipart );
-				        Transport.send(message);
+				        //Transport.send(message);
+				        Transport tr = session.getTransport("smtp");
+				        tr.connect("smtp.gmail.com", "ofekaz24@gmail.com", "qwe123asd456");
+				        message.saveChanges();
+				        tr.sendMessage(message, message.getAllRecipients());
+				        tr.close();
 				        System.out.println("Sent message successfully....");
 					} catch (IOException e1) {
 						// TODO Auto-generated catch block

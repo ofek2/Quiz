@@ -92,10 +92,6 @@ public class DropBoxSimple {
 		{
 			try {
 				session.retrieveWebAccessToken(pair);
-				//String accessToken=session.retrieveWebAccessToken(pair);
-				
-			//	client = new DbxClientV1(config, accessToken);
-		//		System.out.println(client.getAccountInfo().email);
 				authenticated = true;
 			} catch (Exception e) {
 			
@@ -117,7 +113,46 @@ public class DropBoxSimple {
 		return false;
 	}
 
-	
+	/*class UploadFolder extends Thread
+	{
+		private File file;
+		private String path;
+		public UploadFolder(File file,String path)
+		{
+			this.file=file;
+			this.path=path;
+		}
+		public void run()
+		{
+			uploadFolder(file, path);
+		}
+	}
+	class DownloadFolder extends Thread
+	{
+		private String path;
+		private String dropPath;
+		public DownloadFolder(String path,String dropPath)
+		{
+			this.path=path;
+			this.dropPath = dropPath;
+		}
+		public void run()
+		{
+			downloadFolder(path, dropPath);
+		}
+	}
+	class DeleteFolder extends Thread
+	{
+		private String path;
+		public DeleteFolder(String path)
+		{
+			this.path = path;
+		}
+		public void run()
+		{
+			recursiveDeleteDropboxFolder(path);
+		}
+	}*/
 	public static void uploadFolder(File file,String path)
 	{
 		

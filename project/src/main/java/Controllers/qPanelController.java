@@ -141,14 +141,14 @@ public class qPanelController implements Serializable{
 			parentView.panel.remove(view);
 			parentView.panel.revalidate();
 			MainFrameController.view.repaint();
-			if(qImgFile.exists())
+			if(qImgFile!=null && qImgFile.exists())
 			{
 //				qImgFile=null;
 //				questionImgPath="";
 //				qImgFile.delete();
 				renameQuestionImage();				
 			}
-			if(aImgFile.exists())
+			if(aImgFile!=null && aImgFile.exists())
 			{
 //				aImgFile.delete();
 //				aImgFile=null;	
