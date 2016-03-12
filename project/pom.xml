@@ -6,11 +6,12 @@
   <artifactId>project</artifactId>
   <version>0.0.1-SNAPSHOT</version>
   <dependencies>
-  <dependency>
-  <groupId>com.dropbox.core</groupId>
-  <artifactId>dropbox-core-sdk</artifactId>
-  <version>[1.7,1.8)</version>
-</dependency>
+    <dependency>
+      <groupId>com.dropbox.core</groupId>
+      <artifactId>dropbox-core-sdk</artifactId>
+      <version>[1.7,1.8)</version>
+      <scope>compile</scope>
+    </dependency>
     <dependency>
       <groupId>com.google.apis</groupId>
       <artifactId>google-api-services-drive</artifactId>
@@ -19,26 +20,33 @@
     </dependency>
     <dependency>
       <groupId>com.google.apis</groupId>
-      <artifactId>google-api-services-storage</artifactId>
-      <version>v1beta2-rev88-1.21.0</version>
+      <artifactId>google-api-services-plus</artifactId>
+      <version>v1-rev304-1.21.0</version>
+      <scope>compile</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.mortbay.jetty</groupId>
+      <artifactId>jetty</artifactId>
+      <version>6.1.5</version>
+      <scope>compile</scope>
+    </dependency>
+    <dependency>
+      <groupId>com.google.apis</groupId>
+      <artifactId>google-api-services-gmail</artifactId>
+      <version>v1-rev39-1.21.0</version>
       <scope>compile</scope>
     </dependency>
     <dependency>
       <groupId>com.google.apis</groupId>
       <artifactId>google-api-services-oauth2</artifactId>
-      <version>v2-rev98-1.21.0</version>
+      <version>v1-rev109-1.21.0</version>
       <scope>compile</scope>
     </dependency>
     <dependency>
       <groupId>com.google.apis</groupId>
-      <artifactId>google-api-services-plus</artifactId>
-      <version>v1-rev304-1.21.0</version>
+      <artifactId>google-api-services-storage</artifactId>
+      <version>v1-rev63-1.21.0</version>
     </dependency>
-    <dependency>
-    <groupId>org.mortbay.jetty</groupId>
-    <artifactId>jetty</artifactId>
-    <version>6.1.5</version>
-</dependency>
   </dependencies>
   <repositories>
     <repository>
@@ -64,6 +72,22 @@
     </pluginRepository>
   </pluginRepositories>
   <build>
+    <sourceDirectory>D:\Users\Ofek\Project\project\src\main\java</sourceDirectory>
+    <scriptSourceDirectory>D:\Users\Ofek\Project\project\src\main\scripts</scriptSourceDirectory>
+    <testSourceDirectory>D:\Users\Ofek\Project\project\src\test\java</testSourceDirectory>
+    <outputDirectory>D:\Users\Ofek\Project\project\target\classes</outputDirectory>
+    <testOutputDirectory>D:\Users\Ofek\Project\project\target\test-classes</testOutputDirectory>
+    <resources>
+      <resource>
+        <directory>D:\Users\Ofek\Project\project\src\main\resources</directory>
+      </resource>
+    </resources>
+    <testResources>
+      <testResource>
+        <directory>D:\Users\Ofek\Project\project\src\test\resources</directory>
+      </testResource>
+    </testResources>
+    <directory>D:\Users\Ofek\Project\project\target</directory>
     <finalName>project-0.0.1-SNAPSHOT</finalName>
     <pluginManagement>
       <plugins>
@@ -202,7 +226,6 @@
               <goal>site</goal>
             </goals>
             <configuration>
-           
               <reportPlugins>
                 <reportPlugin>
                   <groupId>org.apache.maven.plugins</groupId>
@@ -218,7 +241,6 @@
               <goal>deploy</goal>
             </goals>
             <configuration>
-              
               <reportPlugins>
                 <reportPlugin>
                   <groupId>org.apache.maven.plugins</groupId>
@@ -229,7 +251,6 @@
           </execution>
         </executions>
         <configuration>
-     
           <reportPlugins>
             <reportPlugin>
               <groupId>org.apache.maven.plugins</groupId>
@@ -241,6 +262,6 @@
     </plugins>
   </build>
   <reporting>
-  
+    <outputDirectory>D:\Users\Ofek\Project\project\target\site</outputDirectory>
   </reporting>
 </project>
