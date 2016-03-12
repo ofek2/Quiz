@@ -72,22 +72,7 @@
     </pluginRepository>
   </pluginRepositories>
   <build>
-    <sourceDirectory>D:\Users\Ofek\Project\project\src\main\java</sourceDirectory>
-    <scriptSourceDirectory>D:\Users\Ofek\Project\project\src\main\scripts</scriptSourceDirectory>
-    <testSourceDirectory>D:\Users\Ofek\Project\project\src\test\java</testSourceDirectory>
-    <outputDirectory>D:\Users\Ofek\Project\project\target\classes</outputDirectory>
-    <testOutputDirectory>D:\Users\Ofek\Project\project\target\test-classes</testOutputDirectory>
-    <resources>
-      <resource>
-        <directory>D:\Users\Ofek\Project\project\src\main\resources</directory>
-      </resource>
-    </resources>
-    <testResources>
-      <testResource>
-        <directory>D:\Users\Ofek\Project\project\src\test\resources</directory>
-      </testResource>
-    </testResources>
-    <directory>D:\Users\Ofek\Project\project\target</directory>
+    
     <finalName>project-0.0.1-SNAPSHOT</finalName>
     <pluginManagement>
       <plugins>
@@ -261,7 +246,4 @@
       </plugin>
     </plugins>
   </build>
-  <reporting>
-    <outputDirectory>D:\Users\Ofek\Project\project\target\site</outputDirectory>
-  </reporting>
 </project>
