@@ -285,11 +285,11 @@ public class DropBoxSimple {
 		public void onProgress(long arg0, long arg1) {
 			// TODO Auto-generated method stub
 			
-			currentFileSize += arg0;
+			currentFileSize += arg0-lastFileSize;
 			percent = 100.0*(double)currentFileSize/totalDropboxSize;
 			downloadProgressOP.setMessage(String.format("%.2f",percent)
 			+"% of files have been "+type);
-			
+			lastFileSize = arg0;
 			
 			
 //			currentPercent = 100.0*(double)arg0/totalDropboxSize;
