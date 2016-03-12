@@ -26,7 +26,7 @@ import java.net.URL;
  
 import static javafx.concurrent.Worker.State.FAILED;
   
-public class SimpleSwingBrowser extends JFrame {
+public class Main extends JFrame {
  
 	public static DropBoxSimple dbx;
 	public static String userEmail;
@@ -35,7 +35,7 @@ public class SimpleSwingBrowser extends JFrame {
  
     private final JPanel panel = new JPanel(new BorderLayout());
  
-    public SimpleSwingBrowser() {
+    public Main() {
         super();
         initComponents();
     }
@@ -143,7 +143,7 @@ public class SimpleSwingBrowser extends JFrame {
         SwingUtilities.invokeLater(new Runnable() {
 
             public void run() {
-                SimpleSwingBrowser browser = new SimpleSwingBrowser();
+                Main browser = new Main();
                 browser.setVisible(true);
             	dbx = new DropBoxSimple();
     			String url = dbx.getAuthorizationUrl();

@@ -10,7 +10,7 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.border.EtchedBorder;
 
-import project.GradingOperation.Browser;
+
 import project.GradingOperation.ExitListener;
 import javafx.application.Platform;
 import javafx.embed.swing.JFXPanel;

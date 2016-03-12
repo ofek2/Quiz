@@ -2,6 +2,7 @@ package Views;
 
 import java.awt.GraphicsEnvironment;
 import java.awt.Rectangle;
+import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 import java.io.Serializable;
@@ -52,42 +53,12 @@ public class MainFrameView extends JFrame implements Serializable{
 		setContentPane(view);
 	}
 	
-	class windowListener implements WindowListener,Serializable
+	class windowListener extends WindowAdapter implements Serializable
 	{
 		public void windowClosing(WindowEvent e) {
 			// TODO Auto-generated method stub
 				MainFrameController.view.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-		}
-
-		public void windowActivated(WindowEvent e) {
-			// TODO Auto-generated method stub
-			
-		}
-
-		public void windowClosed(WindowEvent e) {
-			// TODO Auto-generated method stub
-			
-		}
-
-		public void windowDeactivated(WindowEvent e) {
-			// TODO Auto-generated method stub
-			
-		}
-
-		public void windowDeiconified(WindowEvent e) {
-			// TODO Auto-generated method stub
-			
-		}
-
-		public void windowIconified(WindowEvent e) {
-			// TODO Auto-generated method stub
-			
-		}
-
-		public void windowOpened(WindowEvent e) {
-			// TODO Auto-generated method stub
-			
 		}
 
 		

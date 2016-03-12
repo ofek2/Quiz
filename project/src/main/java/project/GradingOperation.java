@@ -11,47 +11,22 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.ObjectOutputStream;
-import java.lang.management.PlatformLoggingMXBean;
-import java.net.MalformedURLException;
-import java.net.URL;
-
-import javafx.application.Application;
 import javafx.application.Platform;
-import javafx.beans.value.ObservableValue;
 import javafx.concurrent.Worker;
-import javafx.concurrent.Worker.State;
 import javafx.embed.swing.JFXPanel;
-import javafx.geometry.HPos;
-import javafx.geometry.VPos;
-import javafx.scene.Node;
 import javafx.scene.Scene;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.Priority;
-import javafx.scene.layout.Region;
-import javafx.scene.paint.Color;
 import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
-import javafx.stage.Stage;
-
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.border.EtchedBorder;
-import javax.swing.event.ChangeListener;
-
-//import org.w3c.dom.NodeList;
-
-import javax.swing.text.Document;
 import javax.xml.transform.TransformerException;
-
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
-
 import Controllers.MainFrameController;
-import Controllers.StudentGradingController;
 import Entities.StudentEntity;
-import Views.Main;
 import Views.StudentGradingPanel;
 import Views.ViewPanel;
 import netscape.javascript.JSObject;
@@ -202,7 +177,7 @@ public class GradingOperation extends ViewPanel {
 	}
     
 
-	class Browser extends Region {
+	/*class Browser extends Region {
 
 		final WebView browser = new WebView();
 		final WebEngine webEngine = browser.getEngine();
@@ -255,7 +230,7 @@ public class GradingOperation extends ViewPanel {
 		protected double computePrefHeight(double width) {
 			return 500;
 		}
-	}
+	}*/
 
 	public class Desktop {
 		InputStream in;
