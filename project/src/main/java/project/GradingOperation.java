@@ -79,14 +79,9 @@ public class GradingOperation extends ViewPanel {
 		// @SuppressWarnings("deprecation")
 		public void actionPerformed(ActionEvent e) {
 			// TODO Auto-generated method stub
-			// Platform.runLater(new Thread(run));
-			// if(thread.isAlive())
-			// thread.destroy();
-			// Platform.exit();
-			MainFrameController.view.changeContentPane((ViewPanel) previousView);
-			// thread.interrupt();
 
-			// thread.stop();
+			MainFrameController.view.changeContentPane((ViewPanel) previousView);
+
 		}
 
 	}
