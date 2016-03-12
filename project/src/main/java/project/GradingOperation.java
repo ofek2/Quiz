@@ -72,64 +72,8 @@ public class GradingOperation extends ViewPanel {
 		JMenuItem mntmExit = new JMenuItem("Exit");
 		gradingMenu.add(mntmExit);
 		mntmExit.addActionListener(new ExitListener());
-		// ActionListener[] fileListeners = {new SaveListener(),new
-		// ExitListener()};
-		// fxPanel.setBounds(MainFrameController.view.getContentPane().getWidth()/8,70,MainFrameController.view.getContentPane().getWidth()*6/8,
-		// 800);
-		// fxPanel.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null,
-		// null));
-		// add(fxPanel);
-		// run = new Runnable() {///////////////////
-		//
-		// @Override
-		// public void run() {
-		// // TODO Auto-generated method stub
-		// initFX(fxPanel);
-		// }
-		// };
-		// if(thread.isAlive())
-		// thread.destroy();
-		// thread = new Thread(this);/////////////
-		// thread.start();
-
-		// Platform.runLater(thread);
-		// Platform.exit();//////////////////
-		// Platform.runLater(this);
-		// Platform.runLater(new Runnable() {
-		// @Override
-		// public void run() {
-		// System.out.println("1");
-		// initFX(fxPanel);
-		// }
-		// });
 
 	}
-
-	/*
-	 * @Override public void run() { // TODO Auto-generated method stub
-	 * //System.out.println("1"); initFX(fxPanel); }
-	 */
-
-	/*
-	 * protected void initFX(JFXPanel fxPanel) { // TODO Auto-generated method
-	 * stub fxPanel = new JFXPanel(); Platform.setImplicitExit(false);
-	 * fxPanel.setBounds(MainFrameController.view.getContentPane().getWidth()/8,
-	 * 70,MainFrameController.view.getContentPane().getWidth()*6/8, 800);
-	 * fxPanel.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
-	 * add(fxPanel); final Scene scene = new Scene(new Browser(),
-	 * MainFrameController.view.getContentPane().getWidth()*6/8, 800,
-	 * Color.web("#666970")); fxPanel.setScene(scene);
-	 * 
-	 * }
-	 */
-
-	// public void addFileListeners(ActionListener[] listener)
-	// {
-	// for (int i = 0; i < listener.length; i++) {
-	// gradingMenu.getItem(i).addActionListener(listener[i]);
-	// }
-	// }
-
 	class ExitListener implements ActionListener {
 
 		// @SuppressWarnings("deprecation")
