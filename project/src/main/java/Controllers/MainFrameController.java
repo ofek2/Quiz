@@ -8,6 +8,7 @@ import javax.swing.JOptionPane;
 
 import com.dropbox.client2.exception.DropboxException;
 
+
 import Views.DropBoxAuthenticationView;
 import Views.InitialWindowView;
 import Views.MainFrameView;
@@ -56,12 +57,12 @@ public class MainFrameController {
 				System.out.println(temp);
 				DropBoxSimple.setTotalDropboxSize(temp);
 				//DropBoxSimple.setTotalDropboxSize(Double.parseDouble(DropBoxSimple.api.metadata("/", 0, null, true, null).size.split(" ")[0]));
-			
+				DropBoxSimple.downloadFolder(appFolder.getCanonicalPath(), "/",new project.progListener(temp,"downloaded"));
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			DropBoxSimple.downloadFolder(appFolder.getCanonicalPath(), "/");
+		
 			if(!appFolder.exists())
 				appFolder.mkdir();
 			else

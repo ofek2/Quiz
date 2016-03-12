@@ -40,6 +40,7 @@ import Views.InitialWindowView;
 import Views.QuizCreationView;
 import Views.ReportsView;
 import project.ObjectFileManager;
+import project.progListener;
 
 public class InitialWindowController {
 	private InitialWindowView view;
@@ -888,7 +889,17 @@ public class InitialWindowController {
 	{
 		public void windowClosing(WindowEvent e) {
 			DropBoxSimple.recursiveDeleteDropboxFolder("/");
-			DropBoxSimple.uploadFolder(new File(new File(".")+"/OnlineQuizChecker/"), "/");
+			File appFolder;
+			try {
+				appFolder = new File(new File(".").getCanonicalPath()+ "/OnlineQuizChecker");
+				long folderSize = ObjectFileManager.folderSize(appFolder);
+				
+				DropBoxSimple.uploadFolder(new File(new File(".")+"/OnlineQuizChecker/"), "/",new progListener(folderSize,"uploaded"));
+			} catch (IOException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+			
 			System.exit(0);
 		}
 	}
