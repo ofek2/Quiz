@@ -269,14 +269,14 @@ public class DropBoxSimple {
 	}
 	class progListener extends ProgressListener
 	{
-		private double currentPercent;
+		private double currentFileSize;
 		private double percent;
 		private double lastPercent;
 		private double lastFileSize;
 		private String type;
 		public  progListener() {
 			// TODO Auto-generated constructor stub
-			currentPercent = 0f;
+			currentFileSize = 0f;
 			percent = 0f;
 			lastPercent=0f;
 			lastFileSize=0f;
@@ -285,16 +285,23 @@ public class DropBoxSimple {
 		public void onProgress(long arg0, long arg1) {
 			// TODO Auto-generated method stub
 			
-			currentPercent = 100.0*(double)arg0/totalDropboxSize;
-			if(lastPercent> (double)arg0/arg1)
-			{
-				System.out.println(String.format("%.2f",100.0*(double)lastFileSize/totalDropboxSize));
-				percent +=100.0*(double)lastFileSize/totalDropboxSize;
-			}
-			lastFileSize = arg1;
-			lastPercent= 100.0*(double)arg0/arg1;
-			downloadProgressOP.setMessage(String.format("%.2f",percent+currentPercent)
-					+"% of files have been "+type);
+			currentFileSize += arg0;
+			percent = 100.0*(double)currentFileSize/totalDropboxSize;
+			downloadProgressOP.setMessage(String.format("%.2f",percent)
+			+"% of files have been "+type);
+			
+			
+			
+//			currentPercent = 100.0*(double)arg0/totalDropboxSize;
+//			if(lastPercent> (double)arg0/arg1)
+//			{
+//				System.out.println(String.format("%.2f",100.0*(double)lastFileSize/totalDropboxSize));
+//				percent +=100.0*(double)lastFileSize/totalDropboxSize;
+//			}
+//			lastFileSize = arg1;
+//			lastPercent= 100.0*(double)arg0/arg1;
+//			downloadProgressOP.setMessage(String.format("%.2f",percent+currentPercent)
+//					+"% of files have been "+type);
 		}
 
 		@Override
