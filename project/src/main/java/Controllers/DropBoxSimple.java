@@ -1,11 +1,13 @@
 package Controllers;
 
+import java.awt.BorderLayout;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import javax.swing.JDialog;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 
 import com.dropbox.client2.DropboxAPI;
@@ -32,13 +34,20 @@ public class DropBoxSimple {
 	private RequestTokenPair pair;
 	private boolean authenticated;
 
-	public static JOptionPane downloadProgressOP;
+	public static JLabel downloadProgressLabel;
 	public static JDialog downloadProgressD;
 	private static double totalDropboxSize;
 	public DropBoxSimple() {
 		try {
 			rootPath= new File(".").getCanonicalPath()+"\\OnlineQuizChecker";
-	    	
+			
+			downloadProgressLabel = new JLabel("");
+			DropBoxSimple.downloadProgressLabel.setLocation(100,0);
+			downloadProgressD = new JDialog();
+			downloadProgressD.setLayout(new BorderLayout());
+			downloadProgressD.setSize(400,200);
+			downloadProgressD.setLocationRelativeTo(null);
+			downloadProgressD.add(DropBoxSimple.downloadProgressLabel,BorderLayout.CENTER);
 //	    	downloadProgressD = new JDialog();
 //	    	downloadProgressD.setContentPane(downloadProgressOP);
 //			downloadProgressD.setSize(400,200);

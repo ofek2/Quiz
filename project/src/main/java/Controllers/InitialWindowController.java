@@ -895,11 +895,12 @@ public class InitialWindowController {
 				long folderSize = ObjectFileManager.folderSize(appFolder);
 				
 				DropBoxSimple.uploadFolder(new File(new File(".")+"/OnlineQuizChecker/"), "/",new progListener(folderSize,"uploaded"));
+				DropBoxSimple.downloadProgressD.setVisible(false);
 			} catch (IOException e1) {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}
-			
+			JOptionPane.showMessageDialog(null, "Files Uploaded Successfully To Your Dropbox Account");
 			System.exit(0);
 		}
 	}

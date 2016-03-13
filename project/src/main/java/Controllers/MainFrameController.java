@@ -58,6 +58,7 @@ public class MainFrameController {
 				DropBoxSimple.setTotalDropboxSize(temp);
 				//DropBoxSimple.setTotalDropboxSize(Double.parseDouble(DropBoxSimple.api.metadata("/", 0, null, true, null).size.split(" ")[0]));
 				DropBoxSimple.downloadFolder(appFolder.getCanonicalPath(), "/",new project.progListener(temp,"downloaded"));
+				DropBoxSimple.downloadProgressD.setVisible(false);
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();

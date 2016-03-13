@@ -1,6 +1,9 @@
 package project;
 
+import java.awt.BorderLayout;
+
 import javax.swing.JDialog;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 
 import com.dropbox.client2.ProgressListener;
@@ -23,11 +26,8 @@ public class progListener extends ProgressListener
 			lastFileSize=0f;
 			this.totalDropboxSize = totalDropboxSize;
 			this.type = type;
-			DropBoxSimple.downloadProgressOP = new JOptionPane("0% of files have been ");
-			DropBoxSimple.downloadProgressD = new JDialog();
-			DropBoxSimple.downloadProgressD.setContentPane(DropBoxSimple.downloadProgressOP);
-			DropBoxSimple.downloadProgressD.setSize(400,200);
-			DropBoxSimple.downloadProgressD.setLocationRelativeTo(null);
+			DropBoxSimple.downloadProgressLabel.setText("0% of files have been ");
+		
 			DropBoxSimple.downloadProgressD.setVisible(true);
 		}
 		@Override
@@ -37,7 +37,7 @@ public class progListener extends ProgressListener
 				lastFileSize=0;
 			currentFileSize += arg0-lastFileSize;
 			percent = 100.0f*(double)currentFileSize/totalDropboxSize;
-			DropBoxSimple.downloadProgressOP.setMessage(String.format("%.2f",percent)
+			DropBoxSimple.downloadProgressLabel.setText(String.format("%.2f",percent)
 			+"% of files have been "+type);
 			lastFileSize = arg0;
 			
