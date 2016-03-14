@@ -51,7 +51,7 @@ public class InitialWindowController {
 	 * studentsFolderPopupMenu; private JPopupMenu studentsFilePopupMenu;
 	 */
 	private MenuController menuController;
-//	private ObjectFileManager fileManager;
+	// private ObjectFileManager fileManager;
 	public static ArrayList<CourseEntity> coursesFiles;
 	private coursesIdsEditAddItemListener idsEditAddItemListener;
 	private removeStudentCourseCBAddItemListener removeStudentCourseAddItemListener;
@@ -60,6 +60,7 @@ public class InitialWindowController {
 	public JDialog registerStudentDialog;
 	public JDialog removeStudentDialog;
 	private windowListener windowListener;
+
 	public InitialWindowController(InitialWindowView view) {
 
 		this.view = view;
@@ -68,7 +69,7 @@ public class InitialWindowController {
 		MainFrameController.view.removeWindowListener(MainFrameController.view.windowListener);
 		MainFrameController.view.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 		MainFrameController.view.addWindowListener(windowListener);
-//		fileManager = new ObjectFileManager();
+		// fileManager = new ObjectFileManager();
 		addListeners();
 	}
 
@@ -113,7 +114,7 @@ public class InitialWindowController {
 		class NewQuizListener implements ActionListener {
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
-			
+
 				newQuizDialog = new JDialog(MainFrameController.view, "New Quiz Dialog");
 
 				newQuizDialog.setSize(300, 220);
@@ -130,7 +131,7 @@ public class InitialWindowController {
 
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
-			
+
 				editQuizdialog = new JDialog(MainFrameController.view, "Edit Quiz Dialog");
 
 				editQuizdialog.setSize(300, 220);
@@ -169,7 +170,7 @@ public class InitialWindowController {
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
 				ReportsView reportsView = new ReportsView();
-				ReportsController reportsController = new ReportsController(reportsView,view);
+				ReportsController reportsController = new ReportsController(reportsView, view);
 				MainFrameController.view.changeContentPane(reportsView);
 			}
 
@@ -233,7 +234,7 @@ public class InitialWindowController {
 				view.loadStudents(view.getRemoveStudentCourseCB().getSelectedIndex());
 				view.getRemoveStudentsIds().addItemListener(removeStudentsIdsAddItemListener);
 
-//				view.loadStudents(view.getRemoveStudentCourseCB().getSelectedIndex());
+				// view.loadStudents(view.getRemoveStudentCourseCB().getSelectedIndex());
 			}
 
 		}
@@ -394,7 +395,7 @@ public class InitialWindowController {
 								studentsFolder.mkdir();
 								quizzesFolder.mkdir();
 								coursesUpdate();
-								// newCourseDialog.setVisible(false);
+								newCourseDialog.dispose();
 
 							} else {
 								JOptionPane.showMessageDialog(null,
@@ -447,7 +448,7 @@ public class InitialWindowController {
 						quizCreationView.getQuizName().setText(quizName);
 						QuizCreationController.saveFlag = 1;
 						if (popUpMenuFlag == 0)
-							menuController.editQuizdialog.setVisible(false);
+							menuController.editQuizdialog.dispose();
 						MainFrameController.view.changeContentPane(quizCreationView);
 					} catch (FileNotFoundException e1) {
 						// TODO Auto-generated catch block
@@ -469,7 +470,7 @@ public class InitialWindowController {
 					quizName = view.getNewQuizName().getText();
 					courseName = (String) view.getCoursesIds().getSelectedItem();
 					createNewQuiz(quizName, courseName);
-					menuController.newQuizDialog.setVisible(false);
+					menuController.newQuizDialog.dispose();
 				}
 			}
 
@@ -548,52 +549,53 @@ public class InitialWindowController {
 				}
 
 			}
+
 			class gradeQuizBtnListener implements ActionListener {
 
 				public void actionPerformed(ActionEvent e) {
 					try {
-					
-//						ArrayList<StudentQuizEntity> studentsInQuiz = new ArrayList<StudentQuizEntity>();
+
+						// ArrayList<StudentQuizEntity> studentsInQuiz = new
+						// ArrayList<StudentQuizEntity>();
 						ArrayList<String> studentsInQuiz = new ArrayList<String>();
 						ArrayList<String> studentsQuizzesPaths = new ArrayList<String>();
-						String courseName = (String)view.getCourseIdGradeCB().getSelectedItem();
-						String quizName = (String)view.getQuizzesToGrade().getSelectedItem();
-						String path = new File(".").getCanonicalPath()+"/OnlineQuizChecker/"+
-								courseName+"/Quizzes/"+
-								quizName+"/StudentsAnswers";
+						String courseName = (String) view.getCourseIdGradeCB().getSelectedItem();
+						String quizName = (String) view.getQuizzesToGrade().getSelectedItem();
+						String path = new File(".").getCanonicalPath() + "/OnlineQuizChecker/" + courseName
+								+ "/Quizzes/" + quizName + "/StudentsAnswers";
 						File studentsAnswersFolder = new File(path);
-						if(studentsAnswersFolder.listFiles().length>0)
-						for(File child:studentsAnswersFolder.listFiles())
-						{
-							studentsInQuiz.add(child.getName().substring(0, child.getName().length()-5));
-							studentsQuizzesPaths.add(child.getCanonicalPath());
-//							studentsInQuiz.add((StudentQuizEntity) ObjectFileManager.loadObject(child.getCanonicalPath()));
-						}
-						String formPath = new File(".").getCanonicalPath()+"/OnlineQuizChecker/"+
-								courseName+"/Quizzes/"+
-											quizName+"/Form/"+quizName+"WithAnswers.html";
-						initiateGradingProcess(studentsInQuiz,studentsQuizzesPaths,formPath);
+						if (studentsAnswersFolder.listFiles().length > 0)
+							for (File child : studentsAnswersFolder.listFiles()) {
+								studentsInQuiz.add(child.getName().substring(0, child.getName().length() - 5));
+								studentsQuizzesPaths.add(child.getCanonicalPath());
+								// studentsInQuiz.add((StudentQuizEntity)
+								// ObjectFileManager.loadObject(child.getCanonicalPath()));
+							}
+						String formPath = new File(".").getCanonicalPath() + "/OnlineQuizChecker/" + courseName
+								+ "/Quizzes/" + quizName + "/Form/" + quizName + "WithAnswers.html";
+						initiateGradingProcess(studentsInQuiz, studentsQuizzesPaths, formPath);
 					} catch (IOException e1) {
 						// TODO Auto-generated catch block
 						e1.printStackTrace();
 					}
-				
+
 					// initiateGradingProcess();
 
 				}
 
 			}
 
-//			public void initiateGradingProcess(ArrayList<StudentQuizEntity> students) {
-			public void initiateGradingProcess(ArrayList<String> students, ArrayList<String> studentsQuizzesPaths,String originalQuizFormPath) {
+			// public void initiateGradingProcess(ArrayList<StudentQuizEntity>
+			// students) {
+			public void initiateGradingProcess(ArrayList<String> students, ArrayList<String> studentsQuizzesPaths,
+					String originalQuizFormPath) {
 				GradingWindowView gradingWindowView = new GradingWindowView();
 				GradingWindowController gradingWindowController = new GradingWindowController(gradingWindowView);
-				menuController.gradeQuizDialog.setVisible(false);
+				menuController.gradeQuizDialog.dispose();
 				MainFrameController.view.changeContentPane(gradingWindowView);
 				gradingWindowController.setPreviousView(view);
-				gradingWindowController.loadStudentsToTable(students,studentsQuizzesPaths,originalQuizFormPath);
+				gradingWindowController.loadStudentsToTable(students, studentsQuizzesPaths, originalQuizFormPath);
 			}
-
 
 			class PopUpMenusController {
 				private JPopupMenu newQuizPopupMenu;
@@ -686,8 +688,8 @@ public class InitialWindowController {
 							try {
 								removeFolder(new File(new File(".").getCanonicalPath() + "/OnlineQuizChecker/"
 										+ quizCourseName + "/Quizzes/" + quizName));
-								updateStudentsEntityQuizzes(new File(new File(".").getCanonicalPath() + "/OnlineQuizChecker/"
-										+ courseName + "/Students"),quizName);
+								updateStudentsEntityQuizzes(new File(new File(".").getCanonicalPath()
+										+ "/OnlineQuizChecker/" + courseName + "/Students"), quizName);
 								view.setTree(new JTree(InitialWindowView
 										.filesTree(new File(new File(".").getCanonicalPath() + "/OnlineQuizChecker"))));
 							} catch (IOException e1) {
@@ -752,23 +754,21 @@ public class InitialWindowController {
 			public PopUpMenusController getPopUpMenusController() {
 				return popUpMenusController;
 			}
-			
-			public void updateStudentsEntityQuizzes(File file,String quizName) {
-					for (File child : file.listFiles())
-					{
-						try {
-							StudentEntity result =
-							(StudentEntity) ObjectFileManager.loadObject(child.getCanonicalPath());
-							result.removeQuiz(quizName);
-							FileOutputStream fos = new FileOutputStream(child.getCanonicalPath());
-							ObjectOutputStream oos = new ObjectOutputStream(fos);
-							oos.writeObject(result);
-							oos.close();
-						} catch (IOException e) {
-							// TODO Auto-generated catch block
-							e.printStackTrace();
-						}
+
+			public void updateStudentsEntityQuizzes(File file, String quizName) {
+				for (File child : file.listFiles()) {
+					try {
+						StudentEntity result = (StudentEntity) ObjectFileManager.loadObject(child.getCanonicalPath());
+						result.removeQuiz(quizName);
+						FileOutputStream fos = new FileOutputStream(child.getCanonicalPath());
+						ObjectOutputStream oos = new ObjectOutputStream(fos);
+						oos.writeObject(result);
+						oos.close();
+					} catch (IOException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
 					}
+				}
 			}
 		}
 	}
@@ -791,8 +791,9 @@ public class InitialWindowController {
 			// TODO Auto-generated method stub
 			JComboBox temp = (JComboBox) e.getSource();
 			try {
-//				System.out.println("1"+coursesFiles.get(view.getRemoveStudentCourseCB().getSelectedIndex()).getCourseFolder()
-//								.getCanonicalPath() + "/Students/" + (String) temp.getSelectedItem() + ".ser");
+				// System.out.println("1"+coursesFiles.get(view.getRemoveStudentCourseCB().getSelectedIndex()).getCourseFolder()
+				// .getCanonicalPath() + "/Students/" + (String)
+				// temp.getSelectedItem() + ".ser");
 				view.loadStudentNameToRemoveLbl(
 						coursesFiles.get(view.getRemoveStudentCourseCB().getSelectedIndex()).getCourseFolder()
 								.getCanonicalPath() + "/Students/" + (String) temp.getSelectedItem() + ".ser");
@@ -809,9 +810,9 @@ public class InitialWindowController {
 		public void itemStateChanged(ItemEvent e) {
 			// TODO Auto-generated method stub
 			JComboBox temp = (JComboBox) e.getSource();
-			
+
 			view.loadQuizzesToEditCB(getQuizzesFolder(temp.getSelectedIndex()));
-			
+
 		}
 
 	}
@@ -851,14 +852,14 @@ public class InitialWindowController {
 		view.getCoursesIdsEdit().removeAllItems();
 		view.getCourseIdGradeCB().removeItemListener(courseIdGradeItemListener);
 		view.getCourseIdGradeCB().removeAllItems();
-		
+
 		view.getRegisterStudentCourseCB().removeAllItems();
 		view.getCourseIdGradeCB().removeAllItems();
-		
+
 		view.getCourseIdGradeCB().addItemListener(courseIdGradeItemListener);
 		view.coursesIdsEditAddItemListener(idsEditAddItemListener);
 		//
-	
+
 		view.getRemoveStudentsIds().removeItemListener(removeStudentsIdsAddItemListener);
 		view.getRemoveStudentCourseCB().removeItemListener(removeStudentCourseAddItemListener);
 		view.getRemoveStudentCourseCB().removeAllItems();
@@ -874,8 +875,7 @@ public class InitialWindowController {
 		}
 		view.getRemoveStudentsIds().addItemListener(removeStudentsIdsAddItemListener);
 		view.getRemoveStudentCourseCB().addItemListener(removeStudentCourseAddItemListener);
-		
-		
+
 		try {
 			view.setTree(new JTree(
 					InitialWindowView.filesTree(new File(new File(".").getCanonicalPath() + "/OnlineQuizChecker"))));
@@ -885,16 +885,17 @@ public class InitialWindowController {
 		}
 
 	}
-	class windowListener extends WindowAdapter implements Serializable
-	{
+
+	class windowListener extends WindowAdapter implements Serializable {
 		public void windowClosing(WindowEvent e) {
 			DropBoxSimple.recursiveDeleteDropboxFolder("/");
 			File appFolder;
 			try {
-				appFolder = new File(new File(".").getCanonicalPath()+ "/OnlineQuizChecker");
+				appFolder = new File(new File(".").getCanonicalPath() + "/OnlineQuizChecker");
 				long folderSize = ObjectFileManager.folderSize(appFolder);
-				
-				DropBoxSimple.uploadFolder(new File(new File(".")+"/OnlineQuizChecker/"), "/",new progListener(folderSize,"uploaded"));
+
+				DropBoxSimple.uploadFolder(new File(new File(".") + "/OnlineQuizChecker/"), "/",
+						new progListener(folderSize, "uploaded"));
 				DropBoxSimple.downloadProgressD.setVisible(false);
 			} catch (IOException e1) {
 				// TODO Auto-generated catch block
