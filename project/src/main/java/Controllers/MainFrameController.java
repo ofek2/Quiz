@@ -12,6 +12,7 @@ import com.dropbox.client2.exception.DropboxException;
 import Views.DropBoxAuthenticationView;
 import Views.InitialWindowView;
 import Views.MainFrameView;
+import project.progListener;
 import Entities.CourseEntity;
 
 public class MainFrameController {
@@ -54,11 +55,12 @@ public class MainFrameController {
 			recursiveDelete(appFolder);
 			try {
 				long temp = DropBoxSimple.getDropboxTotalSize("/", 0);
-				System.out.println(temp);
+			
 				DropBoxSimple.setTotalDropboxSize(temp);
 				//DropBoxSimple.setTotalDropboxSize(Double.parseDouble(DropBoxSimple.api.metadata("/", 0, null, true, null).size.split(" ")[0]));
-				DropBoxSimple.downloadFolder(appFolder.getCanonicalPath(), "/",new project.progListener(temp,"downloaded"));
-				DropBoxSimple.downloadProgressD.setVisible(false);
+				progListener progressListener = new progListener(temp, "downloaded");
+				DropBoxSimple.downloadFolder(appFolder.getCanonicalPath(), "/",progressListener);
+				progressListener.dialog.dispose();
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();

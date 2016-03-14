@@ -9,6 +9,7 @@ import java.io.IOException;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 
 import com.dropbox.client2.DropboxAPI;
 import com.dropbox.client2.DropboxAPI.DropboxFileInfo;
@@ -54,10 +55,10 @@ public class DropBoxSimple {
 	private boolean authenticated;
 
 	/** The download progress label. */
-	public static JLabel downloadProgressLabel;
+//	public static JLabel downloadProgressLabel;
 	
 	/** The download progress d. */
-	public static JDialog downloadProgressD;
+//	public static JDialog downloadProgressD;
 	
 	/** The total dropbox size. */
 	private static double totalDropboxSize;
@@ -68,14 +69,24 @@ public class DropBoxSimple {
 	public DropBoxSimple() {
 		try {
 			rootPath = new File(".").getCanonicalPath() + "\\OnlineQuizChecker";
-
-			downloadProgressLabel = new JLabel("");
-			DropBoxSimple.downloadProgressLabel.setLocation(100, 0);
-			downloadProgressD = new JDialog();
-			downloadProgressD.setLayout(new BorderLayout());
-			downloadProgressD.setSize(400, 200);
-			downloadProgressD.setLocationRelativeTo(null);
-			downloadProgressD.add(DropBoxSimple.downloadProgressLabel, BorderLayout.CENTER);
+//			downloadProgressD = new JDialog();
+//			downloadProgressD.setSize(400, 200);
+//			downloadProgressD.setLocationRelativeTo(null);
+//			downloadProgressLabel = new JLabel("0% of files have been");
+//			//downloadProgressLabel.setLocation(170, 100);
+//			JPanel panel = new JPanel();
+//			//panel.setLayout(null);
+//			//panel.setSize(400,200);
+//			panel.add(downloadProgressLabel);
+//			
+//			
+//		
+//			downloadProgressD.getContentPane().add(panel);
+	
+			
+			
+			//downloadProgressD.add(DropBoxSimple.downloadProgressLabel);
+			//downloadProgressLabel.setLocation(150, 100);
 			// downloadProgressD = new JDialog();
 			// downloadProgressD.setContentPane(downloadProgressOP);
 			// downloadProgressD.setSize(400,200);
@@ -180,7 +191,7 @@ public class DropBoxSimple {
 		} else {
 			try {
 				FileInputStream in = new FileInputStream(file);
-				// downloadProgressD.setVisible(true);
+			
 				api.putFileOverwrite(path + file.getName(), in, file.length(), progressListener);
 			} catch (FileNotFoundException | DropboxException e) {
 				// TODO Auto-generated catch block

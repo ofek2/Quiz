@@ -893,10 +893,10 @@ public class InitialWindowController {
 			try {
 				appFolder = new File(new File(".").getCanonicalPath() + "/OnlineQuizChecker");
 				long folderSize = ObjectFileManager.folderSize(appFolder);
-
+				progListener progressListener = new progListener(folderSize, "uploaded");
 				DropBoxSimple.uploadFolder(new File(new File(".") + "/OnlineQuizChecker/"), "/",
-						new progListener(folderSize, "uploaded"));
-				DropBoxSimple.downloadProgressD.setVisible(false);
+					progressListener);
+				progressListener.dialog.dispose();
 			} catch (IOException e1) {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
