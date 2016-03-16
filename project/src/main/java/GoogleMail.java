@@ -2,7 +2,9 @@ import com.google.api.client.auth.oauth2.Credential;
 import com.google.api.client.extensions.java6.auth.oauth2.AuthorizationCodeInstalledApp;
 import com.google.api.client.extensions.jetty.auth.oauth2.LocalServerReceiver;
 import com.google.api.client.googleapis.auth.oauth2.GoogleAuthorizationCodeFlow;
+import com.google.api.client.googleapis.auth.oauth2.GoogleAuthorizationCodeTokenRequest;
 import com.google.api.client.googleapis.auth.oauth2.GoogleClientSecrets;
+import com.google.api.client.googleapis.auth.oauth2.GoogleTokenResponse;
 import com.google.api.client.googleapis.javanet.GoogleNetHttpTransport;
 import com.google.api.client.http.HttpTransport;
 import com.google.api.client.json.jackson2.JacksonFactory;
@@ -13,6 +15,8 @@ import com.google.api.services.gmail.GmailScopes;
 import com.google.api.services.gmail.model.*;
 import com.google.api.services.gmail.Gmail;
 
+import java.io.BufferedReader;
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -26,7 +30,7 @@ public class GoogleMail {
 
     /** Directory to store user credentials for this application. */
     private static final java.io.File DATA_STORE_DIR = new java.io.File(
-        System.getProperty("user.home"), ".credentials/GoogleMail.json");
+      ".", ".credentials/GoogleMail.json");
 
     /** Global instance of the {@link FileDataStoreFactory}. */
     private static FileDataStoreFactory DATA_STORE_FACTORY;
@@ -46,6 +50,7 @@ public class GoogleMail {
     private static final List<String> SCOPES =
         Arrays.asList(GmailScopes.GMAIL_LABELS);
 
+    private static final String CALLBACK_URL = "urn:ietf:wg:oauth:2.0:oob";
     static {
         try {
             HTTP_TRANSPORT = GoogleNetHttpTransport.newTrustedTransport();
@@ -64,7 +69,7 @@ public class GoogleMail {
     public static Credential authorize() throws IOException {
         // Load client secrets.
         InputStream in =
-            GoogleMail.class.getResourceAsStream("/client_secret.json");
+            GoogleMail.class.getResourceAsStream("/client_secrets.json");
         GoogleClientSecrets clientSecrets =
             GoogleClientSecrets.load(JSON_FACTORY, new InputStreamReader(in));
 
@@ -75,6 +80,17 @@ public class GoogleMail {
                 .setDataStoreFactory(DATA_STORE_FACTORY)
                 .setAccessType("offline")
                 .build();
+        String authorizeUrl = flow.newAuthorizationUrl().setRedirectUri(CALLBACK_URL).build();
+       
+        String authorizationCode = new BufferedReader(new InputStreamReader(System.in)).readLine();
+
+        // Authorize the OAuth2 token.
+        GoogleAuthorizationCodeTokenRequest tokenRequest =
+            flow.newTokenRequest(authorizationCode);
+        tokenRequest.setRedirectUri(CALLBACK_URL);
+        GoogleTokenResponse tokenResponse = tokenRequest.execute();
+        System.out.println(tokenRequest.toString());
+        System.out.println(tokenResponse.getAccessToken());
         Credential credential = null;
 		try {
 			credential = new AuthorizationCodeInstalledApp(
@@ -83,6 +99,7 @@ public class GoogleMail {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		
         System.out.println(
                 "Credentials saved to " + DATA_STORE_DIR.getAbsolutePath());
         return credential;

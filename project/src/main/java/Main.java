@@ -37,6 +37,7 @@ public class Main extends JFrame {
 
 	public Main() {
 		super();
+		org.apache.log4j.BasicConfigurator.configure();
 		initComponents();
 
 	}
