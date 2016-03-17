@@ -27,6 +27,7 @@ public class StudentGradingController {
 	private String quizName;
 	private StudentEntity result;
 	private String quizScore;
+	private String studentEmail;
 	public StudentGradingController(StudentGradingPanel view, String studentQuizPath,String originalQuizFormPath, Container previousView)
 	{
 		this.view=view;
@@ -43,6 +44,7 @@ public class StudentGradingController {
 							studentQuizFile.getParentFile().getParentFile().
 							getParentFile().getParentFile().getCanonicalPath()
 							+"/Students/"+studentId+".ser");
+			studentEmail=result.getStudentEmail();
 			quizScore = result.getScore(quizName);
 			updateQuizScoreInView();
 		} catch (IOException e) {
@@ -86,6 +88,25 @@ public class StudentGradingController {
 			
 		}
 		
+	}
+	public String getStudentQuizPath() {
+		return studentQuizPath;
+	}
+
+	public File getStudentQuizFile() {
+		return studentQuizFile;
+	}
+
+	public String getStudentId() {
+		return studentId;
+	}
+
+	public String getStudentEmail() {
+		return studentEmail;
+	}
+
+	public String getQuizName() {
+		return quizName;
 	}
 	
 }

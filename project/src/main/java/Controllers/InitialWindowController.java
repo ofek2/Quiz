@@ -565,6 +565,7 @@ public class InitialWindowController {
 								+ "/Quizzes/" + quizName + "/StudentsAnswers";
 						File studentsAnswersFolder = new File(path);
 						if (studentsAnswersFolder.listFiles().length > 0)
+						{
 							for (File child : studentsAnswersFolder.listFiles()) {
 								studentsInQuiz.add(child.getName().substring(0, child.getName().length() - 5));
 								studentsQuizzesPaths.add(child.getCanonicalPath());
@@ -574,6 +575,12 @@ public class InitialWindowController {
 						String formPath = new File(".").getCanonicalPath() + "/OnlineQuizChecker/" + courseName
 								+ "/Quizzes/" + quizName + "/Form/" + quizName + "WithAnswers.html";
 						initiateGradingProcess(studentsInQuiz, studentsQuizzesPaths, formPath);
+						}
+						else
+							JOptionPane.showMessageDialog(null
+									, "There are no answers files for this quiz."
+									, "Alert",
+									JOptionPane.ERROR_MESSAGE);
 					} catch (IOException e1) {
 						// TODO Auto-generated catch block
 						e1.printStackTrace();

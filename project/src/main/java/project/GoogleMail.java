@@ -1,12 +1,15 @@
+package project;
 import com.google.api.client.auth.oauth2.Credential;
 import com.google.api.client.extensions.java6.auth.oauth2.AuthorizationCodeInstalledApp;
 import com.google.api.client.extensions.jetty.auth.oauth2.LocalServerReceiver;
 import com.google.api.client.googleapis.auth.oauth2.GoogleAuthorizationCodeFlow;
 import com.google.api.client.googleapis.auth.oauth2.GoogleAuthorizationCodeTokenRequest;
 import com.google.api.client.googleapis.auth.oauth2.GoogleClientSecrets;
+import com.google.api.client.googleapis.auth.oauth2.GoogleCredential;
 import com.google.api.client.googleapis.auth.oauth2.GoogleTokenResponse;
 import com.google.api.client.googleapis.javanet.GoogleNetHttpTransport;
 import com.google.api.client.http.HttpTransport;
+import com.google.api.client.http.javanet.NetHttpTransport;
 import com.google.api.client.json.jackson2.JacksonFactory;
 import com.google.api.client.repackaged.org.apache.commons.codec.binary.Base64;
 import com.google.api.client.json.JsonFactory;
@@ -27,6 +30,7 @@ import java.net.URISyntaxException;
 import java.net.URL;
 import java.nio.file.FileSystems;
 import java.nio.file.Files;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Properties;
@@ -43,6 +47,7 @@ import javax.mail.internet.MimeMessage;
 import javax.mail.internet.MimeMultipart;
 
 public class GoogleMail {
+	public static Gmail service;
 	/** Application name. */
 	private static final String APPLICATION_NAME = "Gmail API Java Quickstart";
 
@@ -64,7 +69,7 @@ public class GoogleMail {
 	 * If modifying these scopes, delete your previously saved credentials at
 	 * ~/.credentials/gmail-java-quickstart.json
 	 */
-	private static final List<String> SCOPES = Arrays.asList(GmailScopes.GMAIL_LABELS);
+	private static final List<String> SCOPES = Arrays.asList(GmailScopes.GMAIL_SEND);
 
 	private static final String CALLBACK_URL = "urn:ietf:wg:oauth:2.0:oob";
 
@@ -75,6 +80,15 @@ public class GoogleMail {
 		} catch (Throwable t) {
 			t.printStackTrace();
 			System.exit(1);
+		}
+	}
+
+	public GoogleMail() {
+		try {
+			service = getGmailService();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 	}
 
@@ -93,7 +107,7 @@ public class GoogleMail {
 		GoogleAuthorizationCodeFlow flow = new GoogleAuthorizationCodeFlow.Builder(HTTP_TRANSPORT, JSON_FACTORY,
 				clientSecrets, SCOPES).setDataStoreFactory(DATA_STORE_FACTORY).setAccessType("offline").build();
 		String authorizeUrl = flow.newAuthorizationUrl().setRedirectUri(CALLBACK_URL).build();
-		 try {
+		try {
 			Desktop.getDesktop().browse(new URL(authorizeUrl).toURI());
 		} catch (URISyntaxException e1) {
 			// TODO Auto-generated catch block
@@ -107,14 +121,18 @@ public class GoogleMail {
 		GoogleTokenResponse tokenResponse = tokenRequest.execute();
 		System.out.println(tokenRequest.toString());
 		System.out.println(tokenResponse.getAccessToken());
-		Credential credential = null;
-		try {
-			credential = new AuthorizationCodeInstalledApp(flow, new LocalServerReceiver()).authorize("user");
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		// Credential credential = null;
+		// Create the OAuth2 credential.
+		GoogleCredential credential = new GoogleCredential.Builder().setTransport(new NetHttpTransport())
+				.setJsonFactory(new JacksonFactory()).setClientSecrets(clientSecrets).build();
 
+		// Set authorized credentials.
+		credential.setFromTokenResponse(tokenResponse);
+		/*
+		 * try { credential = new AuthorizationCodeInstalledApp(flow, new
+		 * LocalServerReceiver()).authorize("user"); } catch (Exception e) { //
+		 * TODO Auto-generated catch block e.printStackTrace(); }
+		 */
 		System.out.println("Credentials saved to " + DATA_STORE_DIR.getAbsolutePath());
 		return credential;
 	}
@@ -130,20 +148,20 @@ public class GoogleMail {
 		return new Gmail.Builder(HTTP_TRANSPORT, JSON_FACTORY, credential).setApplicationName(APPLICATION_NAME).build();
 	}
 
-	public static void main(String[] args) throws IOException {
+	public static void SendMail(String studentsMail, String subject, String quizPath,
+			String fileName) {
 		// Build a new authorized API client service.
-		Gmail service = getGmailService();
-		MimeMessage email;
-		try {
-			email = createEmail("ofekaz24@gmail.com", "me", "Test message", "Hello!");
-			 Message message = createMessageWithEmail(email);
-			    message = service.users().messages().send("me", message).execute();
 
-		} catch (MessagingException e) {
+		try {
+			MimeMessage email;
+			email = createEmailWithAttachment(studentsMail, "me", subject, "",quizPath,fileName);
+			Message message = createMessageWithEmail(email);
+			message = service.users().messages().send("me", message).execute();
+		} catch (MessagingException | IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-	
+
 		/*
 		 * // Print the labels in the user's account. String user = "me";
 		 * ListLabelsResponse listResponse =
@@ -171,17 +189,18 @@ public class GoogleMail {
 		email.setText(bodyText);
 		return email;
 	}
-	 public static Message createMessageWithEmail(MimeMessage email)
-		      throws MessagingException, IOException {
-		    ByteArrayOutputStream bytes = new ByteArrayOutputStream();
-		    email.writeTo(bytes);
-		    String encodedEmail = Base64.encodeBase64URLSafeString(bytes.toByteArray());
-		    Message message = new Message();
-		    message.setRaw(encodedEmail);
-		    return message;
-		  }
+
+	public static Message createMessageWithEmail(MimeMessage email) throws MessagingException, IOException {
+		ByteArrayOutputStream bytes = new ByteArrayOutputStream();
+		email.writeTo(bytes);
+		String encodedEmail = Base64.encodeBase64URLSafeString(bytes.toByteArray());
+		Message message = new Message();
+		message.setRaw(encodedEmail);
+		return message;
+	}
+
 	public static MimeMessage createEmailWithAttachment(String to, String from, String subject, String bodyText,
-			String fileDir, String filename) throws MessagingException, IOException {
+			String filePath, String filename) throws MessagingException, IOException {
 		Properties props = new Properties();
 		Session session = Session.getDefaultInstance(props, null);
 
@@ -201,11 +220,11 @@ public class GoogleMail {
 		multipart.addBodyPart(mimeBodyPart);
 
 		mimeBodyPart = new MimeBodyPart();
-		DataSource source = new FileDataSource(fileDir + filename);
+		DataSource source = new FileDataSource(filePath);
 
 		mimeBodyPart.setDataHandler(new DataHandler(source));
 		mimeBodyPart.setFileName(filename);
-		String contentType = Files.probeContentType(FileSystems.getDefault().getPath(fileDir, filename));
+		String contentType = Files.probeContentType(FileSystems.getDefault().getPath(filePath));
 		mimeBodyPart.setHeader("Content-Type", contentType + "; name=\"" + filename + "\"");
 		mimeBodyPart.setHeader("Content-Transfer-Encoding", "base64");
 
