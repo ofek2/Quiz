@@ -9,6 +9,7 @@ import javax.swing.JOptionPane;
 import project.GoogleMail;
 import Entities.StudentEntity;
 import Views.DropBoxAuthenticationView;
+import Views.GmailAuthFrame;
 import Views.GradingWindowView;
 import Views.StudentGradingPanel;
 import Views.ViewPanel;
@@ -72,16 +73,17 @@ public class GradingWindowController {
 			}
 			
 			if (allChecked) {
-				String quizName="";
-				mail = new GoogleMail();
-				if(!studentGradingControllers.isEmpty())
-					quizName= studentGradingControllers.get(0).getQuizName();
-				for(int i=0;i<studentGradingControllers.size();i++)
-				{
-					mail.SendMail(studentGradingControllers.get(i).getStudentEmail(), 
-							quizName+" - Graded Quiz", studentsQuizzesPaths.get(i), quizName);
-				}
-				
+				new GmailAuthFrameController(new GmailAuthFrame(),studentGradingControllers,studentsQuizzesPaths);
+//				String quizName="";
+//				mail = new GoogleMail();
+//				if(!studentGradingControllers.isEmpty())
+//					quizName= studentGradingControllers.get(0).getQuizName();
+//				for(int i=0;i<studentGradingControllers.size();i++)
+//				{
+//					mail.SendMail(studentGradingControllers.get(i).getStudentEmail(), 
+//							quizName+" - Graded Quiz", studentsQuizzesPaths.get(i), quizName);
+//				}
+//				
 				
 				
 			}
