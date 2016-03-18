@@ -34,6 +34,12 @@ public class StudentEntity implements Serializable{
 	public String getStudentId() {
 		return studentId;
 	}
+	public ArrayList<QuizScore> getQuizzesScores() {
+		return quizzesScores;
+	}
+	public void setQuizzesScores(ArrayList<QuizScore> quizzesScores) {
+		this.quizzesScores = quizzesScores;
+	}
 	public void setStudentId(String studentId) {
 		this.studentId = studentId;
 	}
