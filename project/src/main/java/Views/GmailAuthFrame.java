@@ -11,6 +11,8 @@ import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
 
+import javax.swing.Box;
+import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -48,13 +50,15 @@ public class GmailAuthFrame extends JFrame{
 		layout = new CardLayout(0,0);
 		cardPanel = new JPanel(layout);
 		
-		sendMailPanel = new JPanel(new FlowLayout());
-		sendMailPanel.setSize(600,400);
+		sendMailPanel = new JPanel();
+		sendMailPanel.setLayout(new BoxLayout(sendMailPanel,BoxLayout.Y_AXIS));
+		sendMailPanel.setSize(600,220);
 		sendBtn = new JButton("Send Grades");
 		
-		sendBtn.setPreferredSize(new Dimension(200, 100));
-		JLabel label1 = new JLabel("Send The Graded Quizzes To Your Students");
-		JLabel label2 = new JLabel("By Clicking The Button Bellow:");
+	
+		sendBtn.setFont(new Font("Ariel", Font.BOLD, 16));
+		JLabel label1 = new JLabel("Click the button bellow if you want");
+		JLabel label2 = new JLabel("to send the graded quizzes to your students");
 		label1.setSize(label1.getPreferredSize());
 		label1.setFont(new Font("Ariel", Font.PLAIN, 18));
 		label2.setSize(label1.getPreferredSize());
@@ -63,8 +67,11 @@ public class GmailAuthFrame extends JFrame{
 		label1.setAlignmentX(Component.CENTER_ALIGNMENT);
 		label2.setAlignmentX(Component.CENTER_ALIGNMENT);
 		sendBtn.setAlignmentX(Component.CENTER_ALIGNMENT);
+		sendMailPanel.add(Box.createRigidArea(new Dimension(0,20)));
 		sendMailPanel.add(label1);
+		sendMailPanel.add(Box.createRigidArea(new Dimension(0,5)));
 		sendMailPanel.add(label2);
+		sendMailPanel.add(Box.createRigidArea(new Dimension(0,30)));
 		sendMailPanel.add(sendBtn);
 		
 		cardPanel.add(gmailPanel,"BeforeAuth");
@@ -103,7 +110,9 @@ public class GmailAuthFrame extends JFrame{
 	                        			try {
 											GoogleMail.finishAuth(authorizationCode);
 											layout.next(cardPanel);
-										
+											setPreferredSize(new Dimension(600, 220));										
+											pack();						
+											setLocationRelativeTo(null);
 										} catch (IOException e) {
 											// TODO Auto-generated catch block
 											e.printStackTrace();

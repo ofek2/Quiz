@@ -29,17 +29,17 @@ public class progListener extends ProgressListener
 			lastFileSize=0f;
 			this.totalDropboxSize = totalDropboxSize;
 			this.type = type;
-			//DropBoxSimple.downloadProgressLabel.setText("0% of files have been ");
-		
-			//DropBoxSimple.downloadProgressD.setVisible(true);
+
 			dialog = new JDialog();
+			if(type.equals("downloaded"))
+			dialog.setTitle("Loading your files");
+			else
+				dialog.setTitle("Uploading your files");
 			dialog.setSize(400, 200);
 			dialog.setLocationRelativeTo(null);
 			label = new JLabel("0% of files have been "+type);
-			//downloadProgressLabel.setLocation(170, 100);
+		
 			JPanel panel = new JPanel();
-			//panel.setLayout(null);
-			//panel.setSize(400,200);
 			panel.add(label);
 			dialog.getContentPane().add(panel);
 			dialog.setVisible(true);
