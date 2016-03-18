@@ -62,7 +62,7 @@ public class GradingWindowController {
 	class SendListener implements ActionListener
 	{
 		private boolean allChecked = true;
-		private GoogleMail mail;
+
 		public void actionPerformed(ActionEvent e) {
 			// TODO Auto-generated method stub
 			

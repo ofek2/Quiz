@@ -2,7 +2,12 @@ package Views;
 
 import java.awt.BorderLayout;
 import java.awt.CardLayout;
+import java.awt.Component;
 import java.awt.Dimension;
+import java.awt.FlowLayout;
+import java.awt.Font;
+import java.awt.event.ActionListener;
+import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
 
@@ -11,12 +16,16 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
+import javax.swing.SwingUtilities;
 
 import javafx.application.Platform;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.embed.swing.JFXPanel;
 import javafx.scene.Scene;
 import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
+import project.GoogleMail;
 
 public class GmailAuthFrame extends JFrame{
 	private final JFXPanel jfxPanel = new JFXPanel();
@@ -25,6 +34,7 @@ public class GmailAuthFrame extends JFrame{
 	private CardLayout layout;
 	private JPanel sendMailPanel;
 	private JButton sendBtn;
+	private String authorizationCode;
 	public GmailAuthFrame()
 	{
 		initComponents();
@@ -34,27 +44,41 @@ public class GmailAuthFrame extends JFrame{
 		createScene();
 		JPanel gmailPanel = new JPanel(new BorderLayout());
 		gmailPanel.add(jfxPanel, BorderLayout.CENTER);
-		getContentPane().add(gmailPanel);
-		pack();
+
 		layout = new CardLayout(0,0);
 		cardPanel = new JPanel(layout);
 		
-		sendMailPanel = new JPanel(new BorderLayout());
+		sendMailPanel = new JPanel(new FlowLayout());
+		sendMailPanel.setSize(600,400);
 		sendBtn = new JButton("Send Grades");
-		sendBtn.setHorizontalAlignment(SwingConstants.CENTER);
-		JLabel label = new JLabel("Send The Graded Quizzes To Your Students\nBy Clicking The Button Bellow:");
-		label.setHorizontalAlignment(SwingConstants.CENTER);
-		sendMailPanel.add(label,BorderLayout.NORTH);
-		sendMailPanel.add(sendBtn,BorderLayout.CENTER);
+		
+		sendBtn.setPreferredSize(new Dimension(200, 100));
+		JLabel label1 = new JLabel("Send The Graded Quizzes To Your Students");
+		JLabel label2 = new JLabel("By Clicking The Button Bellow:");
+		label1.setSize(label1.getPreferredSize());
+		label1.setFont(new Font("Ariel", Font.PLAIN, 18));
+		label2.setSize(label1.getPreferredSize());
+		label2.setFont(new Font("Ariel", Font.PLAIN, 18));
+	
+		label1.setAlignmentX(Component.CENTER_ALIGNMENT);
+		label2.setAlignmentX(Component.CENTER_ALIGNMENT);
+		sendBtn.setAlignmentX(Component.CENTER_ALIGNMENT);
+		sendMailPanel.add(label1);
+		sendMailPanel.add(label2);
+		sendMailPanel.add(sendBtn);
+		
 		cardPanel.add(gmailPanel,"BeforeAuth");
 		cardPanel.add(sendMailPanel,"AfterAuth");
-		layout.show(gmailPanel, "BeforeAuth");
-		
+		layout.show(cardPanel, "BeforeAuth");
+		getContentPane().add(cardPanel);
+	
 		setPreferredSize(new Dimension(600, 600));
-
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		
+		pack();
+	
 		
 		setLocationRelativeTo(null);
+		setVisible(true);
 	}
 	private void createScene() {
 
@@ -64,7 +88,31 @@ public class GmailAuthFrame extends JFrame{
 
 				WebView view = new WebView();
 				engine = view.getEngine();
-
+				engine.titleProperty().addListener(new ChangeListener<String>() {
+	                    @Override
+	                    public void changed(ObservableValue<? extends String> observable, String oldValue, final String newValue) {
+	                        SwingUtilities.invokeLater(new Runnable() {
+	                            @Override 
+	                            public void run() {
+	                            	
+	                               if(newValue!= null && newValue.contains("Success code"))
+	                               {
+	                            	  
+	                            	   authorizationCode = newValue.substring(newValue.indexOf('=')+1);
+	                            		
+	                        			try {
+											GoogleMail.finishAuth(authorizationCode);
+											layout.next(cardPanel);
+										
+										} catch (IOException e) {
+											// TODO Auto-generated catch block
+											e.printStackTrace();
+										}
+	                               }
+	                            }
+	                        });
+	                    }
+	                });
 				jfxPanel.setScene(new Scene(view));
 			}
 		});
@@ -81,6 +129,7 @@ public class GmailAuthFrame extends JFrame{
 				}
 
 				engine.load(tmp);
+				
 			}
 		});
 	}
@@ -125,5 +174,14 @@ public class GmailAuthFrame extends JFrame{
 	public JFXPanel getJfxPanel() {
 		return jfxPanel;
 	}
-	
+	public String getAuthorizationCode() {
+		return authorizationCode;
+	}
+	public void setAuthorizationCode(String authorizationCode) {
+		this.authorizationCode = authorizationCode;
+	}
+	public void sendBtnAddListener(ActionListener listener)
+	{
+		sendBtn.addActionListener(listener);
+	}
 }

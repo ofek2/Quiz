@@ -72,7 +72,8 @@ public class GoogleMail {
 	private static final List<String> SCOPES = Arrays.asList(GmailScopes.GMAIL_SEND);
 
 	private static final String CALLBACK_URL = "urn:ietf:wg:oauth:2.0:oob";
-
+	
+	private static GoogleAuthorizationCodeFlow flow;
 	static {
 		try {
 			HTTP_TRANSPORT = GoogleNetHttpTransport.newTrustedTransport();
@@ -83,38 +84,31 @@ public class GoogleMail {
 		}
 	}
 
-	public GoogleMail() {
-		try {
-			service = getGmailService();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
-
+	
 	/**
 	 * Creates an authorized Credential object.
 	 * 
 	 * @return an authorized Credential object.
 	 * @throws IOException
 	 */
-	public static Credential authorize() throws IOException {
+	public static String startAuthorize() throws IOException {
 		// Load client secrets.
 		InputStream in = GoogleMail.class.getResourceAsStream("/client_secrets.json");
 		GoogleClientSecrets clientSecrets = GoogleClientSecrets.load(JSON_FACTORY, new InputStreamReader(in));
 
 		// Build flow and trigger user authorization request.
-		GoogleAuthorizationCodeFlow flow = new GoogleAuthorizationCodeFlow.Builder(HTTP_TRANSPORT, JSON_FACTORY,
+		flow = new GoogleAuthorizationCodeFlow.Builder(HTTP_TRANSPORT, JSON_FACTORY,
 				clientSecrets, SCOPES).setDataStoreFactory(DATA_STORE_FACTORY).setAccessType("offline").build();
 		String authorizeUrl = flow.newAuthorizationUrl().setRedirectUri(CALLBACK_URL).build();
-		try {
-			Desktop.getDesktop().browse(new URL(authorizeUrl).toURI());
-		} catch (URISyntaxException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
-		String authorizationCode = new BufferedReader(new InputStreamReader(System.in)).readLine();
-
+	
+		return authorizeUrl;
+	}
+	public static void finishAuth(String authorizationCode) throws IOException
+	{
+		
+		// Load client secrets.
+		InputStream in = GoogleMail.class.getResourceAsStream("/client_secrets.json");
+		GoogleClientSecrets clientSecrets = GoogleClientSecrets.load(JSON_FACTORY, new InputStreamReader(in));
 		// Authorize the OAuth2 token.
 		GoogleAuthorizationCodeTokenRequest tokenRequest = flow.newTokenRequest(authorizationCode);
 		tokenRequest.setRedirectUri(CALLBACK_URL);
@@ -128,25 +122,22 @@ public class GoogleMail {
 
 		// Set authorized credentials.
 		credential.setFromTokenResponse(tokenResponse);
-		/*
-		 * try { credential = new AuthorizationCodeInstalledApp(flow, new
-		 * LocalServerReceiver()).authorize("user"); } catch (Exception e) { //
-		 * TODO Auto-generated catch block e.printStackTrace(); }
-		 */
+	
 		System.out.println("Credentials saved to " + DATA_STORE_DIR.getAbsolutePath());
-		return credential;
-	}
+		
+		service = new Gmail.Builder(HTTP_TRANSPORT, JSON_FACTORY, credential).setApplicationName(APPLICATION_NAME).build();
 
-	/**
-	 * Build and return an authorized Gmail client service.
-	 * 
-	 * @return an authorized Gmail client service
-	 * @throws IOException
-	 */
-	public static Gmail getGmailService() throws IOException {
-		Credential credential = authorize();
-		return new Gmail.Builder(HTTP_TRANSPORT, JSON_FACTORY, credential).setApplicationName(APPLICATION_NAME).build();
 	}
+//	/**
+//	 * Build and return an authorized Gmail client service.
+//	 * 
+//	 * @return an authorized Gmail client service
+//	 * @throws IOException
+//	 */
+//	public static Gmail getGmailService() throws IOException {
+//		Credential credential = startAuthorize();
+//		return new Gmail.Builder(HTTP_TRANSPORT, JSON_FACTORY, credential).setApplicationName(APPLICATION_NAME).build();
+//	}
 
 	public static void SendMail(String studentsMail, String subject, String quizPath,
 			String fileName) {
@@ -161,16 +152,6 @@ public class GoogleMail {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-
-		/*
-		 * // Print the labels in the user's account. String user = "me";
-		 * ListLabelsResponse listResponse =
-		 * service.users().labels().list(user).execute(); List<Label> labels =
-		 * listResponse.getLabels(); if (labels.size() == 0) {
-		 * System.out.println("No labels found."); } else {
-		 * System.out.println("Labels:"); for (Label label : labels) {
-		 * System.out.printf("- %s\n", label.getName()); } }
-		 */
 
 	}
 
