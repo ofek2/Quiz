@@ -54,11 +54,8 @@ public class MainFrameController {
 			appFolder= new File(new File(".").getCanonicalPath()+"/OnlineQuizChecker");
 			recursiveDelete(appFolder);
 			try {
-				long temp = DropBoxSimple.getDropboxTotalSize("/", 0);
-			
-				DropBoxSimple.setTotalDropboxSize(temp);
-				//DropBoxSimple.setTotalDropboxSize(Double.parseDouble(DropBoxSimple.api.metadata("/", 0, null, true, null).size.split(" ")[0]));
-				progListener progressListener = new progListener(temp, "downloaded");
+				long dropboxtotalsize = DropBoxSimple.getDropboxTotalSize("/", 0);
+				progListener progressListener = new progListener(dropboxtotalsize, "downloaded");
 				DropBoxSimple.downloadFolder(appFolder.getCanonicalPath(), "/",progressListener);
 				progressListener.dialog.dispose();
 			} catch (Exception e) {

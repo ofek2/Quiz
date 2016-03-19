@@ -60,8 +60,7 @@ public class DropBoxSimple {
 	/** The download progress d. */
 //	public static JDialog downloadProgressD;
 	
-	/** The total dropbox size. */
-	private static double totalDropboxSize;
+	
 
 	/**
 	 * Instantiates a new drop box simple.
@@ -282,22 +281,6 @@ public class DropBoxSimple {
 		return 0;
 	}
 
-	/**
-	 * Gets the total dropbox size.
-	 *
-	 * @return the total dropbox size
-	 */
-	public double getTotalDropboxSize() {
-		return totalDropboxSize;
-	}
-
-	/**
-	 * Sets the total dropbox size.
-	 *
-	 * @param size the new total dropbox size
-	 */
-	public static void setTotalDropboxSize(double size) {
-		totalDropboxSize = size;
-	}
+	
 
 }
