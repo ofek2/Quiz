@@ -46,6 +46,7 @@ public class checkBoxFieldPanel extends JPanel implements Serializable{
 		add(aNumberLbl, gbc_aNumberLbl);
 		
 		answerCheckBox = new JCheckBox("");
+		answerCheckBox.setOpaque(false);
 		GridBagConstraints gbc_chckbxNewCheckBox = new GridBagConstraints();
 		gbc_chckbxNewCheckBox.fill = GridBagConstraints.VERTICAL;
 		gbc_chckbxNewCheckBox.anchor = GridBagConstraints.EAST;
