@@ -230,7 +230,6 @@ public class InitialWindowController {
 				}
 				else
 				{
-					view.getRegisterStudentCourseCB().setSelectedIndex(0);
 					view.getStudentId().setText("");
 					view.getStudentName().setText("");
 					view.getStudentEmail().setText("");
@@ -253,6 +252,7 @@ public class InitialWindowController {
 				}
 				else
 				{
+					view.getRegisterStudentCourseCB().setSelectedIndex(0);
 					registerStudentDialog = new JDialog(MainFrameController.view, "Register Student Dialog");
 					view.getRegisterStudentCourseCB().setEditable(true);
 					view.getRegisterStudentCourseCB().setEnabled(true);
