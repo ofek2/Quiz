@@ -121,7 +121,7 @@ public class qPanel extends JPanel implements Serializable{
 		gbc_btnNewButton.gridy = 0;
 		add(btnRemove, gbc_btnNewButton);
 		
-		JLabel lblTheQuestion = new JLabel("The Question");
+		JLabel lblTheQuestion = new JLabel("Enter the question properties");
 		lblTheQuestion.setFont(new Font("Arial", Font.BOLD, 15));
 		GridBagConstraints gbc_lblTheQuestion = new GridBagConstraints();
 		gbc_lblTheQuestion.anchor = GridBagConstraints.WEST;
@@ -141,7 +141,7 @@ public class qPanel extends JPanel implements Serializable{
 		gbc_separator_2.gridy = 2;
 		add(separator_2, gbc_separator_2);
 		
-		JLabel lblTheAnswer = new JLabel("The Answer");
+		JLabel lblTheAnswer = new JLabel("Enter the answer properties");
 		lblTheAnswer.setFont(new Font("Arial", Font.BOLD, 15));
 		GridBagConstraints gbc_lblTheAnswer = new GridBagConstraints();
 		gbc_lblTheAnswer.anchor = GridBagConstraints.WEST;
