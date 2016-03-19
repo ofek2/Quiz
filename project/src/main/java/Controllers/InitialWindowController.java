@@ -230,9 +230,6 @@ public class InitialWindowController {
 				}
 				else
 				{
-					view.getStudentId().setText("");
-					view.getStudentName().setText("");
-					view.getStudentEmail().setText("");
 					inEditMode = false;
 				}
 			}
@@ -253,6 +250,9 @@ public class InitialWindowController {
 				else
 				{
 					view.getRegisterStudentCourseCB().setSelectedIndex(0);
+					view.getStudentId().setText("");
+					view.getStudentName().setText("");
+					view.getStudentEmail().setText("");
 					registerStudentDialog = new JDialog(MainFrameController.view, "Register Student Dialog");
 					view.getRegisterStudentCourseCB().setEditable(true);
 					view.getRegisterStudentCourseCB().setEnabled(true);
@@ -403,7 +403,6 @@ public class InitialWindowController {
 								JOptionPane.showMessageDialog(null, "The student registered successfully");
 								view.setTree(new JTree(InitialWindowView
 										.filesTree(new File(new File(".").getCanonicalPath() + "/OnlineQuizChecker"))));
-								registerStudentDialog.setVisible(false);///////////////////////
 								view.getRemoveStudentsIds().removeItemListener(removeStudentsIdsAddItemListener);
 								view.loadStudents(view.getRemoveStudentCourseCB().getSelectedIndex());
 								view.getRemoveStudentsIds().addItemListener(removeStudentsIdsAddItemListener);
