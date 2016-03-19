@@ -794,6 +794,7 @@ public class InitialWindowController {
 					removeStudent.addActionListener(new removeStudentBtnListener(chosenFileName, studentCourse));
 					editStudent.addActionListener(new RegisterStudentListener(chosenFileName, studentCourse));
 					studentsFilePopupMenu.add(removeStudent);
+					studentsFilePopupMenu.add(editStudent);
 					return studentsFilePopupMenu;
 				}
 
