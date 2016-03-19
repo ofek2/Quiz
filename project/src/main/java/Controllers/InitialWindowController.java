@@ -270,6 +270,11 @@ public class InitialWindowController {
 
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
+				if(InitialWindowController.coursesFiles.size()==0)
+					JOptionPane.showMessageDialog(null, "There are no courses to choose from", "Alert",
+							JOptionPane.ERROR_MESSAGE);
+				else
+				{
 				removeStudentDialog = new JDialog(MainFrameController.view, "Remove Student Dialog");
 				removeStudentDialog.setSize(270, 300);
 				removeStudentDialog.setLocationRelativeTo(MainFrameController.view);
@@ -279,7 +284,7 @@ public class InitialWindowController {
 				view.getRemoveStudentsIds().removeItemListener(removeStudentsIdsAddItemListener);
 				view.loadStudents(view.getRemoveStudentCourseCB().getSelectedIndex());
 				view.getRemoveStudentsIds().addItemListener(removeStudentsIdsAddItemListener);
-
+				}
 				// view.loadStudents(view.getRemoveStudentCourseCB().getSelectedIndex());
 			}
 
