@@ -32,7 +32,7 @@ import Views.ViewPanel;
 import netscape.javascript.JSObject;
 
 public class GradingOperation extends ViewPanel {
-	// private final Scene scene;
+
 	private WebEngine engine;
 
 	private JFXPanel fxPanel;
@@ -40,8 +40,6 @@ public class GradingOperation extends ViewPanel {
 	private String studentQuizPath;
 	private JMenu gradingMenu;
 	private Container previousView;
-	private Runnable run;
-	private Thread thread;
 
 	@SuppressWarnings("deprecation")
 	public GradingOperation(StudentGradingPanel studentGradingPanel, String studentQuizPath, Container previousView) {
@@ -52,14 +50,11 @@ public class GradingOperation extends ViewPanel {
 		this.previousView = previousView;
 		setLayout(null);
 		JPanel panel = new JPanel();
-		panel.setBounds(MainFrameController.view.getContentPane().getWidth() / 8, 70,
-				MainFrameController.view.getContentPane().getWidth() * 6 / 8, 800);
+		panel.setBounds(getWidth() / 16, 70,
+			getWidth() * 6 / 8, getHeight()-40);
 		panel.add(fxPanel, BorderLayout.CENTER);
 		add(panel);
-		// thread = new Thread(this);
-		// Platform.runLater(thread);
-		// fxPanel = new JFXPanel();
-		// Platform.setImplicitExit(false);
+	
 		JMenuBar menuBar = new JMenuBar();
 		menuBar.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
 		menuBar.setBackground(java.awt.Color.WHITE);
@@ -76,7 +71,6 @@ public class GradingOperation extends ViewPanel {
 	}
 	class ExitListener implements ActionListener {
 
-		// @SuppressWarnings("deprecation")
 		public void actionPerformed(ActionEvent e) {
 			// TODO Auto-generated method stub
 
@@ -116,60 +110,6 @@ public class GradingOperation extends ViewPanel {
 	}
     
 
-	/*class Browser extends Region {
-
-		final WebView browser = new WebView();
-		final WebEngine webEngine = browser.getEngine();
-
-		public Browser() {
-			// apply the styles
-			getStyleClass().add("browser");
-			// load the web page
-			// try {
-			webEngine.load("file:///" + studentQuizPath);
-			// new File(".").getCanonicalPath()
-			// +"/OnlineQuizChecker/1,sss/Quizzes/shit/StudentsAnswers/shit.html");
-			// } catch (IOException e) {
-			// // TODO Auto-generated catch block
-			// e.printStackTrace();
-			// }
-			// add the web view to the scene
-			getChildren().add(browser);
-			webEngine.getLoadWorker().stateProperty().addListener((obs, oldValue, newValue) -> {
-				if (newValue == Worker.State.SUCCEEDED) {
-
-					JSObject jsobj = (JSObject) webEngine.executeScript("window");
-					jsobj.setMember("Desktop", new Desktop());
-				}
-			});
-
-			JSObject jsobj = (JSObject) webEngine.executeScript("window");
-			jsobj.setMember("Desktop", new Desktop());
-		}
-
-		private Node createSpacer() {
-			Region spacer = new Region();
-			HBox.setHgrow(spacer, Priority.ALWAYS);
-			return spacer;
-		}
-
-		@Override
-		protected void layoutChildren() {
-			double w = getWidth();
-			double h = getHeight();
-			layoutInArea(browser, 0, 0, w, h, 0, HPos.CENTER, VPos.CENTER);
-		}
-
-		@Override
-		protected double computePrefWidth(double height) {
-			return 750;
-		}
-
-		@Override
-		protected double computePrefHeight(double width) {
-			return 500;
-		}
-	}*/
 
 	public class Desktop {
 		InputStream in;

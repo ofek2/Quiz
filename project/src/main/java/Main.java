@@ -3,28 +3,19 @@ import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.concurrent.Worker;
 import javafx.embed.swing.JFXPanel;
-import javafx.event.EventHandler;
 import javafx.scene.Scene;
 import javafx.scene.web.WebEngine;
-import javafx.scene.web.WebEvent;
 import javafx.scene.web.WebView;
-
 import javax.swing.*;
-
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
-
 import Controllers.DropBoxSimple;
 import Controllers.MainFrameController;
 import Views.MainFrameView;
-
 import java.awt.*;
-import java.awt.event.*;
 import java.net.MalformedURLException;
 import java.net.URL;
-
-import static javafx.concurrent.Worker.State.FAILED;
 
 public class Main extends JFrame {
 
@@ -32,19 +23,19 @@ public class Main extends JFrame {
 	public static String userEmail;
 	private final JFXPanel jfxPanel = new JFXPanel();
 	private WebEngine engine;
-
+	private boolean authorized = false;
 	private final JPanel panel = new JPanel(new BorderLayout());
 
 	public Main() {
 		super();
-		org.apache.log4j.BasicConfigurator.configure();
+
 		initComponents();
 
 	}
 
 	private void initComponents() {
 		createScene();
-
+		org.apache.log4j.BasicConfigurator.configure();
 		panel.add(jfxPanel, BorderLayout.CENTER);
 		getContentPane().add(panel);
 
@@ -64,46 +55,49 @@ public class Main extends JFrame {
 				WebView view = new WebView();
 				engine = view.getEngine();
 
-				engine.setOnStatusChanged(new EventHandler<WebEvent<String>>() {
+				
+				ChangeListener<String> listener = new ChangeListener<String>() {
+
 					@Override
-					public void handle(final WebEvent<String> event) {
-
-						if (dbx.startSession()) {
-							engine.getLoadWorker().stateProperty().addListener((obs, oldValue, newValue) -> {
-								if (newValue == Worker.State.SUCCEEDED) {
-									Document doc = engine.getDocument();
-
-									NodeList divs = doc.getElementsByTagName("div");
-
-									for (int i = 0; i < divs.getLength(); i++)
-										if (((Element) divs.item(i)).getAttribute("class") != null)
-											if (((Element) divs.item(i)).getAttribute("class")
-													.equals("email force-no-break"))
-												userEmail = ((Element) divs.item(i)).getTextContent();
-									// stage.close();
-
-									// Platform.exit();
-
-									new MainFrameController(new MainFrameView());
-									setVisible(false);
-
-									engine.setOnStatusChanged(new EventHandler<WebEvent<String>>() {
-
-										@Override
-										public void handle(WebEvent<String> event) {
-											// TODO Auto-generated method stub
-
-										}
-									});
-
-								}
-							});
-
-						}
+					public void changed(ObservableValue<? extends String> observable, String oldValue,
+							String newValue) {
+						// TODO Auto-generated method stub
 
 					}
-				});
+				};
 
+				engine.titleProperty().addListener(new ChangeListener<String>() {
+					@Override
+					public void changed(ObservableValue<? extends String> observable, String oldValue,
+							final String newValue) {
+						if (newValue != null && newValue.equals("API Request Authorized - Dropbox")) {
+							if (authorized == false && dbx.startSession()) {
+								engine.getLoadWorker().stateProperty().addListener((obs, oldVal, newVal) -> {
+									if (newVal == Worker.State.SUCCEEDED) {
+										Document doc = engine.getDocument();
+
+										NodeList divs = doc.getElementsByTagName("div");
+
+										for (int i = 0; i < divs.getLength(); i++)
+											if (((Element) divs.item(i)).getAttribute("class") != null)
+												if (((Element) divs.item(i)).getAttribute("class")
+														.equals("email force-no-break"))
+													userEmail = ((Element) divs.item(i)).getTextContent();
+										authorized = true;
+										new MainFrameController(new MainFrameView());
+										setVisible(false);
+									}
+								});
+
+							}
+						}
+						else
+							if(newValue != null && newValue.equals("Home - Dropbox"))
+							{
+								System.exit(0);
+							}
+					}
+				});
 				jfxPanel.setScene(new Scene(view));
 			}
 		});
@@ -145,4 +139,5 @@ public class Main extends JFrame {
 			}
 		});
 	}
+
 }
