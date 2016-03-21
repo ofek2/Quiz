@@ -28,6 +28,7 @@ public class ReportsController {
 	private String coursePath;
 	private SearchStudent searchStudent;
 	private CTable table;
+	private boolean enableReportExporting = false;
 	public ReportsController(ReportsView view, Container previousView) {
 		this.view = view;
 		this.previousView = previousView;
@@ -53,29 +54,43 @@ public class ReportsController {
 
 		public void actionPerformed(ActionEvent e) {
 			// TODO Auto-generated method stub
-			  String fileName = coursePath+"/Report.xls";
+			if (enableReportExporting) {
+				String fileName = coursePath + "/Report.xls";
 
-			  PrintWriter out;
-			try {
-				FileWriter excelFile = new FileWriter(fileName);
-				out = new PrintWriter(excelFile);
-				out.print("Student Id"+"\t");
-				for (int i = 0; i < quizzesNames.size(); i++) {
-					out.print(quizzesNames.get(i)+"\t");
-				}
-				out.println();
-				for (int i = 1; i < table.getRows().size(); i++) {
-					for (int j = 0; j < quizzesNames.size()+1; j++) {
-						out.print(((JLabel)table.getRows().get(i).getRowItems().get(j)).getText()+"\t");
+				PrintWriter out;
+				try {
+					FileWriter excelFile = new FileWriter(fileName);
+					out = new PrintWriter(excelFile);
+					out.print("Student Id" + "\t");
+					for (int i = 0; i < quizzesNames.size(); i++) {
+						out.print(quizzesNames.get(i) + "\t");
 					}
 					out.println();
+					for (int i = 1; i < table.getRows().size(); i++) {
+						for (int j = 0; j < quizzesNames.size() + 1; j++) {
+							out.print(((JLabel) table.getRows().get(i)
+									.getRowItems().get(j)).getText()
+									+ "\t");
+						}
+						out.println();
+					}
+					// out.println("a,b,c,d");
+					// out.println("e,f,g,h");
+					// out.println("i,j,k,l");
+					out.close();
+					JOptionPane.showMessageDialog(null,
+							"The report was saved into: " + coursePath,
+							"Alert", JOptionPane.ERROR_MESSAGE);
+				} catch (IOException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
 				}
-				out.close();
-			} catch (IOException e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
 			}
-			  
+			else
+				JOptionPane.showMessageDialog(null
+						, "You have to produce report before exporting"
+						, "Alert",
+						JOptionPane.ERROR_MESSAGE);
 		}
 		
 		
@@ -104,10 +119,15 @@ public class ReportsController {
 				loadStudentsScoresToTable(quizzesNames.size(), quizzesNames,"all");
 				}
 				else
+				{
+					enableReportExporting = false;
+					view.setTable(null);
+					view.getReportsStudentsIds().removeAllItems();
 					JOptionPane.showMessageDialog(null
 							, "There are no quizzes under this course name, please choose another course"
 							, "Alert",
 							JOptionPane.ERROR_MESSAGE);
+				}
 			} catch (IOException e1) {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
@@ -141,6 +161,7 @@ public class ReportsController {
 		
 		int tableRowToWrite=1;
 		if(students.listFiles().length>0){
+			enableReportExporting = true;
 			view.getReportsStudentsIds().removeAllItems();
 			view.btnSearchStudentAddListener(searchStudent);
 		for (File studentFile : students.listFiles()) {
@@ -155,12 +176,21 @@ public class ReportsController {
 				createStudentRow(studentId,studentFile,tableRowToWrite,table);
 			}
 		}	
+			view.getCourseLabel().setText(
+					"Course id: "
+							+ (String) view.getReportsCourses()
+									.getSelectedItem());
 		}
 		else
+		{
+			enableReportExporting = false;
+			view.getReportsStudentsIds().removeAllItems();
+			view.setTable(null);
 			JOptionPane.showMessageDialog(null
 					, "There are no students under this course name, please choose another course"
 					, "Alert",
 					JOptionPane.ERROR_MESSAGE);
+		}
 	}
 	
 	public void createStudentRow(String studentId, File studentFile,
@@ -188,8 +218,9 @@ public class ReportsController {
 					 avg += Integer.parseInt(score);
 				 }
 			}		
-			avg = avg/(i+1);
+			avg = avg/(i);
 			quizzesScores.add(new JLabel(String.format("%.2f",avg)));
+//			System.out.println(tableRowToWrite);
 			table.add(new RepRow(quizzesScores, tableRowToWrite));			
 			view.getScrollPane().setViewportView(table);
 		} catch (IOException e) {
