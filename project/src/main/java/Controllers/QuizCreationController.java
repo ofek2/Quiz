@@ -296,10 +296,7 @@ public class QuizCreationController implements Serializable {
 				MainFrameController.view.changeContentPane(initialWindowView);
 				MainFrameController.view.removeWindowListener(windowListener);
 				MainFrameController.view.addWindowListener(MainFrameController.view.windowListener);
-				// } catch (IOException e1) {
-				// // TODO Auto-generated catch block
-				// e1.printStackTrace();
-				// }
+			
 
 			}
 		}
@@ -315,21 +312,7 @@ public class QuizCreationController implements Serializable {
 						"You made an unsaved changes, all of this changes will be lost,\n do you want to keep the application progress?",
 						"Alert", JOptionPane.YES_NO_OPTION);
 				if (exitFlag == JOptionPane.YES_OPTION) {
-					// if(saveComplete==0)
-					// {
-					// entity.getQuizFormFolder().delete();
-					// try {
-					// initialWindowView.setTree(new
-					// JTree(InitialWindowView.filesTree(new File(new
-					// File(".").getCanonicalPath()+"/OnlineQuizChecker"))));
-					// } catch (IOException e1) {
-					// // TODO Auto-generated catch block
-					// e1.printStackTrace();
-					// }
-					// }
-					///// delete the d from the image name
-					// for(int
-					// i=0;i<qPanels.size();i++)/////////////////////////////
+			
 					if (entity.getQuizFormFolder().listFiles().length > 0)
 						for (File file : entity.getQuizFormFolder().listFiles()) {
 							if (file.getName().endsWith(".PNG"))
@@ -340,21 +323,11 @@ public class QuizCreationController implements Serializable {
 					MainFrameController.view.addWindowListener(MainFrameController.view.windowListener);
 				}
 			} else {
-				// try {
-				// if(saveComplete==0)
-				// {
-				// entity.getQuizFormFolder().delete();
-				// initialWindowView.setTree(new
-				// JTree(InitialWindowView.filesTree(new File(new
-				// File(".").getCanonicalPath()+"/OnlineQuizChecker"))));
-				// }
+			
 				MainFrameController.view.changeContentPane(initialWindowView);
 				MainFrameController.view.removeWindowListener(this);
 				MainFrameController.view.addWindowListener(MainFrameController.view.windowListener);
-				// } catch (IOException e1) {
-				// // TODO Auto-generated catch block
-				// e1.printStackTrace();
-				// }
+				
 
 			}
 		}

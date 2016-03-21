@@ -70,9 +70,6 @@ public class ReportsController {
 					}
 					out.println();
 				}
-//				out.println("a,b,c,d");
-//				out.println("e,f,g,h");
-//				out.println("i,j,k,l");
 				out.close();
 			} catch (IOException e1) {
 				// TODO Auto-generated catch block
@@ -193,7 +190,6 @@ public class ReportsController {
 			}		
 			avg = avg/(i+1);
 			quizzesScores.add(new JLabel(String.format("%.2f",avg)));
-//			System.out.println(tableRowToWrite);
 			table.add(new RepRow(quizzesScores, tableRowToWrite));			
 			view.getScrollPane().setViewportView(table);
 		} catch (IOException e) {

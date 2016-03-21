@@ -45,13 +45,8 @@ import project.progListener;
 public class InitialWindowController {
 	private InitialWindowView view;
 
-	/*
-	 * private JPopupMenu quizPopupMenu; private JPopupMenu coursePopupMenu;
-	 * private JPopupMenu rootPopupMenu; private JPopupMenu
-	 * studentsFolderPopupMenu; private JPopupMenu studentsFilePopupMenu;
-	 */
+
 	private MenuController menuController;
-	// private ObjectFileManager fileManager;
 	public static ArrayList<CourseEntity> coursesFiles;
 	private coursesIdsEditAddItemListener idsEditAddItemListener;
 	private removeStudentCourseCBAddItemListener removeStudentCourseAddItemListener;
@@ -69,7 +64,7 @@ public class InitialWindowController {
 		MainFrameController.view.removeWindowListener(MainFrameController.view.windowListener);
 		MainFrameController.view.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 		MainFrameController.view.addWindowListener(windowListener);
-		// fileManager = new ObjectFileManager();
+
 		addListeners();
 	}
 
@@ -85,9 +80,7 @@ public class InitialWindowController {
 		view.courseIdGradeAddItemListener(courseIdGradeItemListener);
 		view.getTree().addMouseListener(menuController.dialogsBtnsController.popUpMenusController.treeMouseListener());
 
-		// remove.addActionListener(l);
-
-		// view.getTree().setComponentPopupMenu(jPopupMenu());
+	
 	}
 
 	// Initial Window Menu Action Listeners
@@ -285,7 +278,7 @@ public class InitialWindowController {
 				view.loadStudents(view.getRemoveStudentCourseCB().getSelectedIndex());
 				view.getRemoveStudentsIds().addItemListener(removeStudentsIdsAddItemListener);
 				}
-				// view.loadStudents(view.getRemoveStudentCourseCB().getSelectedIndex());
+
 			}
 
 		}
@@ -346,7 +339,7 @@ public class InitialWindowController {
 							view.setTree(new JTree(InitialWindowView
 									.filesTree(new File(new File(".").getCanonicalPath() + "/OnlineQuizChecker"))));
 							JOptionPane.showMessageDialog(null, "The student removed successfully");
-							// removeStudentDialog.setVisible(false);///////////////////////
+							
 						}
 					} catch (IOException e1) {
 						// TODO Auto-generated catch block
@@ -971,38 +964,5 @@ public class InitialWindowController {
 			System.exit(0);
 		}
 	}
-	/*
-	 * public void coursesUpdate(){
-	 * view.getCoursesIdsEdit().removeItemListener(idsEditAddItemListener);
-	 * view.getRemoveStudentsIds().removeItemListener(
-	 * removeStudentsIdsAddItemListener);
-	 * view.getRemoveStudentCourseCB().removeItemListener(
-	 * removeStudentCourseAddItemListener);
-	 * 
-	 * view.coursesIdsEditAddItemListener(idsEditAddItemListener);
-	 * view.getRemoveStudentsIds().addItemListener(
-	 * removeStudentsIdsAddItemListener);
-	 * view.getRemoveStudentCourseCB().addItemListener(
-	 * removeStudentCourseAddItemListener);
-	 * 
-	 * Vector<String> coursesIds = new Vector<String>(); for(int
-	 * i=0;i<InitialWindowController.coursesFiles.size();i++)
-	 * coursesIds.add(InitialWindowController.coursesFiles.get(i).
-	 * getCourseFolderName()); DefaultComboBoxModel<String> model = new
-	 * DefaultComboBoxModel<String>(coursesIds); view.setComboBoxesModel(model);
-	 * 
-	 * try { view.setTree(new JTree(InitialWindowView.filesTree(new File(new
-	 * File(".").getCanonicalPath()+"/OnlineQuizChecker")))); } catch
-	 * (IOException e) { // TODO Auto-generated catch block e.printStackTrace();
-	 * } }
-	 */
-	/*
-	 * public void loadQuizzesToComboBox(int courseIndex) {
-	 * 
-	 * view.quizzes.removeAllItems(); for(File child:
-	 * coursesFiles.get(courseIndex).getCourseFolder().listFiles())
-	 * view.quizzes.addItem(child.getName());
-	 * view.getEditQuizDialogPanel().revalidate(); }
-	 */
 
 }

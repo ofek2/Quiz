@@ -74,17 +74,6 @@ public class GradingWindowController {
 			
 			if (allChecked) {
 				new GmailAuthFrameController(new GmailAuthFrame(),studentGradingControllers,studentsQuizzesPaths);
-//				String quizName="";
-//				mail = new GoogleMail();
-//				if(!studentGradingControllers.isEmpty())
-//					quizName= studentGradingControllers.get(0).getQuizName();
-//				for(int i=0;i<studentGradingControllers.size();i++)
-//				{
-//					mail.SendMail(studentGradingControllers.get(i).getStudentEmail(), 
-//							quizName+" - Graded Quiz", studentsQuizzesPaths.get(i), quizName);
-//				}
-//				
-				
 				
 			}
 			else

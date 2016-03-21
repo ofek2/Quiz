@@ -243,11 +243,6 @@ public class qPanelController implements Serializable{
 				qImgFile = qFileChooser.getSelectedFile();				
 				questionLbl = view.getQuestionLbl().getText()+".PNG";
 				questionImgPath = quizPath +"/" + questionLbl;
-				//fileExtension = Files.getFileExtension(qImgFile.getCanonicalPath());
-				//image = ImageIO.read(qImgFile); 	
-				//fileSave = new File(questionImgPath);
-				//ImageIO.write(image,fileExtension , fileSave);
-				//qImgFile = fileSave;
 				view.getqImage().setVisible(true);
 				view.getRemoveQuestionImageBtn().setVisible(true);
 				view.getQuestionDataPanel().revalidate();
@@ -271,11 +266,6 @@ public class qPanelController implements Serializable{
 				aImgFile = aFileChooser.getSelectedFile();				
 				answerLbl = "Answer"+view.getQuestionNumber()+".PNG";
 				answerImgPath = quizPath +"/" + answerLbl;
-				//fileExtension = Files.getFileExtension(aImgFile.getCanonicalPath());
-				//image = ImageIO.read(aImgFile); 	
-				//aImgFile = new File(answerImgPath);
-				//ImageIO.write(image,fileExtension , fileSave);
-				//aImgFile = fileSave;
 				view.getRemoveAnswerImageBtn().setVisible(true);
 				view.getbtnViewAnswerImage().setVisible(true);
 				view.getQuestionDataPanel().revalidate();
@@ -335,8 +325,6 @@ public class qPanelController implements Serializable{
 	{
 		public void actionPerformed(ActionEvent e) {
 			// TODO Auto-generated method stub
-//			qImgFile=null;	
-//			questionImgPath="";
 			renameQuestionImage();
 			view.getRemoveQuestionImageBtn().setVisible(false);
 			view.getqImage().setVisible(false);
@@ -375,8 +363,6 @@ public class qPanelController implements Serializable{
 	
 	public void removeAnswerImage()
 	{
-//		aImgFile=null;	
-//		answerImgPath="";
 		renameAnswerImage();
 		view.getRemoveAnswerImageBtn().setVisible(false);
 		view.getbtnViewAnswerImage().setVisible(false);
