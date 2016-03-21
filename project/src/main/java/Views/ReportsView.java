@@ -38,6 +38,7 @@ public class ReportsView extends ViewPanel {
 	private JPanel emptyJpanel;
 	private JMenu mnFile;
 	private JMenuItem mntmExit;
+	private JLabel courseLabel;
 	private int width= (int) ((MainFrameController.view.getContentPane().getWidth()-20)/4);
 	private int height= (int) ((MainFrameController.view.getContentPane().getHeight())/2.5);
 	private int reportsInfoPanelStartX = MainFrameController.view.getContentPane().getWidth()-20-width;
@@ -107,6 +108,9 @@ public class ReportsView extends ViewPanel {
 //		btnBack = new JButton("Back");
 //		btnBack.setBounds((int)(width/1.5), 340, 79, 23);
 //		reportsInfoPanel.add(btnBack);
+		courseLabel = new JLabel();
+		courseLabel.setBounds(reportsInfoPanelStartX-220,35, 200, 23);
+		reportsInfoPanel.add(courseLabel);
 		
 		scrollPane = new JScrollPane();
 		scrollPane.setBounds(10,35, MainFrameController.view.getContentPane().getWidth()/2, MainFrameController.view.getContentPane().getHeight()-70);
@@ -198,6 +202,14 @@ public class ReportsView extends ViewPanel {
 //		
 //	}
 	
+	public JLabel getCourseLabel() {
+		return courseLabel;
+	}
+
+	public void setCourseLabel(JLabel courseLabel) {
+		this.courseLabel = courseLabel;
+	}
+
 	public JScrollPane getScrollPane() {
 		return scrollPane;
 	}
