@@ -28,7 +28,8 @@ public class ReportsController {
 	private String coursePath;
 	private SearchStudent searchStudent;
 	private CTable table;
-	private boolean enableReportExporting = false;
+	private boolean enableExportingAndSearching = false;
+	private String courseName;
 	public ReportsController(ReportsView view, Container previousView) {
 		this.view = view;
 		this.previousView = previousView;
@@ -54,7 +55,7 @@ public class ReportsController {
 
 		public void actionPerformed(ActionEvent e) {
 			// TODO Auto-generated method stub
-			if (enableReportExporting) {
+			if (enableExportingAndSearching) {
 				String fileName = coursePath + "/Report.xls";
 
 				PrintWriter out;
@@ -102,9 +103,8 @@ public class ReportsController {
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			// TODO Auto-generated method stub
-			
-			int courseIndexInCoursesArray = CourseEntity.getIndex((String) view.getReportsCourses()
-					.getSelectedItem());
+			courseName = (String) view.getReportsCourses().getSelectedItem();
+			int courseIndexInCoursesArray = CourseEntity.getIndex(courseName);
 			
 			try {			
 				quizzesNames = new ArrayList<String>();
@@ -120,7 +120,7 @@ public class ReportsController {
 				}
 				else
 				{
-					enableReportExporting = false;
+					enableExportingAndSearching = false;
 					view.setTable(null);
 					view.getReportsStudentsIds().removeAllItems();
 					JOptionPane.showMessageDialog(null
@@ -142,8 +142,14 @@ public class ReportsController {
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			// TODO Auto-generated method stub
-			loadStudentsScoresToTable(quizzesNames.size(), quizzesNames,
-					(String) view.getReportsStudentsIds().getSelectedItem());
+			if (enableExportingAndSearching)
+				loadStudentsScoresToTable(quizzesNames.size(), quizzesNames,
+						(String) view.getReportsStudentsIds().getSelectedItem());
+			else
+				JOptionPane.showMessageDialog(null
+						, "There are no students under this course name, please choose another course"
+						, "Alert",
+						JOptionPane.ERROR_MESSAGE);
 		}
 		
 	}
@@ -161,7 +167,7 @@ public class ReportsController {
 		
 		int tableRowToWrite=1;
 		if(students.listFiles().length>0){
-			enableReportExporting = true;
+			enableExportingAndSearching = true;
 			view.getReportsStudentsIds().removeAllItems();
 			view.btnSearchStudentAddListener(searchStudent);
 		for (File studentFile : students.listFiles()) {
@@ -178,12 +184,11 @@ public class ReportsController {
 		}	
 			view.getCourseLabel().setText(
 					"Course id: "
-							+ (String) view.getReportsCourses()
-									.getSelectedItem());
+							+ courseName);
 		}
 		else
 		{
-			enableReportExporting = false;
+			enableExportingAndSearching = false;
 			view.getReportsStudentsIds().removeAllItems();
 			view.setTable(null);
 			JOptionPane.showMessageDialog(null

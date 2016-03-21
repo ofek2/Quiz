@@ -110,7 +110,7 @@ public class ReportsView extends ViewPanel {
 //		reportsInfoPanel.add(btnBack);
 		courseLabel = new JLabel();
 		courseLabel.setBounds(reportsInfoPanelStartX-220,35, 200, 23);
-		reportsInfoPanel.add(courseLabel);
+		add(courseLabel);
 		
 		scrollPane = new JScrollPane();
 		scrollPane.setBounds(10,35, MainFrameController.view.getContentPane().getWidth()/2, MainFrameController.view.getContentPane().getHeight()-70);
