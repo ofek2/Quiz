@@ -49,7 +49,7 @@ public class QuizCreationController implements Serializable {
 		this.view.addFileMenuListeners(fileMenuListeners);
 		this.view.addSpinnerChangeListener(new addSpinnerChangeListener());
 		windowListener = new windowListener();
-		MainFrameController.view.removeWindowListener(MainFrameController.view.windowListener);
+		MainFrameController.view.removeWindowListener(InitialWindowController.windowListener);
 		MainFrameController.view.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 		MainFrameController.view.addWindowListener(windowListener);
 		qPanels = new ArrayList<qPanelController>();
@@ -77,7 +77,7 @@ public class QuizCreationController implements Serializable {
 		this.view.addSpinnerChangeListener(new addSpinnerChangeListener());
 		this.view.addFileMenuListeners(fileMenuListeners);
 		windowListener = new windowListener();
-		MainFrameController.view.removeWindowListener(MainFrameController.view.windowListener);
+		MainFrameController.view.removeWindowListener(InitialWindowController.windowListener);
 		MainFrameController.view.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 		MainFrameController.view.addWindowListener(windowListener);
 		qPanels = new ArrayList<qPanelController>();
@@ -122,14 +122,9 @@ public class QuizCreationController implements Serializable {
 		QuizCreationController.qPanels.get(qPanels.size() - 1).getQuestionPanel().getQuestionLbl()
 				.setText("Question" + (qPanels.size()));
 		if ((qPview.getQuestionNumber() - 1) % 2 == 0)
-		{
 			qPview.setBackground(Color.getHSBColor(0.55f, 0.69f, 1));
-		}
 		else
-		{
 			qPview.setBackground(Color.getHSBColor(0.0711f, 0.9916f, 1));
-		}
-		
 		view.panel.revalidate();
 	}
 
@@ -289,14 +284,17 @@ public class QuizCreationController implements Serializable {
 						}
 					MainFrameController.view.changeContentPane(initialWindowView);
 					MainFrameController.view.removeWindowListener(windowListener);
-					MainFrameController.view.addWindowListener(MainFrameController.view.windowListener);
+					MainFrameController.view.addWindowListener(InitialWindowController.windowListener);
 				}
 			} else {
 
 				MainFrameController.view.changeContentPane(initialWindowView);
 				MainFrameController.view.removeWindowListener(windowListener);
-				MainFrameController.view.addWindowListener(MainFrameController.view.windowListener);
-			
+				MainFrameController.view.addWindowListener(InitialWindowController.windowListener);
+				// } catch (IOException e1) {
+				// // TODO Auto-generated catch block
+				// e1.printStackTrace();
+				// }
 
 			}
 		}
@@ -312,7 +310,21 @@ public class QuizCreationController implements Serializable {
 						"You made an unsaved changes, all of this changes will be lost,\n do you want to keep the application progress?",
 						"Alert", JOptionPane.YES_NO_OPTION);
 				if (exitFlag == JOptionPane.YES_OPTION) {
-			
+					// if(saveComplete==0)
+					// {
+					// entity.getQuizFormFolder().delete();
+					// try {
+					// initialWindowView.setTree(new
+					// JTree(InitialWindowView.filesTree(new File(new
+					// File(".").getCanonicalPath()+"/OnlineQuizChecker"))));
+					// } catch (IOException e1) {
+					// // TODO Auto-generated catch block
+					// e1.printStackTrace();
+					// }
+					// }
+					///// delete the d from the image name
+					// for(int
+					// i=0;i<qPanels.size();i++)/////////////////////////////
 					if (entity.getQuizFormFolder().listFiles().length > 0)
 						for (File file : entity.getQuizFormFolder().listFiles()) {
 							if (file.getName().endsWith(".PNG"))
@@ -320,14 +332,24 @@ public class QuizCreationController implements Serializable {
 						}
 					MainFrameController.view.changeContentPane(initialWindowView);
 					MainFrameController.view.removeWindowListener(this);
-					MainFrameController.view.addWindowListener(MainFrameController.view.windowListener);
+					MainFrameController.view.addWindowListener(InitialWindowController.windowListener);
 				}
 			} else {
-			
+				// try {
+				// if(saveComplete==0)
+				// {
+				// entity.getQuizFormFolder().delete();
+				// initialWindowView.setTree(new
+				// JTree(InitialWindowView.filesTree(new File(new
+				// File(".").getCanonicalPath()+"/OnlineQuizChecker"))));
+				// }
 				MainFrameController.view.changeContentPane(initialWindowView);
 				MainFrameController.view.removeWindowListener(this);
-				MainFrameController.view.addWindowListener(MainFrameController.view.windowListener);
-				
+				MainFrameController.view.addWindowListener(InitialWindowController.windowListener);
+				// } catch (IOException e1) {
+				// // TODO Auto-generated catch block
+				// e1.printStackTrace();
+				// }
 
 			}
 		}
