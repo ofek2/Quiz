@@ -147,7 +147,7 @@ public class ReportsController {
 						(String) view.getReportsStudentsIds().getSelectedItem());
 			else
 				JOptionPane.showMessageDialog(null
-						, "You have to produce report before exporting"
+						, "You have to produce report before searching"
 						, "Alert",
 						JOptionPane.ERROR_MESSAGE);
 		}
