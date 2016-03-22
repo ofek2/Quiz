@@ -19,13 +19,16 @@ import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.util.ArrayList;
 
+import javax.swing.BoxLayout;
 import javax.swing.JComboBox;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPopupMenu;
 import javax.swing.JTree;
+import javax.swing.SwingUtilities;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.TreePath;
 
@@ -35,6 +38,7 @@ import Entities.QuizEntity;
 import Entities.QuizObjectEntity;
 import Entities.StudentEntity;
 import Entities.StudentQuizEntity;
+import Views.CustomDialog;
 import Views.GradingWindowView;
 import Views.InitialWindowView;
 import Views.QuizCreationView;
@@ -103,14 +107,14 @@ public class InitialWindowController {
 		public MenuController() {
 
 			ActionListener[] quizMngmntListeners = { new NewQuizListener(), new EditQuizListener(),
-					new GradeQuizListener(), new ReportsListener() };
+					new GradeQuizListener(), new ReportsListener(), new SaveFilesListener() };
 			ActionListener[] courseMngmntListeners = { new AddCourseListener(), new RemoveCourseListener(),
 					new RegisterStudentListener("",""), new RemoveStudentListener() };
 			view.addQuizManagementListeners(quizMngmntListeners);
 			view.addCourseManagementListeners(courseMngmntListeners);
 			dialogsBtnsController = new DialogsBtnsController();
 		}
-
+		
 		class NewQuizListener implements ActionListener {
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
@@ -126,7 +130,7 @@ public class InitialWindowController {
 			}
 
 		}
-
+		
 		class EditQuizListener implements ActionListener {
 
 			public void actionPerformed(ActionEvent e) {
@@ -175,7 +179,38 @@ public class InitialWindowController {
 			}
 
 		}
+		class SaveFilesListener implements ActionListener
+		{
 
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				SwingUtilities.invokeLater(new Runnable() {
+				    public void run() {
+				    	CustomDialog savedialog = new CustomDialog("<html><body>Please wait while your files are being <br>uploaded to your dropbox account</body></html>");
+						savedialog .setTitle("Alert");
+						DropBoxSimple.recursiveDeleteDropboxFolder("/");
+						savedialog.dispose();
+						File appFolder;
+						try {
+							appFolder = new File(new File(".").getCanonicalPath() + "/OnlineQuizChecker");
+							long folderSize = ObjectFileManager.folderSize(appFolder);
+							progListener progressListener = new progListener(folderSize, "uploaded");
+							DropBoxSimple.uploadFolder(new File(new File(".") + "/OnlineQuizChecker/"), "/",
+								progressListener);
+							progressListener.dialog.dispose();
+						} catch (IOException e1) {
+							// TODO Auto-generated catch block
+							e1.printStackTrace();
+						}
+						JOptionPane.showMessageDialog(null, "Files Uploaded Successfully To Your Dropbox Account");
+				    }
+				});
+			
+			
+			}
+			
+		}
 		class AddCourseListener implements ActionListener {
 
 			public void actionPerformed(ActionEvent e) {
@@ -954,7 +989,10 @@ public class InitialWindowController {
 
 	class windowListener extends WindowAdapter implements Serializable {
 		public void windowClosing(WindowEvent e) {
+			CustomDialog dialog = new CustomDialog("<html><body>Please wait while your files are being <br>uploaded to your dropbox account</body></html>");
+			dialog.setTitle("Alert");
 			DropBoxSimple.recursiveDeleteDropboxFolder("/");
+			dialog.dispose();
 			File appFolder;
 			try {
 				appFolder = new File(new File(".").getCanonicalPath() + "/OnlineQuizChecker");

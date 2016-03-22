@@ -8,7 +8,7 @@ import javax.swing.JOptionPane;
 
 import com.dropbox.client2.exception.DropboxException;
 
-
+import Views.CustomDialog;
 import Views.DropBoxAuthenticationView;
 import Views.InitialWindowView;
 import Views.MainFrameView;
@@ -52,12 +52,15 @@ public class MainFrameController {
 		
 		try {
 			appFolder= new File(new File(".").getCanonicalPath()+"/OnlineQuizChecker");
+			CustomDialog dialog = new CustomDialog("<html><body>Please wait while your files are being <br>downloaded from your dropbox account</body></html>");
+			dialog.setTitle("Alert");
 			recursiveDelete(appFolder);
 			try {
 				long dropboxtotalsize = DropBoxSimple.getDropboxTotalSize("/", 0);
+				dialog.setVisible(false);
 				progListener progressListener = new progListener(dropboxtotalsize, "downloaded");
 				DropBoxSimple.downloadFolder(appFolder.getCanonicalPath(), "/",progressListener);
-				progressListener.dialog.dispose();
+				progressListener.dialog.setVisible(false);
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();

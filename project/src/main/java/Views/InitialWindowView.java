@@ -115,6 +115,9 @@ public class InitialWindowView extends ViewPanel {
 		JMenuItem mntmReports = new JMenuItem("Reports");
 		mnQuizMngMenu.add(mntmReports);
 		
+		JMenuItem mntmSave = new JMenuItem("Save Files");
+		mnQuizMngMenu.add(mntmSave);
+		
 		JSeparator separator = new JSeparator();
 		separator.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
 		separator.setBackground(Color.LIGHT_GRAY);
