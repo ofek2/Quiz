@@ -33,8 +33,8 @@ public class ReportsController {
 	public ReportsController(ReportsView view, Container previousView) {
 		this.view = view;
 		this.previousView = previousView;
-		view.btnReportsShowGradesAddListener(new produceReports());	
-		searchStudent = new SearchStudent();
+		view.btnReportsShowGradesAddListener(new ProduceReports());	
+		view.btnSearchStudentAddListener(new SearchStudent());
 		view.mntmExitAddListener(new ExitListener());
 		view.btnExportExcelFileAddListener(new ExportExcelFileListener());
 		//view.table = new CustomTable(view);
@@ -97,7 +97,7 @@ public class ReportsController {
 		
 	}
 	
-	class produceReports implements ActionListener
+	class ProduceReports implements ActionListener
 	{
 
 		@Override
@@ -147,7 +147,7 @@ public class ReportsController {
 						(String) view.getReportsStudentsIds().getSelectedItem());
 			else
 				JOptionPane.showMessageDialog(null
-						, "There are no students under this course name, please choose another course"
+						, "You have to produce report before exporting"
 						, "Alert",
 						JOptionPane.ERROR_MESSAGE);
 		}
@@ -169,7 +169,6 @@ public class ReportsController {
 		if(students.listFiles().length>0){
 			enableExportingAndSearching = true;
 			view.getReportsStudentsIds().removeAllItems();
-			view.btnSearchStudentAddListener(searchStudent);
 		for (File studentFile : students.listFiles()) {
 			String studentId = (String) studentFile.getName().
 					subSequence(0,studentFile.getName().length()-4);
@@ -190,7 +189,8 @@ public class ReportsController {
 		{
 			enableExportingAndSearching = false;
 			view.getReportsStudentsIds().removeAllItems();
-			view.setTable(null);
+			view.getScrollPane().setViewportView(null);
+			view.getCourseLabel().setText("");
 			JOptionPane.showMessageDialog(null
 					, "There are no students under this course name, please choose another course"
 					, "Alert",
