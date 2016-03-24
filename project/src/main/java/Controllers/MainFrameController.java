@@ -54,13 +54,15 @@ public class MainFrameController {
 			appFolder= new File(new File(".").getCanonicalPath()+"/OnlineQuizChecker");
 			CustomDialog dialog = new CustomDialog("<html><body>Please wait while your files are being <br>downloaded from your dropbox account</body></html>");
 			dialog.setTitle("Alert");
+			dialog.setVisible(true);
 			recursiveDelete(appFolder);
 			try {
 				long dropboxtotalsize = DropBoxSimple.getDropboxTotalSize("/", 0);
 				dialog.setVisible(false);
-				progListener progressListener = new progListener(dropboxtotalsize, "downloaded");
-				DropBoxSimple.downloadFolder(appFolder.getCanonicalPath(), "/",progressListener);
-				progressListener.dialog.setVisible(false);
+				DropBoxSimple.progressListener.init(dropboxtotalsize,  "downloaded"); 
+				DropBoxSimple.progressListener.dialog.setVisible(true);
+				DropBoxSimple.downloadFolder(appFolder.getCanonicalPath(), "/");
+				DropBoxSimple.progressListener.dialog.setVisible(false);
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();

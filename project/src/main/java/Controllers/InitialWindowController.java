@@ -185,27 +185,25 @@ public class InitialWindowController {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
-				SwingUtilities.invokeLater(new Runnable() {
-				    public void run() {
-				    	CustomDialog savedialog = new CustomDialog("<html><body>Please wait while your files are being <br>uploaded to your dropbox account</body></html>");
-						savedialog .setTitle("Alert");
-						DropBoxSimple.recursiveDeleteDropboxFolder("/");
-						savedialog.dispose();
-						File appFolder;
-						try {
-							appFolder = new File(new File(".").getCanonicalPath() + "/OnlineQuizChecker");
-							long folderSize = ObjectFileManager.folderSize(appFolder);
-							progListener progressListener = new progListener(folderSize, "uploaded");
-							DropBoxSimple.uploadFolder(new File(new File(".") + "/OnlineQuizChecker/"), "/",
-								progressListener);
-							progressListener.dialog.dispose();
-						} catch (IOException e1) {
-							// TODO Auto-generated catch block
-							e1.printStackTrace();
-						}
-						JOptionPane.showMessageDialog(null, "Files Uploaded Successfully To Your Dropbox Account");
-				    }
-				});
+				CustomDialog dialog = new CustomDialog("<html><body>Please wait while your files are being <br>uploaded to your dropbox account</body></html>");
+				dialog.setTitle("Alert");
+				dialog.setVisible(true);
+				DropBoxSimple.recursiveDeleteDropboxFolder("/");
+				dialog.dispose();
+				File appFolder;
+				try {
+					appFolder = new File(new File(".").getCanonicalPath() + "/OnlineQuizChecker");
+					long folderSize = ObjectFileManager.folderSize(appFolder);
+					DropBoxSimple.progressListener.init(folderSize,  "uploaded"); 
+					DropBoxSimple.progressListener.dialog.setVisible(true);
+					DropBoxSimple.uploadFolder(new File(new File(".") + "/OnlineQuizChecker/"), "/");
+					DropBoxSimple.progressListener.dialog.setVisible(false);
+				} catch (IOException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+				JOptionPane.showMessageDialog(null, "Files Uploaded Successfully To Your Dropbox Account");
+			
 			
 			
 			}
@@ -991,16 +989,17 @@ public class InitialWindowController {
 		public void windowClosing(WindowEvent e) {
 			CustomDialog dialog = new CustomDialog("<html><body>Please wait while your files are being <br>uploaded to your dropbox account</body></html>");
 			dialog.setTitle("Alert");
+			dialog.setVisible(true);
 			DropBoxSimple.recursiveDeleteDropboxFolder("/");
 			dialog.dispose();
 			File appFolder;
 			try {
 				appFolder = new File(new File(".").getCanonicalPath() + "/OnlineQuizChecker");
 				long folderSize = ObjectFileManager.folderSize(appFolder);
-				progListener progressListener = new progListener(folderSize, "uploaded");
-				DropBoxSimple.uploadFolder(new File(new File(".") + "/OnlineQuizChecker/"), "/",
-					progressListener);
-				progressListener.dialog.dispose();
+				DropBoxSimple.progressListener.init(folderSize,  "uploaded"); 
+				DropBoxSimple.progressListener.dialog.setVisible(true);
+				DropBoxSimple.uploadFolder(new File(new File(".") + "/OnlineQuizChecker/"), "/");
+				DropBoxSimple.progressListener.dialog.setVisible(false);
 			} catch (IOException e1) {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();

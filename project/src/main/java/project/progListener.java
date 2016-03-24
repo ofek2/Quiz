@@ -23,6 +23,11 @@ public class progListener extends ProgressListener
 		
 		public  progListener(long totalDropboxSize,String type) {
 			// TODO Auto-generated constructor stub
+			init(totalDropboxSize,type);
+			
+		}
+		public void init(long totalDropboxSize,String type) {
+			// TODO Auto-generated method stub
 			currentFileSize = 0f;
 			percent = 0f;
 			lastFileSize=0f;
@@ -36,7 +41,7 @@ public class progListener extends ProgressListener
 				dialog.setTitle("Uploading your files");
 			
 			dialog.setLabelText("0% of files have been "+type);
-		
+			dialog.setVisible(false);
 		}
 		@Override
 		public void onProgress(long arg0, long arg1) {
@@ -60,4 +65,11 @@ public class progListener extends ProgressListener
 		{
 			this.type=type;
 		}
+		public long getTotalDropboxSize() {
+			return totalDropboxSize;
+		}
+		public void setTotalDropboxSize(long totalDropboxSize) {
+			this.totalDropboxSize = totalDropboxSize;
+		}
+		
 	}

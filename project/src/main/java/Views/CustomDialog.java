@@ -16,7 +16,7 @@ public class CustomDialog extends JDialog{
 		panel = new JPanel();
 		panel.add(label);
 		getContentPane().add(panel);
-		setVisible(true);
+		
 	}
 	public CustomDialog(String text)
 	{
@@ -27,7 +27,7 @@ public class CustomDialog extends JDialog{
 		panel = new JPanel();
 		panel.add(label);
 		getContentPane().add(panel);
-		setVisible(true);
+		
 	}
 	public JLabel getLabel() {
 		return label;

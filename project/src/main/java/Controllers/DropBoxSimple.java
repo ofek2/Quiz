@@ -54,6 +54,7 @@ public class DropBoxSimple {
 	/** The authenticated. */
 	private boolean authenticated;
 
+	public static progListener progressListener;
 	/** The download progress label. */
 //	public static JLabel downloadProgressLabel;
 	
@@ -76,7 +77,7 @@ public class DropBoxSimple {
 		appKeys = new AppKeyPair(APP_KEY, APP_SECRET);
 		session = new WebAuthSession(appKeys, Session.AccessType.APP_FOLDER);
 		authenticated = false;
-
+		progressListener = new progListener(0, "");
 	}
 
 	/**
@@ -139,7 +140,7 @@ public class DropBoxSimple {
 	 * @param path the path
 	 * @param progressListener the progress listener
 	 */
-	public static void uploadFolder(File file, String path, progListener progressListener) {
+	public static void uploadFolder(File file, String path) {
 
 		if (!file.exists())
 			return;
@@ -162,7 +163,7 @@ public class DropBoxSimple {
 					e.printStackTrace();
 				}
 				for (File f : file.listFiles()) {
-					uploadFolder(f, path, progressListener);
+					uploadFolder(f, path);
 				}
 			}
 		} else {
@@ -185,7 +186,7 @@ public class DropBoxSimple {
 	 * @param dropPath the drop path
 	 * @param progressListener the progress listener
 	 */
-	public static void downloadFolder(String path, String dropPath, progListener progressListener) {
+	public static void downloadFolder(String path, String dropPath) {
 		FileOutputStream outputStream = null;
 		try {
 			File file = new File(path);
@@ -196,7 +197,7 @@ public class DropBoxSimple {
 
 				file.mkdir();
 				for (Entry entry : existingFile.contents) {
-					downloadFolder(path + "/" + entry.fileName(), dropPath + "/" + entry.fileName(), progressListener);
+					downloadFolder(path + "/" + entry.fileName(), dropPath + "/" + entry.fileName());
 				}
 			} else {
 				outputStream = new FileOutputStream(file);
