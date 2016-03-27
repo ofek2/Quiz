@@ -35,7 +35,7 @@ public class Main extends JFrame {
 
 	private void initComponents() {
 		createScene();
-		org.apache.log4j.BasicConfigurator.configure();
+		//org.apache.log4j.BasicConfigurator.configure();
 		panel.add(jfxPanel, BorderLayout.CENTER);
 		getContentPane().add(panel);
 

@@ -6,12 +6,15 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.List;
+
 import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 import com.dropbox.client2.DropboxAPI;
+import com.dropbox.client2.DropboxAPI.DeltaEntry;
 import com.dropbox.client2.DropboxAPI.DropboxFileInfo;
 import com.dropbox.client2.DropboxAPI.Entry;
 import com.dropbox.client2.exception.DropboxException;
@@ -169,7 +172,7 @@ public class DropBoxSimple {
 		} else {
 			try {
 				FileInputStream in = new FileInputStream(file);
-			
+				
 				api.putFileOverwrite(path + file.getName(), in, file.length(), progressListener);
 			} catch (FileNotFoundException | DropboxException e) {
 				// TODO Auto-generated catch block
@@ -203,7 +206,7 @@ public class DropBoxSimple {
 				outputStream = new FileOutputStream(file);
 
 				// downloadProgressD.setVisible(true);
-
+				
 				DropboxFileInfo info = api.getFile(dropPath, null, outputStream, progressListener);
 				// downloadProgressD.setVisible(false);
 			}
@@ -242,17 +245,16 @@ public class DropBoxSimple {
 	 * @param sum the sum
 	 * @return the dropbox total size
 	 */
-	public static long getDropboxTotalSize(String path, long sum) {
+	public static long getDropboxTotalSize() {
+		List<DeltaEntry<Entry>> entries;
+		long sum = 0;
 		try {
-			Entry existingFile = api.metadata(path, 0, null, true, null);
-
-			if (existingFile.isDir) {
-				for (int i = 0; i < existingFile.contents.size(); i++) {
-					sum += getDropboxTotalSize(path + "/" + existingFile.contents.get(i).fileName(), 0);
-				}
-				return sum;
-			} else
-				return existingFile.bytes;
+			entries = api.delta(null).entries;
+			for(int i = 0 ;i<entries.size();i++)
+			{
+				sum += entries.get(i).metadata.bytes;
+			}
+			return sum;
 		} catch (DropboxException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

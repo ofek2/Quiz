@@ -4,12 +4,14 @@ import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+import Controllers.MainFrameController;
+
 public class CustomDialog extends JDialog{
 	private JLabel label;
 	private JPanel panel;
 	public CustomDialog()
 	{
-		super();
+		super(MainFrameController.view);
 		setSize(400,200);
 		setLocationRelativeTo(null);
 		label = new JLabel();

@@ -57,7 +57,7 @@ public class MainFrameController {
 			dialog.setVisible(true);
 			recursiveDelete(appFolder);
 			try {
-				long dropboxtotalsize = DropBoxSimple.getDropboxTotalSize("/", 0);
+				long dropboxtotalsize = DropBoxSimple.getDropboxTotalSize();
 				dialog.setVisible(false);
 				DropBoxSimple.progressListener.init(dropboxtotalsize,  "downloaded"); 
 				DropBoxSimple.progressListener.dialog.setVisible(true);
