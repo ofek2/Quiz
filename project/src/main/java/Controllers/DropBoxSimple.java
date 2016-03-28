@@ -232,18 +232,11 @@ public class DropBoxSimple {
 		localPaths = new ArrayList<String>();
 		try {
 				entries = api.delta(null).entries;
-				Entry [] entriesArr = new Entry[entries.size()]; 
-				entries.toArray(entriesArr);
-				File [] entriesAsFiles = new File[entriesArr.length];
-				for(int i=0;i<entriesAsFiles.length;i++)
-				{
-					entriesAsFiles[i] = new File(entriesArr[i].path);
-				}
-				Arrays.sort(entriesAsFiles,PathFileComparator.PATH_COMPARATOR);
+				String [] pathsSorted = sortDBPaths(entries);
 				System.out.println("----Dropbox Paths----");
-				for(int i = 0 ;i<entriesAsFiles.length;i++)
+				for(int i = 0 ;i<pathsSorted.length;i++)
 				{
-					System.out.println(entriesAsFiles[i].getCanonicalPath());
+					System.out.println(pathsSorted[i]);
 				}
 				File appFolder = new File(rootPath);
 				listLocalPaths(appFolder);
@@ -253,20 +246,44 @@ public class DropBoxSimple {
 					System.out.println(localPaths.get(i));
 				}
 				boolean delete = true;
-				for(int i=0;i<entries.size();i++)
+				for(int i=0;i<pathsSorted.length;i++)
 				{
 					delete = true;
 					for(int j=0;j<localPaths.size();j++)
-						if(entries.get(i).metadata.path.equals(localPaths.get(j)))
+						if(pathsSorted[i].equals(localPaths.get(j)))
 								delete=false;
 					if(delete)
-						api.delete(entries.get(i).metadata.path);
+						api.delete(pathsSorted[i]);
 				}
-			} catch (DropboxException | IOException e) {
+			} catch (DropboxException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 	}
+	private static String [] sortDBPaths(List<DeltaEntry<Entry>> entries) {
+		String [] entriesArr = new String[entries.size()]; 
+		for(int i=0;i<entries.size();i++)
+			entriesArr[i]=entries.get(i).metadata.path;
+	
+		File [] entriesAsFiles = new File[entriesArr.length];
+		for(int i=0;i<entriesAsFiles.length;i++)
+		{
+			entriesAsFiles[i] = new File(entriesArr[i]);
+		}
+		Arrays.sort(entriesAsFiles,PathFileComparator.PATH_REVERSE);
+		String [] strPaths = new String[entriesAsFiles.length];
+		for(int i=0;i<strPaths.length;i++)
+		{
+			try {
+				strPaths[i]= entriesAsFiles[i].getCanonicalPath().substring(2); //cuts the path beginning
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		return strPaths;
+	}
+
 	private static void listLocalPaths(File file) 
 	{
 		if(!file.exists())
@@ -298,16 +315,16 @@ public class DropBoxSimple {
 	}
 	private static String changeToDBPathFormat(String localPath)
 	{
-		String changed="";
+		String trimed="";
 //		System.out.println("Root Path : "+rootPath);
 //		System.out.println("Local Path : "+localPath);
-		String trimed=localPath.replace(rootPath,Matcher.quoteReplacement(""));
+		trimed	=localPath.replace(rootPath,Matcher.quoteReplacement(""));
 		
 //		System.out.println("Local Path : "+localPath);
-		if(!trimed.isEmpty())
-		changed=trimed.replaceAll("\\\\", Matcher.quoteReplacement("/")); //adjust local PC paths to DB paths
+//		if(!trimed.isEmpty())
+//		changed=trimed.replaceAll("\\\\", Matcher.quoteReplacement("/")); //adjust local PC paths to DB paths
 		
-		return changed;
+		return trimed;
 		
 	}
 
