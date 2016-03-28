@@ -253,7 +253,7 @@ public class DropBoxSimple {
 						if(pathsSorted[i].equals(localPaths.get(j)))
 								delete=false;
 					if(delete)
-						api.delete(pathsSorted[i]);
+						api.delete(pathsSorted[i].replaceAll("\\\\", Matcher.quoteReplacement("/")));
 				}
 			} catch (DropboxException e) {
 				// TODO Auto-generated catch block
@@ -316,40 +316,33 @@ public class DropBoxSimple {
 	private static String changeToDBPathFormat(String localPath)
 	{
 		String trimed="";
-//		System.out.println("Root Path : "+rootPath);
-//		System.out.println("Local Path : "+localPath);
-		trimed	=localPath.replace(rootPath,Matcher.quoteReplacement(""));
-		
-//		System.out.println("Local Path : "+localPath);
-//		if(!trimed.isEmpty())
-//		changed=trimed.replaceAll("\\\\", Matcher.quoteReplacement("/")); //adjust local PC paths to DB paths
-		
+		trimed	= localPath.replace(rootPath,Matcher.quoteReplacement(""));
 		return trimed;
 		
 	}
 
-	/**
-	 * Recursive delete dropbox folder.
-	 *
-	 * @param path the path
-	 */
-	public static void recursiveDeleteDropboxFolder(String path) {
-		try {
-			Entry existingFile = api.metadata(path, 0, null, true, null);
-
-			if (existingFile.isDir) {
-				for (int i = 0; i < existingFile.contents.size(); i++) {
-					recursiveDeleteDropboxFolder(path + "/" + existingFile.contents.get(i).fileName());
-				}
-				if (!path.equals("/"))
-					api.delete(path);
-			} else
-				api.delete(path);
-		} catch (DropboxException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
+//	/**
+//	 * Recursive delete dropbox folder.
+//	 *
+//	 * @param path the path
+//	 */
+//	public static void recursiveDeleteDropboxFolder(String path) {
+//		try {
+//			Entry existingFile = api.metadata(path, 0, null, true, null);
+//
+//			if (existingFile.isDir) {
+//				for (int i = 0; i < existingFile.contents.size(); i++) {
+//					recursiveDeleteDropboxFolder(path + "/" + existingFile.contents.get(i).fileName());
+//				}
+//				if (!path.equals("/"))
+//					api.delete(path);
+//			} else
+//				api.delete(path);
+//		} catch (DropboxException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+//	}
 
 	/**
 	 * Gets the dropbox total size.
