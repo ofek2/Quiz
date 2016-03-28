@@ -624,23 +624,26 @@ public class InitialWindowController {
 
 				public void actionPerformed(ActionEvent e) {
 					// TODO Auto-generated method stub
-					try {
-						if (popUpMenuFlag == 0) {
-							courseFolder = new File(new File(".").getCanonicalPath() + "/OnlineQuizChecker/"
-									+ (String) view.getRemoveCourses().getSelectedItem());
-							coursesFiles.remove(view.getRemoveCourses().getSelectedIndex());
-						} else {
-							courseFolder = new File(
-									new File(".").getCanonicalPath() + "/OnlineQuizChecker/" + courseName);
-							coursesFiles.remove(CourseEntity.getIndex(courseName));
+					if(JOptionPane.showConfirmDialog(MainFrameController.view, "Are you sure you want to delete this course?") == JOptionPane.YES_OPTION)
+					{
+						try {
+							if (popUpMenuFlag == 0) {
+								courseFolder = new File(new File(".").getCanonicalPath() + "/OnlineQuizChecker/"
+										+ (String) view.getRemoveCourses().getSelectedItem());
+								coursesFiles.remove(view.getRemoveCourses().getSelectedIndex());
+							} else {
+								courseFolder = new File(
+										new File(".").getCanonicalPath() + "/OnlineQuizChecker/" + courseName);
+								coursesFiles.remove(CourseEntity.getIndex(courseName));
+							}
+							removeFolder(courseFolder);
+							coursesUpdate();
+						} catch (IOException e1) {
+							// TODO Auto-generated catch block
+							e1.printStackTrace();
 						}
-						removeFolder(courseFolder);
-						coursesUpdate();
-					} catch (IOException e1) {
-						// TODO Auto-generated catch block
-						e1.printStackTrace();
 					}
-
+					
 				}
 
 			}
@@ -782,7 +785,9 @@ public class InitialWindowController {
 
 						public void actionPerformed(ActionEvent e) {
 							// TODO Auto-generated method stub
-							try {
+							if(JOptionPane.showConfirmDialog(MainFrameController.view, "Are you sure you want to delete this quiz?")== JOptionPane.YES_OPTION)
+							{
+								try {
 								removeFolder(new File(new File(".").getCanonicalPath() + "/OnlineQuizChecker/"
 										+ quizCourseName + "/Quizzes/" + quizName));
 								updateStudentsEntityQuizzes(new File(new File(".").getCanonicalPath()
@@ -792,6 +797,7 @@ public class InitialWindowController {
 							} catch (IOException e1) {
 								// TODO Auto-generated catch block
 								e1.printStackTrace();
+							}
 							}
 						}
 					});
