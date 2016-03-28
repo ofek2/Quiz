@@ -188,8 +188,8 @@ public class InitialWindowController {
 				CustomDialog dialog = new CustomDialog("<html><body>Please wait while your files are being <br>uploaded to your dropbox account</body></html>");
 				dialog.setTitle("Alert");
 				dialog.setVisible(true);
-			
-				DropBoxSimple.recursiveDeleteDropboxFolder("/");
+				DropBoxSimple.deleteRemovedFilesFromDropbox();
+				//DropBoxSimple.recursiveDeleteDropboxFolder("/");
 				dialog.dispose();
 				File appFolder;
 				try {

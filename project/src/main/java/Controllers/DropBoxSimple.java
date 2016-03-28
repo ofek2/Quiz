@@ -6,12 +6,18 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.regex.Matcher;
 
 import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+
+import org.apache.commons.io.comparator.PathFileComparator;
 
 import com.dropbox.client2.DropboxAPI;
 import com.dropbox.client2.DropboxAPI.DeltaEntry;
@@ -58,6 +64,8 @@ public class DropBoxSimple {
 	private boolean authenticated;
 
 	public static progListener progressListener;
+	
+	private static ArrayList<String> localPaths;
 	/** The download progress label. */
 //	public static JLabel downloadProgressLabel;
 	
@@ -151,7 +159,11 @@ public class DropBoxSimple {
 			if (file.listFiles().length == 0)
 				try {
 					if (!file.getCanonicalPath().equals(rootPath))
+					{
+						Entry existingFile = api.metadata(path + file.getName(), 0, null, true, null);
+						if(existingFile==null)
 						api.createFolder(path + file.getName());
+					}
 				} catch (DropboxException | IOException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
@@ -197,7 +209,6 @@ public class DropBoxSimple {
 			Entry existingFile = api.metadata(dropPath, 0, null, true, null);
 			if (existingFile.isDir) {
 				// if(existingFile.contents.isEmpty())
-
 				file.mkdir();
 				for (Entry entry : existingFile.contents) {
 					downloadFolder(path + "/" + entry.fileName(), dropPath + "/" + entry.fileName());
@@ -213,6 +224,91 @@ public class DropBoxSimple {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+	}
+
+	public static void deleteRemovedFilesFromDropbox()
+	{
+		List<DeltaEntry<Entry>> entries;
+		localPaths = new ArrayList<String>();
+		try {
+				entries = api.delta(null).entries;
+				Entry [] entriesArr = new Entry[entries.size()]; 
+				entries.toArray(entriesArr);
+				File [] entriesAsFiles = new File[entriesArr.length];
+				for(int i=0;i<entriesAsFiles.length;i++)
+				{
+					entriesAsFiles[i] = new File(entriesArr[i].path);
+				}
+				Arrays.sort(entriesAsFiles,PathFileComparator.PATH_COMPARATOR);
+				System.out.println("----Dropbox Paths----");
+				for(int i = 0 ;i<entriesAsFiles.length;i++)
+				{
+					System.out.println(entriesAsFiles[i].getCanonicalPath());
+				}
+				File appFolder = new File(rootPath);
+				listLocalPaths(appFolder);
+				System.out.println("----Local Paths----");
+				for(int i=0;i<localPaths.size();i++)
+				{
+					System.out.println(localPaths.get(i));
+				}
+				boolean delete = true;
+				for(int i=0;i<entries.size();i++)
+				{
+					delete = true;
+					for(int j=0;j<localPaths.size();j++)
+						if(entries.get(i).metadata.path.equals(localPaths.get(j)))
+								delete=false;
+					if(delete)
+						api.delete(entries.get(i).metadata.path);
+				}
+			} catch (DropboxException | IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+	}
+	private static void listLocalPaths(File file) 
+	{
+		if(!file.exists())
+		return;
+		if(file.isDirectory())
+		{
+			try {
+				String path = changeToDBPathFormat(file.getCanonicalPath());
+				if (!path.isEmpty())
+				localPaths.add(path);
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			for(int i = 0;i<file.listFiles().length;i++)
+				{
+					listLocalPaths(file.listFiles()[i]);
+				}
+		
+		}
+		else
+			try {
+				localPaths.add(changeToDBPathFormat(file.getCanonicalPath()));
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		
+	}
+	private static String changeToDBPathFormat(String localPath)
+	{
+		String changed="";
+//		System.out.println("Root Path : "+rootPath);
+//		System.out.println("Local Path : "+localPath);
+		String trimed=localPath.replace(rootPath,Matcher.quoteReplacement(""));
+		
+//		System.out.println("Local Path : "+localPath);
+		if(!trimed.isEmpty())
+		changed=trimed.replaceAll("\\\\", Matcher.quoteReplacement("/")); //adjust local PC paths to DB paths
+		
+		return changed;
+		
 	}
 
 	/**
@@ -250,10 +346,13 @@ public class DropBoxSimple {
 		long sum = 0;
 		try {
 			entries = api.delta(null).entries;
+			
 			for(int i = 0 ;i<entries.size();i++)
 			{
 				sum += entries.get(i).metadata.bytes;
+			
 			}
+			
 			return sum;
 		} catch (DropboxException e) {
 			// TODO Auto-generated catch block
