@@ -29,6 +29,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPopupMenu;
 import javax.swing.JTree;
 import javax.swing.SwingUtilities;
+import javax.swing.SwingWorker;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.TreePath;
 
@@ -991,22 +992,27 @@ public class InitialWindowController {
 			CustomDialog dialog = new CustomDialog("<html><body>Please wait while your files are being <br>uploaded to your dropbox account</body></html>");
 			dialog.setTitle("Alert");
 			dialog.setVisible(true);
-			DropBoxSimple.recursiveDeleteDropboxFolder("/");
-			dialog.dispose();
-			File appFolder;
-			try {
-				appFolder = new File(new File(".").getCanonicalPath() + "/OnlineQuizChecker");
-				long folderSize = ObjectFileManager.folderSize(appFolder);
-				DropBoxSimple.progressListener.init(folderSize,  "uploaded"); 
-				DropBoxSimple.progressListener.dialog.setVisible(true);
-				DropBoxSimple.uploadFolder(new File(new File(".") + "/OnlineQuizChecker/"), "/");
-				DropBoxSimple.progressListener.dialog.setVisible(false);
-			} catch (IOException e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
-			}
-			JOptionPane.showMessageDialog(null, "Files Uploaded Successfully To Your Dropbox Account");
-			System.exit(0);
+			SwingWorker<Void, Void> recursiveDeleteDropboxFolder = 
+					new removeFromDropbox(dialog);
+			recursiveDeleteDropboxFolder.execute();
+//			DropBoxSimple.recursiveDeleteDropboxFolder("/");
+//			dialog.dispose();
+//			File appFolder;
+//			try {
+//				appFolder = new File(new File(".").getCanonicalPath() + "/OnlineQuizChecker");
+//				long folderSize = ObjectFileManager.folderSize(appFolder);
+//				DropBoxSimple.progressListener.init(folderSize,  "uploaded"); 
+//				DropBoxSimple.progressListener.dialog.setVisible(true);
+//				SwingWorker<Void, Void> uploadFolder = new uploadToDropbox();
+//				uploadFolder.execute();
+////				DropBoxSimple.uploadFolder(new File(new File(".") + "/OnlineQuizChecker/"), "/");
+////				DropBoxSimple.progressListener.dialog.setVisible(false);
+//			} catch (IOException e1) {
+//				// TODO Auto-generated catch block
+//				e1.printStackTrace();
+//			}
+//			JOptionPane.showMessageDialog(null, "Files Uploaded Successfully To Your Dropbox Account");
+//			System.exit(0);
 		}
 	}
 	/*
