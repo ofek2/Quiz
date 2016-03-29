@@ -164,7 +164,7 @@ public class DropBoxSimple {
 						try {
 							existingFile = api.metadata(path + file.getName(), 0, null, true, null);
 						} catch (DropboxException e) {
-							// TODO Auto-generated catch block
+						
 							//This path doesn't exists so we will create new folder
 							try {
 								api.createFolder(path + file.getName());
