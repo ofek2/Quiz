@@ -26,8 +26,8 @@ public class MainFrameController {
 		this.view=view;
 		
 		loadApplicationFolder();
-		if(overWrite==JOptionPane.YES_OPTION)
-		{
+//		if(overWrite==JOptionPane.YES_OPTION)
+//		{
 		//load the courses folders into the array list
 		///////////////////////////////////////////////////////////////////////////////////////////////
 			initialWindowController.coursesFiles=new ArrayList<CourseEntity>();
@@ -40,10 +40,10 @@ public class MainFrameController {
 			InitialWindowView initialWindowView = new InitialWindowView();
 			initialWindowController = new InitialWindowController(initialWindowView);
 			this.view.changeContentPane(initialWindowView);
-			}
-			else if(overWrite==JOptionPane.NO_OPTION||overWrite==JOptionPane.CLOSED_OPTION)
-				System.exit(1);
-			
+//			}
+//			else if(overWrite==JOptionPane.NO_OPTION||overWrite==JOptionPane.CLOSED_OPTION)
+//				System.exit(1);
+//			
 		
 		
 	}
@@ -51,30 +51,46 @@ public class MainFrameController {
 	{
 		
 		try {
-			appFolder= new File(new File(".").getCanonicalPath()+"/OnlineQuizChecker");
-			
-			recursiveDelete(appFolder);
-			try {
-				long dropboxtotalsize = DropBoxSimple.getDropboxTotalSize();
-				DropBoxSimple.progressListener.init(dropboxtotalsize,  "downloaded"); 
-				DropBoxSimple.progressListener.dialog.setVisible(true);
-				DropBoxSimple.downloadFolder(appFolder.getCanonicalPath(), "/");
-				DropBoxSimple.progressListener.dialog.setVisible(false);
-			
-			} catch (Exception e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		
-			if(!appFolder.exists())
+			appFolder = new File(new File(".").getCanonicalPath()
+					+ "/OnlineQuizChecker");
+			if (!appFolder.exists())
 				appFolder.mkdir();
 			else
-				overWrite=JOptionPane.showConfirmDialog(null,"The application folder already exists, all of the existing data will be lost,\n do you want to keep the application progress?","Alert",JOptionPane.YES_NO_OPTION);
+				overWrite = JOptionPane
+						.showConfirmDialog(
+								null,
+								"The application folder already exists, all of the existing data will be lost,\n do you want to keep the application progress?",
+								"Alert", JOptionPane.YES_NO_OPTION);
 
-			} catch (IOException e) {
+			if (overWrite == JOptionPane.YES_OPTION) {
+				recursiveDelete(appFolder);
+				try {
+					long dropboxtotalsize = DropBoxSimple.getDropboxTotalSize();
+					DropBoxSimple.progressListener.init(dropboxtotalsize,
+							"downloaded");
+					DropBoxSimple.progressListener.dialog.setVisible(true);
+					DropBoxSimple.downloadFolder(appFolder.getCanonicalPath(),
+							"/");
+					DropBoxSimple.progressListener.dialog.setVisible(false);
+
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+
+				// if(!appFolder.exists())
+				// appFolder.mkdir();
+				// else
+				// overWrite=JOptionPane.showConfirmDialog(null,"The application folder already exists, all of the existing data will be lost,\n do you want to keep the application progress?","Alert",JOptionPane.YES_NO_OPTION);
+
+			} else if (overWrite == JOptionPane.NO_OPTION
+					|| overWrite == JOptionPane.CLOSED_OPTION)
+				System.exit(1);
+		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+
 	}
 	private void recursiveDelete(File file) {
         if (!file.exists())
