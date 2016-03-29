@@ -160,11 +160,22 @@ public class DropBoxSimple {
 				try {
 					if (!file.getCanonicalPath().equals(rootPath))
 					{
-						Entry existingFile = api.metadata(path + file.getName(), 0, null, true, null);
-						if(existingFile==null)
-						api.createFolder(path + file.getName());
+						Entry existingFile;
+						try {
+							existingFile = api.metadata(path + file.getName(), 0, null, true, null);
+						} catch (DropboxException e) {
+							// TODO Auto-generated catch block
+							//This path doesn't exists so we will create new folder
+							try {
+								api.createFolder(path + file.getName());
+							} catch (DropboxException e1) {
+								// TODO Auto-generated catch block
+								e1.printStackTrace();
+							}
+						}
+					
 					}
-				} catch (DropboxException | IOException e) {
+				} catch (IOException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
