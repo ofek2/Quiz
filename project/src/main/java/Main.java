@@ -20,7 +20,7 @@ import java.net.URL;
 public class Main extends JFrame {
 
 	public static DropBoxSimple dbx;
-	public static String userEmail;
+	//public static String userEmail;
 	private final JFXPanel jfxPanel = new JFXPanel();
 	private WebEngine engine;
 	private boolean authorized = false;
@@ -78,11 +78,11 @@ public class Main extends JFrame {
 
 										NodeList divs = doc.getElementsByTagName("div");
 
-										for (int i = 0; i < divs.getLength(); i++)
-											if (((Element) divs.item(i)).getAttribute("class") != null)
-												if (((Element) divs.item(i)).getAttribute("class")
-														.equals("email force-no-break"))
-													userEmail = ((Element) divs.item(i)).getTextContent();
+//										for (int i = 0; i < divs.getLength(); i++)
+//											if (((Element) divs.item(i)).getAttribute("class") != null)
+//												if (((Element) divs.item(i)).getAttribute("class")
+//														.equals("email force-no-break"))
+//													userEmail = ((Element) divs.item(i)).getTextContent();
 										authorized = true;
 										new MainFrameController(new MainFrameView());
 										setVisible(false);

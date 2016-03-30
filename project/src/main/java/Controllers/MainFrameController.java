@@ -26,10 +26,7 @@ public class MainFrameController {
 		this.view=view;
 		
 		loadApplicationFolder();
-//		if(overWrite==JOptionPane.YES_OPTION)
-//		{
-		//load the courses folders into the array list
-		///////////////////////////////////////////////////////////////////////////////////////////////
+
 			initialWindowController.coursesFiles=new ArrayList<CourseEntity>();
 			for(File folder:appFolder.listFiles())
 			{
@@ -40,11 +37,7 @@ public class MainFrameController {
 			InitialWindowView initialWindowView = new InitialWindowView();
 			initialWindowController = new InitialWindowController(initialWindowView);
 			this.view.changeContentPane(initialWindowView);
-//			}
-//			else if(overWrite==JOptionPane.NO_OPTION||overWrite==JOptionPane.CLOSED_OPTION)
-//				System.exit(1);
-//			
-		
+			
 		
 	}
 	public void loadApplicationFolder()

@@ -40,6 +40,7 @@ public class QuizCreationController implements Serializable {
 	private transient InitialWindowView initialWindowView;
 	private windowListener windowListener;
 
+	final static int TOTAL_GRADE = 100;
 	public QuizCreationController(QuizCreationView view, QuizEntity entity, InitialWindowView initialWindowView) {
 		ActionListener[] fileMenuListeners = { new saveMenuListener(), new exitMenuListener() };
 		this.view = view;
@@ -47,7 +48,7 @@ public class QuizCreationController implements Serializable {
 		this.initialWindowView = initialWindowView;
 		this.view.addBtnAddListener(new addBtnListener());
 		this.view.addFileMenuListeners(fileMenuListeners);
-		this.view.addSpinnerChangeListener(new addSpinnerChangeListener());
+	
 		windowListener = new windowListener();
 		MainFrameController.view.removeWindowListener(InitialWindowController.windowListener);
 		MainFrameController.view.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
@@ -74,7 +75,7 @@ public class QuizCreationController implements Serializable {
 		this.entity = objectEntity.getQuizEntity();
 		this.initialWindowView = initialWindowView;
 		this.view.addBtnAddListener(new addBtnListener());
-		this.view.addSpinnerChangeListener(new addSpinnerChangeListener());
+
 		this.view.addFileMenuListeners(fileMenuListeners);
 		windowListener = new windowListener();
 		MainFrameController.view.removeWindowListener(InitialWindowController.windowListener);
@@ -149,10 +150,30 @@ public class QuizCreationController implements Serializable {
 		public void actionPerformed(ActionEvent e) {
 			// TODO Auto-generated method stub
 			saveFlag = 1;
+			int totalGrade = totalGrade();
+			if( totalGrade == TOTAL_GRADE)
 			saveQuiz();
+			else
+				JOptionPane.showMessageDialog(MainFrameController.view, "The total quiz score is "+ totalGrade+ ", please adjust the questions scores to reach a score of "+TOTAL_GRADE);
 
 		}
-
+		private int totalGrade()
+		{
+			int sum=0;
+			for(int i=0;i<qPanels.size();i++)
+			{
+				try{
+					sum+= Integer.valueOf(qPanels.get(i).view.getScoreTextField().getText());
+				}
+				catch (NumberFormatException e)
+				{
+					qPanels.get(i).view.getScoreTextField().setText("0");
+				}
+			}
+		
+			return sum;
+			
+		}
 		public void saveQuiz() {
 			if (!entity.getQuizFolder().exists()) {
 				entity.getQuizFolder().mkdir();

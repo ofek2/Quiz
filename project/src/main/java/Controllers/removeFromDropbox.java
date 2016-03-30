@@ -13,10 +13,11 @@ import project.ObjectFileManager;
 public class removeFromDropbox extends SwingWorker<Void, Void>{
 	
 	private CustomDialog dialog;
-	
-	public removeFromDropbox(CustomDialog dialog) {
+	private String source;
+	public removeFromDropbox(CustomDialog dialog,String source) {
 		super();
 		this.dialog = dialog;
+		this.source = source;
 	}
 	@Override
 	protected Void doInBackground() throws Exception {
@@ -35,7 +36,7 @@ public class removeFromDropbox extends SwingWorker<Void, Void>{
 			long folderSize = ObjectFileManager.folderSize(appFolder);
 			DropBoxSimple.progressListener.init(folderSize,  "uploaded"); 
 			DropBoxSimple.progressListener.dialog.setVisible(true);
-			SwingWorker<Void, Void> uploadFolder = new uploadToDropbox();
+			SwingWorker<Void, Void> uploadFolder = new uploadToDropbox(source);
 			uploadFolder.execute();
 //			DropBoxSimple.uploadFolder(new File(new File(".") + "/OnlineQuizChecker/"), "/");
 //			DropBoxSimple.progressListener.dialog.setVisible(false);

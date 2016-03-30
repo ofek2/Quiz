@@ -132,7 +132,7 @@ public class DropBoxSimple {
 
 				api = new DropboxAPI<WebAuthSession>(session);
 				try {
-					System.out.println(api.accountInfo().displayName +"Is logged in");
+					System.out.println(api.accountInfo().displayName +" is logged in");
 				} catch (DropboxException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();

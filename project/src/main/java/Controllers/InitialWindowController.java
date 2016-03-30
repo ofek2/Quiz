@@ -50,13 +50,7 @@ import project.progListener;
 public class InitialWindowController {
 	private InitialWindowView view;
 
-	/*
-	 * private JPopupMenu quizPopupMenu; private JPopupMenu coursePopupMenu;
-	 * private JPopupMenu rootPopupMenu; private JPopupMenu
-	 * studentsFolderPopupMenu; private JPopupMenu studentsFilePopupMenu;
-	 */
 	private MenuController menuController;
-	// private ObjectFileManager fileManager;
 	public static ArrayList<CourseEntity> coursesFiles;
 	private coursesIdsEditAddItemListener idsEditAddItemListener;
 	private removeStudentCourseCBAddItemListener removeStudentCourseAddItemListener;
@@ -66,6 +60,8 @@ public class InitialWindowController {
 	public JDialog removeStudentDialog;
 	public static windowListener windowListener;
 
+	final static String SAVE = "save";
+	final static String SAVE_AND_EXIT = "save_and_exit";
 	public InitialWindowController(InitialWindowView view) {
 
 		this.view = view;
@@ -74,7 +70,6 @@ public class InitialWindowController {
 		MainFrameController.view.removeWindowListener(MainFrameController.view.windowListener);
 		MainFrameController.view.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 		MainFrameController.view.addWindowListener(windowListener);
-		// fileManager = new ObjectFileManager();
 		addListeners();
 	}
 
@@ -90,9 +85,6 @@ public class InitialWindowController {
 		view.courseIdGradeAddItemListener(courseIdGradeItemListener);
 		view.getTree().addMouseListener(menuController.dialogsBtnsController.popUpMenusController.treeMouseListener());
 
-		// remove.addActionListener(l);
-
-		// view.getTree().setComponentPopupMenu(jPopupMenu());
 	}
 
 	// Initial Window Menu Action Listeners
@@ -119,7 +111,11 @@ public class InitialWindowController {
 		class NewQuizListener implements ActionListener {
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
-
+				if(InitialWindowController.coursesFiles.size()==0)
+					JOptionPane.showMessageDialog(null, "There are no courses, please create a new course first", "Alert",
+							JOptionPane.ERROR_MESSAGE);
+				else
+				{
 				newQuizDialog = new JDialog(MainFrameController.view, "New Quiz Dialog");
 
 				newQuizDialog.setSize(300, 220);
@@ -127,7 +123,7 @@ public class InitialWindowController {
 				newQuizDialog.setVisible(true);
 				newQuizDialog.setResizable(false);
 				newQuizDialog.getContentPane().add(view.getNewQuizDialogPanel());
-				// view.getNewQuizDialogPanel().setVisible(true);
+				}
 			}
 
 		}
@@ -137,6 +133,11 @@ public class InitialWindowController {
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
 
+				if(InitialWindowController.coursesFiles.size()==0)
+					JOptionPane.showMessageDialog(null, "There are no courses, please create a new course first", "Alert",
+							JOptionPane.ERROR_MESSAGE);
+				else
+				{
 				editQuizdialog = new JDialog(MainFrameController.view, "Edit Quiz Dialog");
 
 				editQuizdialog.setSize(300, 220);
@@ -146,7 +147,7 @@ public class InitialWindowController {
 				editQuizdialog.getContentPane().add(view.getEditQuizDialogPanel());
 				int courseIndex = view.getCoursesIdsEdit().getSelectedIndex();
 				view.loadQuizzesToEditCB(getQuizzesFolder(courseIndex));
-
+				}
 			}
 
 		}
@@ -155,6 +156,11 @@ public class InitialWindowController {
 
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
+				if(InitialWindowController.coursesFiles.size()==0)
+					JOptionPane.showMessageDialog(null, "There are no courses, please create a new course first.", "Alert",
+							JOptionPane.ERROR_MESSAGE);
+				else
+				{
 				gradeQuizDialog = new JDialog(MainFrameController.view, "Grade Quiz Dialog");
 
 				gradeQuizDialog.setSize(300, 220);
@@ -165,7 +171,7 @@ public class InitialWindowController {
 
 				int courseIndex = view.getCourseIdGradeCB().getSelectedIndex();
 				view.loadQuizzesToGradeCB(getQuizzesFolder(courseIndex));
-
+				}
 			}
 
 		}
@@ -189,25 +195,8 @@ public class InitialWindowController {
 				CustomDialog dialog = new CustomDialog("<html><body>Please wait while your files are being <br>uploaded to your dropbox account</body></html>");
 				dialog.setTitle("Alert");
 				dialog.setVisible(true);
-				DropBoxSimple.deleteRemovedFilesFromDropbox();
-				//DropBoxSimple.recursiveDeleteDropboxFolder("/");
-				dialog.dispose();
-				File appFolder;
-				try {
-					appFolder = new File(new File(".").getCanonicalPath() + "/OnlineQuizChecker");
-					long folderSize = ObjectFileManager.folderSize(appFolder);
-					DropBoxSimple.progressListener.init(folderSize,  "uploaded"); 
-					DropBoxSimple.progressListener.dialog.setVisible(true);
-					DropBoxSimple.uploadFolder(new File(new File(".") + "/OnlineQuizChecker/"), "/");
-					DropBoxSimple.progressListener.dialog.setVisible(false);
-				} catch (IOException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}
-				JOptionPane.showMessageDialog(null, "Files Uploaded Successfully To Your Dropbox Account");
-			
-			
-			
+				SwingWorker<Void, Void> recursiveDeleteDropboxFolder = new removeFromDropbox(dialog,SAVE);
+				recursiveDeleteDropboxFolder.execute();
 			}
 			
 		}
@@ -230,13 +219,18 @@ public class InitialWindowController {
 
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
+				if(InitialWindowController.coursesFiles.size()==0)
+					JOptionPane.showMessageDialog(null, "There are no courses, please create a new course first.", "Alert",
+							JOptionPane.ERROR_MESSAGE);
+				else
+				{
 				removeCourseDialog = new JDialog(MainFrameController.view, "Remove Course Dialog");
 				removeCourseDialog.setSize(300, 150);
 				removeCourseDialog.setLocationRelativeTo(MainFrameController.view);
 				removeCourseDialog.setVisible(true);
 				removeCourseDialog.setResizable(false);
 				removeCourseDialog.getContentPane().add(view.getRemoveCourseDialogPanel());
-
+				}
 			}
 
 		}
@@ -272,7 +266,7 @@ public class InitialWindowController {
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
 				if(InitialWindowController.coursesFiles.size()==0)
-					JOptionPane.showMessageDialog(null, "There are no courses to choose from", "Alert",
+					JOptionPane.showMessageDialog(null, "There are no courses to register a student to", "Alert",
 							JOptionPane.ERROR_MESSAGE);
 				else
 				{
@@ -564,19 +558,23 @@ public class InitialWindowController {
 					// TODO Auto-generated method stub
 					quizName = view.getNewQuizName().getText();
 					courseName = (String) view.getCoursesIds().getSelectedItem();
-					createNewQuiz(quizName, courseName);
-					menuController.newQuizDialog.dispose();
+					if(createNewQuiz(quizName, courseName))
+						menuController.newQuizDialog.dispose();
+					
 				}
 			}
 
-			public void createNewQuiz(String quizName, String courseName) {
+			public boolean createNewQuiz(String quizName, String courseName) {
 				File quizFolder;
 				File quizFormFolder;
 				File studentsFilesFolder;
 
 				if (quizName.isEmpty())
+				{
 					JOptionPane.showMessageDialog(null, "This quiz name is empty, please choose another name", "Alert",
 							JOptionPane.ERROR_MESSAGE);
+					return false;
+				}
 				else {
 					try {
 						quizFolder = new File(new File(".").getCanonicalPath() + "/OnlineQuizChecker/" + courseName
@@ -589,13 +587,16 @@ public class InitialWindowController {
 									studentsFilesFolder, 25);
 							new QuizCreationController(quizCreationView, quizEntity, view);
 							quizCreationView.getQuizName().setText(quizName);
-
+							quizCreationView.getCourseName().setText(courseName);
 							MainFrameController.view.changeContentPane(quizCreationView);
 							QuizCreationController.saveFlag = 1;
+							return true;
+							
 						} else {
 							JOptionPane.showMessageDialog(null,
 									"This quiz name already exists, please choose another name", "Alert",
 									JOptionPane.ERROR_MESSAGE);
+							return false;
 						}
 
 					} catch (IOException e1) {
@@ -606,6 +607,7 @@ public class InitialWindowController {
 						e1.printStackTrace();
 					}
 				}
+				return false;
 			}
 
 			class RemoveCourseBtnListener implements ActionListener {
@@ -998,61 +1000,9 @@ public class InitialWindowController {
 			CustomDialog dialog = new CustomDialog("<html><body>Please wait while your files are being <br>uploaded to your dropbox account</body></html>");
 			dialog.setTitle("Alert");
 			dialog.setVisible(true);
-			SwingWorker<Void, Void> recursiveDeleteDropboxFolder = 
-					new removeFromDropbox(dialog);
+			SwingWorker<Void, Void> recursiveDeleteDropboxFolder = new removeFromDropbox(dialog,SAVE_AND_EXIT);
 			recursiveDeleteDropboxFolder.execute();
-//			DropBoxSimple.recursiveDeleteDropboxFolder("/");
-//			dialog.dispose();
-//			File appFolder;
-//			try {
-//				appFolder = new File(new File(".").getCanonicalPath() + "/OnlineQuizChecker");
-//				long folderSize = ObjectFileManager.folderSize(appFolder);
-//				DropBoxSimple.progressListener.init(folderSize,  "uploaded"); 
-//				DropBoxSimple.progressListener.dialog.setVisible(true);
-//				SwingWorker<Void, Void> uploadFolder = new uploadToDropbox();
-//				uploadFolder.execute();
-////				DropBoxSimple.uploadFolder(new File(new File(".") + "/OnlineQuizChecker/"), "/");
-////				DropBoxSimple.progressListener.dialog.setVisible(false);
-//			} catch (IOException e1) {
-//				// TODO Auto-generated catch block
-//				e1.printStackTrace();
-//			}
-//			JOptionPane.showMessageDialog(null, "Files Uploaded Successfully To Your Dropbox Account");
-//			System.exit(0);
 		}
 	}
-	/*
-	 * public void coursesUpdate(){
-	 * view.getCoursesIdsEdit().removeItemListener(idsEditAddItemListener);
-	 * view.getRemoveStudentsIds().removeItemListener(
-	 * removeStudentsIdsAddItemListener);
-	 * view.getRemoveStudentCourseCB().removeItemListener(
-	 * removeStudentCourseAddItemListener);
-	 * 
-	 * view.coursesIdsEditAddItemListener(idsEditAddItemListener);
-	 * view.getRemoveStudentsIds().addItemListener(
-	 * removeStudentsIdsAddItemListener);
-	 * view.getRemoveStudentCourseCB().addItemListener(
-	 * removeStudentCourseAddItemListener);
-	 * 
-	 * Vector<String> coursesIds = new Vector<String>(); for(int
-	 * i=0;i<InitialWindowController.coursesFiles.size();i++)
-	 * coursesIds.add(InitialWindowController.coursesFiles.get(i).
-	 * getCourseFolderName()); DefaultComboBoxModel<String> model = new
-	 * DefaultComboBoxModel<String>(coursesIds); view.setComboBoxesModel(model);
-	 * 
-	 * try { view.setTree(new JTree(InitialWindowView.filesTree(new File(new
-	 * File(".").getCanonicalPath()+"/OnlineQuizChecker")))); } catch
-	 * (IOException e) { // TODO Auto-generated catch block e.printStackTrace();
-	 * } }
-	 */
-	/*
-	 * public void loadQuizzesToComboBox(int courseIndex) {
-	 * 
-	 * view.quizzes.removeAllItems(); for(File child:
-	 * coursesFiles.get(courseIndex).getCourseFolder().listFiles())
-	 * view.quizzes.addItem(child.getName());
-	 * view.getEditQuizDialogPanel().revalidate(); }
-	 */
 
 }

@@ -37,9 +37,10 @@ public class QuizCreationView extends ViewPanel{
 	public JPanel panel;
 	private JPanel headPanel;
 	private JLabel quizName;
+	private JLabel courseName;
 	private JMenuBar menuBar;
 	private JMenu fileMenu;
-	private JSpinner percentageFromFgrade;
+	//private JSpinner percentageFromFgrade;
 	public QuizCreationView() {
 		super();
 		setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
@@ -78,26 +79,40 @@ public class QuizCreationView extends ViewPanel{
 		headPanel.setOpaque(false);
 		headPanel.setLayout(new GridLayout(1, 4));
 		
-		JLabel quizLbl = new JLabel("Quiz Name: ");
 		
+		JLabel courseLbl = new JLabel("Course Name: ");
+		courseLbl.setFont(new Font("Arial", Font.BOLD, 17));
+		courseLbl.setHorizontalAlignment(JLabel.CENTER);
+		headPanel.add(courseLbl);
+		courseName = new JLabel("course");
+		courseName.setFont(new Font("Arial", Font.PLAIN, 17));
+		courseName.setHorizontalAlignment(JLabel.LEFT);
+		headPanel.add(courseName);
+		
+		JLabel quizLbl = new JLabel("Quiz Name: ");
 		quizLbl.setFont(new Font("Arial", Font.BOLD, 17));
 		quizLbl.setHorizontalAlignment(JLabel.CENTER);
-	
 		headPanel.add(quizLbl);
 		quizName = new JLabel("test");
 		quizName.setFont(new Font("Arial", Font.PLAIN, 17));
 		quizName.setHorizontalAlignment(JLabel.LEFT);
 		headPanel.add(quizName);
+//		headPanel.add(percentage);
+//		percentageFromFgrade = new JSpinner(new SpinnerNumberModel(0.25,0,1,.01));   
+//		JSpinner.NumberEditor editor = new JSpinner.NumberEditor(percentageFromFgrade,"0%");  
+//		percentageFromFgrade.setEditor(editor);
+//		
+//		headPanel.add(percentageFromFgrade);
 		
-		JLabel percentage = new JLabel("Quiz Weight: ");
-		percentage.setFont(new Font("Arial", Font.BOLD, 17));
-		percentage.setHorizontalAlignment(JLabel.CENTER);
-		headPanel.add(percentage);
-		percentageFromFgrade = new JSpinner(new SpinnerNumberModel(0.25,0,1,.01));   
-		JSpinner.NumberEditor editor = new JSpinner.NumberEditor(percentageFromFgrade,"0%");  
-		percentageFromFgrade.setEditor(editor);
-		
-		headPanel.add(percentageFromFgrade);
+//		JLabel percentage = new JLabel("Quiz Weight: ");
+//		percentage.setFont(new Font("Arial", Font.BOLD, 17));
+//		percentage.setHorizontalAlignment(JLabel.CENTER);
+//		headPanel.add(percentage);
+//		percentageFromFgrade = new JSpinner(new SpinnerNumberModel(0.25,0,1,.01));   
+//		JSpinner.NumberEditor editor = new JSpinner.NumberEditor(percentageFromFgrade,"0%");  
+//		percentageFromFgrade.setEditor(editor);
+//		
+//		headPanel.add(percentageFromFgrade);
 		panel.add(headPanel);
 		
 		addBtn = new JButton("Add question");
@@ -119,10 +134,10 @@ public class QuizCreationView extends ViewPanel{
 	public void addBtnAddListener(ActionListener listener){
 		addBtn.addActionListener(listener);
 	}
-	public void addSpinnerChangeListener(ChangeListener changeListener)
-	{
-		percentageFromFgrade.addChangeListener(changeListener);
-	}
+//	public void addSpinnerChangeListener(ChangeListener changeListener)
+//	{
+//		percentageFromFgrade.addChangeListener(changeListener);
+//	}
 	public void addFileMenuListeners(ActionListener[] listener)
 	{
 		for (int i = 0; i < listener.length; i++) {
@@ -132,5 +147,9 @@ public class QuizCreationView extends ViewPanel{
 	public JLabel getQuizName() {
 		return quizName;
 	}
+	public JLabel getCourseName() {
+		return courseName;
+	}
+
 	
 }
