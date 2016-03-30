@@ -59,6 +59,7 @@ public class InitialWindowController {
 	public JDialog registerStudentDialog;
 	public JDialog removeStudentDialog;
 	public static windowListener windowListener;
+	public String editingPreviousStudentId = "";
 
 	final static String SAVE = "save";
 	final static String SAVE_AND_EXIT = "save_and_exit";
@@ -252,6 +253,7 @@ public class InitialWindowController {
 						view.getStudentName().setText(result.getStudentName());
 						view.getStudentEmail().setText(result.getStudentEmail());		
 						inEditMode = true;
+						editingPreviousStudentId = result.getStudentId();
 					}catch (IOException e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
@@ -411,18 +413,24 @@ public class InitialWindowController {
 							String coursePath = coursesFiles.get(courseIndexInCoursesArray).getCourseFolder()
 									.getCanonicalPath();
 							String studentId = view.getStudentId().getText();
+							boolean newStudent = false;
 							if (new File(coursePath + "/Students/" + studentId + ".ser").exists())
 								overWrite = JOptionPane.showConfirmDialog(null,
 										"This student is already exists and his data will be overwritten, \n do you want to keep the application progress?",
 										"Alert", JOptionPane.YES_NO_OPTION);
+							else
+								newStudent  = true;
 							if (overWrite == JOptionPane.YES_OPTION) {
 								StudentEntity studentEntity = new StudentEntity(courseName, studentId,
 										view.getStudentName().getText(), view.getStudentEmail().getText());
 								if(registerStudentDialog.getTitle().equals("Edit Student Dialog"))
 								{
 									existingStudent = (StudentEntity) ObjectFileManager.loadObject
-											(coursePath + "/Students/" + studentId + ".ser");
+											(coursePath + "/Students/" + editingPreviousStudentId + ".ser");
 									studentEntity.setQuizzesScores(existingStudent.getQuizzesScores());
+									if(newStudent)
+										new File(coursePath + "/Students/" + editingPreviousStudentId + ".ser").delete();
+									registerStudentDialog.dispose();
 								}
 								FileOutputStream fos = new FileOutputStream(
 										coursePath + "/Students/" + studentId + ".ser");
