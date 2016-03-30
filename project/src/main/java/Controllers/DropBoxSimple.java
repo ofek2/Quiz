@@ -132,7 +132,7 @@ public class DropBoxSimple {
 
 				api = new DropboxAPI<WebAuthSession>(session);
 				try {
-					System.out.println(api.accountInfo().displayName);
+					System.out.println(api.accountInfo().displayName +"Is logged in");
 				} catch (DropboxException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
@@ -244,18 +244,18 @@ public class DropBoxSimple {
 		try {
 				entries = api.delta(null).entries;
 				String [] pathsSorted = sortDBPaths(entries);
-				System.out.println("----Dropbox Paths----");
-				for(int i = 0 ;i<pathsSorted.length;i++)
-				{
-					System.out.println(pathsSorted[i]);
-				}
+//				System.out.println("----Dropbox Paths----");
+//				for(int i = 0 ;i<pathsSorted.length;i++)
+//				{
+//					System.out.println(pathsSorted[i]);
+//				}
 				File appFolder = new File(rootPath);
 				listLocalPaths(appFolder);
-				System.out.println("----Local Paths----");
-				for(int i=0;i<localPaths.size();i++)
-				{
-					System.out.println(localPaths.get(i));
-				}
+//				System.out.println("----Local Paths----");
+//				for(int i=0;i<localPaths.size();i++)
+//				{
+//					System.out.println(localPaths.get(i));
+//				}
 				boolean delete = true;
 				for(int i=0;i<pathsSorted.length;i++)
 				{
