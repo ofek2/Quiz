@@ -413,13 +413,10 @@ public class InitialWindowController {
 							String coursePath = coursesFiles.get(courseIndexInCoursesArray).getCourseFolder()
 									.getCanonicalPath();
 							String studentId = view.getStudentId().getText();
-							boolean newStudent = false;
 							if (new File(coursePath + "/Students/" + studentId + ".ser").exists())
 								overWrite = JOptionPane.showConfirmDialog(null,
 										"This student is already exists and his data will be overwritten, \n do you want to keep the application progress?",
 										"Alert", JOptionPane.YES_NO_OPTION);
-							else
-								newStudent  = true;
 							if (overWrite == JOptionPane.YES_OPTION) {
 								StudentEntity studentEntity = new StudentEntity(courseName, studentId,
 										view.getStudentName().getText(), view.getStudentEmail().getText());
@@ -428,7 +425,7 @@ public class InitialWindowController {
 									existingStudent = (StudentEntity) ObjectFileManager.loadObject
 											(coursePath + "/Students/" + editingPreviousStudentId + ".ser");
 									studentEntity.setQuizzesScores(existingStudent.getQuizzesScores());
-									if(newStudent)
+									if(!studentId.equals(editingPreviousStudentId))
 										new File(coursePath + "/Students/" + editingPreviousStudentId + ".ser").delete();
 									registerStudentDialog.dispose();
 								}
