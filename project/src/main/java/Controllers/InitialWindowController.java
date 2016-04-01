@@ -34,6 +34,7 @@ import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.TreePath;
 
 import Controllers.QuizCreationController.windowListener;
+import Entities.Constants;
 import Entities.CourseEntity;
 import Entities.QuizEntity;
 import Entities.QuizObjectEntity;
@@ -243,21 +244,16 @@ public class InitialWindowController {
 				// TODO Auto-generated constructor stub
 				if (!chosenFileName.equals("")&&!studentCourse.equals("")) {
 					StudentEntity result;
-					try {
-						result = (StudentEntity) ObjectFileManager.loadObject
-								((new File(".").getCanonicalPath() + "/OnlineQuizChecker/"
-								+ studentCourse + "/Students/" + chosenFileName + ".ser"));
-						view.getRegisterStudentCourseCB().setSelectedItem(
-								result.getStudentCourse());					
-						view.getStudentId().setText(result.getStudentId());
-						view.getStudentName().setText(result.getStudentName());
-						view.getStudentEmail().setText(result.getStudentEmail());		
-						inEditMode = true;
-						editingPreviousStudentId = result.getStudentId();
-					}catch (IOException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
+					result = (StudentEntity) ObjectFileManager.loadObject
+							((Constants.ROOTPATH
+							+ studentCourse + "/Students/" + chosenFileName + ".ser"));
+					view.getRegisterStudentCourseCB().setSelectedItem(
+							result.getStudentCourse());					
+					view.getStudentId().setText(result.getStudentId());
+					view.getStudentName().setText(result.getStudentName());
+					view.getStudentEmail().setText(result.getStudentEmail());		
+					inEditMode = true;
+					editingPreviousStudentId = result.getStudentId();
 				}
 				else
 				{
@@ -360,13 +356,13 @@ public class InitialWindowController {
 									JOptionPane.ERROR_MESSAGE);
 						else {
 							if (popUpMenuFlag == 1)
-								studentFile = new File(new File(".").getCanonicalPath() + "/OnlineQuizChecker" + "/"
+								studentFile = new File(Constants.ROOTPATH
 										+ studentCourse + "/Students/" + studentId + ".ser");
 							if (popUpMenuFlag == 0)
-								studentFile = new File(new File(".").getCanonicalPath() + "/OnlineQuizChecker" + "/"
+								studentFile = new File(Constants.ROOTPATH
 										+ (String) view.getRemoveStudentCourseCB().getSelectedItem() + "/Students/"
 										+ (String) view.getRemoveStudentsIds().getSelectedItem() + ".ser");
-							if((studentAnswer = new File(new File(".").getCanonicalPath() + "/OnlineQuizChecker/"
+							if((studentAnswer = new File(Constants.ROOTPATH
 									+ studentCourse + "/Quizzes/" + studentId + "/StudentsAnswers/"
 									+ studentId + ".html")).exists())
 								studentAnswer.delete();
@@ -582,7 +578,7 @@ public class InitialWindowController {
 				}
 				else {
 					try {
-						quizFolder = new File(new File(".").getCanonicalPath() + "/OnlineQuizChecker/" + courseName
+						quizFolder = new File(Constants.ROOTPATH + courseName
 								+ "/Quizzes/" + quizName);
 						if (!quizFolder.exists()) {
 							quizFormFolder = new File(quizFolder.getCanonicalPath() + "/Form");
@@ -633,22 +629,17 @@ public class InitialWindowController {
 					// TODO Auto-generated method stub
 					if(JOptionPane.showConfirmDialog(MainFrameController.view, "Are you sure you want to delete this course?") == JOptionPane.YES_OPTION)
 					{
-						try {
-							if (popUpMenuFlag == 0) {
-								courseFolder = new File(new File(".").getCanonicalPath() + "/OnlineQuizChecker/"
-										+ (String) view.getRemoveCourses().getSelectedItem());
-								coursesFiles.remove(view.getRemoveCourses().getSelectedIndex());
-							} else {
-								courseFolder = new File(
-										new File(".").getCanonicalPath() + "/OnlineQuizChecker/" + courseName);
-								coursesFiles.remove(CourseEntity.getIndex(courseName));
-							}
-							removeFolder(courseFolder);
-							coursesUpdate();
-						} catch (IOException e1) {
-							// TODO Auto-generated catch block
-							e1.printStackTrace();
+						if (popUpMenuFlag == 0) {
+							courseFolder = new File(Constants.ROOTPATH
+									+ (String) view.getRemoveCourses().getSelectedItem());
+							coursesFiles.remove(view.getRemoveCourses().getSelectedIndex());
+						} else {
+							courseFolder = new File(
+									Constants.ROOTPATH + courseName);
+							coursesFiles.remove(CourseEntity.getIndex(courseName));
 						}
+						removeFolder(courseFolder);
+						coursesUpdate();
 					}
 					
 				}
@@ -666,7 +657,7 @@ public class InitialWindowController {
 						ArrayList<String> studentsQuizzesPaths = new ArrayList<String>();
 						String courseName = (String) view.getCourseIdGradeCB().getSelectedItem();
 						String quizName = (String) view.getQuizzesToGrade().getSelectedItem();
-						String path = new File(".").getCanonicalPath() + "/OnlineQuizChecker/" + courseName
+						String path = Constants.ROOTPATH + courseName
 								+ "/Quizzes/" + quizName + "/StudentsAnswers";
 						File studentsAnswersFolder = new File(path);
 						if (studentsAnswersFolder.listFiles().length > 0)
@@ -676,7 +667,7 @@ public class InitialWindowController {
 								// studentsInQuiz.add((StudentQuizEntity)
 								// ObjectFileManager.loadObject(child.getCanonicalPath()));
 							}
-						String formPath = new File(".").getCanonicalPath() + "/OnlineQuizChecker/" + courseName
+						String formPath = Constants.ROOTPATH + courseName
 								+ "/Quizzes/" + quizName + "/Form/" + quizName + "WithAnswers.html";
 						initiateGradingProcess(studentsInQuiz, studentsQuizzesPaths, formPath);
 					} catch (IOException e1) {
@@ -795,10 +786,9 @@ public class InitialWindowController {
 							if(JOptionPane.showConfirmDialog(MainFrameController.view, "Are you sure you want to delete this quiz?")== JOptionPane.YES_OPTION)
 							{
 								try {
-								removeFolder(new File(new File(".").getCanonicalPath() + "/OnlineQuizChecker/"
+								removeFolder(new File(Constants.ROOTPATH
 										+ quizCourseName + "/Quizzes/" + quizName));
-								updateStudentsEntityQuizzes(new File(new File(".").getCanonicalPath()
-										+ "/OnlineQuizChecker/" + courseName + "/Students"), quizName);
+								updateStudentsEntityQuizzes(new File(Constants.ROOTPATH + courseName + "/Students"), quizName);
 								view.setTree(new JTree(InitialWindowView
 										.filesTree(new File(new File(".").getCanonicalPath() + "/OnlineQuizChecker"))));
 							} catch (IOException e1) {
