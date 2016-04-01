@@ -584,8 +584,7 @@ public class InitialWindowController {
 							quizFormFolder = new File(quizFolder.getCanonicalPath() + "/Form");
 							studentsFilesFolder = new File(quizFolder.getCanonicalPath() + "/StudentsAnswers");
 							QuizCreationView quizCreationView = new QuizCreationView();
-							QuizEntity quizEntity = new QuizEntity(quizName, quizFolder, quizFormFolder,
-									studentsFilesFolder, 25);
+							QuizEntity quizEntity = new QuizEntity(quizName, courseName);
 							new QuizCreationController(quizCreationView, quizEntity, view);
 							quizCreationView.getQuizName().setText(quizName);
 							quizCreationView.getCourseName().setText(courseName);
