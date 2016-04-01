@@ -20,6 +20,7 @@ import java.awt.event.MouseListener;
 import javax.swing.JSeparator;
 
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.Cursor;
 
 import javax.swing.JTextField;
@@ -142,6 +143,8 @@ public class InitialWindowView extends ViewPanel {
 		
 		try {
 			tree = new JTree(filesTree(new File(new File(".").getCanonicalPath()+"/OnlineQuizChecker")));
+			this.tree.setFont(new Font("Arial", Font.BOLD ,20));
+			this.tree.setRowHeight(50);
 			tree.setBounds(0, 30, MainFrameController.view.getWidth(),MainFrameController.view.getHeight());
 			add(tree);
 		} catch (IOException e) {
@@ -565,9 +568,12 @@ public class InitialWindowView extends ViewPanel {
 		return tree;
 	}
 	public void setTree(JTree tree) {
+		
 		MouseListener[] mouseListener = this.tree.getMouseListeners();
 		remove(this.tree);
 		this.tree = tree;
+		this.tree.setFont(new Font("Arial", Font.BOLD ,20));
+		this.tree.setRowHeight(80);
 		if(mouseListener.length>1)
 		this.tree.addMouseListener((MouseAdapter) mouseListener[1]);
 		add(this.tree);

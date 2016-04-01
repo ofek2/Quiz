@@ -39,9 +39,11 @@ public class HtmlBuilder {
 		DocumentBuilder builder = builderFactory.newDocumentBuilder();
 		document = builder.newDocument();
 		
+		ClassLoader classloader = Thread.currentThread().getContextClassLoader();
+		InputStream in = classloader.getResourceAsStream("HtmlHead.html");
 		
-		
-		InputStream in = new FileInputStream(new File("HtmlHead.html"));
+	//	InputStream in = getClass().getClassLoader().getResourceAsStream("/HtmlHead.html");
+		//InputStream in = new FileInputStream(new File("HtmlHead.html"));
 		parser = new HtmlParser(in);
 	
 		

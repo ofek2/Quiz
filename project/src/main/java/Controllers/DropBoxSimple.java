@@ -47,6 +47,15 @@ public class DropBoxSimple {
 	/** The root path. */
 	public static String rootPath;
 	
+	static {
+		try {
+			rootPath = new File(".").getCanonicalPath() + "\\OnlineQuizChecker";
+
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
 	/** The api. */
 	public static DropboxAPI<WebAuthSession> api;
 	// public static DbxClientV1 client;
@@ -78,13 +87,7 @@ public class DropBoxSimple {
 	 * Instantiates a new drop box simple.
 	 */
 	public DropBoxSimple() {
-		try {
-			rootPath = new File(".").getCanonicalPath() + "\\OnlineQuizChecker";
-
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+	
 		appKeys = new AppKeyPair(APP_KEY, APP_SECRET);
 		session = new WebAuthSession(appKeys, Session.AccessType.APP_FOLDER);
 		authenticated = false;
@@ -160,20 +163,13 @@ public class DropBoxSimple {
 				try {
 					if (!file.getCanonicalPath().equals(rootPath))
 					{
-						Entry existingFile;
-						try {
-							existingFile = api.metadata(path + file.getName(), 0, null, true, null);
-						} catch (DropboxException e) {
-						
-							//This path doesn't exists so we will create new folder
+							//If this path doesn't exists a new folder will be created in dropbox
 							try {
 								api.createFolder(path + file.getName());
 							} catch (DropboxException e1) {
 								// TODO Auto-generated catch block
 								e1.printStackTrace();
 							}
-						}
-					
 					}
 				} catch (IOException e) {
 					// TODO Auto-generated catch block
@@ -244,18 +240,8 @@ public class DropBoxSimple {
 		try {
 				entries = api.delta(null).entries;
 				String [] pathsSorted = sortDBPaths(entries);
-//				System.out.println("----Dropbox Paths----");
-//				for(int i = 0 ;i<pathsSorted.length;i++)
-//				{
-//					System.out.println(pathsSorted[i]);
-//				}
 				File appFolder = new File(rootPath);
 				listLocalPaths(appFolder);
-//				System.out.println("----Local Paths----");
-//				for(int i=0;i<localPaths.size();i++)
-//				{
-//					System.out.println(localPaths.get(i));
-//				}
 				boolean delete = true;
 				for(int i=0;i<pathsSorted.length;i++)
 				{
@@ -331,29 +317,6 @@ public class DropBoxSimple {
 		return trimed;
 		
 	}
-
-//	/**
-//	 * Recursive delete dropbox folder.
-//	 *
-//	 * @param path the path
-//	 */
-//	public static void recursiveDeleteDropboxFolder(String path) {
-//		try {
-//			Entry existingFile = api.metadata(path, 0, null, true, null);
-//
-//			if (existingFile.isDir) {
-//				for (int i = 0; i < existingFile.contents.size(); i++) {
-//					recursiveDeleteDropboxFolder(path + "/" + existingFile.contents.get(i).fileName());
-//				}
-//				if (!path.equals("/"))
-//					api.delete(path);
-//			} else
-//				api.delete(path);
-//		} catch (DropboxException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
-//	}
 
 	/**
 	 * Gets the dropbox total size.

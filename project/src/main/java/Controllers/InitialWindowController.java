@@ -855,8 +855,21 @@ public class InitialWindowController {
 							// TODO Auto-generated method stub
 							String quizName = (String) JOptionPane.showInputDialog(MainFrameController.view,
 									"Creating new quiz in course : " + courseN + "\n" + "Please, choose quiz name:",
-									"New Quiz Dialog", JOptionPane.PLAIN_MESSAGE, null, null, "");
-							createNewQuiz(quizName, courseN);
+									"New Quiz Dialog", JOptionPane.PLAIN_MESSAGE);
+							
+								while(quizName!=null && quizName.equals(""))
+								{
+									// showing an "empty quiz name" error dialog
+									createNewQuiz(quizName, courseN); 
+									quizName = (String) JOptionPane.showInputDialog(MainFrameController.view,
+											"Creating new quiz in course : " + courseN + "\n" + "Please, choose quiz name:",
+											"New Quiz Dialog", JOptionPane.PLAIN_MESSAGE);
+								}
+								//quiz creation initiation
+								if(quizName != null) 
+								createNewQuiz(quizName, courseN);
+								
+								// else quiz creation cancelled
 
 						}
 					});
