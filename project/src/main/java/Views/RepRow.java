@@ -3,8 +3,6 @@ package Views;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 import javax.swing.border.LineBorder;
-import javax.swing.AbstractButton;
-import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JComponent;
 import javax.swing.JLabel;
@@ -18,6 +16,10 @@ import java.util.ArrayList;
 
 public class RepRow extends JPanel {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private ArrayList<Object> rowItems;
 	private int rowIndex;
 	/**

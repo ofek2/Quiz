@@ -20,6 +20,10 @@ import java.util.Vector;
 
 public class ReportsView extends ViewPanel {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private JPanel reportsInfoPanel;
 	private JLabel lblReportsCourseId;
 	private JComboBox<String> reportsCourses;

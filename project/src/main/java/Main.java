@@ -8,7 +8,6 @@ import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
 import javax.swing.*;
 import org.w3c.dom.Document;
-import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 import Controllers.DropBoxSimple;
 import Controllers.MainFrameController;
@@ -19,8 +18,12 @@ import java.net.URL;
 
 public class Main extends JFrame {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	public static DropBoxSimple dbx;
-	//public static String userEmail;
+	// public static String userEmail;
 	private final JFXPanel jfxPanel = new JFXPanel();
 	private WebEngine engine;
 	private boolean authorized = false;
@@ -35,7 +38,7 @@ public class Main extends JFrame {
 
 	private void initComponents() {
 		createScene();
-		//org.apache.log4j.BasicConfigurator.configure();
+		// org.apache.log4j.BasicConfigurator.configure();
 		panel.add(jfxPanel, BorderLayout.CENTER);
 		getContentPane().add(panel);
 
@@ -55,17 +58,6 @@ public class Main extends JFrame {
 				WebView view = new WebView();
 				engine = view.getEngine();
 
-				
-				ChangeListener<String> listener = new ChangeListener<String>() {
-
-					@Override
-					public void changed(ObservableValue<? extends String> observable, String oldValue,
-							String newValue) {
-						// TODO Auto-generated method stub
-
-					}
-				};
-
 				engine.titleProperty().addListener(new ChangeListener<String>() {
 					@Override
 					public void changed(ObservableValue<? extends String> observable, String oldValue,
@@ -77,12 +69,6 @@ public class Main extends JFrame {
 										Document doc = engine.getDocument();
 
 										NodeList divs = doc.getElementsByTagName("div");
-
-//										for (int i = 0; i < divs.getLength(); i++)
-//											if (((Element) divs.item(i)).getAttribute("class") != null)
-//												if (((Element) divs.item(i)).getAttribute("class")
-//														.equals("email force-no-break"))
-//													userEmail = ((Element) divs.item(i)).getTextContent();
 										authorized = true;
 										new MainFrameController(new MainFrameView());
 										setVisible(false);
@@ -90,12 +76,9 @@ public class Main extends JFrame {
 								});
 
 							}
+						} else if (newValue != null && newValue.equals("Home - Dropbox")) {
+							System.exit(0);
 						}
-						else
-							if(newValue != null && newValue.equals("Home - Dropbox"))
-							{
-								System.exit(0);
-							}
 					}
 				});
 				jfxPanel.setScene(new Scene(view));

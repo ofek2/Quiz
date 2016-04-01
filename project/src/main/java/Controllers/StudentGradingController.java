@@ -6,16 +6,12 @@ import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.util.ArrayList;
-
 import javax.xml.parsers.ParserConfigurationException;
-
+import Entities.StudentEntity;
+import Views.StudentGradingPanel;
 import project.GradingOperation;
 import project.HtmlBuilder;
 import project.ObjectFileManager;
-import Entities.StudentEntity;
-import Views.StudentGradingPanel;
-import Views.ViewPanel;
 
 public class StudentGradingController {
 	public StudentGradingPanel view;

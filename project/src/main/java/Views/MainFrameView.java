@@ -16,6 +16,10 @@ import Controllers.MainFrameController;
 public class MainFrameView extends JFrame implements Serializable{
 	
 	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	/**
 	 * Create the frame.
 	 */
 	public static windowListener windowListener;
@@ -55,6 +59,11 @@ public class MainFrameView extends JFrame implements Serializable{
 	
 	class windowListener extends WindowAdapter implements Serializable
 	{
+		/**
+		 * 
+		 */
+		private static final long serialVersionUID = 1L;
+
 		public void windowClosing(WindowEvent e) {
 			// TODO Auto-generated method stub
 				MainFrameController.view.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

@@ -31,6 +31,10 @@ import project.HtmlBuilder;
 import project.ObjectFileManager;
 
 public class QuizCreationController implements Serializable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private QuizCreationView view;
 	private QuizEntity entity;
 	private qPanelController qPanelController;
@@ -322,6 +326,10 @@ public class QuizCreationController implements Serializable {
 	}
 
 	class windowListener extends WindowAdapter implements Serializable {
+		/**
+		 * 
+		 */
+		private static final long serialVersionUID = 1L;
 		private int exitFlag;
 
 		public void windowClosing(WindowEvent e) {
@@ -331,21 +339,7 @@ public class QuizCreationController implements Serializable {
 						"You made an unsaved changes, all of this changes will be lost,\n do you want to keep the application progress?",
 						"Alert", JOptionPane.YES_NO_OPTION);
 				if (exitFlag == JOptionPane.YES_OPTION) {
-					// if(saveComplete==0)
-					// {
-					// entity.getQuizFormFolder().delete();
-					// try {
-					// initialWindowView.setTree(new
-					// JTree(InitialWindowView.filesTree(new File(new
-					// File(".").getCanonicalPath()+"/OnlineQuizChecker"))));
-					// } catch (IOException e1) {
-					// // TODO Auto-generated catch block
-					// e1.printStackTrace();
-					// }
-					// }
-					///// delete the d from the image name
-					// for(int
-					// i=0;i<qPanels.size();i++)/////////////////////////////
+				
 					if (entity.getQuizFormFolder().listFiles().length > 0)
 						for (File file : entity.getQuizFormFolder().listFiles()) {
 							if (file.getName().endsWith(".PNG"))
@@ -356,21 +350,11 @@ public class QuizCreationController implements Serializable {
 					MainFrameController.view.addWindowListener(InitialWindowController.windowListener);
 				}
 			} else {
-				// try {
-				// if(saveComplete==0)
-				// {
-				// entity.getQuizFormFolder().delete();
-				// initialWindowView.setTree(new
-				// JTree(InitialWindowView.filesTree(new File(new
-				// File(".").getCanonicalPath()+"/OnlineQuizChecker"))));
-				// }
+				
 				MainFrameController.view.changeContentPane(initialWindowView);
 				MainFrameController.view.removeWindowListener(this);
 				MainFrameController.view.addWindowListener(InitialWindowController.windowListener);
-				// } catch (IOException e1) {
-				// // TODO Auto-generated catch block
-				// e1.printStackTrace();
-				// }
+			
 
 			}
 		}

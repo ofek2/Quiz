@@ -8,8 +8,6 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 
-import Entities.QuizObjectEntity;
-
 public class ObjectFileManager {
 	//private String path;
 	public ObjectFileManager()

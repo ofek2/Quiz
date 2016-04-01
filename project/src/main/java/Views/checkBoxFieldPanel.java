@@ -16,6 +16,10 @@ import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
 
 public class checkBoxFieldPanel extends JPanel implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private JCheckBox answerCheckBox;
 	private JTextField answerTextOption;
 	private JButton plusBtn;

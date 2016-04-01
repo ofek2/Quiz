@@ -17,6 +17,10 @@ import Controllers.ReportsController;
 import project.GradesDistributionGraph;
 
 public class CTable extends JPanel{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private JButton [] titleButtons;
 	private ArrayList<RepRow> rows;
 	public CTable(JButton [] titleButtons)

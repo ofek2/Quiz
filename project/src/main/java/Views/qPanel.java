@@ -1,7 +1,6 @@
 package Views;
 
 import java.awt.CardLayout;
-import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridBagConstraints;
@@ -11,6 +10,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.ItemListener;
 import java.awt.event.KeyListener;
 import java.io.Serializable;
+
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
@@ -25,10 +25,15 @@ import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.border.EtchedBorder;
 import javax.swing.filechooser.FileNameExtensionFilter;
+
 import Controllers.MainFrameController;
 import Controllers.MultipleChoicePanelController;
 
 public class qPanel extends JPanel implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	//title
 	private int questionNumber;
 	private JLabel questionLbl;
@@ -159,8 +164,8 @@ public class qPanel extends JPanel implements Serializable{
 		gbc_lblAnswerType.gridy = 2;
 		add(lblAnswerType, gbc_lblAnswerType);
 		
-		answerTypeCb = new JComboBox();
-		answerTypeCb.setModel(new DefaultComboBoxModel(new String[] {"Multiple Choice", "Free Text", "Free Draw"}));
+		answerTypeCb = new JComboBox<String>();
+		answerTypeCb.setModel(new DefaultComboBoxModel<String>(new String[] {"Multiple Choice", "Free Text", "Free Draw"}));
 		GridBagConstraints gbc_comboBox = new GridBagConstraints();
 		gbc_comboBox.gridwidth = 3;
 		gbc_comboBox.insets = new Insets(0, 0, 5, 5);

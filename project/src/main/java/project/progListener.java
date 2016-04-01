@@ -1,15 +1,6 @@
 package project;
 
-import java.awt.BorderLayout;
-
-import javax.swing.JDialog;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-
 import com.dropbox.client2.ProgressListener;
-
-import Controllers.DropBoxSimple;
 import Views.CustomDialog;
 
 public class progListener extends ProgressListener

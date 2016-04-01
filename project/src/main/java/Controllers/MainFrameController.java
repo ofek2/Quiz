@@ -1,18 +1,11 @@
 package Controllers;
 
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
-
-import com.dropbox.client2.exception.DropboxException;
-
-import Views.CustomDialog;
-import Views.DropBoxAuthenticationView;
 import Views.InitialWindowView;
 import Views.MainFrameView;
-import project.progListener;
 import Entities.CourseEntity;
 
 public class MainFrameController {
@@ -70,11 +63,6 @@ public class MainFrameController {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
-
-				// if(!appFolder.exists())
-				// appFolder.mkdir();
-				// else
-				// overWrite=JOptionPane.showConfirmDialog(null,"The application folder already exists, all of the existing data will be lost,\n do you want to keep the application progress?","Alert",JOptionPane.YES_NO_OPTION);
 
 			} else if (overWrite == JOptionPane.NO_OPTION
 					|| overWrite == JOptionPane.CLOSED_OPTION)

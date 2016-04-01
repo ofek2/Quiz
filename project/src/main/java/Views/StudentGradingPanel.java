@@ -1,26 +1,28 @@
 package Views;
 
-import javax.swing.JPanel;
+import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.event.ActionListener;
 
-import javax.swing.JLabel;
-import javax.swing.SwingConstants;
 import javax.swing.JButton;
-import javax.swing.border.BevelBorder;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.SwingConstants;
 import javax.swing.border.LineBorder;
-import java.awt.Color;
-import java.awt.Dimension;
 
 public class StudentGradingPanel extends JPanel{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private JLabel lblStudentid;
-	//private JLabel lblStudentname;
+	
 	private JButton gradeBtn;
 	private JLabel lblGrade;
 	
 	public final static String notGraded="Not yet graded";
 	public StudentGradingPanel(String studentId)
-//			,String studentName)
 	{
 		setLayout(new GridLayout(0, 3, 0, 0));
 		setMaximumSize(new Dimension(10000, 40));
@@ -28,11 +30,6 @@ public class StudentGradingPanel extends JPanel{
 		lblStudentid.setBorder(new LineBorder(new Color(0, 0, 0)));
 		lblStudentid.setHorizontalAlignment(SwingConstants.CENTER);
 		add(lblStudentid);
-		
-//		lblStudentname = new JLabel(studentName);
-//		lblStudentname.setBorder(new LineBorder(new Color(0, 0, 0)));
-//		lblStudentname.setHorizontalAlignment(SwingConstants.CENTER);
-//		add(lblStudentname);
 		
 		lblGrade = new JLabel(notGraded);
 		lblGrade.setBorder(new LineBorder(new Color(0, 0, 0)));

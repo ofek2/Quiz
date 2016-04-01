@@ -8,45 +8,34 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-import java.awt.event.WindowListener;
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.util.ArrayList;
-
-import javax.swing.BoxLayout;
 import javax.swing.JComboBox;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
-import javax.swing.JLabel;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPopupMenu;
 import javax.swing.JTree;
-import javax.swing.SwingUtilities;
 import javax.swing.SwingWorker;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.TreePath;
-
-import Controllers.QuizCreationController.windowListener;
 import Entities.Constants;
 import Entities.CourseEntity;
 import Entities.QuizEntity;
 import Entities.QuizObjectEntity;
 import Entities.StudentEntity;
-import Entities.StudentQuizEntity;
 import Views.CustomDialog;
 import Views.GradingWindowView;
 import Views.InitialWindowView;
 import Views.QuizCreationView;
 import Views.ReportsView;
 import project.ObjectFileManager;
-import project.progListener;
 
 public class InitialWindowController {
 	private InitialWindowView view;
@@ -776,10 +765,11 @@ public class InitialWindowController {
 					quizPopupMenu.remove(removeQuiz);
 					editQuiz = new JMenuItem("edit quiz");
 					removeQuiz = new JMenuItem("remove quiz");
-
+					if(editQuiz.getActionListeners().length==0)
 					editQuiz.addActionListener(new DialogsBtnsController.EditQuizBtnListener(chosenFileName));
 					final String quizName = chosenFileName;
 					final String quizCourseName = courseName;
+					if(removeQuiz.getActionListeners().length==0)
 					removeQuiz.addActionListener(new ActionListener() {
 
 						public void actionPerformed(ActionEvent e) {
@@ -807,6 +797,7 @@ public class InitialWindowController {
 				private JPopupMenu removeCoursePopupMenu(String chosenFileName) {
 					coursePopupMenu.remove(removeCourse);
 					removeCourse = new JMenuItem("remove course");
+					if(removeCourse.getActionListeners().length==0)
 					removeCourse.addActionListener(new RemoveCourseBtnListener(chosenFileName));
 					coursePopupMenu.add(removeCourse);
 					return coursePopupMenu;
@@ -814,12 +805,14 @@ public class InitialWindowController {
 
 				private JPopupMenu rootPopupMenu() {
 					rootPopupMenu.add(addCourse);
+					if(addCourse.getActionListeners().length==0)
 					addCourse.addActionListener(new AddCourseListener());
 					return rootPopupMenu;
 				}
 
 				private JPopupMenu registerStudentPopupMenu() {
 					studentsFolderPopupMenu.add(registerStudent);
+					if(registerStudent.getActionListeners().length==0)
 					registerStudent.addActionListener(new RegisterStudentListener("",""));
 					return studentsFolderPopupMenu;
 				}
@@ -1005,6 +998,11 @@ public class InitialWindowController {
 	}
 
 	class windowListener extends WindowAdapter implements Serializable {
+		/**
+		 * 
+		 */
+		private static final long serialVersionUID = 1L;
+
 		public void windowClosing(WindowEvent e) {
 			CustomDialog dialog = new CustomDialog("<html><body>Please wait while your files are being <br>uploaded to your dropbox account</body></html>");
 			dialog.setTitle("Alert");

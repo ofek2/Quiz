@@ -9,16 +9,18 @@ import javax.swing.JPanel;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.GridLayout;
-import java.awt.Panel;
 import java.awt.event.ActionListener;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.SwingConstants;
 import javax.swing.border.EtchedBorder;
 import javax.swing.border.LineBorder;
-import javax.swing.table.DefaultTableModel;
 
 public class GradingWindowView extends ViewPanel {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private JMenu mnFile;
 	public static JTable table;
 	public static JScrollPane scrollPane;

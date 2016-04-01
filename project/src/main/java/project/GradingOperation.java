@@ -33,6 +33,11 @@ import netscape.javascript.JSObject;
 
 public class GradingOperation extends ViewPanel {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	private WebEngine engine;
 
 	private JFXPanel fxPanel;

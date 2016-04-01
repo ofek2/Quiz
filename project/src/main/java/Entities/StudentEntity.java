@@ -1,20 +1,17 @@
 package Entities;
 
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.ObjectInputStream;
 import java.io.Serializable;
 import java.util.ArrayList;
 
-import Controllers.qPanelController;
-
 public class StudentEntity implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private String studentCourse;
 	private String studentId;
 	private String studentName;
 	private String studentEmail;
-//	private QuizScore quizScore;
 	private ArrayList<QuizScore> quizzesScores;
 	public StudentEntity(String studentCourse, String studentId,
 			String studentName, String studentEmail) {
@@ -89,6 +86,10 @@ public class StudentEntity implements Serializable{
 	}
 	class QuizScore implements Serializable
 	{
+		/**
+		 * 
+		 */
+		private static final long serialVersionUID = 1L;
 		private String quizName;
 		private String score;
 		

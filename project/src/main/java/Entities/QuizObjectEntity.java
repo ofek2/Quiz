@@ -7,6 +7,10 @@ import Controllers.qPanelController;
 import Views.qPanel;
 
 public class QuizObjectEntity implements Serializable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private QuizEntity quizEntity;
 	private ArrayList<qPanelController> qPanels;
 	public QuizObjectEntity(QuizEntity quizEntity, ArrayList<qPanelController> qPanels) {

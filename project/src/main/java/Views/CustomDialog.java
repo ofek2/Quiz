@@ -7,6 +7,10 @@ import javax.swing.JPanel;
 import Controllers.MainFrameController;
 
 public class CustomDialog extends JDialog{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private JLabel label;
 	private JPanel panel;
 	public CustomDialog()

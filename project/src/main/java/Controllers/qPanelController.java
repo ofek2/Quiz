@@ -27,6 +27,11 @@ import Views.QuizCreationView;
 import Views.qPanel;
 
 public class qPanelController implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	public qPanel view;
 
 	private QuizEntity quizEntity;
@@ -117,6 +122,11 @@ public class qPanelController implements Serializable{
 //	}
 	public class textItemListener implements KeyListener,Serializable
 	{
+		/**
+		 * 
+		 */
+		private static final long serialVersionUID = 1L;
+
 		public void keyTyped(KeyEvent e) {
 			// TODO Auto-generated method stub
 			
@@ -135,6 +145,10 @@ public class qPanelController implements Serializable{
 	
 	class removeBtnListener implements ActionListener,Serializable
 	{
+		/**
+		 * 
+		 */
+		private static final long serialVersionUID = 1L;
 		private transient BufferedImage bufferedImage;
 		public void actionPerformed(ActionEvent e) {
 			QuizCreationController.saveFlag=0;
@@ -202,6 +216,11 @@ public class qPanelController implements Serializable{
 	class aTypeItemListener implements ItemListener,Serializable
 	{
 
+		/**
+		 * 
+		 */
+		private static final long serialVersionUID = 1L;
+
 		public void itemStateChanged(ItemEvent e) {
 			 CardLayout cl = (CardLayout)(view.getAnswerPanel().getLayout());
 			    cl.show(view.getAnswerPanel(), (String)e.getItem());
@@ -214,6 +233,11 @@ public class qPanelController implements Serializable{
 	}
 	class listenChkBoxListener implements ActionListener,Serializable
 	{
+
+		/**
+		 * 
+		 */
+		private static final long serialVersionUID = 1L;
 
 		public void actionPerformed(ActionEvent e) {
 			if(view.getListenChkBox().isSelected())
@@ -230,6 +254,10 @@ public class qPanelController implements Serializable{
 	
 	class qBrowseBtnListener implements ActionListener,Serializable
 	{
+		/**
+		 * 
+		 */
+		private static final long serialVersionUID = 1L;
 		private int returnVal;
 		private transient File fileSave;
 		private transient BufferedImage image;
@@ -253,6 +281,10 @@ public class qPanelController implements Serializable{
 	}
 	class ansBrowseBtnListener implements ActionListener,Serializable
 	{
+		/**
+		 * 
+		 */
+		private static final long serialVersionUID = 1L;
 		private int returnVal;
 		private transient File fileSave;
 		private transient BufferedImage image;
@@ -276,6 +308,10 @@ public class qPanelController implements Serializable{
 	}
 	class qImageBtnListener implements ActionListener,Serializable
 	{
+		/**
+		 * 
+		 */
+		private static final long serialVersionUID = 1L;
 		private transient BufferedImage image;
 		public void actionPerformed(ActionEvent e) {
 			// TODO Auto-generated method stub
@@ -299,6 +335,10 @@ public class qPanelController implements Serializable{
 	
 	class viewAnswerImageBtnAddListener implements ActionListener,Serializable
 	{
+		/**
+		 * 
+		 */
+		private static final long serialVersionUID = 1L;
 		private transient BufferedImage image;
 		public void actionPerformed(ActionEvent e) {
 			// TODO Auto-generated method stub
@@ -323,6 +363,11 @@ public class qPanelController implements Serializable{
 	
 	class removeQuestionImageBtnListener implements ActionListener,Serializable
 	{
+		/**
+		 * 
+		 */
+		private static final long serialVersionUID = 1L;
+
 		public void actionPerformed(ActionEvent e) {
 			// TODO Auto-generated method stub
 			renameQuestionImage();
@@ -335,6 +380,11 @@ public class qPanelController implements Serializable{
 	
 	class removeAnswerImageBtnListener implements ActionListener,Serializable
 	{
+		/**
+		 * 
+		 */
+		private static final long serialVersionUID = 1L;
+
 		public void actionPerformed(ActionEvent e) {
 			// TODO Auto-generated method stub
 			removeAnswerImage();

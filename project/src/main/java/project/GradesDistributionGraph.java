@@ -4,14 +4,12 @@ import java.awt.Container;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
-
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.border.EtchedBorder;
-
-
-import project.GradingOperation.ExitListener;
+import Controllers.MainFrameController;
+import Views.ViewPanel;
 import javafx.application.Platform;
 import javafx.embed.swing.JFXPanel;
 import javafx.scene.Scene;
@@ -20,10 +18,12 @@ import javafx.scene.chart.CategoryAxis;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
 import javafx.scene.paint.Color;
-import Controllers.MainFrameController;
-import Views.ViewPanel;
 
 public class GradesDistributionGraph extends ViewPanel implements Runnable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private JFXPanel fxPanel;
 	private ArrayList<String> quizScores;
 	private JMenu graphMenu;
@@ -125,4 +125,3 @@ public class GradesDistributionGraph extends ViewPanel implements Runnable{
 		
 	}
 }
-

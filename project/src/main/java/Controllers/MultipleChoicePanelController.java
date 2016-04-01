@@ -6,6 +6,10 @@ import Views.MultipleChoicePanel;
 import Views.checkBoxFieldPanel;
 
 public class MultipleChoicePanelController implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	public MultipleChoicePanel view;
 	public ArrayList<checkBoxFieldController> cBfControllers;
 	public MultipleChoicePanelController(MultipleChoicePanel view)

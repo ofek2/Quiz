@@ -8,6 +8,10 @@ import java.io.Serializable;
 import Views.checkBoxFieldPanel;
 
 public class checkBoxFieldController implements Serializable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	public checkBoxFieldPanel view;
 	private MultipleChoicePanelController parentController;
 
@@ -28,6 +32,11 @@ public class checkBoxFieldController implements Serializable {
 
 	class answerTextOptionkeyListener implements KeyListener, Serializable {
 
+		/**
+		 * 
+		 */
+		private static final long serialVersionUID = 1L;
+
 		public void keyPressed(KeyEvent e) {
 			// TODO Auto-generated method stub
 
@@ -46,6 +55,11 @@ public class checkBoxFieldController implements Serializable {
 	}
 
 	class plusBtnListener implements ActionListener, Serializable {
+
+		/**
+		 * 
+		 */
+		private static final long serialVersionUID = 1L;
 
 		public void actionPerformed(ActionEvent e) {
 			// TODO Auto-generated method stub
@@ -70,6 +84,11 @@ public class checkBoxFieldController implements Serializable {
 	}
 
 	class minusBtnListener implements ActionListener, Serializable {
+
+		/**
+		 * 
+		 */
+		private static final long serialVersionUID = 1L;
 
 		public void actionPerformed(ActionEvent e) {
 			// TODO Auto-generated method stub
