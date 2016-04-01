@@ -15,6 +15,6 @@ public class Constants {
 		}
 	}
 	
-	final static String SAVE = "save";
-	final static String SAVE_AND_EXIT = "save_and_exit";
+	final public static String SAVE = "save";
+	final public static String SAVE_AND_EXIT = "save_and_exit";
 }

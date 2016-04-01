@@ -103,6 +103,9 @@ public class InitialWindowView extends ViewPanel {
 
 		JMenuItem mntmRemoveStudent = new JMenuItem("Remove Student");
 		mnCourseManagement.add(mntmRemoveStudent);
+		
+		JMenuItem mntmSave = new JMenuItem("Save Files");
+		mnCourseManagement.add(mntmSave);
 
 		JSeparator separator = new JSeparator();
 		separator.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
@@ -127,11 +130,10 @@ public class InitialWindowView extends ViewPanel {
 		JMenuItem mntmReports = new JMenuItem("Reports");
 		mnQuizMngMenu.add(mntmReports);
 
-		JMenuItem mntmSave = new JMenuItem("Save Files");
-		mnQuizMngMenu.add(mntmSave);
+		
 		try {
 			tree = new JTree(filesTree(new File(new File(".").getCanonicalPath() + "/OnlineQuizChecker")));
-			tree.setFont(new Font("Arial", Font.PLAIN, 22));
+			tree.setFont(new Font("Arial", Font.PLAIN, 24));
 			tree.setRowHeight(35);
 			tree.setBounds(0, 30, MainFrameController.view.getWidth(), MainFrameController.view.getHeight());
 			add(tree);
@@ -148,7 +150,7 @@ public class InitialWindowView extends ViewPanel {
 		// New quiz dialog
 		newQuizDialogPanel = new JPanel();
 		newQuizDialogPanel.setLayout(null);
-		newQuizDialogPanel.setBackground(Color.RED);
+		//newQuizDialogPanel.setBackground();
 		newQuizDialogPanel.setSize(300, 220);
 		newQuizDialogPanel.setVisible(true);
 
@@ -183,7 +185,7 @@ public class InitialWindowView extends ViewPanel {
 		editQuizDialogPanel = new JPanel();
 		editQuizDialogPanel.setLayout(null);
 		editQuizDialogPanel.setSize(300, 220);
-		editQuizDialogPanel.setBackground(Color.RED);
+		//editQuizDialogPanel.setBackground(Color.RED);
 
 		Label label2 = new Label("Course Id:");
 		label2.setBounds(13, 28, 80, 19);
@@ -220,7 +222,7 @@ public class InitialWindowView extends ViewPanel {
 		// New course dialog
 		newCourseDialogPanel = new JPanel();
 		newCourseDialogPanel.setLayout(null);
-		newCourseDialogPanel.setBackground(Color.CYAN);
+		//newCourseDialogPanel.setBackground(Color.CYAN);
 		newCourseDialogPanel.setSize(300, 220);
 
 		JLabel lblCourseId = new JLabel("Course Id:");
@@ -250,7 +252,7 @@ public class InitialWindowView extends ViewPanel {
 		// Remove course dialog
 		removeCourseDialogPanel = new JPanel();
 		removeCourseDialogPanel.setLayout(null);
-		removeCourseDialogPanel.setBackground(Color.lightGray);
+		//removeCourseDialogPanel.setBackground(Color.lightGray);
 		removeCourseDialogPanel.setSize(300, 150);
 
 		JLabel lblCourse = new JLabel("Course Id:");
@@ -275,7 +277,7 @@ public class InitialWindowView extends ViewPanel {
 
 		registerStudentDialogPanel = new JPanel();
 		registerStudentDialogPanel.setLayout(null);
-		registerStudentDialogPanel.setBackground(Color.lightGray);
+		//registerStudentDialogPanel.setBackground(Color.lightGray);
 		registerStudentDialogPanel.setSize(270, 300);
 
 		JLabel lblCourse1 = new JLabel("Course Id:");
@@ -325,7 +327,7 @@ public class InitialWindowView extends ViewPanel {
 		// Remove Student Dialog
 		removeStudentDialogPanel = new JPanel();
 		removeStudentDialogPanel.setLayout(null);
-		removeStudentDialogPanel.setBackground(Color.lightGray);
+		//removeStudentDialogPanel.setBackground(Color.lightGray);
 		removeStudentDialogPanel.setSize(270, 300);
 
 		JLabel lblRemoveStudentCourse = new JLabel("Course Id:");
@@ -369,7 +371,7 @@ public class InitialWindowView extends ViewPanel {
 		// Grade Quiz
 		gradeQuizDialogPanel = new JPanel();
 		gradeQuizDialogPanel.setLayout(null);
-		gradeQuizDialogPanel.setBackground(Color.ORANGE);
+		//gradeQuizDialogPanel.setBackground(Color.ORANGE);
 		gradeQuizDialogPanel.setSize(300, 220);
 
 		JLabel coursesIdsGradeLbl = new JLabel("Course Id:");
@@ -427,27 +429,10 @@ public class InitialWindowView extends ViewPanel {
 	}
 
 	public void loadStudentNameToRemoveLbl(String path) {
-		// FileInputStream fis;
-		// try {
-		// fis = new FileInputStream(path);
-		// ObjectInputStream ois = new ObjectInputStream(fis);
-		// StudentEntity result = (StudentEntity) ois.readObject();
-		// ois.close();
-		// System.out.println(path);
+
 		StudentEntity result = (StudentEntity) ObjectFileManager.loadObject(path);
 		chosenRemoveStudentNameLbl.setText(result.getStudentName());
-		// return result.getStudentName();
-		// } catch (FileNotFoundException e) {
-		// // TODO Auto-generated catch block
-		// e.printStackTrace();
-		// } catch (IOException e) {
-		// // TODO Auto-generated catch block
-		// e.printStackTrace();
-		// } catch (ClassNotFoundException e) {
-		// // TODO Auto-generated catch block
-		// e.printStackTrace();
-		// }
-		// return "";
+		
 	}
 
 	public JTextField getStudentId() {
@@ -571,7 +556,7 @@ public class InitialWindowView extends ViewPanel {
 		MouseListener[] mouseListener = this.tree.getMouseListeners();
 		remove(this.tree);
 		this.tree = tree;
-		this.tree.setFont(new Font("Arial", Font.PLAIN, 22));
+		this.tree.setFont(new Font("Arial", Font.PLAIN, 24));
 		this.tree.setRowHeight(35);
 		if (mouseListener.length > 1)
 			this.tree.addMouseListener((MouseAdapter) mouseListener[1]);

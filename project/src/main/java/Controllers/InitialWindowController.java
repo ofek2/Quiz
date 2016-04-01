@@ -51,8 +51,6 @@ public class InitialWindowController {
 	public static windowListener windowListener;
 	public String editingPreviousStudentId = "";
 
-	final static String SAVE = "save";
-	final static String SAVE_AND_EXIT = "save_and_exit";
 	public InitialWindowController(InitialWindowView view) {
 
 		this.view = view;
@@ -91,9 +89,9 @@ public class InitialWindowController {
 		public MenuController() {
 
 			ActionListener[] quizMngmntListeners = { new NewQuizListener(), new EditQuizListener(),
-					new GradeQuizListener(), new ReportsListener(), new SaveFilesListener() };
+					new GradeQuizListener(), new ReportsListener() };
 			ActionListener[] courseMngmntListeners = { new AddCourseListener(), new RemoveCourseListener(),
-					new RegisterStudentListener("",""), new RemoveStudentListener() };
+					new RegisterStudentListener("",""), new RemoveStudentListener() , new SaveFilesListener()};
 			view.addQuizManagementListeners(quizMngmntListeners);
 			view.addCourseManagementListeners(courseMngmntListeners);
 			dialogsBtnsController = new DialogsBtnsController();
@@ -186,7 +184,7 @@ public class InitialWindowController {
 				CustomDialog dialog = new CustomDialog("<html><body>Please wait while your files are being <br>uploaded to your dropbox account</body></html>");
 				dialog.setTitle("Alert");
 				dialog.setVisible(true);
-				SwingWorker<Void, Void> recursiveDeleteDropboxFolder = new removeFromDropbox(dialog,SAVE);
+				SwingWorker<Void, Void> recursiveDeleteDropboxFolder = new removeFromDropbox(dialog,Constants.SAVE);
 				recursiveDeleteDropboxFolder.execute();
 			}
 			
@@ -708,14 +706,14 @@ public class InitialWindowController {
 					studentsFolderPopupMenu = new JPopupMenu();
 					studentsFilePopupMenu = new JPopupMenu();
 
-					createQuiz = new JMenuItem("create quiz");
-					editQuiz = new JMenuItem("edit quiz");
-					removeQuiz = new JMenuItem("remove quiz");
-					removeCourse = new JMenuItem("remove course");
-					addCourse = new JMenuItem("add course");
-					registerStudent = new JMenuItem("register student");
-					editStudent = new JMenuItem("edit student");
-					removeStudent = new JMenuItem("remove student");
+					createQuiz = new JMenuItem("Create quiz");
+					editQuiz = new JMenuItem("Edit quiz");
+					removeQuiz = new JMenuItem("Remove quiz");
+					removeCourse = new JMenuItem("Remove course");
+					addCourse = new JMenuItem("Add course");
+					registerStudent = new JMenuItem("Register student");
+					editStudent = new JMenuItem("Edit student");
+					removeStudent = new JMenuItem("Remove student");
 				}
 
 				public MouseAdapter treeMouseListener() {
@@ -763,8 +761,8 @@ public class InitialWindowController {
 
 					quizPopupMenu.remove(editQuiz);
 					quizPopupMenu.remove(removeQuiz);
-					editQuiz = new JMenuItem("edit quiz");
-					removeQuiz = new JMenuItem("remove quiz");
+					editQuiz = new JMenuItem("Edit quiz");
+					removeQuiz = new JMenuItem("Remove quiz");
 					if(editQuiz.getActionListeners().length==0)
 					editQuiz.addActionListener(new DialogsBtnsController.EditQuizBtnListener(chosenFileName));
 					final String quizName = chosenFileName;
@@ -796,7 +794,7 @@ public class InitialWindowController {
 
 				private JPopupMenu removeCoursePopupMenu(String chosenFileName) {
 					coursePopupMenu.remove(removeCourse);
-					removeCourse = new JMenuItem("remove course");
+					removeCourse = new JMenuItem("Remove course");
 					if(removeCourse.getActionListeners().length==0)
 					removeCourse.addActionListener(new RemoveCourseBtnListener(chosenFileName));
 					coursePopupMenu.add(removeCourse);
@@ -820,8 +818,8 @@ public class InitialWindowController {
 				private JPopupMenu StudentPopupMenu(String chosenFileName, String studentCourse) {
 					studentsFilePopupMenu.remove(removeStudent);
 					studentsFilePopupMenu.remove(editStudent);
-					removeStudent = new JMenuItem("remove student");
-					editStudent = new JMenuItem("edit student");
+					removeStudent = new JMenuItem("Remove student");
+					editStudent = new JMenuItem("Edit student");
 					removeStudent.addActionListener(new removeStudentBtnListener(chosenFileName, studentCourse));
 					editStudent.addActionListener(new RegisterStudentListener(chosenFileName, studentCourse));
 					studentsFilePopupMenu.add(removeStudent);
@@ -832,7 +830,7 @@ public class InitialWindowController {
 				private JPopupMenu newQuizPopupMenu(String courseName) {
 					final String courseN = courseName;
 					newQuizPopupMenu.remove(createQuiz);
-					createQuiz = new JMenuItem("create quiz");
+					createQuiz = new JMenuItem("Create quiz");
 					createQuiz.addActionListener(new ActionListener() {
 
 						public void actionPerformed(ActionEvent e) {
@@ -1007,7 +1005,7 @@ public class InitialWindowController {
 			CustomDialog dialog = new CustomDialog("<html><body>Please wait while your files are being <br>uploaded to your dropbox account</body></html>");
 			dialog.setTitle("Alert");
 			dialog.setVisible(true);
-			SwingWorker<Void, Void> recursiveDeleteDropboxFolder = new removeFromDropbox(dialog,SAVE_AND_EXIT);
+			SwingWorker<Void, Void> recursiveDeleteDropboxFolder = new removeFromDropbox(dialog,Constants.SAVE_AND_EXIT);
 			recursiveDeleteDropboxFolder.execute();
 		}
 	}

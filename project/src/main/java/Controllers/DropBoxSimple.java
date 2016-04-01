@@ -160,8 +160,7 @@ public class DropBoxSimple {
 							try {
 								api.createFolder(path + file.getName());
 							} catch (DropboxException e1) {
-								// TODO Auto-generated catch block
-								e1.printStackTrace();
+								// do nothing if folder already exists in dropbox
 							}
 					}
 				} catch (IOException e) {

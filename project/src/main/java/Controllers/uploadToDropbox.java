@@ -5,6 +5,8 @@ import java.io.File;
 import javax.swing.JOptionPane;
 import javax.swing.SwingWorker;
 
+import Entities.Constants;
+
 public class uploadToDropbox extends SwingWorker<Void, Void>{
 	private String source;
 	public uploadToDropbox(String source) {
@@ -24,7 +26,7 @@ public class uploadToDropbox extends SwingWorker<Void, Void>{
 		super.done();
 		DropBoxSimple.progressListener.dialog.setVisible(false);
 		JOptionPane.showMessageDialog(null, "Files Uploaded Successfully To Your Dropbox Account");
-		if(source.equals(InitialWindowController.SAVE_AND_EXIT))
+		if(source.equals(Constants.SAVE_AND_EXIT))
 		System.exit(0);
 	}
 
