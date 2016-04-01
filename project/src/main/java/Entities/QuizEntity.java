@@ -4,61 +4,69 @@ import java.io.File;
 import java.io.Serializable;
 
 public class QuizEntity implements Serializable{
-	private String name;
-	private File quizFolder;
-	private File quizFormFolder;
-	private File studentsAnswersFolder;
-	private int percentageFromFGrade;
-	public QuizEntity(String name) {
-		super();
-		this.name = name;
-	}
+	private String quizName;
+//	private File quizFolder;
+//	private File quizFormFolder;
+//	private File studentsAnswersFolder;
+//	private int percentageFromFGrade;
+	private String courseName;
+//	public QuizEntity(String name) {
+//		super();
+//		this.name = name;
+//	}
 	
-	public QuizEntity(String name, File quizFolder,File quizFormFolder, File studentsAnswersFolder, int percentageFromFGrade) {
+//	public QuizEntity(String name, File quizFolder,File quizFormFolder, File studentsAnswersFolder, int percentageFromFGrade) {
+//		super();
+//		this.name = name;
+//		this.quizFolder = quizFolder;
+//		this.quizFormFolder = quizFormFolder;
+//		this.studentsAnswersFolder = studentsAnswersFolder;
+//		this.percentageFromFGrade = percentageFromFGrade;
+//	}
+
+	public QuizEntity(String quizName, String courseName) {
 		super();
-		this.name = name;
-		this.quizFolder = quizFolder;
-		this.quizFormFolder = quizFormFolder;
-		this.studentsAnswersFolder = studentsAnswersFolder;
-		this.percentageFromFGrade = percentageFromFGrade;
+		this.quizName = quizName;
+		this.courseName = courseName;
 	}
 
 	public String getName() {
-		return name;
+		return quizName;
 	}
 	public void setName(String name) {
-		this.name = name;
+		this.quizName = name;
 	}
 	
 	public File getQuizFolder() {
-		return quizFolder;
+		return new File(Constants.ROOTPATH+courseName+"/Quizzes/"+quizName);
 	}
 
-	public void setQuizFolder(File quizFolder) {
-		this.quizFolder = quizFolder;
-	}
+//	public void setQuizFolder(File quizFolder) {
+//		this.quizFolder = quizFolder;
+//	}
 
-	public int getPercentageFromFGrade() {//////////////////set the value form the listener
-		return percentageFromFGrade;
-	}
-	public void setPercentageFromFGrade(int percentageFromFGrade) {
-		this.percentageFromFGrade = percentageFromFGrade;
-	}
+//	public int getPercentageFromFGrade() {//////////////////set the value form the listener
+//		return percentageFromFGrade;
+//	}
+//	public void setPercentageFromFGrade(int percentageFromFGrade) {
+//		this.percentageFromFGrade = percentageFromFGrade;
+//	}
 	
 	public File getQuizFormFolder() {
-		return quizFormFolder;
+		return new File(Constants.ROOTPATH+courseName+"/Quizzes/"+quizName+"/Form");
 	}
 
 	public File getStudentsAnswersFolder() {
-		return studentsAnswersFolder;
+		return new File(
+				Constants.ROOTPATH+courseName+"/Quizzes/"+quizName+"/StudentsAnswers");
 	}
 
-	public void setStudentsAnswersFolder(File studentsAnswersFolder) {
-		this.studentsAnswersFolder = studentsAnswersFolder;
-	}
-
-	public void setQuizFormFolder(File quizFormFolder) {
-		this.quizFormFolder = quizFormFolder;
-	}
+//	public void setStudentsAnswersFolder(File studentsAnswersFolder) {
+//		this.studentsAnswersFolder = studentsAnswersFolder;
+//	}
+//
+//	public void setQuizFormFolder(File quizFormFolder) {
+//		this.quizFormFolder = quizFormFolder;
+//	}
 	
 }
