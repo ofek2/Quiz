@@ -567,8 +567,8 @@ public class InitialWindowController {
 
 			public boolean createNewQuiz(String quizName, String courseName) {
 				File quizFolder;
-				File quizFormFolder;
-				File studentsFilesFolder;
+//				File quizFormFolder;
+//				File studentsFilesFolder;
 
 				if (quizName.isEmpty())
 				{
@@ -581,8 +581,8 @@ public class InitialWindowController {
 						quizFolder = new File(Constants.ROOTPATH + courseName
 								+ "/Quizzes/" + quizName);
 						if (!quizFolder.exists()) {
-							quizFormFolder = new File(quizFolder.getCanonicalPath() + "/Form");
-							studentsFilesFolder = new File(quizFolder.getCanonicalPath() + "/StudentsAnswers");
+//							quizFormFolder = new File(quizFolder.getCanonicalPath() + "/Form");
+//							studentsFilesFolder = new File(quizFolder.getCanonicalPath() + "/StudentsAnswers");
 							QuizCreationView quizCreationView = new QuizCreationView();
 							QuizEntity quizEntity = new QuizEntity(quizName, courseName);
 							new QuizCreationController(quizCreationView, quizEntity, view);
@@ -599,10 +599,12 @@ public class InitialWindowController {
 							return false;
 						}
 
-					} catch (IOException e1) {
-						// TODO Auto-generated catch block
-						e1.printStackTrace();
-					} catch (NullPointerException e1) {
+					} 
+//					catch (IOException e1) {
+//						// TODO Auto-generated catch block
+//						e1.printStackTrace();
+//					} 
+					catch (NullPointerException e1) {
 						// TODO Auto-generated catch block
 						e1.printStackTrace();
 					}
