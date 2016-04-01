@@ -4,6 +4,7 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.lang.reflect.Array;
+import java.net.URL;
 import java.util.ArrayList;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -39,10 +40,8 @@ public class HtmlBuilder {
 		DocumentBuilder builder = builderFactory.newDocumentBuilder();
 		document = builder.newDocument();
 		
-		ClassLoader classloader = Thread.currentThread().getContextClassLoader();
-		InputStream in = classloader.getResourceAsStream("HtmlHead.html");
-		
-	//	InputStream in = getClass().getClassLoader().getResourceAsStream("/HtmlHead.html");
+	
+		InputStream in = getClass().getResourceAsStream("/HtmlHead.html");
 		//InputStream in = new FileInputStream(new File("HtmlHead.html"));
 		parser = new HtmlParser(in);
 	
