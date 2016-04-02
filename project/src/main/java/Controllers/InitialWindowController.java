@@ -15,6 +15,7 @@ import java.io.IOException;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.util.ArrayList;
+
 import javax.swing.JComboBox;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
@@ -25,6 +26,7 @@ import javax.swing.JTree;
 import javax.swing.SwingWorker;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.TreePath;
+
 import Entities.Constants;
 import Entities.CourseEntity;
 import Entities.QuizEntity;
@@ -226,8 +228,10 @@ public class InitialWindowController {
 
 		class RegisterStudentListener implements ActionListener {
 			private boolean inEditMode;
+			private String studentCourse;
 			public RegisterStudentListener(String chosenFileName,
 					String studentCourse) {
+				this.studentCourse = studentCourse;
 				// TODO Auto-generated constructor stub
 				if (!chosenFileName.equals("")&&!studentCourse.equals("")) {
 					StudentEntity result;
@@ -263,13 +267,21 @@ public class InitialWindowController {
 				}
 				else
 				{
-					view.getRegisterStudentCourseCB().setSelectedIndex(0);
+					if (!studentCourse.equals("")) {
+						view.getRegisterStudentCourseCB().setSelectedItem(studentCourse);
+						view.getRegisterStudentCourseCB().setEditable(false);
+						view.getRegisterStudentCourseCB().setEnabled(false);
+					}
+					else
+					{
+						view.getRegisterStudentCourseCB().setSelectedIndex(0);
+						view.getRegisterStudentCourseCB().setEditable(true);
+						view.getRegisterStudentCourseCB().setEnabled(true);
+					}
 					view.getStudentId().setText("");
 					view.getStudentName().setText("");
 					view.getStudentEmail().setText("");
 					registerStudentDialog = new JDialog(MainFrameController.view, "Register Student Dialog");
-					view.getRegisterStudentCourseCB().setEditable(true);
-					view.getRegisterStudentCourseCB().setEnabled(true);
 				}
 				registerStudentDialog.setSize(270, 300);
 				registerStudentDialog.setLocationRelativeTo(MainFrameController.view);
@@ -735,7 +747,7 @@ public class InitialWindowController {
 									else if (selectedNode.getParent().getParent().toString()
 											.equals("OnlineQuizChecker")) {
 										if (chosenFileName.equals("Students"))
-											view.getTree().setComponentPopupMenu(registerStudentPopupMenu());
+											view.getTree().setComponentPopupMenu(registerStudentPopupMenu(selectedNode.getParent().toString()));
 										else if (chosenFileName.equals("Quizzes"))
 											view.getTree().setComponentPopupMenu(
 													newQuizPopupMenu(selectedNode.getParent().toString()));
@@ -763,11 +775,9 @@ public class InitialWindowController {
 					quizPopupMenu.remove(removeQuiz);
 					editQuiz = new JMenuItem("Edit quiz");
 					removeQuiz = new JMenuItem("Remove quiz");
-					if(editQuiz.getActionListeners().length==0)
 					editQuiz.addActionListener(new DialogsBtnsController.EditQuizBtnListener(chosenFileName));
 					final String quizName = chosenFileName;
 					final String quizCourseName = courseName;
-					if(removeQuiz.getActionListeners().length==0)
 					removeQuiz.addActionListener(new ActionListener() {
 
 						public void actionPerformed(ActionEvent e) {
@@ -795,7 +805,6 @@ public class InitialWindowController {
 				private JPopupMenu removeCoursePopupMenu(String chosenFileName) {
 					coursePopupMenu.remove(removeCourse);
 					removeCourse = new JMenuItem("Remove course");
-					if(removeCourse.getActionListeners().length==0)
 					removeCourse.addActionListener(new RemoveCourseBtnListener(chosenFileName));
 					coursePopupMenu.add(removeCourse);
 					return coursePopupMenu;
@@ -808,10 +817,11 @@ public class InitialWindowController {
 					return rootPopupMenu;
 				}
 
-				private JPopupMenu registerStudentPopupMenu() {
+				private JPopupMenu registerStudentPopupMenu(String studentCourse) {
+					studentsFolderPopupMenu.remove(registerStudent);
+					registerStudent = new JMenuItem("Register student");					
+					registerStudent.addActionListener(new RegisterStudentListener("",studentCourse));
 					studentsFolderPopupMenu.add(registerStudent);
-					if(registerStudent.getActionListeners().length==0)
-					registerStudent.addActionListener(new RegisterStudentListener("",""));
 					return studentsFolderPopupMenu;
 				}
 
