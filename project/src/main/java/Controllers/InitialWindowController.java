@@ -39,20 +39,51 @@ import Views.QuizCreationView;
 import Views.ReportsView;
 import project.ObjectFileManager;
 
+/**
+ * The Class InitialWindowController.
+ * This class controls the InitialWindowView events.
+ * Meant for managing the user's (a lecturer) courses, quizzes, students and students' grades.
+ */
 public class InitialWindowController {
+	
+	/** The view. */
 	private InitialWindowView view;
 
+	/** The menu controller. */
 	private MenuController menuController;
+	
+	/** The courses files. */
 	public static ArrayList<CourseEntity> coursesFiles;
+	
+	/** The ids edit add item listener. */
 	private coursesIdsEditAddItemListener idsEditAddItemListener;
+	
+	/** The remove student course add item listener. */
 	private removeStudentCourseCBAddItemListener removeStudentCourseAddItemListener;
+	
+	/** The remove students ids add item listener. */
 	private removeStudentsIdsCBAddItemListener removeStudentsIdsAddItemListener;
+	
+	/** The course id grade item listener. */
 	private courseIdGradeItemListener courseIdGradeItemListener;
+	
+	/** The register student dialog. */
 	public JDialog registerStudentDialog;
+	
+	/** The remove student dialog. */
 	public JDialog removeStudentDialog;
+	
+	/** The window listener. */
 	public static windowListener windowListener;
+	
+	/** The editing previous student id. */
 	public String editingPreviousStudentId = "";
 
+	/**
+	 * Instantiates a new initial window controller.
+	 *
+	 * @param view the view
+	 */
 	public InitialWindowController(InitialWindowView view) {
 
 		this.view = view;
@@ -64,6 +95,9 @@ public class InitialWindowController {
 		addListeners();
 	}
 
+	/**
+	 * Adds the listeners.
+	 */
 	private void addListeners() {
 
 		idsEditAddItemListener = new coursesIdsEditAddItemListener();
@@ -78,16 +112,34 @@ public class InitialWindowController {
 
 	}
 
+	/**
+	 * The Class MenuController.
+	 * This class controls the events of the menu bar in InitialWindowView.
+	 */
 	// Initial Window Menu Action Listeners
 	class MenuController {
+		
+		/** The new quiz dialog. */
 		public JDialog newQuizDialog;
+		
+		/** The edit quizdialog. */
 		public JDialog editQuizdialog;
+		
+		/** The new course dialog. */
 		public JDialog newCourseDialog;
+		
+		/** The remove course dialog. */
 		public JDialog removeCourseDialog;
+		
+		/** The grade quiz dialog. */
 		public JDialog gradeQuizDialog;
 
+		/** The dialogs btns controller. */
 		private DialogsBtnsController dialogsBtnsController;
 
+		/**
+		 * Instantiates a new menu controller.
+		 */
 		public MenuController() {
 
 			ActionListener[] quizMngmntListeners = { new NewQuizListener(), new EditQuizListener(),
@@ -99,7 +151,15 @@ public class InitialWindowController {
 			dialogsBtnsController = new DialogsBtnsController();
 		}
 		
+		/**
+		 * Listener for new quiz menu option events
+		 * @see NewQuizEvent
+		 */
 		class NewQuizListener implements ActionListener {
+			
+			/* (non-Javadoc)
+			 * @see java.awt.event.ActionListener#actionPerformed(java.awt.event.ActionEvent)
+			 */
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
 				if(InitialWindowController.coursesFiles.size()==0)
@@ -119,8 +179,15 @@ public class InitialWindowController {
 
 		}
 		
+		/**
+		 * Listener for edit quiz menu option events
+		 * @see EditQuizEvent
+		 */
 		class EditQuizListener implements ActionListener {
 
+			/* (non-Javadoc)
+			 * @see java.awt.event.ActionListener#actionPerformed(java.awt.event.ActionEvent)
+			 */
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
 
@@ -143,8 +210,15 @@ public class InitialWindowController {
 
 		}
 
+		/**
+		 * Listener for grade quiz menu option events
+		 * @see GradeQuizEvent
+		 */
 		class GradeQuizListener implements ActionListener {
 
+			/* (non-Javadoc)
+			 * @see java.awt.event.ActionListener#actionPerformed(java.awt.event.ActionEvent)
+			 */
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
 				if(InitialWindowController.coursesFiles.size()==0)
@@ -167,8 +241,15 @@ public class InitialWindowController {
 
 		}
 
+		/**
+		 * Listener for reports menu option events
+		 * @see ReportsEvent
+		 */
 		class ReportsListener implements ActionListener {
 
+			/* (non-Javadoc)
+			 * @see java.awt.event.ActionListener#actionPerformed(java.awt.event.ActionEvent)
+			 */
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
 				ReportsView reportsView = new ReportsView();
@@ -177,9 +258,17 @@ public class InitialWindowController {
 			}
 
 		}
+		
+		/**
+			 * Listener for save files menu option events
+		 * @see SaveFilesEvent
+		 */
 		class SaveFilesListener implements ActionListener
 		{
 
+			/* (non-Javadoc)
+			 * @see java.awt.event.ActionListener#actionPerformed(java.awt.event.ActionEvent)
+			 */
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
@@ -191,8 +280,16 @@ public class InitialWindowController {
 			}
 			
 		}
+		
+		/**
+		 * Listener for add course menu option events
+		 * @see AddCourseEvent
+		 */
 		class AddCourseListener implements ActionListener {
 
+			/* (non-Javadoc)
+			 * @see java.awt.event.ActionListener#actionPerformed(java.awt.event.ActionEvent)
+			 */
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
 
@@ -206,8 +303,15 @@ public class InitialWindowController {
 
 		}
 
+		/**
+		 * Listener for remove course menu option events
+		 * @see RemoveCourseEvent
+		 */
 		class RemoveCourseListener implements ActionListener {
 
+			/* (non-Javadoc)
+			 * @see java.awt.event.ActionListener#actionPerformed(java.awt.event.ActionEvent)
+			 */
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
 				if(InitialWindowController.coursesFiles.size()==0)
@@ -226,9 +330,24 @@ public class InitialWindowController {
 
 		}
 
+		/**
+		 * Listener for register student menu option events
+		 * @see RegisterStudentEvent
+		 */
 		class RegisterStudentListener implements ActionListener {
+			
+			/** The in edit mode. */
 			private boolean inEditMode;
+			
+			/** The student course. */
 			private String studentCourse;
+			
+			/**
+			 * Instantiates a new register student listener.
+			 *
+			 * @param chosenFileName the chosen file name
+			 * @param studentCourse the student course
+			 */
 			public RegisterStudentListener(String chosenFileName,
 					String studentCourse) {
 				this.studentCourse = studentCourse;
@@ -252,6 +371,9 @@ public class InitialWindowController {
 				}
 			}
 
+			/* (non-Javadoc)
+			 * @see java.awt.event.ActionListener#actionPerformed(java.awt.event.ActionEvent)
+			 */
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
 				if(InitialWindowController.coursesFiles.size()==0)
@@ -292,8 +414,15 @@ public class InitialWindowController {
 			}
 		}
 
+		/**
+		 * Listener for remove student menu option events
+		 * @see RemoveStudentEvent
+		 */
 		class RemoveStudentListener implements ActionListener {
 
+			/* (non-Javadoc)
+			 * @see java.awt.event.ActionListener#actionPerformed(java.awt.event.ActionEvent)
+			 */
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
 				if(InitialWindowController.coursesFiles.size()==0)
@@ -316,9 +445,18 @@ public class InitialWindowController {
 
 		}
 
+		/**
+		 * The Class DialogsBtnsController.
+		 * This class handles the InitialWindowView dialogs buttons events.
+		 */
 		class DialogsBtnsController {
+			
+			/** The pop up menus controller. */
 			private PopUpMenusController popUpMenusController;
 
+			/**
+			 * Instantiates a new dialogs btns controller.
+			 */
 			public DialogsBtnsController() {
 				view.createQuizBtnAddListener(new CreateQuizBtnListener());
 				view.editQuizBtnAddListener(new EditQuizBtnListener());
@@ -330,22 +468,49 @@ public class InitialWindowController {
 				popUpMenusController = new PopUpMenusController();
 			}
 
+			/**
+			 * Listener for remove student button click event
+			 * @see removeStudentBtnEvent
+			 */
 			class removeStudentBtnListener implements ActionListener {
+				
+				/** The student id. */
 				private String studentId;
+				
+				/** The student course. */
 				private String studentCourse;
+				
+				/** The pop up menu flag. */
 				private int popUpMenuFlag;
+				
+				/** The student file. */
 				private File studentFile;
+				
+				/** The student answer. */
 				private File studentAnswer;
+				
+				/**
+				 * Instantiates a new removes the student btn listener.
+				 */
 				public removeStudentBtnListener() {
 					popUpMenuFlag = 0;
 				}
 
+				/**
+				 * Instantiates a new removes the student btn listener.
+				 *
+				 * @param studentId the student id
+				 * @param studentCourse the student course
+				 */
 				public removeStudentBtnListener(String studentId, String studentCourse) {
 					this.studentId = studentId;
 					this.studentCourse = studentCourse;
 					popUpMenuFlag = 1;
 				}
 
+				/* (non-Javadoc)
+				 * @see java.awt.event.ActionListener#actionPerformed(java.awt.event.ActionEvent)
+				 */
 				public void actionPerformed(ActionEvent e) {
 					// TODO Auto-generated method stub
 					try {
@@ -382,9 +547,21 @@ public class InitialWindowController {
 
 			}
 
+			/**
+			 * Listener for register student button click event
+			 * @see registerStudentBtnEvent
+			 */
 			class registerStudentBtnListener implements ActionListener {
+				
+				/** The over write. */
 				private int overWrite = JOptionPane.YES_OPTION;
+				
+				/** The existing student. */
 				private StudentEntity existingStudent;
+				
+				/* (non-Javadoc)
+				 * @see java.awt.event.ActionListener#actionPerformed(java.awt.event.ActionEvent)
+				 */
 				public void actionPerformed(ActionEvent e) {
 					// TODO Auto-generated method stub
 					try {
@@ -452,14 +629,33 @@ public class InitialWindowController {
 
 			}
 
+			/**
+			 * Listener for create course button click event
+			 * @see CreateCourseBtnEvent
+			 */
 			class CreateCourseBtnListener implements ActionListener {
+				
+				/** The course folder. */
 				private File courseFolder;
+				
+				/** The course id. */
 				private String courseId;
+				
+				/** The course name. */
 				private String courseName;
+				
+				/** The course entity. */
 				private CourseEntity courseEntity;
+				
+				/** The students folder. */
 				private File studentsFolder;
+				
+				/** The quizzes folder. */
 				private File quizzesFolder;
 
+				/* (non-Javadoc)
+				 * @see java.awt.event.ActionListener#actionPerformed(java.awt.event.ActionEvent)
+				 */
 				public void actionPerformed(ActionEvent e) {
 					// TODO Auto-generated method stub
 					courseName = view.getNewCourseName().getText();
@@ -501,19 +697,38 @@ public class InitialWindowController {
 
 			}
 
+			/**
+			 * Listener for edit quiz button click event
+			 * @see EditQuizBtnEvent
+			 */
 			public class EditQuizBtnListener implements ActionListener {
+				
+				/** The quiz name. */
 				private String quizName;
+				
+				/** The pop up menu flag. */
 				private int popUpMenuFlag;
 
+				/**
+				 * Instantiates a new edits the quiz btn listener.
+				 */
 				public EditQuizBtnListener() {
 					popUpMenuFlag = 0;
 				}
 
+				/**
+				 * Instantiates a new edits the quiz btn listener.
+				 *
+				 * @param quizName the quiz name
+				 */
 				public EditQuizBtnListener(String quizName) {
 					this.quizName = quizName;
 					popUpMenuFlag = 1;
 				}
 
+				/* (non-Javadoc)
+				 * @see java.awt.event.ActionListener#actionPerformed(java.awt.event.ActionEvent)
+				 */
 				public void actionPerformed(ActionEvent e) {
 					// TODO Auto-generated method stub
 					// read object from file
@@ -550,10 +765,21 @@ public class InitialWindowController {
 
 			}
 
+			/**
+			 * Listener for create quiz button click event
+			 * @see CreateQuizBtnEvent
+			 */
 			class CreateQuizBtnListener implements ActionListener {
+				
+				/** The quiz name. */
 				private String quizName;
+				
+				/** The course name. */
 				private String courseName;
 
+				/* (non-Javadoc)
+				 * @see java.awt.event.ActionListener#actionPerformed(java.awt.event.ActionEvent)
+				 */
 				public void actionPerformed(ActionEvent e) {
 					// TODO Auto-generated method stub
 					quizName = view.getNewQuizName().getText();
@@ -564,6 +790,13 @@ public class InitialWindowController {
 				}
 			}
 
+			/**
+			 * Creates the new quiz.
+			 *
+			 * @param quizName the quiz name
+			 * @param courseName the course name
+			 * @return true, if successful
+			 */
 			public boolean createNewQuiz(String quizName, String courseName) {
 				File quizFolder;
 //				File quizFormFolder;
@@ -611,20 +844,41 @@ public class InitialWindowController {
 				return false;
 			}
 
+			/**
+			 * Listener for remove course button click event
+			 * @see RemoveCourseBtnEvent
+			 */
 			class RemoveCourseBtnListener implements ActionListener {
+				
+				/** The course name. */
 				private String courseName;
+				
+				/** The pop up menu flag. */
 				private int popUpMenuFlag;
+				
+				/** The course folder. */
 				private File courseFolder;
 
+				/**
+				 * Instantiates a new removes the course btn listener.
+				 */
 				public RemoveCourseBtnListener() {
 					popUpMenuFlag = 0;
 				}
 
+				/**
+				 * Instantiates a new removes the course btn listener.
+				 *
+				 * @param courseName the course name
+				 */
 				public RemoveCourseBtnListener(String courseName) {
 					this.courseName = courseName;
 					popUpMenuFlag = 1;
 				}
 
+				/* (non-Javadoc)
+				 * @see java.awt.event.ActionListener#actionPerformed(java.awt.event.ActionEvent)
+				 */
 				public void actionPerformed(ActionEvent e) {
 					// TODO Auto-generated method stub
 					if(JOptionPane.showConfirmDialog(MainFrameController.view, "Are you sure you want to delete this course?") == JOptionPane.YES_OPTION)
@@ -646,8 +900,15 @@ public class InitialWindowController {
 
 			}
 
+			/**
+			 * Listener for grade quiz button click event
+			 * @see gradeQuizBtnEvent
+			 */
 			class gradeQuizBtnListener implements ActionListener {
 
+				/* (non-Javadoc)
+				 * @see java.awt.event.ActionListener#actionPerformed(java.awt.event.ActionEvent)
+				 */
 				public void actionPerformed(ActionEvent e) {
 					try {
 
@@ -682,6 +943,13 @@ public class InitialWindowController {
 			}
 
 			// public void initiateGradingProcess(ArrayList<StudentQuizEntity>
+			/**
+			 * Initiate grading process.
+			 *
+			 * @param students the students
+			 * @param studentsQuizzesPaths the students quizzes paths
+			 * @param originalQuizFormPath the original quiz form path
+			 */
 			// students) {
 			public void initiateGradingProcess(ArrayList<String> students, ArrayList<String> studentsQuizzesPaths,
 					String originalQuizFormPath) {
@@ -693,23 +961,58 @@ public class InitialWindowController {
 				gradingWindowController.loadStudentsToTable(students, studentsQuizzesPaths, originalQuizFormPath);
 			}
 
+			/**
+			 * The Class PopUpMenusController.
+			 * This class handles the pop up menus attached to the main JTree of 
+			 * InitialWindowView.
+			 */
 			class PopUpMenusController {
+				
+				/** The new quiz popup menu. */
 				private JPopupMenu newQuizPopupMenu;
+				
+				/** The quiz popup menu. */
 				private JPopupMenu quizPopupMenu;
+				
+				/** The course popup menu. */
 				private JPopupMenu coursePopupMenu;
+				
+				/** The root popup menu. */
 				private JPopupMenu rootPopupMenu;
+				
+				/** The students folder popup menu. */
 				private JPopupMenu studentsFolderPopupMenu;
+				
+				/** The students file popup menu. */
 				private JPopupMenu studentsFilePopupMenu;
 
+				/** The create quiz item. */
 				private JMenuItem createQuiz;
+				
+				/** The edit quiz item. */
 				private JMenuItem editQuiz;
+				
+				/** The remove quiz item. */
 				private JMenuItem removeQuiz;
+				
+				/** The remove course item. */
 				private JMenuItem removeCourse;
+				
+				/** The add course item. */
 				private JMenuItem addCourse;
+				
+				/** The register student item. */
 				private JMenuItem registerStudent;
+				
+				/** The edit student item. */
 				private JMenuItem editStudent;
+				
+				/** The remove student item. */
 				private JMenuItem removeStudent;
 
+				/**
+				 * Instantiates a new pop up menus controller.
+				 */
 				public PopUpMenusController() {
 					newQuizPopupMenu = new JPopupMenu();
 					quizPopupMenu = new JPopupMenu();
@@ -728,6 +1031,11 @@ public class InitialWindowController {
 					removeStudent = new JMenuItem("Remove student");
 				}
 
+				/**
+				 * Tree mouse listener.
+				 *
+				 * @return the mouse adapter
+				 */
 				public MouseAdapter treeMouseListener() {
 					MouseAdapter adapter;
 					return adapter = new MouseAdapter() {
@@ -769,6 +1077,13 @@ public class InitialWindowController {
 
 				}
 
+				/**
+				 * Quiz popup menu.
+				 *
+				 * @param chosenFileName the chosen file name
+				 * @param courseName the course name
+				 * @return the j popup menu
+				 */
 				private JPopupMenu quizPopupMenu(String chosenFileName, String courseName) {
 
 					quizPopupMenu.remove(editQuiz);
@@ -802,6 +1117,12 @@ public class InitialWindowController {
 					return quizPopupMenu;
 				}
 
+				/**
+				 * Removes the course popup menu.
+				 *
+				 * @param chosenFileName the chosen file name
+				 * @return the j popup menu
+				 */
 				private JPopupMenu removeCoursePopupMenu(String chosenFileName) {
 					coursePopupMenu.remove(removeCourse);
 					removeCourse = new JMenuItem("Remove course");
@@ -810,6 +1131,11 @@ public class InitialWindowController {
 					return coursePopupMenu;
 				}
 
+				/**
+				 * Root popup menu.
+				 *
+				 * @return the j popup menu
+				 */
 				private JPopupMenu rootPopupMenu() {
 					rootPopupMenu.add(addCourse);
 					if(addCourse.getActionListeners().length==0)
@@ -817,6 +1143,12 @@ public class InitialWindowController {
 					return rootPopupMenu;
 				}
 
+				/**
+				 * Register student popup menu.
+				 *
+				 * @param studentCourse the student course
+				 * @return the j popup menu
+				 */
 				private JPopupMenu registerStudentPopupMenu(String studentCourse) {
 					studentsFolderPopupMenu.remove(registerStudent);
 					registerStudent = new JMenuItem("Register student");					
@@ -825,6 +1157,13 @@ public class InitialWindowController {
 					return studentsFolderPopupMenu;
 				}
 
+				/**
+				 * Student popup menu.
+				 *
+				 * @param chosenFileName the chosen file name
+				 * @param studentCourse the student course
+				 * @return the j popup menu
+				 */
 				private JPopupMenu StudentPopupMenu(String chosenFileName, String studentCourse) {
 					studentsFilePopupMenu.remove(removeStudent);
 					studentsFilePopupMenu.remove(editStudent);
@@ -837,6 +1176,12 @@ public class InitialWindowController {
 					return studentsFilePopupMenu;
 				}
 
+				/**
+				 * New quiz popup menu.
+				 *
+				 * @param courseName the course name
+				 * @return the j popup menu
+				 */
 				private JPopupMenu newQuizPopupMenu(String courseName) {
 					final String courseN = courseName;
 					newQuizPopupMenu.remove(createQuiz);
@@ -870,10 +1215,21 @@ public class InitialWindowController {
 				}
 			}
 
+			/**
+			 * Gets the pop up menus controller.
+			 *
+			 * @return the pop up menus controller
+			 */
 			public PopUpMenusController getPopUpMenusController() {
 				return popUpMenusController;
 			}
 
+			/**
+			 * Update students entity quizzes.
+			 *
+			 * @param file the file
+			 * @param quizName the quiz name
+			 */
 			public void updateStudentsEntityQuizzes(File file, String quizName) {
 				for (File child : file.listFiles()) {
 					try {
@@ -892,8 +1248,15 @@ public class InitialWindowController {
 		}
 	}
 
+	/**
+	 * Item Listener for the JComboBox that holds the courses ids in the removeStudentDialog.
+	 * @see removeStudentCourseCBAddItemEvent
+	 */
 	class removeStudentCourseCBAddItemListener implements ItemListener {
 
+		/* (non-Javadoc)
+		 * @see java.awt.event.ItemListener#itemStateChanged(java.awt.event.ItemEvent)
+		 */
 		public void itemStateChanged(ItemEvent e) {
 			// TODO Auto-generated method stub
 			JComboBox temp = (JComboBox) e.getSource();
@@ -904,8 +1267,15 @@ public class InitialWindowController {
 
 	}
 
+	/**
+	 * Item Listener for the JComboBox that holds the students' ids in the removeStudentDialog.
+	 * @see removeStudentsIdsCBAddItemEvent
+	 */
 	class removeStudentsIdsCBAddItemListener implements ItemListener {
 
+		/* (non-Javadoc)
+		 * @see java.awt.event.ItemListener#itemStateChanged(java.awt.event.ItemEvent)
+		 */
 		public void itemStateChanged(ItemEvent e) {
 			// TODO Auto-generated method stub
 			JComboBox temp = (JComboBox) e.getSource();
@@ -924,8 +1294,15 @@ public class InitialWindowController {
 
 	}
 
+	/**
+	 * Item Listener for the JComboBox that holds the courses ids in the editQuizDialog.
+	 * @see coursesIdsEditAddItemEvent
+	 */
 	class coursesIdsEditAddItemListener implements ItemListener {
 
+		/* (non-Javadoc)
+		 * @see java.awt.event.ItemListener#itemStateChanged(java.awt.event.ItemEvent)
+		 */
 		public void itemStateChanged(ItemEvent e) {
 			// TODO Auto-generated method stub
 			JComboBox temp = (JComboBox) e.getSource();
@@ -936,8 +1313,15 @@ public class InitialWindowController {
 
 	}
 
+	/**
+	 * Item Listener for the JComboBox that holds the courses ids in the gradeQuizDialog.
+	 * @see courseIdGradeItemEvent
+	 */
 	class courseIdGradeItemListener implements ItemListener {
 
+		/* (non-Javadoc)
+		 * @see java.awt.event.ItemListener#itemStateChanged(java.awt.event.ItemEvent)
+		 */
 		public void itemStateChanged(ItemEvent e) {
 			// TODO Auto-generated method stub
 			JComboBox temp = (JComboBox) e.getSource();
@@ -948,6 +1332,11 @@ public class InitialWindowController {
 
 	}
 
+	/**
+	 * Removes the folder.
+	 *
+	 * @param file the file
+	 */
 	public void removeFolder(File file) {
 		if (file.isDirectory())
 			for (File child : file.listFiles())
@@ -955,6 +1344,12 @@ public class InitialWindowController {
 		file.delete();
 	}
 
+	/**
+	 * Gets the quizzes folder.
+	 *
+	 * @param selectedIndex the selected index
+	 * @return the quizzes folder
+	 */
 	public File[] getQuizzesFolder(int selectedIndex) {
 
 		File[] courseFiles = coursesFiles.get(selectedIndex).getCourseFolder().listFiles();
@@ -964,6 +1359,9 @@ public class InitialWindowController {
 		return null;
 	}
 
+	/**
+	 * Courses update.
+	 */
 	public void coursesUpdate() {
 		view.getCoursesIds().removeAllItems();
 		view.getRemoveCourses().removeAllItems();
@@ -1005,12 +1403,18 @@ public class InitialWindowController {
 
 	}
 
+	/**
+	 * Listener for the main frame buttons ("x" button ).
+	 * @see windowEvent
+	 */
 	class windowListener extends WindowAdapter implements Serializable {
-		/**
-		 * 
-		 */
+		
+		/** The Constant serialVersionUID. */
 		private static final long serialVersionUID = 1L;
 
+		/* (non-Javadoc)
+		 * @see java.awt.event.WindowAdapter#windowClosing(java.awt.event.WindowEvent)
+		 */
 		public void windowClosing(WindowEvent e) {
 			CustomDialog dialog = new CustomDialog("<html><body>Please wait while your files are being <br>uploaded to your dropbox account</body></html>");
 			dialog.setTitle("Alert");

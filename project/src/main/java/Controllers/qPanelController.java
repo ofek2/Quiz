@@ -26,26 +26,61 @@ import Entities.QuizEntity;
 import Views.QuizCreationView;
 import Views.qPanel;
 
+/**
+ * The Class qPanelController.
+ * This class controls a qPanel events.
+ */
 public class qPanelController implements Serializable{
-	/**
-	 * 
-	 */
+	
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 1L;
 
+	/** The view. */
 	public qPanel view;
 
+	/** The quiz entity. */
 	private QuizEntity quizEntity;
+	
+	/** The parent view. */
 	private QuizCreationView parentView;
+	
+	/** The question file chooser. */
 	private transient JFileChooser qFileChooser;
+	
+	/** The answer file chooser. */
 	private transient JFileChooser aFileChooser;
+	
+	/** The quiz path. */
 	private static String quizPath;
+	
+	/** The question img file. */
 	private File qImgFile;
+	
+	/** The answer img file. */
 	private File aImgFile;
+	
+	/** The file extension. */
 	private static String fileExtension;
+	
+	/** The question image icon. */
 	private JLabel qImageIcon=null;
+	
+	/** The question img path. */
 	private String questionImgPath;
+	
+	/** The answer img path. */
 	private String answerImgPath;
+	
+	/** The text item listener. */
 	public static textItemListener textItemListener;
+	
+	/**
+	 * Instantiates a new q panel controller.
+	 *
+	 * @param view the view
+	 * @param parentView the parent view
+	 * @param quizEntity the quiz entity
+	 */
 	public qPanelController(qPanel view,QuizCreationView parentView,QuizEntity quizEntity) {
 		this.view = view;
 		this.parentView=parentView;
@@ -73,12 +108,20 @@ public class qPanelController implements Serializable{
 		aImgFile=null;
 		
 	}
-	public void intializefilechoosers()
+	
+	/**
+	 * Initialize the file choosers.
+	 */
+	public void initializeFileChoosers()
 	{
 		this.view.initializeJFileChoosers();
 		qFileChooser=this.view.getQuestionFileChooser();
 		aFileChooser=this.view.getAnswerFileChooser();
 	}
+	
+	/**
+	 * Set the question panel listeners.
+	 */
 	private void setqPanelListeners()
 	{
 		view.addTextAreaQKeyListener(qPanelController.textItemListener);
@@ -93,63 +136,58 @@ public class qPanelController implements Serializable{
 		});	
 	}
 	
-//	public static void setcheckboxFieldActionListeners(Component comp)
-//	{
-//		for (Component item : ((Container) comp).getComponents()){
-//			
-//            if ((item.getClass() == JTextField.class)){
-//            	JTextField textFiled = (JTextField) item;
-//            	textFiled.addKeyListener(textItemListener);
-//            }
-//            if ((item.getClass() == JCheckBox.class)){
-//            	JCheckBox checkBox = (JCheckBox) item;
-//            	checkBox.addActionListener(new ActionListener() {
-//					
-//					public void actionPerformed(ActionEvent e) {
-//						// TODO Auto-generated method stub
-//						QuizCreationController.saveFlag=0;
-//					}
-//				});
-//            }
-//            
-//            if( item instanceof Container ) {
-//                Component[] comps = ( (Container) item ).getComponents();
-//                for( Component c : comps ) {
-//                	setcheckboxFieldActionListeners(c);
-//                }
-//            }
-//        }
+/**
+ *
+ * @see textItemEvent
+ */
 //	}
 	public class textItemListener implements KeyListener,Serializable
 	{
-		/**
-		 * 
-		 */
+		
+		/** The Constant serialVersionUID. */
 		private static final long serialVersionUID = 1L;
 
+		/* (non-Javadoc)
+		 * @see java.awt.event.KeyListener#keyTyped(java.awt.event.KeyEvent)
+		 */
 		public void keyTyped(KeyEvent e) {
 			// TODO Auto-generated method stub
 			
 		}
 		
+		/* (non-Javadoc)
+		 * @see java.awt.event.KeyListener#keyReleased(java.awt.event.KeyEvent)
+		 */
 		public void keyReleased(KeyEvent e) {
 			// TODO Auto-generated method stub
 			
 		}
 		
+		/* (non-Javadoc)
+		 * @see java.awt.event.KeyListener#keyPressed(java.awt.event.KeyEvent)
+		 */
 		public void keyPressed(KeyEvent e) {
 			// TODO Auto-generated method stub
 			QuizCreationController.saveFlag=0;
 		}
 	}
 	
+	/**
+	 * Listener for the remove image button 
+	 * @see removeBtnEvent
+	 */
 	class removeBtnListener implements ActionListener,Serializable
 	{
-		/**
-		 * 
-		 */
+		
+		/** The Constant serialVersionUID. */
 		private static final long serialVersionUID = 1L;
+		
+		/** The buffered image. */
 		private transient BufferedImage bufferedImage;
+		
+		/* (non-Javadoc)
+		 * @see java.awt.event.ActionListener#actionPerformed(java.awt.event.ActionEvent)
+		 */
 		public void actionPerformed(ActionEvent e) {
 			QuizCreationController.saveFlag=0;
 			parentView.panel.remove(view);
@@ -157,16 +195,10 @@ public class qPanelController implements Serializable{
 			MainFrameController.view.repaint();
 			if(qImgFile!=null && qImgFile.exists())
 			{
-//				qImgFile=null;
-//				questionImgPath="";
-//				qImgFile.delete();
 				renameQuestionImage();				
 			}
 			if(aImgFile!=null && aImgFile.exists())
 			{
-//				aImgFile.delete();
-//				aImgFile=null;	
-//				answerImgPath="";
 				renameAnswerImage();
 			}
 			QuizCreationController.qPanels.remove(view.getQuestionNumber()-1);		
@@ -175,31 +207,12 @@ public class qPanelController implements Serializable{
 				QuizCreationController.qPanels.get(i).view.setQuestionNumber(i+1);
 				QuizCreationController.qPanels.get(i).view.getQuestionLbl().setText("Question"+(i+1));
 
-				
-//				try {
-//					if(QuizCreationController.qPanels.get(i).qImgFile!=null){
-//					File tempFile = new File(QuizCreationController.qPanels.get(i).quizPath+"/"+
-//							"Question"+(i+1)+".PNG");
-//					bufferedImage = ImageIO.read(QuizCreationController.qPanels.get(i).qImgFile);
-//					ImageIO.write(bufferedImage,QuizCreationController.qPanels.get(i).fileExtension , tempFile);
-//					QuizCreationController.qPanels.get(i).qImgFile.delete();
-//					QuizCreationController.qPanels.get(i).qImgFile=tempFile;
-//					}
-//					if(QuizCreationController.qPanels.get(i).aImgFile!=null){
-//					File tempFile = new File(QuizCreationController.qPanels.get(i).quizPath+"/"+
-//							"Answer"+(i+1)+".PNG");
-//					bufferedImage = ImageIO.read(QuizCreationController.qPanels.get(i).aImgFile);
-//					ImageIO.write(bufferedImage,QuizCreationController.qPanels.get(i).fileExtension , tempFile);
-//					QuizCreationController.qPanels.get(i).aImgFile.delete();
-//					QuizCreationController.qPanels.get(i).aImgFile=tempFile;
-//					}
-//				} catch (IOException e1) {
-//					// TODO Auto-generated catch block
-//					e1.printStackTrace();
-//				}	
-				
 			}
 		}
+			
+			/**
+			 * Fix colors to match the sequence Blue - Orange - Blue - Orange...
+			 */
 			private void fixColors() {
 				for(int i=0;i<QuizCreationController.qPanels.size();i++)
 				{
@@ -213,14 +226,20 @@ public class qPanelController implements Serializable{
 			
 		
 	}
+	
+	/**
+	 * Item Listener for answer type JComboBox
+	 * @see aTypeItemEvent
+	 */
 	class aTypeItemListener implements ItemListener,Serializable
 	{
 
-		/**
-		 * 
-		 */
+		/** The Constant serialVersionUID. */
 		private static final long serialVersionUID = 1L;
 
+		/* (non-Javadoc)
+		 * @see java.awt.event.ItemListener#itemStateChanged(java.awt.event.ItemEvent)
+		 */
 		public void itemStateChanged(ItemEvent e) {
 			 CardLayout cl = (CardLayout)(view.getAnswerPanel().getLayout());
 			    cl.show(view.getAnswerPanel(), (String)e.getItem());
@@ -231,14 +250,20 @@ public class qPanelController implements Serializable{
 		}
 		
 	}
+	
+	/**
+	 * 
+	 * @see listenChkBoxEvent
+	 */
 	class listenChkBoxListener implements ActionListener,Serializable
 	{
 
-		/**
-		 * 
-		 */
+		/** The Constant serialVersionUID. */
 		private static final long serialVersionUID = 1L;
 
+		/* (non-Javadoc)
+		 * @see java.awt.event.ActionListener#actionPerformed(java.awt.event.ActionEvent)
+		 */
 		public void actionPerformed(ActionEvent e) {
 			if(view.getListenChkBox().isSelected())
 			{
@@ -252,17 +277,31 @@ public class qPanelController implements Serializable{
 		
 	}
 	
+	/**
+	 * Listener for question as an image browse button
+	 * @see qBrowseBtnEvent
+	 */
 	class qBrowseBtnListener implements ActionListener,Serializable
 	{
-		/**
-		 * 
-		 */
+		
+		/** The Constant serialVersionUID. */
 		private static final long serialVersionUID = 1L;
+		
+		/** The return val. */
 		private int returnVal;
+		
+		/** The file save. */
 		private transient File fileSave;
+		
+		/** The image. */
 		private transient BufferedImage image;
+		
+		/** The question lbl. */
 		private String questionLbl;
 		
+		/* (non-Javadoc)
+		 * @see java.awt.event.ActionListener#actionPerformed(java.awt.event.ActionEvent)
+		 */
 		public void actionPerformed(ActionEvent e) {
 			// TODO Auto-generated method stub
 			returnVal=qFileChooser.showSaveDialog(view.getQuestionDataPanel());
@@ -279,17 +318,32 @@ public class qPanelController implements Serializable{
 		}
 		
 	}
+	
+	/**
+	 * Listener for answer as an image browse button
+	 * @see ansBrowseBtnEvent
+	 */
 	class ansBrowseBtnListener implements ActionListener,Serializable
 	{
-		/**
-		 * 
-		 */
+		
+		/** The Constant serialVersionUID. */
 		private static final long serialVersionUID = 1L;
+		
+		/** The return val. */
 		private int returnVal;
+		
+		/** The file save. */
 		private transient File fileSave;
+		
+		/** The image. */
 		private transient BufferedImage image;
+		
+		/** The answer lbl. */
 		private String answerLbl;
 		
+		/* (non-Javadoc)
+		 * @see java.awt.event.ActionListener#actionPerformed(java.awt.event.ActionEvent)
+		 */
 		public void actionPerformed(ActionEvent e) {
 			// TODO Auto-generated method stub
 			returnVal=aFileChooser.showSaveDialog(view.getAnswerPanel());
@@ -306,13 +360,23 @@ public class qPanelController implements Serializable{
 		}
 		
 	}
+	
+	/**
+	 * Listener for viewing the selected question image
+	 * @see qImageBtnEvent
+	 */
 	class qImageBtnListener implements ActionListener,Serializable
 	{
-		/**
-		 * 
-		 */
+		
+		/** The Constant serialVersionUID. */
 		private static final long serialVersionUID = 1L;
+		
+		/** The image. */
 		private transient BufferedImage image;
+		
+		/* (non-Javadoc)
+		 * @see java.awt.event.ActionListener#actionPerformed(java.awt.event.ActionEvent)
+		 */
 		public void actionPerformed(ActionEvent e) {
 			// TODO Auto-generated method stub
 				try {
@@ -333,13 +397,22 @@ public class qPanelController implements Serializable{
 		
 	}
 	
+	/**
+	 * Listener for viewing the selected answer image
+	 * @see viewAnswerImageBtnAddEvent
+	 */
 	class viewAnswerImageBtnAddListener implements ActionListener,Serializable
 	{
-		/**
-		 * 
-		 */
+		
+		/** The Constant serialVersionUID. */
 		private static final long serialVersionUID = 1L;
+		
+		/** The image. */
 		private transient BufferedImage image;
+		
+		/* (non-Javadoc)
+		 * @see java.awt.event.ActionListener#actionPerformed(java.awt.event.ActionEvent)
+		 */
 		public void actionPerformed(ActionEvent e) {
 			// TODO Auto-generated method stub
 				try {
@@ -361,13 +434,19 @@ public class qPanelController implements Serializable{
 	}
 	
 	
+	/**
+	 * Listener for remove question image button
+	 * @see removeQuestionImageBtnEvent
+	 */
 	class removeQuestionImageBtnListener implements ActionListener,Serializable
 	{
-		/**
-		 * 
-		 */
+		
+		/** The Constant serialVersionUID. */
 		private static final long serialVersionUID = 1L;
 
+		/* (non-Javadoc)
+		 * @see java.awt.event.ActionListener#actionPerformed(java.awt.event.ActionEvent)
+		 */
 		public void actionPerformed(ActionEvent e) {
 			// TODO Auto-generated method stub
 			renameQuestionImage();
@@ -378,13 +457,19 @@ public class qPanelController implements Serializable{
 		}
 	}
 	
+	/**
+	 * Listener for remove answer image button
+	 * @see removeAnswerImageBtnEvent
+	 */
 	class removeAnswerImageBtnListener implements ActionListener,Serializable
 	{
-		/**
-		 * 
-		 */
+		
+		/** The Constant serialVersionUID. */
 		private static final long serialVersionUID = 1L;
 
+		/* (non-Javadoc)
+		 * @see java.awt.event.ActionListener#actionPerformed(java.awt.event.ActionEvent)
+		 */
 		public void actionPerformed(ActionEvent e) {
 			// TODO Auto-generated method stub
 			removeAnswerImage();
@@ -392,6 +477,9 @@ public class qPanelController implements Serializable{
 		}
 	}
 	
+	/**
+	 * Rename question image.
+	 */
 	public void renameQuestionImage()
 	{
 		try {
@@ -411,6 +499,9 @@ public class qPanelController implements Serializable{
 		}
 	}
 	
+	/**
+	 * Removes the answer image.
+	 */
 	public void removeAnswerImage()
 	{
 		renameAnswerImage();
@@ -419,6 +510,9 @@ public class qPanelController implements Serializable{
 		view.getQuestionDataPanel().revalidate();
 	}
 	
+	/**
+	 * Rename answer image.
+	 */
 	public void renameAnswerImage()
 	{
 		try {
@@ -438,6 +532,12 @@ public class qPanelController implements Serializable{
 		}
 
 	}
+	
+	/**
+	 * Rename question and answer images to origin.
+	 *
+	 * @param file the file
+	 */
 	public static void renameQandAImagesToOrigin(File file)
 	{
 		try {
@@ -457,6 +557,10 @@ public class qPanelController implements Serializable{
 				e.printStackTrace();
 			}
 	}
+	
+	/**
+	 * Save images.
+	 */
 	public void saveImages()
 	{
 		BufferedImage image;
@@ -504,60 +608,173 @@ public class qPanelController implements Serializable{
 		}
 	}
 	
+	/**
+	 * Gets the question panel.
+	 *
+	 * @return the question panel
+	 */
 	public qPanel getQuestionPanel() {
 		return view;
 	}
+	
+	/**
+	 * Gets the quiz entity.
+	 *
+	 * @return the quiz entity
+	 */
 	public QuizEntity getQuizEntity() {
 		return quizEntity;
 	}
+	
+	/**
+	 * Sets the quiz entity.
+	 *
+	 * @param quizEntity the new quiz entity
+	 */
 	public void setQuizEntity(QuizEntity quizEntity) {
 		this.quizEntity = quizEntity;
 	}
+	
+	/**
+	 * Gets the parent view.
+	 *
+	 * @return the parent view
+	 */
 	public QuizCreationView getParentView() {
 		return parentView;
 	}
+	
+	/**
+	 * Sets the parent view.
+	 *
+	 * @param parentView the new parent view
+	 */
 	public void setParentView(QuizCreationView parentView) {
 		this.parentView = parentView;
 	}
+	
+	/**
+	 * Gets the question file chooser.
+	 *
+	 * @return the q file chooser
+	 */
 	public JFileChooser getqFileChooser() {
 		return qFileChooser;
 	}
+	
+	/**
+	 * Sets the question file chooser.
+	 *
+	 * @param qFileChooser the new q file chooser
+	 */
 	public void setqFileChooser(JFileChooser qFileChooser) {
 		this.qFileChooser = qFileChooser;
 	}
+	
+	/**
+	 * Gets the answer file chooser.
+	 *
+	 * @return the answer file chooser
+	 */
 	public JFileChooser getaFileChooser() {
 		return aFileChooser;
 	}
+	
+	/**
+	 * Sets the answer file chooser.
+	 *
+	 * @param aFileChooser the new a file chooser
+	 */
 	public void setaFileChooser(JFileChooser aFileChooser) {
 		this.aFileChooser = aFileChooser;
 	}
+	
+	/**
+	 * Gets the quiz path.
+	 *
+	 * @return the quiz path
+	 */
 	public String getQuizPath() {
 		return quizPath;
 	}
+	
+	/**
+	 * Sets the quiz path.
+	 *
+	 * @param quizPath the new quiz path
+	 */
 	public void setQuizPath(String quizPath) {
 		this.quizPath = quizPath;
 	}
+	
+	/**
+	 * Gets the question image file.
+	 *
+	 * @return the question image file
+	 */
 	public File getqImgFile() {
 		return qImgFile;
 	}
+	
+	/**
+	 * Sets the question image file.
+	 *
+	 * @param qImgFile the new question image file
+	 */
 	public void setqImgFile(File qImgFile) {
 		this.qImgFile = qImgFile;
 	}
+	
+	/**
+	 * Gets the answer image file.
+	 *
+	 * @return the answer image file
+	 */
 	public File getaImgFile() {
 		return aImgFile;
 	}
+	
+	/**
+	 * Sets the answer image file.
+	 *
+	 * @param aImgFile the new answer image file
+	 */
 	public void setaImgFile(File aImgFile) {
 		this.aImgFile = aImgFile;
 	}
+	
+	/**
+	 * Gets the file extension.
+	 *
+	 * @return the file extension
+	 */
 	public String getFileExtension() {
 		return fileExtension;
 	}
+	
+	/**
+	 * Sets the file extension.
+	 *
+	 * @param fileExtension the new file extension
+	 */
 	public void setFileExtension(String fileExtension) {
 		this.fileExtension = fileExtension;
 	}
+	
+	/**
+	 * Gets the question image icon.
+	 *
+	 * @return the question image icon
+	 */
 	public JLabel getqImageIcon() {
 		return qImageIcon;
 	}
+	
+	/**
+	 * Sets the question image icon.
+	 *
+	 * @param qImageIcon the new question image icon
+	 */
 	public void setqImageIcon(JLabel qImageIcon) {
 		this.qImageIcon = qImageIcon;
 	}

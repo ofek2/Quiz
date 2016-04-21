@@ -25,9 +25,9 @@ import com.dropbox.client2.session.WebAuthSession;
 import com.dropbox.client2.session.WebAuthSession.WebAuthInfo;
 import project.progListener;
 
-// TODO: Auto-generated Javadoc
 /**
  * The Class DropBoxSimple.
+ * This class simplifies Dropbox actions.
  */
 public class DropBoxSimple {
 	
@@ -65,8 +65,10 @@ public class DropBoxSimple {
 	/** The authenticated. */
 	private boolean authenticated;
 
+	/** The progress listener. */
 	public static progListener progressListener;
 	
+	/** The local paths. */
 	private static ArrayList<String> localPaths;
 	/** The download progress label. */
 //	public static JLabel downloadProgressLabel;
@@ -108,7 +110,7 @@ public class DropBoxSimple {
 	}
 
 	/**
-	 * Start session.
+	 * Start authentication session.
 	 *
 	 * @return true, if successful
 	 */
@@ -141,11 +143,10 @@ public class DropBoxSimple {
 
 	
 	/**
-	 * Upload folder.
+	 * Upload folder to Dropbox account.
 	 *
-	 * @param file the file
-	 * @param path the path
-	 * @param progressListener the progress listener
+	 * @param file the file/folder
+	 * @param path the path to upload a file/folder to
 	 */
 	public static void uploadFolder(File file, String path) {
 
@@ -194,11 +195,10 @@ public class DropBoxSimple {
 	}
 
 	/**
-	 * Download folder.
+	 * Download folder from Dropbox account.
 	 *
-	 * @param path the path
-	 * @param dropPath the drop path
-	 * @param progressListener the progress listener
+	 * @param path the path to get the file/folder from
+	 * @param dropPath the path in Dropbox
 	 */
 	public static void downloadFolder(String path, String dropPath) {
 		FileOutputStream outputStream = null;
@@ -225,6 +225,9 @@ public class DropBoxSimple {
 		}
 	}
 
+	/**
+	 * Delete removed files from Dropbox.
+	 */
 	public static void deleteRemovedFilesFromDropbox()
 	{
 		List<DeltaEntry<Entry>> entries;
@@ -249,6 +252,13 @@ public class DropBoxSimple {
 				e.printStackTrace();
 			}
 	}
+	
+	/**
+	 * Sort Dropbox paths.
+	 *
+	 * @param entries the entries
+	 * @return the Dropbox paths sorted in String[]
+	 */
 	private static String [] sortDBPaths(List<DeltaEntry<Entry>> entries) {
 		String [] entriesArr = new String[entries.size()]; 
 		for(int i=0;i<entries.size();i++)
@@ -273,6 +283,11 @@ public class DropBoxSimple {
 		return strPaths;
 	}
 
+	/**
+	 * List local paths.
+	 *
+	 * @param file the initial folder
+	 */
 	private static void listLocalPaths(File file) 
 	{
 		if(!file.exists())
@@ -302,6 +317,13 @@ public class DropBoxSimple {
 			}
 		
 	}
+	
+	/**
+	 * Change to Dropbox path format.
+	 *
+	 * @param localPath the local path
+	 * @return converted path as a String
+	 */
 	private static String changeToDBPathFormat(String localPath)
 	{
 		String trimed="";
@@ -311,11 +333,9 @@ public class DropBoxSimple {
 	}
 
 	/**
-	 * Gets the dropbox total size.
+	 * Gets the Dropbox total size.
 	 *
-	 * @param path the path
-	 * @param sum the sum
-	 * @return the dropbox total size
+	 * @return the Dropbox total size
 	 */
 	public static long getDropboxTotalSize() {
 		List<DeltaEntry<Entry>> entries;

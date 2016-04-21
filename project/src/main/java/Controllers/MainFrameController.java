@@ -8,13 +8,30 @@ import Views.InitialWindowView;
 import Views.MainFrameView;
 import Entities.CourseEntity;
 
+/**
+ * The Class MainFrameController.
+ * This class controls the MainFrameView events.
+ */
 public class MainFrameController {
+	
+	/** The view. */
 	public static MainFrameView view;
+	
+	/** The app folder. */
 	private File appFolder;
+	
+	/** The initial window controller. */
 	private InitialWindowController initialWindowController;
+	
+	/** The over write. */
 	private int overWrite=JOptionPane.YES_OPTION;
 
 	 
+	/**
+	 * Instantiates a new main frame controller.
+	 *
+	 * @param view the view
+	 */
 	public MainFrameController(MainFrameView view) {
 		this.view=view;
 		
@@ -33,6 +50,10 @@ public class MainFrameController {
 			
 		
 	}
+	
+	/**
+	 * Load application folder.
+	 */
 	public void loadApplicationFolder()
 	{
 		
@@ -73,6 +94,12 @@ public class MainFrameController {
 		}
 
 	}
+	
+	/**
+	 * Recursive delete.
+	 *
+	 * @param file the file
+	 */
 	private void recursiveDelete(File file) {
         if (!file.exists())
             return;

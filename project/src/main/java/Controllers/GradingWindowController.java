@@ -10,34 +10,76 @@ import Views.GradingWindowView;
 import Views.StudentGradingPanel;
 import Views.ViewPanel;
 
+/**
+ * The Class GradingWindowController.
+ * This class controls the GradingWindowView events.
+ * Meant for grading the students' quizzes and sending final grades via Email.
+ */
 public class GradingWindowController {
+	
+	/** The view. */
 	private GradingWindowView view;
+	
+	/** The students ids. */
 	private ArrayList<String> studentsIds;
+	
+	/** The student grading panels. */
 	private ArrayList<StudentGradingPanel> studentGradingPanels;
+	
+	/** The student grading controllers. */
 	private ArrayList<StudentGradingController> studentGradingControllers;
+	
+	/** The students quizzes paths. */
 	private ArrayList<String> studentsQuizzesPaths;
+	
+	/** The previous view. */
 	private Container previousView;
 
+	/**
+	 * Instantiates a new grading window controller.
+	 *
+	 * @param view the view
+	 */
 	public GradingWindowController(GradingWindowView view) {
 		this.view = view;
 
 		addListeners();
 	}
 
+	/**
+	 * Gets the previous view.
+	 *
+	 * @return the previous view
+	 */
 	public Container getPreviousView() {
 		return previousView;
 	}
 
+	/**
+	 * Sets the previous view.
+	 *
+	 * @param previousView the new previous view
+	 */
 	public void setPreviousView(Container previousView) {
 		this.previousView = previousView;
 	}
 
+	/**
+	 * Adds the listeners.
+	 */
 	private void addListeners() {
 		ActionListener[] fileListeners = { new SendListener(), new ExitListener() };
 		view.addFileListeners(fileListeners);
 
 	}
 
+	/**
+	 * Load students to table.
+	 *
+	 * @param studentsIds the students ids
+	 * @param studentsQuizzesPaths the students' quizzes paths
+	 * @param originalQuizFormPath the original quiz form path
+	 */
 	public void loadStudentsToTable(ArrayList<String> studentsIds, ArrayList<String> studentsQuizzesPaths,
 			String originalQuizFormPath) {
 		this.studentsIds = studentsIds;
@@ -56,9 +98,25 @@ public class GradingWindowController {
 		view.tablePanel.revalidate();
 	}
 
+	/**
+	 * The listener interface for receiving send events.
+	 * The class that is interested in processing a send
+	 * event implements this interface, and the object created
+	 * with that class is registered with a component using the
+	 * component's <code>addSendListener<code> method. When
+	 * the send event occurs, that object's appropriate
+	 * method is invoked.
+	 *
+	 * @see SendEvent
+	 */
 	class SendListener implements ActionListener {
+		
+		/** The all checked. */
 		private boolean allChecked = true;
 
+		/* (non-Javadoc)
+		 * @see java.awt.event.ActionListener#actionPerformed(java.awt.event.ActionEvent)
+		 */
 		public void actionPerformed(ActionEvent e) {
 			// TODO Auto-generated method stub
 
@@ -79,8 +137,22 @@ public class GradingWindowController {
 
 	}
 
+	/**
+	 * The listener interface for receiving exit events.
+	 * The class that is interested in processing a exit
+	 * event implements this interface, and the object created
+	 * with that class is registered with a component using the
+	 * component's <code>addExitListener<code> method. When
+	 * the exit event occurs, that object's appropriate
+	 * method is invoked.
+	 *
+	 * @see ExitEvent
+	 */
 	class ExitListener implements ActionListener {
 
+		/* (non-Javadoc)
+		 * @see java.awt.event.ActionListener#actionPerformed(java.awt.event.ActionEvent)
+		 */
 		public void actionPerformed(ActionEvent e) {
 			// TODO Auto-generated method stub
 			MainFrameController.view.changeContentPane((ViewPanel) previousView);
