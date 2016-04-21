@@ -144,10 +144,26 @@ public class InitialWindowView extends ViewPanel {
 		Vector<String> vec = new Vector<String>();
 		for (int i = 0; i < InitialWindowController.coursesFiles.size(); i++)
 			vec.add(InitialWindowController.coursesFiles.get(i).getCourseFolderName());
-		// DefaultComboBoxModel<String> coursesIdsModel = new
-		// DefaultComboBoxModel<String>(vec);
 
-		// New quiz dialog
+
+		// Dialogs Initializing
+		newQuizDialogInit(vec);
+		
+		editQuizDialogInit(vec);
+
+		newCourseDialogInit();
+		
+		removeCourseDialogInit(vec);
+		
+		registerStudentDialogInit(vec);
+		
+		removeStudentDialogInit(vec);
+		
+		gradeQuizDialogInit(vec);
+	}
+
+	private void newQuizDialogInit(Vector<String> vec) {
+		// TODO Auto-generated method stub
 		newQuizDialogPanel = new JPanel();
 		newQuizDialogPanel.setLayout(null);
 		//newQuizDialogPanel.setBackground();
@@ -181,16 +197,19 @@ public class InitialWindowView extends ViewPanel {
 				createNewQuizBtn.getPreferredSize().width, createNewQuizBtn.getPreferredSize().height);
 		newQuizDialogPanel.add(createNewQuizBtn);
 
-		// Edit quiz dialog
+	}
+
+	private void editQuizDialogInit(Vector<String> vec) {
+		// TODO Auto-generated method stub
 		editQuizDialogPanel = new JPanel();
 		editQuizDialogPanel.setLayout(null);
 		editQuizDialogPanel.setSize(300, 220);
 		//editQuizDialogPanel.setBackground(Color.RED);
-
+	
 		Label label2 = new Label("Course Id:");
 		label2.setBounds(13, 28, 80, 19);
 		editQuizDialogPanel.add(label2);
-
+	
 		coursesIdsEdit = new JComboBox<String>();
 		for (String item : vec)
 			coursesIdsEdit.addItem(item);
@@ -198,12 +217,12 @@ public class InitialWindowView extends ViewPanel {
 		if (InitialWindowController.coursesFiles.size() > 0)
 			coursesIdsEdit.setSelectedIndex(0);
 		editQuizDialogPanel.add(coursesIdsEdit);
-
+	
 		Label label3 = new Label("Quiz Name:");
 		label3.setBounds(13, 70, 80, 19);
 		newQuizDialogPanel.add(label3);
 		editQuizDialogPanel.add(label3);
-
+	
 		quizzes = new JComboBox<String>();
 		quizzes.setBounds(100, 69, 180, 20);
 		if (InitialWindowController.coursesFiles.size() > 0) {
@@ -212,14 +231,16 @@ public class InitialWindowView extends ViewPanel {
 		} else
 			quizzes.addItem("");
 		editQuizDialogPanel.add(quizzes);
-
+	
 		editQuizBtn = new JButton("Edit Quiz");
 		editQuizBtn.setBounds(editQuizDialogPanel.getSize().width / 2 - editQuizBtn.getPreferredSize().width / 2, 121,
 				editQuizBtn.getPreferredSize().width, editQuizBtn.getPreferredSize().height);
 		editQuizDialogPanel.add(editQuizBtn);
 		editQuizDialogPanel.setVisible(true);
+	}
 
-		// New course dialog
+	private void newCourseDialogInit() {
+		// TODO Auto-generated method stub
 		newCourseDialogPanel = new JPanel();
 		newCourseDialogPanel.setLayout(null);
 		//newCourseDialogPanel.setBackground(Color.CYAN);
@@ -249,7 +270,10 @@ public class InitialWindowView extends ViewPanel {
 				createNewCourseBtn.getPreferredSize().width, createNewCourseBtn.getPreferredSize().height);
 		newCourseDialogPanel.add(createNewCourseBtn);
 
-		// Remove course dialog
+	}
+
+	private void removeCourseDialogInit(Vector<String> vec) {
+		// TODO Auto-generated method stub
 		removeCourseDialogPanel = new JPanel();
 		removeCourseDialogPanel.setLayout(null);
 		//removeCourseDialogPanel.setBackground(Color.lightGray);
@@ -273,8 +297,10 @@ public class InitialWindowView extends ViewPanel {
 				removeCourseBtn.getPreferredSize().width, removeCourseBtn.getPreferredSize().height);
 		removeCourseDialogPanel.add(removeCourseBtn);
 
-		// Register Student
+	}
 
+	private void registerStudentDialogInit(Vector<String> vec) {
+		// TODO Auto-generated method stub
 		registerStudentDialogPanel = new JPanel();
 		registerStudentDialogPanel.setLayout(null);
 		//registerStudentDialogPanel.setBackground(Color.lightGray);
@@ -324,7 +350,10 @@ public class InitialWindowView extends ViewPanel {
 				registerStudentBtn.getPreferredSize().width, registerStudentBtn.getPreferredSize().height);
 		registerStudentDialogPanel.add(registerStudentBtn);
 
-		// Remove Student Dialog
+	}
+
+	private void removeStudentDialogInit(Vector<String> vec) {
+		// TODO Auto-generated method stub
 		removeStudentDialogPanel = new JPanel();
 		removeStudentDialogPanel.setLayout(null);
 		//removeStudentDialogPanel.setBackground(Color.lightGray);
@@ -368,7 +397,10 @@ public class InitialWindowView extends ViewPanel {
 				removeStudentBtn.getPreferredSize().width, removeStudentBtn.getPreferredSize().height);
 		removeStudentDialogPanel.add(removeStudentBtn);
 
-		// Grade Quiz
+	}
+
+	private void gradeQuizDialogInit(Vector<String> vec) {
+		// TODO Auto-generated method stub
 		gradeQuizDialogPanel = new JPanel();
 		gradeQuizDialogPanel.setLayout(null);
 		//gradeQuizDialogPanel.setBackground(Color.ORANGE);
