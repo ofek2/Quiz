@@ -25,6 +25,7 @@ import javax.xml.transform.TransformerException;
 import Entities.QuizEntity;
 import Entities.QuizObjectEntity;
 import Views.InitialWindowView;
+import Views.PreviewQuizFrame;
 import Views.QuizCreationView;
 import Views.qPanel;
 import project.HtmlBuilder;
@@ -46,7 +47,7 @@ public class QuizCreationController implements Serializable {
 
 	final static int TOTAL_GRADE = 100;
 	public QuizCreationController(QuizCreationView view, QuizEntity entity, InitialWindowView initialWindowView) {
-		ActionListener[] fileMenuListeners = { new saveMenuListener(), new exitMenuListener() };
+		ActionListener[] fileMenuListeners = { new saveMenuListener(),new previewMenuListener(), new exitMenuListener() };
 		this.view = view;
 		this.entity = entity;
 		this.initialWindowView = initialWindowView;
@@ -74,7 +75,7 @@ public class QuizCreationController implements Serializable {
 
 	public QuizCreationController(QuizCreationView view, QuizObjectEntity objectEntity,
 			InitialWindowView initialWindowView) {
-		ActionListener[] fileMenuListeners = { new saveMenuListener(), new exitMenuListener() };
+		ActionListener[] fileMenuListeners = { new saveMenuListener(),new previewMenuListener(),new exitMenuListener() };
 		this.view = view;
 		this.entity = objectEntity.getQuizEntity();
 		this.initialWindowView = initialWindowView;
@@ -186,78 +187,11 @@ public class QuizCreationController implements Serializable {
 			}
 			for (int i = 0; i < qPanels.size(); i++)
 				qPanels.get(i).saveImages();
+			
 			recursiveDelete(entity.getQuizFormFolder());
-
-			try {
-				htmlBuilder = new HtmlBuilder();
-			} catch (FileNotFoundException e2) {
-				// TODO Auto-generated catch block
-				e2.printStackTrace();
-			} catch (ParserConfigurationException e2) {
-				// TODO Auto-generated catch block
-				e2.printStackTrace();
-			}
-			htmlBuilder.initiateHtml();
-			// -------add the title information to the html file
-			// here---------///
-			htmlBuilder.addTitleInfo(entity.getName());
-			// --------------------------------------------------------------------
-
-			for (int i = 0; i < qPanels.size(); i++) {
-				qPanel tempQpanel = qPanels.get(i).view;
-				qPanelController tempQController = qPanels.get(i);
-				int index = tempQpanel.getAnswerTypeCb().getSelectedIndex();
-				String answerType = tempQpanel.getAnswerTypeCb().getItemAt(index);
-				ArrayList<String> choices;
-				String score;
-
-				if (tempQpanel.getScoreTextField().getText().isEmpty()) {
-					score = "0";
-					tempQpanel.getScoreTextField().setText(score);
-				} else
-					score = tempQpanel.getScoreTextField().getText();
-				String questionImageName = "";
-				htmlBuilder.addQuestion(i + 1, answerType, score);
-
-				if (tempQController.getqImgFile() != null) {
-					questionImageName = tempQController.getqImgFile().getName();
-
-				}
-				htmlBuilder.addQuestionData(i + 1, tempQpanel.getTextAreaQ().getText(), questionImageName);
-				String answer = "";
-				if (answerType.equals("Multiple Choice")) {
-
-					choices = new ArrayList<String>();
-
-					for (int j = 0; j < tempQpanel.getMultipleChoicePanelController().cBfControllers.size(); j++) {
-						if (tempQpanel.getMultipleChoicePanelController().cBfControllers.get(j).view.getAnswerCheckBox()
-								.isSelected())
-							answer += (j + 1) + " ";
-						choices.add(tempQpanel.getMultipleChoicePanelController().cBfControllers.get(j).view
-								.getAnswerTextOption().getText());
-					}
-					String type;
-					answer = answer.trim();
-					String[] splited = answer.split("\\s");
-					if (splited.length > 1)
-						type = "Multiple Choice";
-					else
-						type = "Singel Choice";
-					htmlBuilder.addAnswersData(i + 1, type, choices);
-					htmlBuilder.addLecturerAnswers(i + 1, type, choices, answer);
-				} else {
-					if (answerType.equals("Free Text"))
-						answer = tempQController.view.getTextAreaA().getText();
-					else {
-						if (tempQController.getaImgFile() != null)
-							answer = tempQController.getaImgFile().getPath();
-					}
-					htmlBuilder.addAnswersData(i + 1, answerType);
-					htmlBuilder.addLecturerAnswers(i + 1, answerType, answer);
-				}
-
-			}
-
+			
+			createHtmlFile();
+			
 			try {
 				htmlBuilder.writeHtml(
 						entity.getQuizFormFolder().getCanonicalPath() + "/" + entity.getName() + "WithAnswers.html");
@@ -279,7 +213,104 @@ public class QuizCreationController implements Serializable {
 			}
 		}
 	}
+	private void createHtmlFile()
+	{
 
+		try {
+			htmlBuilder = new HtmlBuilder();
+		} catch (FileNotFoundException e2) {
+			// TODO Auto-generated catch block
+			e2.printStackTrace();
+		} catch (ParserConfigurationException e2) {
+			// TODO Auto-generated catch block
+			e2.printStackTrace();
+		}
+		htmlBuilder.initiateHtml();
+		// -------add the title information to the html file
+		// here---------///
+		htmlBuilder.addTitleInfo(entity.getName());
+		// --------------------------------------------------------------------
+
+		for (int i = 0; i < qPanels.size(); i++) {
+			qPanel tempQpanel = qPanels.get(i).view;
+			qPanelController tempQController = qPanels.get(i);
+			int index = tempQpanel.getAnswerTypeCb().getSelectedIndex();
+			String answerType = tempQpanel.getAnswerTypeCb().getItemAt(index);
+			ArrayList<String> choices;
+			String score;
+
+			if (tempQpanel.getScoreTextField().getText().isEmpty()) {
+				score = "0";
+				tempQpanel.getScoreTextField().setText(score);
+			} else
+				score = tempQpanel.getScoreTextField().getText();
+			String questionImageName = "";
+			htmlBuilder.addQuestion(i + 1, answerType, score);
+
+			if (tempQController.getqImgFile() != null) {
+				questionImageName = tempQController.getqImgFile().getName();
+
+			}
+			htmlBuilder.addQuestionData(i + 1, tempQpanel.getTextAreaQ().getText(), questionImageName);
+			String answer = "";
+			if (answerType.equals("Multiple Choice")) {
+
+				choices = new ArrayList<String>();
+
+				for (int j = 0; j < tempQpanel.getMultipleChoicePanelController().cBfControllers.size(); j++) {
+					if (tempQpanel.getMultipleChoicePanelController().cBfControllers.get(j).view.getAnswerCheckBox()
+							.isSelected())
+						answer += (j + 1) + " ";
+					choices.add(tempQpanel.getMultipleChoicePanelController().cBfControllers.get(j).view
+							.getAnswerTextOption().getText());
+				}
+				String type;
+				answer = answer.trim();
+				String[] splited = answer.split("\\s");
+				if (splited.length > 1)
+					type = "Multiple Choice";
+				else
+					type = "Singel Choice";
+				htmlBuilder.addAnswersData(i + 1, type, choices);
+				htmlBuilder.addLecturerAnswers(i + 1, type, choices, answer);
+			} else {
+				if (answerType.equals("Free Text"))
+					answer = tempQController.view.getTextAreaA().getText();
+				else {
+					if (tempQController.getaImgFile() != null)
+						answer = tempQController.getaImgFile().getPath();
+				}
+				htmlBuilder.addAnswersData(i + 1, answerType);
+				htmlBuilder.addLecturerAnswers(i + 1, answerType, answer);
+			}
+
+		}
+
+	}
+	class previewMenuListener implements ActionListener
+	{
+
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			// TODO Auto-generated method stub
+			createHtmlFile();
+			try {
+				String path = (new File(".")).getCanonicalPath()+"Temp.html";
+				htmlBuilder.writeHtml(path);
+				PreviewQuizFrame frame = new PreviewQuizFrame(path);
+				frame.setVisible(true);
+				frame.loadURL("file:///"+path);
+			} catch (TransformerException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			} catch (IOException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+			
+		}
+		
+	}
 	private void recursiveDelete(File file) {
 		if (!file.exists())
 			return;

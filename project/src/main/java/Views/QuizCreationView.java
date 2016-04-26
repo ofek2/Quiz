@@ -55,7 +55,10 @@ public class QuizCreationView extends ViewPanel {
 
 		JMenuItem saveItem = new JMenuItem("Save");
 		fileMenu.add(saveItem);
-
+		
+		JMenuItem previewItem = new JMenuItem("Preview");
+		fileMenu.add(previewItem);
+		
 		JMenuItem exitItem = new JMenuItem("Exit");
 		fileMenu.add(exitItem);
 
