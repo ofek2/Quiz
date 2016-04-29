@@ -176,6 +176,14 @@
     }
 </script>
         <script>
+        	function sendAnswer(form)
+        	{
+        		window.Android.getAnswer(form);
+        	}
+        	function listen()
+        	{
+        		window.Android.listen();
+        	}
             function updateFinalScore() {
                 var finalScore = parseInt("0");
                 var inputs = document.getElementsByTagName("input");
