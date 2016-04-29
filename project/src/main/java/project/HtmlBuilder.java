@@ -180,7 +180,7 @@ public class HtmlBuilder {
 				choice.setAttribute("type", "radio");
 				choice.setAttribute("name", "a");
 			}
-			choice.setAttribute("onClick", "Android.mAns(this.form)");
+			choice.setAttribute("onClick", "sendAnswer(this.form)");
 			choice.appendChild(document.createTextNode(choices.get(i)));
 			label.appendChild(choice);
 			divListItem.appendChild(document.createTextNode((i+1)+"."));
@@ -207,6 +207,7 @@ public class HtmlBuilder {
 			textarea.setAttribute("class","form-control");
 			textarea.setAttribute("rows", "4");
 			textarea.setAttribute("cols", "50");
+			textarea.setAttribute("onClick", "sendAnswer(this.form)");
 			textarea.appendChild(document.createTextNode(" "));
 			form.appendChild(textarea);
 	
@@ -436,7 +437,7 @@ public class HtmlBuilder {
 		input.setAttribute("class", "btn btn-primary");
 		input.setAttribute("type", "button");
 		input.setAttribute("src", "g.gif");
-		input.setAttribute("onClick", "Android.listen()");
+		input.setAttribute("onClick", "listen()");
 		input.appendChild(document.createTextNode(" Click here to listen the question"));
 		divFooter.appendChild(input);
 	
