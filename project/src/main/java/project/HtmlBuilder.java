@@ -180,7 +180,7 @@ public class HtmlBuilder {
 				choice.setAttribute("type", "radio");
 				choice.setAttribute("name", "a");
 			}
-			choice.setAttribute("onClick", "sendAnswer(this.form)");
+			choice.setAttribute("onClick", "sendAnswer(this.form,document.getElementsByTagName(Q\""+questionNumber+"\")[0].getAttribute(\"type\"))");
 			choice.appendChild(document.createTextNode(choices.get(i)));
 			label.appendChild(choice);
 			divListItem.appendChild(document.createTextNode((i+1)+"."));
@@ -200,6 +200,7 @@ public class HtmlBuilder {
 		
 		Element form = document.createElement("form");
 		form.setAttribute("name", "Q"+questionNumber);
+		form.setAttribute("type",type);
 		qAnswers.appendChild(form);
 		if(type.equals("Free Text"))
 		{
@@ -207,7 +208,7 @@ public class HtmlBuilder {
 			textarea.setAttribute("class","form-control");
 			textarea.setAttribute("rows", "4");
 			textarea.setAttribute("cols", "50");
-			textarea.setAttribute("onClick", "sendAnswer(this.form)");
+			textarea.setAttribute("oninput", "sendAnswer(this.form)");
 			textarea.appendChild(document.createTextNode(" "));
 			form.appendChild(textarea);
 	
