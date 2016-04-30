@@ -180,7 +180,7 @@ public class HtmlBuilder {
 				choice.setAttribute("type", "radio");
 				choice.setAttribute("name", "a");
 			}
-			choice.setAttribute("onClick", "sendAnswer(this.form,'"+type+"'");
+			choice.setAttribute("onClick", "sendAnswer(this.form,'"+type+"')");
 			choice.appendChild(document.createTextNode(choices.get(i)));
 			label.appendChild(choice);
 			divListItem.appendChild(document.createTextNode((i+1)+"."));
