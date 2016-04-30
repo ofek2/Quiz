@@ -178,7 +178,18 @@
         <script>
         	function sendAnswer(form,type)
         	{
-        		Android.getAnswer(form,type);
+        		var items = new Array(form.elements.length);
+        		if(type == "Single Choice" || type == "Multiple Choice")
+        		for(var i=0;i!=form.elements.length;i++)
+        		{
+        			if(form.elements[i].checked)
+        				items[i]="checked";
+        			else
+        				items[i]="unchecked";
+        		}
+        		else
+        			items[0] = form.elements[0].value;
+        		Android.getAnswer(items,type);
         	}
         	function listen()
         	{
