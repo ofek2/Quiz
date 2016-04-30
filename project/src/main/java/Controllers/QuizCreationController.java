@@ -270,7 +270,7 @@ public class QuizCreationController implements Serializable {
 				if (splited.length > 1)
 					type = "Multiple Choice";
 				else
-					type = "Singel Choice";
+					type = "Single Choice";
 				htmlBuilder.addAnswersData(i + 1, type, choices);
 				htmlBuilder.addLecturerAnswers(i + 1, type, choices, answer);
 			} else {

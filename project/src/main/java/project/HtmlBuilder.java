@@ -148,8 +148,8 @@ public class HtmlBuilder {
 	public void addAnswersData(int questionNumber,String type,ArrayList<String> choices)
 	{
 		int qNumber = questionNumber-1;
-		if(type.equals("Singel Choice"))
-			questions.get(qNumber).setAttribute("type", "Singel Choice");
+		if(type.equals("Single Choice"))
+			questions.get(qNumber).setAttribute("type", "Single Choice");
 		Element qAnswers = document.createElement("qAnswers");
 		questions.get(qNumber).getFirstChild().getChildNodes().item(1).appendChild(qAnswers);
 		
