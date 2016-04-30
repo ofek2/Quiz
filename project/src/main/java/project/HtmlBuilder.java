@@ -208,7 +208,7 @@ public class HtmlBuilder {
 			textarea.setAttribute("class","form-control");
 			textarea.setAttribute("rows", "4");
 			textarea.setAttribute("cols", "50");
-			textarea.setAttribute("oninput", "sendAnswer(this.form,this.form,'"+type+"')");
+			textarea.setAttribute("oninput", "sendAnswer(this.form,'"+type+"')");
 			textarea.appendChild(document.createTextNode(" "));
 			form.appendChild(textarea);
 	
