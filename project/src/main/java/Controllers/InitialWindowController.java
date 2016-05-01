@@ -921,6 +921,7 @@ public class InitialWindowController {
 						String path = Constants.ROOTPATH + courseName
 								+ "/Quizzes/" + quizName + "/StudentsAnswers";
 						File studentsAnswersFolder = new File(path);
+						if(studentsAnswersFolder.listFiles()!=null)
 						if (studentsAnswersFolder.listFiles().length > 0)
 							for (File child : studentsAnswersFolder.listFiles()) {
 								studentsInQuiz.add(child.getName().substring(0, child.getName().length() - 5));
@@ -1353,6 +1354,7 @@ public class InitialWindowController {
 	public File[] getQuizzesFolder(int selectedIndex) {
 
 		File[] courseFiles = coursesFiles.get(selectedIndex).getCourseFolder().listFiles();
+		if(courseFiles!=null)
 		for (int i = 0; i < courseFiles.length; i++)
 			if (courseFiles[i].getName().equals("Quizzes"))
 				return courseFiles[i].listFiles();

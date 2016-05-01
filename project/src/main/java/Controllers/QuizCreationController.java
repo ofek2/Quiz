@@ -333,6 +333,7 @@ public class QuizCreationController implements Serializable {
 						"You made an unsaved changes, all of this changes will be lost,\n do you want to keep the application progress?",
 						"Alert", JOptionPane.YES_NO_OPTION);
 				if (exitFlag == JOptionPane.YES_OPTION) {
+					if(entity.getQuizFormFolder().listFiles()!=null)
 					if (entity.getQuizFormFolder().listFiles().length > 0)
 						for (File file : entity.getQuizFormFolder().listFiles()) {
 							if (file.getName().endsWith(".PNG"))
@@ -370,7 +371,7 @@ public class QuizCreationController implements Serializable {
 						"You made an unsaved changes, all of this changes will be lost,\n do you want to keep the application progress?",
 						"Alert", JOptionPane.YES_NO_OPTION);
 				if (exitFlag == JOptionPane.YES_OPTION) {
-				
+					if(entity.getQuizFormFolder().listFiles()!=null)
 					if (entity.getQuizFormFolder().listFiles().length > 0)
 						for (File file : entity.getQuizFormFolder().listFiles()) {
 							if (file.getName().endsWith(".PNG"))
