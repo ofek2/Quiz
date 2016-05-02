@@ -46,7 +46,9 @@ public class MainFrameView extends JFrame implements Serializable{
 		addWindowListener(windowListener);
 		GraphicsEnvironment env = GraphicsEnvironment.getLocalGraphicsEnvironment();
 		Rectangle bounds = env.getMaximumWindowBounds();
-		setBounds(new Rectangle(0, 0, bounds.width, bounds.height));
+//		setBounds(new Rectangle(0, 0, bounds.width, bounds.height));
+		setSize(1000,700);
+		setLocationRelativeTo(null);
 		setResizable(false);
 
 		setVisible(true);

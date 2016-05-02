@@ -4,6 +4,7 @@ import java.awt.BorderLayout;
 import java.awt.CardLayout;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.SystemColor;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
@@ -217,9 +218,9 @@ public class qPanelController implements Serializable{
 				for(int i=0;i<QuizCreationController.qPanels.size();i++)
 				{
 					if(i%2 == 0)
-						QuizCreationController.qPanels.get(i).view.setBackground(Color.getHSBColor(0.55f, 0.69f, 1));
+						QuizCreationController.qPanels.get(i).view.mainPanel.setBackground(SystemColor.textHighlight);
 					else
-						QuizCreationController.qPanels.get(i).view.setBackground(Color.getHSBColor(0.0711f, 0.9916f, 1));
+						QuizCreationController.qPanels.get(i).view.mainPanel.setBackground(new Color(204, 102, 51));
 				}
 				
 			}
@@ -304,7 +305,7 @@ public class qPanelController implements Serializable{
 		 */
 		public void actionPerformed(ActionEvent e) {
 			// TODO Auto-generated method stub
-			returnVal=qFileChooser.showSaveDialog(view.getQuestionDataPanel());
+			returnVal=qFileChooser.showSaveDialog(view.getImageButtonsPanel());
 			if(returnVal==qFileChooser.APPROVE_OPTION)
 			{
 				qImgFile = qFileChooser.getSelectedFile();				
@@ -312,7 +313,7 @@ public class qPanelController implements Serializable{
 				questionImgPath = quizPath +"/" + questionLbl;
 				view.getqImage().setVisible(true);
 				view.getRemoveQuestionImageBtn().setVisible(true);
-				view.getQuestionDataPanel().revalidate();
+				view.getImageButtonsPanel().revalidate();
 				QuizCreationController.saveFlag=0;
 			}
 		}
@@ -354,7 +355,7 @@ public class qPanelController implements Serializable{
 				answerImgPath = quizPath +"/" + answerLbl;
 				view.getRemoveAnswerImageBtn().setVisible(true);
 				view.getbtnViewAnswerImage().setVisible(true);
-				view.getQuestionDataPanel().revalidate();
+				view.getAnswerImageButtonsPanel().revalidate();
 				QuizCreationController.saveFlag=0;
 			}
 		}
@@ -452,7 +453,7 @@ public class qPanelController implements Serializable{
 			renameQuestionImage();
 			view.getRemoveQuestionImageBtn().setVisible(false);
 			view.getqImage().setVisible(false);
-			view.getQuestionDataPanel().revalidate();
+			view.getImageButtonsPanel().revalidate();
 			QuizCreationController.saveFlag=0;
 		}
 	}
@@ -507,7 +508,7 @@ public class qPanelController implements Serializable{
 		renameAnswerImage();
 		view.getRemoveAnswerImageBtn().setVisible(false);
 		view.getbtnViewAnswerImage().setVisible(false);
-		view.getQuestionDataPanel().revalidate();
+		view.getAnswerImageButtonsPanel().revalidate();
 	}
 	
 	/**

@@ -20,6 +20,9 @@ import javax.swing.JScrollPane;
 import javax.swing.ScrollPaneConstants;
 import javax.swing.border.EtchedBorder;
 import javax.swing.border.TitledBorder;
+
+import javafx.scene.shape.Box;
+
 import java.awt.Color;
 import java.awt.GridLayout;
 
@@ -42,11 +45,13 @@ public class QuizCreationView extends ViewPanel {
 	public QuizCreationView() {
 		super();
 		setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
+		setBackground(Color.WHITE);
 		menuBar = new JMenuBar();
 		menuBar.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
 		menuBar.setBackground(Color.WHITE);
 		menuBar.setPreferredSize(new Dimension(100000, 30));
 		menuBar.setMaximumSize(new Dimension(100000, 30));
+		menuBar.setMinimumSize(new Dimension(0, 30));
 		add(menuBar);
 
 		fileMenu = new JMenu("File");

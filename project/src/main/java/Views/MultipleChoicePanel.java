@@ -41,12 +41,7 @@ public class MultipleChoicePanel extends JPanel implements Serializable {
 		gbc_jsp.gridx = 0;
 		gbc_jsp.gridy = 0;
 		add(jsp, gbc_jsp);
-		JLabel choicesLbl = new JLabel("Choices:");
-		choicesLbl.setAlignmentX(LEFT_ALIGNMENT);
-		choicesLbl.setFont(new Font("Arial", Font.PLAIN, 13));
-		choicesLbl.setOpaque(false);
 		panel.setOpaque(false);
-		panel.add(choicesLbl);
 		
 		jsp.setOpaque(false);
 		jsp.getViewport().setOpaque(false);

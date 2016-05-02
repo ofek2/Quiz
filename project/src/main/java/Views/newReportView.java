@@ -15,7 +15,6 @@ import javax.swing.JInternalFrame;
 import java.awt.BorderLayout;
 import javax.swing.JLabel;
 import javax.swing.JComboBox;
-import javax.swing.JDesktopPane;
 import javax.swing.JButton;
 import javax.swing.JSeparator;
 import javax.swing.border.TitledBorder;
@@ -28,10 +27,9 @@ import java.awt.Font;
 import javax.swing.SwingConstants;
 import javax.swing.JScrollPane;
 import javax.swing.border.EmptyBorder;
-import javax.swing.border.EtchedBorder;
 import javax.swing.JMenuItem;
 
-public class ReportsView extends ViewPanel{
+public class newReportView extends JPanel{
 	private JComboBox<String>reportsStudentsIds;
 	private JLabel lblReportsStudentId;
 	private JLabel lblSearchStudent;
@@ -46,7 +44,7 @@ public class ReportsView extends ViewPanel{
 	private JButton [] titleButtons;
 	public CTable table = null;
 	private JLabel courseLabel;
-	public ReportsView() {
+	public newReportView() {
 		setPreferredSize(new Dimension(1000, 700));
 		setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 	
@@ -56,8 +54,6 @@ public class ReportsView extends ViewPanel{
 		menuBar.setPreferredSize(new Dimension(100000, 30));
 		menuBar.setMinimumSize(new Dimension(0, 30));
 		menuBar.setMaximumSize(new Dimension(100000, 30));
-		menuBar.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
-		menuBar.setBackground(Color.WHITE);
 		add(menuBar);
 		
 		
@@ -90,12 +86,10 @@ public class ReportsView extends ViewPanel{
 		
 		JPanel settingsPanel = new JPanel();
 		mainPanel.add(settingsPanel);
-		settingsPanel.setLayout(null);
 		
 		JInternalFrame internalFrame = new JInternalFrame("Reports Settings");
-		internalFrame.setBounds(90, 5, 320, 360);
 		internalFrame.getContentPane().setBackground(Color.WHITE);
-		internalFrame.setPreferredSize(new Dimension(320, 360));
+		internalFrame.setPreferredSize(new Dimension(320, 320));
 		settingsPanel.add(internalFrame);
 		internalFrame.getContentPane().setLayout(new BoxLayout(internalFrame.getContentPane(), BoxLayout.Y_AXIS));
 		
@@ -130,7 +124,7 @@ public class ReportsView extends ViewPanel{
 		courseTitlePanel.add(reportsCourses);
 		//
 		JPanel produceRepBtnPanel = new JPanel();
-		produceRepBtnPanel.setMaximumSize(new Dimension(32767, 40));
+		produceRepBtnPanel.setMaximumSize(new Dimension(32767, 30));
 		produceRepBtnPanel.setPreferredSize(new Dimension(10, 30));
 		produceRepBtnPanel.setOpaque(false);
 		coursePanel.add(produceRepBtnPanel);
@@ -180,7 +174,7 @@ public class ReportsView extends ViewPanel{
 		JPanel xcelExportPanel = new JPanel();
 		xcelExportPanel.setBorder(new TitledBorder(null, "Export", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 		xcelExportPanel.setOpaque(false);
-		xcelExportPanel.setMaximumSize(new Dimension(32767, 100));
+		xcelExportPanel.setMaximumSize(new Dimension(32767, 50));
 		xcelExportPanel.setMinimumSize(new Dimension(10, 50));
 		FlowLayout flowLayout = (FlowLayout) xcelExportPanel.getLayout();
 		flowLayout.setVgap(20);

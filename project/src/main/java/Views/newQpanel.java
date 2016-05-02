@@ -35,18 +35,8 @@ import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
 import java.awt.ComponentOrientation;
 import java.awt.Component;
-import javax.swing.border.LineBorder;
-import java.awt.Color;
-import javax.swing.border.MatteBorder;
-import javax.swing.border.BevelBorder;
-import javax.swing.border.TitledBorder;
-import javax.swing.ScrollPaneConstants;
-import javax.swing.UIManager;
-import java.awt.SystemColor;
-import javax.swing.border.EmptyBorder;
-import javax.swing.Box;
 
-public class qPanel extends JPanel implements Serializable{
+public class newQpanel extends JPanel implements Serializable{
 	/**
 	 * 
 	 */
@@ -72,37 +62,31 @@ public class qPanel extends JPanel implements Serializable{
 	private transient FileNameExtensionFilter extensionFilter;
 	private MultipleChoicePanelController multipleChoicePanelController;
 	
-	private final static int width=MainFrameController.view.getContentPane().getWidth()-80;
+//	private final static int width=MainFrameController.view.getContentPane().getWidth()-20;
 //	private final static int height=(int) (MainFrameController.view.getContentPane().getHeight()/3);
-//	private final static int width=1900;
-	private final static int height=600;
-	private static final int qPanelsGap = 10;
+	private final static int width=800;
+	private final static int height=400;
 	private JTextArea textAreaQ;
 	private JButton qImage;
 	private JButton btnRemoveQuestionImage;
 	private JButton btnRemoveAnswerImage;
 	private JButton btnViewAnswerImage;
 	private JPanel headPanel;
+	private JPanel removePanel;
 	private JPanel questionPartPanel;
 	private JPanel textPanel;
 	private JPanel listeningPanel;
 	private JPanel answerPartPanel;
 	private JPanel answerTitlePanel;
+	private JPanel panel_2;
 	private JPanel panel_3;
 	private JLabel label;
-	private JPanel freeDrawPanel;
-	private JPanel imageButtonsPanel;
-	private JPanel answerImageButtonsPanel;
-	private JPanel panel_2;
-	private JPanel panel_4;
-	private JPanel panel;
-	public JPanel mainPanel;
 	/**
 	 * Create the panel.
 	 */
-	public qPanel() {
-		setOpaque(false);
-		setBackground(SystemColor.textHighlight);
+	public newQpanel() {
+		
+		setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
 		setPreferredSize(new Dimension(width, height));
 		setMaximumSize(new Dimension(width,height));
 		setMinimumSize(new Dimension(width, height));
@@ -110,80 +94,68 @@ public class qPanel extends JPanel implements Serializable{
 		
 		setAlignmentY(0.0f);
 		setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
-		add(javax.swing.Box.createVerticalStrut(qPanelsGap));
 		
-		mainPanel = new JPanel();
-		mainPanel.setBorder(new LineBorder(new Color(0, 0, 0)));
-		mainPanel.setBackground(SystemColor.textHighlight);
-		add(mainPanel);
-		mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.Y_AXIS));
+		removePanel = new JPanel();
+		removePanel.setPreferredSize(new Dimension(800, 10));
+		add(removePanel);
+		removePanel.setLayout(new BorderLayout(0, 0));
+		
+		btnRemove = new JButton("X");
+		btnRemove.setPreferredSize(new Dimension(30, 30));
+		btnRemove.setSize(new Dimension(25, 25));
+		btnRemove.setMaximumSize(new Dimension(35, 35));
+		btnRemove.setMinimumSize(new Dimension(30, 30));
+		removePanel.add(btnRemove, BorderLayout.EAST);
+		btnRemove.setMargin(new Insets(0, 0, 0, 0));
+		
 		headPanel = new JPanel();
-		mainPanel.add(headPanel);
-		headPanel.setBorder(new TitledBorder(null, "", TitledBorder.LEADING, TitledBorder.TOP, null, null));
-		headPanel.setMaximumSize(new Dimension(32767, 60));
-		headPanel.setOpaque(false);
-		headPanel.setPreferredSize(new Dimension(800, 40));
+		headPanel.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
+		add(headPanel);
 		headPanel.setLayout(new GridLayout(0, 2, 0, 0));
 		
-		panel_4 = new JPanel();
-		FlowLayout flowLayout_1 = (FlowLayout) panel_4.getLayout();
-		flowLayout_1.setVgap(2);
-		flowLayout_1.setHgap(15);
-		flowLayout_1.setAlignment(FlowLayout.LEFT);
-		panel_4.setOpaque(false);
-		headPanel.add(panel_4);
+		JPanel panel = new JPanel();
+		panel.setAlignmentX(Component.LEFT_ALIGNMENT);
+		headPanel.add(panel);
+		panel.setLayout(new BoxLayout(panel, BoxLayout.X_AXIS));
 		//Question title objects
 		questionLbl = new JLabel("Question 1.");
-		panel_4.add(questionLbl);
-		questionLbl.setVerticalAlignment(SwingConstants.TOP);
-		questionLbl.setForeground(Color.WHITE);
 		questionLbl.setHorizontalAlignment(SwingConstants.LEFT);
-		questionLbl.setFont(new Font("Tahoma", Font.PLAIN, 24));
+		panel.add(questionLbl);
+		questionLbl.setFont(new Font("Arial", Font.BOLD, 17));
 		
-		panel = new JPanel();
-		panel.setOpaque(false);
-		panel_4.add(panel);
+		JPanel panel_1 = new JPanel();
+		headPanel.add(panel_1);
+		panel_1.setLayout(new FlowLayout(FlowLayout.RIGHT, 5, 5));
 		
 		lblScore = new JLabel("Score:");
-		panel.add(lblScore);
-		lblScore.setForeground(Color.WHITE);
-		lblScore.setFont(new Font("Tahoma", Font.BOLD, 14));
+		panel_1.add(lblScore);
 		lblScore.setHorizontalAlignment(SwingConstants.LEFT);
 		
 		scoreTextField = new JTextField();
-		panel.add(scoreTextField);
+		panel_1.add(scoreTextField);
 		scoreTextField.setHorizontalAlignment(SwingConstants.LEFT);
 		scoreTextField.setColumns(10);
 		
-		panel_2 = new JPanel();
-		FlowLayout flowLayout_2 = (FlowLayout) panel_2.getLayout();
-		flowLayout_2.setVgap(2);
-		flowLayout_2.setAlignment(FlowLayout.RIGHT);
-		panel_2.setOpaque(false);
-		headPanel.add(panel_2);
-		
-		btnRemove = new JButton("X");
-		panel_2.add(btnRemove);
-		btnRemove.setPreferredSize(new Dimension(30, 30));
-		btnRemove.setSize(new Dimension(25, 40));
-		btnRemove.setMaximumSize(new Dimension(60, 60));
-		btnRemove.setMinimumSize(new Dimension(0, 0));
-		btnRemove.setMargin(new Insets(0, 0, 0, 0));
-		
 		questionPartPanel = new JPanel();
-		mainPanel.add(questionPartPanel);
-		questionPartPanel.setOpaque(false);
-		questionPartPanel.setBorder(new TitledBorder(UIManager.getBorder("TitledBorder.border"), "The Question", TitledBorder.LEFT, TitledBorder.TOP, new Font("Tahoma", Font.PLAIN, 14), new Color(255, 255, 255)));
+		questionPartPanel.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
+		add(questionPartPanel);
 		questionPartPanel.setLayout(new GridLayout(0, 2, 0, 0));
 		
 		JPanel questionTextPanel = new JPanel();
-		questionTextPanel.setBorder(new TitledBorder(UIManager.getBorder("TitledBorder.border"), "Question Text", TitledBorder.LEADING, TitledBorder.TOP, null, Color.WHITE));
-		questionTextPanel.setOpaque(false);
 		questionPartPanel.add(questionTextPanel);
 		questionTextPanel.setLayout(new BoxLayout(questionTextPanel, BoxLayout.Y_AXIS));
 		
+		JPanel questionTitlePanel = new JPanel();
+		FlowLayout flowLayout_1 = (FlowLayout) questionTitlePanel.getLayout();
+		flowLayout_1.setAlignment(FlowLayout.LEFT);
+		questionTextPanel.add(questionTitlePanel);
+		
+		JLabel lblTheQuestion = new JLabel("Enter the question properties");
+		questionTitlePanel.add(lblTheQuestion);
+		lblTheQuestion.setHorizontalAlignment(SwingConstants.CENTER);
+		lblTheQuestion.setFont(new Font("Arial", Font.BOLD, 15));
+		
 		textPanel = new JPanel();
-		textPanel.setOpaque(false);
 		textPanel.setPreferredSize(new Dimension(10, 100));
 		textPanel.setMinimumSize(new Dimension(10, 100));
 		questionTextPanel.add(textPanel);
@@ -205,7 +177,6 @@ public class qPanel extends JPanel implements Serializable{
 		textPanel.add(lblEnterQuestion, gbc_lblEnterQuestion);
 		
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setOpaque(false);
 		GridBagConstraints gbc_scrollPane = new GridBagConstraints();
 		gbc_scrollPane.fill = GridBagConstraints.BOTH;
 		gbc_scrollPane.gridx = 1;
@@ -217,39 +188,34 @@ public class qPanel extends JPanel implements Serializable{
 		scrollPane.setViewportView(textAreaQ);
 		
 		listeningPanel = new JPanel();
-		listeningPanel.setOpaque(false);
 		FlowLayout flowLayout = (FlowLayout) listeningPanel.getLayout();
 		flowLayout.setAlignment(FlowLayout.LEFT);
 		questionTextPanel.add(listeningPanel);
 		
-		listenChkBox = new JCheckBox("Enable listening");
-		listeningPanel.add(listenChkBox);
-		listenChkBox.setOpaque(false);
-		
-		chckbxHideQuestion = new JCheckBox("Hide question");
-		listeningPanel.add(chckbxHideQuestion);
-		chckbxHideQuestion.setVisible(false);
-		chckbxHideQuestion.setOpaque(false);
+			
+			listenChkBox = new JCheckBox("Enable listening");
+			listeningPanel.add(listenChkBox);
+			listenChkBox.setOpaque(false);
+			
+			chckbxHideQuestion = new JCheckBox("Hide question");
+			listeningPanel.add(chckbxHideQuestion);
+			chckbxHideQuestion.setVisible(false);
+			chckbxHideQuestion.setOpaque(false);
 		
 		JPanel questionImagePanel = new JPanel();
-		questionImagePanel.setBorder(new TitledBorder(UIManager.getBorder("TitledBorder.border"), "Question Image", TitledBorder.LEADING, TitledBorder.TOP, null, Color.WHITE));
-		questionImagePanel.setOpaque(false);
 		questionPartPanel.add(questionImagePanel);
 		questionImagePanel.setLayout(new BoxLayout(questionImagePanel, BoxLayout.Y_AXIS));
 		
 		JPanel qImageTitleLbl = new JPanel();
-		qImageTitleLbl.setOpaque(false);
 		questionImagePanel.add(qImageTitleLbl);
 		
 		JLabel questionImageLbl = new JLabel("Add an image to the question");
-		questionImageLbl.setForeground(Color.WHITE);
 		qImageTitleLbl.add(questionImageLbl);
 		questionImageLbl.setHorizontalTextPosition(SwingConstants.CENTER);
 		questionImageLbl.setHorizontalAlignment(SwingConstants.CENTER);
 		questionImageLbl.setFont(new Font("Arial", Font.BOLD, 15));
 		
-		imageButtonsPanel = new JPanel();
-		imageButtonsPanel.setOpaque(false);
+		JPanel imageButtonsPanel = new JPanel();
 		questionImagePanel.add(imageButtonsPanel);
 		
 		qbrowseBtn = new JButton("Browse..");
@@ -262,25 +228,30 @@ public class qPanel extends JPanel implements Serializable{
 		
 		btnRemoveQuestionImage = new JButton("Remove Image");
 		imageButtonsPanel.add(btnRemoveQuestionImage);
+		btnRemoveQuestionImage.setVisible(false);
 		
 		answerPartPanel = new JPanel();
-		mainPanel.add(answerPartPanel);
-		answerPartPanel.setOpaque(false);
-		answerPartPanel.setBorder(new TitledBorder(UIManager.getBorder("TitledBorder.border"), "The Answer", TitledBorder.LEADING, TitledBorder.TOP, new Font("Tahoma", Font.PLAIN, 14), Color.WHITE));
+		add(answerPartPanel);
 		answerPartPanel.setLayout(new BoxLayout(answerPartPanel, BoxLayout.Y_AXIS));
 		
 		answerTitlePanel = new JPanel();
-		answerTitlePanel.setOpaque(false);
 		answerPartPanel.add(answerTitlePanel);
-		answerTitlePanel.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
+		answerTitlePanel.setLayout(new GridLayout(0, 2, 0, 0));
+		
+		panel_2 = new JPanel();
+		FlowLayout flowLayout_2 = (FlowLayout) panel_2.getLayout();
+		flowLayout_2.setAlignment(FlowLayout.LEFT);
+		answerTitlePanel.add(panel_2);
+		
+		JLabel lblTheAnswer = new JLabel("Enter the answer properties");
+		panel_2.add(lblTheAnswer);
+		lblTheAnswer.setFont(new Font("Arial", Font.BOLD, 15));
 		
 		panel_3 = new JPanel();
-		panel_3.setOpaque(false);
 		panel_3.setFont(new Font("Arial", Font.PLAIN, 11));
 		answerTitlePanel.add(panel_3);
 		
-		JLabel lblAnswerType = new JLabel("Choose answer type:");
-		lblAnswerType.setForeground(Color.WHITE);
+		JLabel lblAnswerType = new JLabel("Answer type:");
 		lblAnswerType.setFont(new Font("Arial", Font.BOLD, 14));
 		panel_3.add(lblAnswerType);
 		
@@ -290,14 +261,11 @@ public class qPanel extends JPanel implements Serializable{
 		answerTypeCb.setSelectedIndex(0);
 		
 		answerPanel = new JPanel();
-		answerPanel.setMaximumSize(new Dimension(800, 32767));
 		answerPartPanel.add(answerPanel);
 		answerPanel.setOpaque(false);
 		answerPanel.setLayout(new CardLayout(0, 0));
 		
 		MultipleChoicePanel multipleChoicePanel = new MultipleChoicePanel();
-		multipleChoicePanel.setBorder(new TitledBorder(UIManager.getBorder("TitledBorder.border"), "Choices", TitledBorder.LEADING, TitledBorder.TOP, null, Color.WHITE));
-		multipleChoicePanel.jsp.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
 		multipleChoicePanel.setPreferredSize(new Dimension(444, 100));
 		multipleChoicePanel.setMinimumSize(new Dimension(444, 100));
 		GridBagLayout gridBagLayout_1 = (GridBagLayout) multipleChoicePanel.getLayout();
@@ -307,7 +275,6 @@ public class qPanel extends JPanel implements Serializable{
 		multipleChoicePanel.jsp.setPreferredSize(new Dimension(answerPanel.getWidth(),answerPanel.getHeight()));
 		
 		JPanel freeTextPanel = new JPanel();
-		freeTextPanel.setBorder(new TitledBorder(UIManager.getBorder("TitledBorder.border"), "Answer Text", TitledBorder.LEADING, TitledBorder.TOP, null, Color.WHITE));
 		answerPanel.add(freeTextPanel, "Free Text");
 		GridBagLayout gbl_freeTextPanel = new GridBagLayout();
 		gbl_freeTextPanel.columnWidths = new int[]{0, 0, 0, 0};
@@ -335,14 +302,11 @@ public class qPanel extends JPanel implements Serializable{
 		textAreaA = new JTextArea();
 		scrollPane_1.setViewportView(textAreaA);
 		
-		freeDrawPanel = new JPanel();
-		freeDrawPanel.setBorder(new TitledBorder(UIManager.getBorder("TitledBorder.border"), "Answer Image", TitledBorder.LEADING, TitledBorder.TOP, null, Color.WHITE));
-		freeDrawPanel.setOpaque(false);
+		JPanel freeDrawPanel = new JPanel();
 		answerPanel.add(freeDrawPanel, "Free Draw");
 		freeDrawPanel.setLayout(new BoxLayout(freeDrawPanel, BoxLayout.Y_AXIS));
 		
 		JPanel answerImageTitlePanel = new JPanel();
-		answerImageTitlePanel.setOpaque(false);
 		freeDrawPanel.add(answerImageTitlePanel);
 		
 		label = new JLabel("Add an image to the answer");
@@ -350,9 +314,9 @@ public class qPanel extends JPanel implements Serializable{
 		label.setHorizontalAlignment(SwingConstants.CENTER);
 		label.setFont(new Font("Arial", Font.BOLD, 15));
 		answerImageTitlePanel.add(label);
+		freeDrawPanel.setOpaque(false);
 		
-		answerImageButtonsPanel = new JPanel();
-		answerImageButtonsPanel.setOpaque(false);
+		JPanel answerImageButtonsPanel = new JPanel();
 		freeDrawPanel.add(answerImageButtonsPanel);
 		
 		ansBrowseBtn = new JButton("Browse..");
@@ -367,34 +331,10 @@ public class qPanel extends JPanel implements Serializable{
 		btnRemoveAnswerImage.setVisible(false);
 		freeTextPanel.setOpaque(false);
 		
-		Component verticalStrut = Box.createVerticalStrut(qPanelsGap);
-		add(verticalStrut);
-		btnRemoveQuestionImage.setVisible(false);
 		 initializeJFileChoosers();
 		
 		
 	}
-
-	
-	public JPanel getAnswerImageButtonsPanel() {
-		return answerImageButtonsPanel;
-	}
-
-
-	public void setAnswerImageButtonsPanel(JPanel answerImageButtonsPanel) {
-		this.answerImageButtonsPanel = answerImageButtonsPanel;
-	}
-
-
-	public JPanel getImageButtonsPanel() {
-		return imageButtonsPanel;
-	}
-
-
-	public void setImageButtonsPanel(JPanel imageButtonsPanel) {
-		this.imageButtonsPanel = imageButtonsPanel;
-	}
-
 
 	public JLabel getLblScore() {
 		return lblScore;

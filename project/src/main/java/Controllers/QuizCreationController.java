@@ -1,6 +1,7 @@
 package Controllers;
 
 import java.awt.Color;
+import java.awt.SystemColor;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
@@ -46,6 +47,7 @@ public class QuizCreationController implements Serializable {
 	private windowListener windowListener;
 
 	final static int TOTAL_GRADE = 100;
+	
 	public QuizCreationController(QuizCreationView view, QuizEntity entity, InitialWindowView initialWindowView) {
 		ActionListener[] fileMenuListeners = { new saveMenuListener(),new previewMenuListener(), new exitMenuListener() };
 		this.view = view;
@@ -109,6 +111,7 @@ public class QuizCreationController implements Serializable {
 	public void addExitingQpanel(qPanel panel) {
 		view.panel.add(panel);
 		view.panel.remove(view.addBtn);
+		
 		view.panel.add(view.addBtn);
 		view.panel.revalidate();
 	}
@@ -121,6 +124,7 @@ public class QuizCreationController implements Serializable {
 
 		QuizCreationController.saveFlag = 0;
 		view.panel.remove(view.addBtn);
+		
 		view.panel.add(view.addBtn);
 
 		qPview.setQuestionNumber(qPanels.size() + 1);
@@ -128,9 +132,9 @@ public class QuizCreationController implements Serializable {
 		QuizCreationController.qPanels.get(qPanels.size() - 1).getQuestionPanel().getQuestionLbl()
 				.setText("Question" + (qPanels.size()));
 		if ((qPview.getQuestionNumber() - 1) % 2 == 0)
-			qPview.setBackground(Color.getHSBColor(0.55f, 0.69f, 1));
+			qPview.mainPanel.setBackground(SystemColor.textHighlight);
 		else
-			qPview.setBackground(Color.getHSBColor(0.0711f, 0.9916f, 1));
+			qPview.mainPanel.setBackground(new Color(204, 102, 51));;
 		view.panel.revalidate();
 	}
 
