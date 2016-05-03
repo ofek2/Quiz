@@ -69,7 +69,7 @@ public class QuizCreationView extends ViewPanel {
 
 		panel = new JPanel();
 		panel.setLayout(new BoxLayout(panel, BoxLayout.PAGE_AXIS));
-
+		panel.setBackground(Color.WHITE);
 		JScrollPane jsp = new JScrollPane(panel, ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS,
 				ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 		jsp.getVerticalScrollBar().setUnitIncrement(16);

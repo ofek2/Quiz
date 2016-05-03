@@ -83,6 +83,9 @@ public class GradesDistributionGraph extends ViewPanel implements Runnable{
         XYChart.Series series1 = new XYChart.Series();
         series1.setName("Percentage");       
         for (int i = 0; i < quizScores.size(); i++) {
+        	if(quizScores.equals("-"))
+        		partitionsPercentages[0]+=1;
+        	else
 			if(Double.parseDouble(quizScores.get(i))<partition[0])
 				partitionsPercentages[0]+=1;
 			else if(Double.parseDouble(quizScores.get(i))<partition[1])
@@ -110,7 +113,7 @@ public class GradesDistributionGraph extends ViewPanel implements Runnable{
         series1.getData().add(new XYChart.Data(last, partitionsPercentages[5]));     
         
         bc.getData().add(series1);
-		final Scene scene = new Scene(bc, MainFrameController.view.getContentPane().getWidth()*6/8, 800, Color.web("#666970"));
+		final Scene scene = new Scene(bc, MainFrameController.view.getContentPane().getWidth()*6/8,  MainFrameController.view.getContentPane().getHeight()-30, Color.web("#666970"));
 		fxPanel.setScene(scene);
 		
 	}

@@ -162,6 +162,8 @@ public class ReportsController {
 			titleButtons[i] = new JButton(quizzesNames.get(i));
 		}
 		table = new CTable(titleButtons);
+		view.setTable(table);
+		view.setViewPortForScrollPane(table);
 		ArrayList<Object> labels = new ArrayList<>();		
 		File students = new File(coursePath+"/Students");
 		
@@ -173,17 +175,18 @@ public class ReportsController {
 			String studentId = (String) studentFile.getName().
 					subSequence(0,studentFile.getName().length()-4);
 			if(searchStudentId.equals("all")){
-				createStudentRow(studentId,studentFile,tableRowToWrite,table);
+				createStudentRow(studentId,studentFile,tableRowToWrite);
 				tableRowToWrite = tableRowToWrite+1;
 			}
 			else if(studentId.equals(searchStudentId))
 			{
-				createStudentRow(studentId,studentFile,tableRowToWrite,table);
+				createStudentRow(studentId,studentFile,tableRowToWrite);
 			}
 		}	
 			view.getCourseLabel().setText(
 					"Course id: "
 							+ courseName);
+			
 		}
 		else
 		{
@@ -199,7 +202,7 @@ public class ReportsController {
 	}
 	
 	public void createStudentRow(String studentId, File studentFile,
-			int tableRowToWrite, CTable table)
+			int tableRowToWrite)
 	{
 		double avg = 0;
 		quizzesScores = new ArrayList<Object>();
@@ -226,8 +229,10 @@ public class ReportsController {
 			avg = avg/(i);
 			quizzesScores.add(new JLabel(String.format("%.2f",avg)));
 //			System.out.println(tableRowToWrite);
-			table.add(new RepRow(quizzesScores, tableRowToWrite));			
-			view.getScrollPane().setViewportView(table);
+			table.add(new RepRow(quizzesScores, tableRowToWrite));	
+			view.table.revalidate();
+		//	view.setViewPortForScrollPane(table);
+		
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

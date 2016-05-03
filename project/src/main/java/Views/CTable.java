@@ -49,6 +49,7 @@ public class CTable extends JPanel{
 	@Override
 	public Component add(Component comp) {
 		super.add(comp);
+		revalidate();
 		rows.add((RepRow) comp);
 		return comp;
 	};

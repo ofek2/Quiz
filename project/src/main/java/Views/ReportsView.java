@@ -18,6 +18,7 @@ import javax.swing.JComboBox;
 import javax.swing.JDesktopPane;
 import javax.swing.JButton;
 import javax.swing.JSeparator;
+import javax.swing.ScrollPaneConstants;
 import javax.swing.border.TitledBorder;
 
 import Controllers.InitialWindowController;
@@ -47,6 +48,7 @@ public class ReportsView extends ViewPanel{
 	public CTable table = null;
 	private JLabel courseLabel;
 	public ReportsView() {
+		setBackground(Color.WHITE);
 		setPreferredSize(new Dimension(1000, 700));
 		setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 	
@@ -68,6 +70,7 @@ public class ReportsView extends ViewPanel{
 		mnFile.add(mntmExit);
 		
 		JPanel headPanel = new JPanel();
+		headPanel.setOpaque(false);
 		headPanel.setMaximumSize(new Dimension(32767, 40));
 		headPanel.setPreferredSize(new Dimension(10, 40));
 		add(headPanel);
@@ -76,19 +79,23 @@ public class ReportsView extends ViewPanel{
 		headPanel.add(courseLabel);
 		
 		JPanel mainPanel = new JPanel();
+		mainPanel.setOpaque(false);
 		add(mainPanel);
 		mainPanel.setLayout(new GridLayout(1, 2, 0, 0));
 		
 		JPanel reportsTablePanel = new JPanel();
-		reportsTablePanel.setBorder(new EmptyBorder(10, 10, 0, 0));
+		reportsTablePanel.setOpaque(false);
+		reportsTablePanel.setBorder(new EmptyBorder(10, 10, 10, 10));
 		mainPanel.add(reportsTablePanel);
-		reportsTablePanel.setLayout(new BoxLayout(reportsTablePanel, BoxLayout.X_AXIS));
+		reportsTablePanel.setLayout(new BoxLayout(reportsTablePanel, BoxLayout.Y_AXIS));
 		
-		scrollPane = new JScrollPane();
-		
+		scrollPane = new JScrollPane(table, ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED,
+				ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+		scrollPane.getVerticalScrollBar().setUnitIncrement(16);
 		reportsTablePanel.add(scrollPane);
 		
 		JPanel settingsPanel = new JPanel();
+		settingsPanel.setOpaque(false);
 		mainPanel.add(settingsPanel);
 		settingsPanel.setLayout(null);
 		
@@ -285,6 +292,10 @@ public class ReportsView extends ViewPanel{
 	public void mntmExitAddListener(ActionListener listener)
 	{
 		mnFile.getItem(0).addActionListener(listener);
+	}
+	public void setViewPortForScrollPane(CTable table2) {
+		// TODO Auto-generated method stub
+		scrollPane.setViewportView(table2);
 	}
 	
 }

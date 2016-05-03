@@ -30,8 +30,8 @@ public class RepRow extends JPanel {
 		this.rowIndex = rowIndex;
 		
 		setLayout(new GridLayout(1, rowItems.size(), 0, 0));
-		
-		setMaximumSize(new Dimension(10000, 25));
+		setMinimumSize(new Dimension(10000, 30));
+		setMaximumSize(new Dimension(10000, 40));
 		for (Object object : rowItems) {
 			((JComponent) object).setBorder(new LineBorder(new Color(0, 0, 0)));
 		
