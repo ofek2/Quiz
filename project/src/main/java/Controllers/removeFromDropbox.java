@@ -5,6 +5,7 @@ import java.io.IOException;
 import javax.swing.SwingWorker;
 import Views.CustomDialog;
 import project.ObjectFileManager;
+import project.zipFileManager;
 
 
 public class removeFromDropbox extends SwingWorker<Void, Void>{
@@ -33,8 +34,10 @@ public class removeFromDropbox extends SwingWorker<Void, Void>{
 			long folderSize = ObjectFileManager.folderSize(appFolder);
 			DropBoxSimple.progressListener.init(folderSize,  "uploaded"); 
 			DropBoxSimple.progressListener.dialog.setVisible(true);
+			zipFileManager.createZipFile(appFolder,(new File(".")).getCanonicalPath()+"/OnlineQuizChecker.zip");
 			SwingWorker<Void, Void> uploadFolder = new uploadToDropbox(source);
 			uploadFolder.execute();
+			
 //			DropBoxSimple.uploadFolder(new File(new File(".") + "/OnlineQuizChecker/"), "/");
 //			DropBoxSimple.progressListener.dialog.setVisible(false);
 		} catch (IOException e1) {

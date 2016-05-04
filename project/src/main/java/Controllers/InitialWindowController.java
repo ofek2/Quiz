@@ -32,6 +32,7 @@ import Entities.CourseEntity;
 import Entities.QuizEntity;
 import Entities.QuizObjectEntity;
 import Entities.StudentEntity;
+import Views.CoursesCheckingFrame;
 import Views.CustomDialog;
 import Views.GradingWindowView;
 import Views.InitialWindowView;
@@ -272,11 +273,15 @@ public class InitialWindowController {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
-				CustomDialog dialog = new CustomDialog("<html><body>Please wait while your files are being <br>uploaded to your dropbox account</body></html>");
-				dialog.setTitle("Alert");
-				dialog.setVisible(true);
-				SwingWorker<Void, Void> recursiveDeleteDropboxFolder = new removeFromDropbox(dialog,Constants.SAVE);
-				recursiveDeleteDropboxFolder.execute();
+				CoursesCheckingFrame ccf = new CoursesCheckingFrame(coursesFiles);
+				if(ccf.check())
+				{
+					CustomDialog dialog = new CustomDialog("<html><body>Please wait while your files are being <br>uploaded to your dropbox account</body></html>");
+					dialog.setTitle("Alert");
+					dialog.setVisible(true);
+					SwingWorker<Void, Void> recursiveDeleteDropboxFolder = new removeFromDropbox(dialog,Constants.SAVE);
+					recursiveDeleteDropboxFolder.execute();
+				}
 			}
 			
 		}
@@ -526,10 +531,14 @@ public class InitialWindowController {
 								studentFile = new File(Constants.ROOTPATH
 										+ (String) view.getRemoveStudentCourseCB().getSelectedItem() + "/Students/"
 										+ (String) view.getRemoveStudentsIds().getSelectedItem() + ".ser");
-							if((studentAnswer = new File(Constants.ROOTPATH
-									+ studentCourse + "/Quizzes/" + studentId + "/StudentsAnswers/"
-									+ studentId + ".html")).exists())
-								studentAnswer.delete();
+							if((new File(Constants.ROOTPATH
+									+ studentCourse + "/Quizzes/" + studentId + "/StudentsAnswers/"))!=null)
+							{
+								if((studentAnswer = new File(Constants.ROOTPATH
+										+ studentCourse + "/Quizzes/" + studentId + "/StudentsAnswers/"
+										+ studentId + ".html")).exists())
+									studentAnswer.delete();
+							}
 							studentFile.delete();
 							view.getRemoveStudentsIds().removeItemListener(removeStudentsIdsAddItemListener);
 							view.loadStudents(view.getRemoveStudentCourseCB().getSelectedIndex());
@@ -706,6 +715,9 @@ public class InitialWindowController {
 				/** The quiz name. */
 				private String quizName;
 				
+				/** The course name. */
+				private String courseName;
+				
 				/** The pop up menu flag. */
 				private int popUpMenuFlag;
 
@@ -721,8 +733,9 @@ public class InitialWindowController {
 				 *
 				 * @param quizName the quiz name
 				 */
-				public EditQuizBtnListener(String quizName) {
+				public EditQuizBtnListener(String courseName,String quizName) {
 					this.quizName = quizName;
+					this.courseName = courseName;
 					popUpMenuFlag = 1;
 				}
 
@@ -732,13 +745,26 @@ public class InitialWindowController {
 				public void actionPerformed(ActionEvent e) {
 					// TODO Auto-generated method stub
 					// read object from file
+					String courseFolder = null;
 					if (popUpMenuFlag == 0)
+					{
+						try {
+							courseFolder = coursesFiles.get(view.getCoursesIdsEdit().getSelectedIndex()).getCourseFolder().getCanonicalPath();
+							} catch (IOException e2) {e2.printStackTrace();
+						}
+						
 						quizName = view.getQuizzes().getItemAt(view.getQuizzes().getSelectedIndex());
+					} else
+						courseFolder = Constants.ROOTPATH + courseName;
+						
 					String quizFile = quizName + ".ser";
 					String path;
-					try {
-						path = coursesFiles.get(view.getCoursesIdsEdit().getSelectedIndex()).getCourseFolder()
-								.getCanonicalPath() + "/Quizzes/" + quizName + "/Form/" + quizFile;
+					QuizEntity quizEntity = new QuizEntity(quizName, courseName);
+					
+					File temp = quizEntity.getStudentsAnswersFolder();
+					if(!temp.exists()) // Quiz was not performed yet by students.
+					{
+						path = courseFolder + "/Quizzes/" + quizName + "/Form/" + quizFile;
 						QuizObjectEntity result = (QuizObjectEntity) ObjectFileManager.loadObject(path);
 						/*
 						 * FileInputStream fis; fis = new FileInputStream(path);
@@ -754,13 +780,10 @@ public class InitialWindowController {
 						if (popUpMenuFlag == 0)
 							menuController.editQuizdialog.dispose();
 						MainFrameController.view.changeContentPane(quizCreationView);
-					} catch (FileNotFoundException e1) {
-						// TODO Auto-generated catch block
-						e1.printStackTrace();
-					} catch (IOException e1) {
-						// TODO Auto-generated catch block
-						e1.printStackTrace();
 					}
+					else
+						JOptionPane.showMessageDialog(null, "You can't edit a quiz that was already been taken by your students.", "Quiz performed",
+								JOptionPane.WARNING_MESSAGE);
 				}
 
 			}
@@ -921,6 +944,7 @@ public class InitialWindowController {
 						String path = Constants.ROOTPATH + courseName
 								+ "/Quizzes/" + quizName + "/StudentsAnswers";
 						File studentsAnswersFolder = new File(path);
+						if(studentsAnswersFolder!=null)
 						if(studentsAnswersFolder.listFiles()!=null)
 						if (studentsAnswersFolder.listFiles().length > 0)
 							for (File child : studentsAnswersFolder.listFiles()) {
@@ -1091,7 +1115,7 @@ public class InitialWindowController {
 					quizPopupMenu.remove(removeQuiz);
 					editQuiz = new JMenuItem("Edit quiz");
 					removeQuiz = new JMenuItem("Remove quiz");
-					editQuiz.addActionListener(new DialogsBtnsController.EditQuizBtnListener(chosenFileName));
+					editQuiz.addActionListener(new DialogsBtnsController.EditQuizBtnListener(courseName,chosenFileName));
 					final String quizName = chosenFileName;
 					final String quizCourseName = courseName;
 					removeQuiz.addActionListener(new ActionListener() {
@@ -1418,11 +1442,15 @@ public class InitialWindowController {
 		 * @see java.awt.event.WindowAdapter#windowClosing(java.awt.event.WindowEvent)
 		 */
 		public void windowClosing(WindowEvent e) {
-			CustomDialog dialog = new CustomDialog("<html><body>Please wait while your files are being <br>uploaded to your dropbox account</body></html>");
-			dialog.setTitle("Alert");
-			dialog.setVisible(true);
-			SwingWorker<Void, Void> recursiveDeleteDropboxFolder = new removeFromDropbox(dialog,Constants.SAVE_AND_EXIT);
-			recursiveDeleteDropboxFolder.execute();
+			CoursesCheckingFrame ccf = new CoursesCheckingFrame(coursesFiles);
+			if(ccf.check())
+			{
+				CustomDialog dialog = new CustomDialog("<html><body>Please wait while your files are being <br>uploaded to your dropbox account</body></html>");
+				dialog.setTitle("Alert");
+				dialog.setVisible(true);
+				SwingWorker<Void, Void> recursiveDeleteDropboxFolder = new removeFromDropbox(dialog,Constants.SAVE_AND_EXIT);
+				recursiveDeleteDropboxFolder.execute();
+			}
 		}
 	}
 

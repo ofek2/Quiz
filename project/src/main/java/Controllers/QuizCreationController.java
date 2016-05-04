@@ -187,7 +187,7 @@ public class QuizCreationController implements Serializable {
 			if (!entity.getQuizFolder().exists()) {
 				entity.getQuizFolder().mkdir();
 				entity.getQuizFormFolder().mkdir();
-				entity.getStudentsAnswersFolder().mkdir();
+				//entity.getStudentsAnswersFolder().mkdir();
 			}
 			for (int i = 0; i < qPanels.size(); i++)
 				qPanels.get(i).saveImages();

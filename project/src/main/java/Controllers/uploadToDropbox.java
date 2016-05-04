@@ -17,7 +17,7 @@ public class uploadToDropbox extends SwingWorker<Void, Void>{
 	@Override
 	protected Void doInBackground() throws Exception {
 		// TODO Auto-generated method stub
-		DropBoxSimple.uploadFolder(new File(new File(".") + "/OnlineQuizChecker/"), "/");
+		DropBoxSimple.uploadFolder(new File((new File(".")).getCanonicalPath()+"/OnlineQuizChecker.zip"), "/");
 		return null;
 	}
 	@Override

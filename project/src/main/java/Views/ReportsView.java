@@ -31,11 +31,13 @@ import javax.swing.JScrollPane;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.EtchedBorder;
 import javax.swing.JMenuItem;
+import javax.swing.border.CompoundBorder;
+import javax.swing.border.LineBorder;
+import javax.swing.UIManager;
 
 public class ReportsView extends ViewPanel{
 	private JComboBox<String>reportsStudentsIds;
 	private JLabel lblReportsStudentId;
-	private JLabel lblSearchStudent;
 	private JButton btnReportsShowGrades;
 	private JComboBox<String> reportsCourses;
 	private JLabel lblReportsCourseId;
@@ -49,7 +51,7 @@ public class ReportsView extends ViewPanel{
 	private JLabel courseLabel;
 	public ReportsView() {
 		setBackground(Color.WHITE);
-		setPreferredSize(new Dimension(1000, 700));
+//		setPreferredSize(new Dimension(1000, 700));
 		setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 	
 		
@@ -74,8 +76,10 @@ public class ReportsView extends ViewPanel{
 		headPanel.setMaximumSize(new Dimension(32767, 40));
 		headPanel.setPreferredSize(new Dimension(10, 40));
 		add(headPanel);
+		headPanel.setLayout(new FlowLayout(FlowLayout.LEFT, 10, 10));
 		
 		courseLabel = new JLabel("");
+		courseLabel.setFont(new Font("Tahoma", Font.BOLD, 16));
 		headPanel.add(courseLabel);
 		
 		JPanel mainPanel = new JPanel();
@@ -95,21 +99,22 @@ public class ReportsView extends ViewPanel{
 		reportsTablePanel.add(scrollPane);
 		
 		JPanel settingsPanel = new JPanel();
+		settingsPanel.setBorder(new CompoundBorder(new EmptyBorder(10, 20, 10, 20), null));
 		settingsPanel.setOpaque(false);
 		mainPanel.add(settingsPanel);
-		settingsPanel.setLayout(null);
+		//Loading courses ids
+		Vector<String> vec = new Vector<String>();
+		for(int i=0;i<InitialWindowController.coursesFiles.size();i++)
+			vec.add(InitialWindowController.coursesFiles.get(i).getCourseFolderName());
+		System.out.println(InitialWindowController.coursesFiles.size());
 		
-		JInternalFrame internalFrame = new JInternalFrame("Reports Settings");
-		internalFrame.setBounds(90, 5, 320, 360);
-		internalFrame.getContentPane().setBackground(Color.WHITE);
-		internalFrame.setPreferredSize(new Dimension(320, 360));
-		settingsPanel.add(internalFrame);
-		internalFrame.getContentPane().setLayout(new BoxLayout(internalFrame.getContentPane(), BoxLayout.Y_AXIS));
+		
+		settingsPanel.setLayout(new BoxLayout(settingsPanel, BoxLayout.Y_AXIS));
 		
 		JPanel coursePanel = new JPanel();
+		settingsPanel.add(coursePanel);
 		coursePanel.setOpaque(false);
-		coursePanel.setBorder(new TitledBorder(null, "Course", TitledBorder.LEADING, TitledBorder.TOP, null, null));
-		internalFrame.getContentPane().add(coursePanel);
+		coursePanel.setBorder(new TitledBorder(null, "Course", TitledBorder.LEADING, TitledBorder.TOP, new Font("Tahoma", Font.PLAIN, 14), null));
 		coursePanel.setLayout(new BoxLayout(coursePanel, BoxLayout.Y_AXIS));
 		
 		JPanel courseTitlePanel = new JPanel();
@@ -121,10 +126,6 @@ public class ReportsView extends ViewPanel{
 		
 		lblReportsCourseId = new JLabel("Course ID:");
 		courseTitlePanel.add(lblReportsCourseId);
-		//Loading courses ids
-		Vector<String> vec = new Vector<String>();
-		for(int i=0;i<InitialWindowController.coursesFiles.size();i++)
-			vec.add(InitialWindowController.coursesFiles.get(i).getCourseFolderName());
 		
 		reportsCourses = new JComboBox<String>();
 		reportsCourses.setPreferredSize(new Dimension(200, 20));
@@ -146,19 +147,10 @@ public class ReportsView extends ViewPanel{
 		produceRepBtnPanel.add(btnReportsShowGrades);
 		
 		JPanel studentPanel = new JPanel();
+		settingsPanel.add(studentPanel);
 		studentPanel.setOpaque(false);
-		studentPanel.setBorder(new TitledBorder(null, "Student", TitledBorder.LEADING, TitledBorder.TOP, null, null));
-		internalFrame.getContentPane().add(studentPanel);
+		studentPanel.setBorder(new TitledBorder(UIManager.getBorder("TitledBorder.border"), "Search Specific Student", TitledBorder.LEADING, TitledBorder.TOP, new Font("Tahoma", Font.PLAIN, 14), new Color(0, 0, 0)));
 		studentPanel.setLayout(new BoxLayout(studentPanel, BoxLayout.Y_AXIS));
-		
-		JPanel studentTitlePanel = new JPanel();
-		studentTitlePanel.setMaximumSize(new Dimension(32767, 20));
-		studentTitlePanel.setOpaque(false);
-		studentPanel.add(studentTitlePanel);
-		
-		lblSearchStudent = new JLabel("Search Student");
-		lblSearchStudent.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		studentTitlePanel.add(lblSearchStudent);
 		
 		JPanel produceStudRepPanel = new JPanel();
 		produceStudRepPanel.setPreferredSize(new Dimension(10, 50));
@@ -185,17 +177,16 @@ public class ReportsView extends ViewPanel{
 		studentSearchBtnPanel.add(btnSearchStudent);
 		
 		JPanel xcelExportPanel = new JPanel();
-		xcelExportPanel.setBorder(new TitledBorder(null, "Export", TitledBorder.LEADING, TitledBorder.TOP, null, null));
+		settingsPanel.add(xcelExportPanel);
+		xcelExportPanel.setBorder(new TitledBorder(null, "Export", TitledBorder.LEADING, TitledBorder.TOP, new Font("Tahoma", Font.PLAIN, 14), null));
 		xcelExportPanel.setOpaque(false);
 		xcelExportPanel.setMaximumSize(new Dimension(32767, 100));
 		xcelExportPanel.setMinimumSize(new Dimension(10, 50));
 		FlowLayout flowLayout = (FlowLayout) xcelExportPanel.getLayout();
 		flowLayout.setVgap(20);
-		internalFrame.getContentPane().add(xcelExportPanel);
 		
 		btnExportExcelFile = new JButton("Export excel file");
 		xcelExportPanel.add(btnExportExcelFile);
-		internalFrame.setVisible(true);
 	}
 //	public JPanel getReportsInfoPanel() {
 //		return reportsInfoPanel;
