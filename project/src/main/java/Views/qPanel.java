@@ -223,10 +223,12 @@ public class qPanel extends JPanel implements Serializable{
 		questionTextPanel.add(listeningPanel);
 		
 		listenChkBox = new JCheckBox("Enable listening");
+		listenChkBox.setBackground(Color.WHITE);
 		listeningPanel.add(listenChkBox);
 		listenChkBox.setOpaque(false);
 		
 		chckbxHideQuestion = new JCheckBox("Hide question");
+		chckbxHideQuestion.setBackground(Color.WHITE);
 		listeningPanel.add(chckbxHideQuestion);
 		chckbxHideQuestion.setVisible(false);
 		chckbxHideQuestion.setOpaque(false);
@@ -253,14 +255,20 @@ public class qPanel extends JPanel implements Serializable{
 		questionImagePanel.add(imageButtonsPanel);
 		
 		qbrowseBtn = new JButton("Browse..");
+		qbrowseBtn.setBorder(UIManager.getBorder("Button.border"));
+		qbrowseBtn.setBackground(Color.WHITE);
 		imageButtonsPanel.add(qbrowseBtn);
 		
 		qImage = new JButton();
+		qImage.setBorder(UIManager.getBorder("Button.border"));
+		qImage.setBackground(Color.WHITE);
 		imageButtonsPanel.add(qImage);
 		qImage.setText("View Image");
 		qImage.setVisible(false);
 		
 		btnRemoveQuestionImage = new JButton("Remove Image");
+		btnRemoveQuestionImage.setBorder(UIManager.getBorder("Button.border"));
+		btnRemoveQuestionImage.setBackground(Color.WHITE);
 		imageButtonsPanel.add(btnRemoveQuestionImage);
 		
 		answerPartPanel = new JPanel();
@@ -285,6 +293,7 @@ public class qPanel extends JPanel implements Serializable{
 		panel_3.add(lblAnswerType);
 		
 		answerTypeCb = new JComboBox<String>();
+		answerTypeCb.setBackground(Color.WHITE);
 		panel_3.add(answerTypeCb);
 		answerTypeCb.setModel(new DefaultComboBoxModel<String>(new String[] {"Multiple Choice", "Free Text", "Free Draw"}));
 		answerTypeCb.setSelectedIndex(0);
@@ -346,6 +355,7 @@ public class qPanel extends JPanel implements Serializable{
 		freeDrawPanel.add(answerImageTitlePanel);
 		
 		label = new JLabel("Add an image to the answer");
+		label.setForeground(Color.WHITE);
 		label.setHorizontalTextPosition(SwingConstants.CENTER);
 		label.setHorizontalAlignment(SwingConstants.CENTER);
 		label.setFont(new Font("Arial", Font.BOLD, 15));
@@ -356,12 +366,15 @@ public class qPanel extends JPanel implements Serializable{
 		freeDrawPanel.add(answerImageButtonsPanel);
 		
 		ansBrowseBtn = new JButton("Browse..");
+		ansBrowseBtn.setBackground(Color.WHITE);
 		answerImageButtonsPanel.add(ansBrowseBtn);
 		
 		btnRemoveAnswerImage = new JButton("Remove Image");
+		btnRemoveAnswerImage.setBackground(Color.WHITE);
 		answerImageButtonsPanel.add(btnRemoveAnswerImage);
 		
 		btnViewAnswerImage = new JButton("View Image");
+		btnViewAnswerImage.setBackground(Color.WHITE);
 		answerImageButtonsPanel.add(btnViewAnswerImage);
 		btnViewAnswerImage.setVisible(false);
 		btnRemoveAnswerImage.setVisible(false);

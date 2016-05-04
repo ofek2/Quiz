@@ -1,5 +1,6 @@
 package Views;
 
+import java.awt.Color;
 import java.awt.Dimension;
 import javax.swing.JCheckBox;
 import javax.swing.JPanel;
@@ -71,6 +72,7 @@ public class checkBoxFieldPanel extends JPanel implements Serializable{
 		plusBtn = new JButton("+");
 		plusBtn.setMargin(new Insets(0, 0, 0, 0));
 		plusBtn.setFont(new Font("Serif", Font.PLAIN, 14));
+		plusBtn.setBackground(Color.WHITE);
 		GridBagConstraints gbc_plusBtn = new GridBagConstraints();
 		gbc_plusBtn.fill = GridBagConstraints.BOTH;
 		gbc_plusBtn.gridx = 3;
@@ -80,6 +82,7 @@ public class checkBoxFieldPanel extends JPanel implements Serializable{
 		minusBtn = new JButton("-");
 		minusBtn.setMargin(new Insets(0, 0, 0, 0));
 		minusBtn.setFont(new Font("Arial", Font.PLAIN, 14));
+		minusBtn.setBackground(Color.WHITE);
 		GridBagConstraints gbc_minusBtn = new GridBagConstraints();
 		gbc_minusBtn.fill = GridBagConstraints.BOTH;
 		gbc_minusBtn.gridx = 4;
