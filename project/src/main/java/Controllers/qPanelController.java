@@ -608,6 +608,52 @@ public class qPanelController implements Serializable{
 			} 	
 		}
 	}
+	public void saveImagesForPreview(String path)
+	{
+		BufferedImage image;
+		File fileSave;
+		if(qImgFile!=null&&!qImgFile.getName().contains("D")){
+			try {
+				String questionLbl = view.getQuestionLbl().getText()+".PNG";
+				questionImgPath = path +"/" + questionLbl;
+				fileExtension = Files.getFileExtension(qImgFile.getCanonicalPath());
+				
+				image = ImageIO.read(qImgFile); 
+				fileSave = new File(questionImgPath);
+				ImageIO.write(image,fileExtension , fileSave);		
+				if(qImgFile.getParent().equals(path))
+				{
+				if(!qImgFile.getName().equals(questionLbl))
+				qImgFile.delete();
+				}
+				qImgFile = fileSave;
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} 	
+		}
+		if(aImgFile!=null&&!aImgFile.getName().contains("D"))
+		{
+			try {
+				String answerLbl = "Answer"+view.getQuestionNumber()+".PNG";
+				answerImgPath = path +"/" + answerLbl;
+				fileExtension = Files.getFileExtension(aImgFile.getCanonicalPath());
+				
+				image = ImageIO.read(aImgFile); 	
+				fileSave = new File(answerImgPath);
+				ImageIO.write(image,fileExtension , fileSave);
+				if(aImgFile.getParent().equals(path))
+				{
+				if(!aImgFile.getName().equals(answerLbl))
+				aImgFile.delete();
+				}
+				aImgFile = fileSave;
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} 	
+		}
+	}
 	
 	/**
 	 * Gets the question panel.

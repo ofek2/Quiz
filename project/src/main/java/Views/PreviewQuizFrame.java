@@ -33,10 +33,10 @@ public class PreviewQuizFrame extends JFrame{
 	private WebEngine engine;
 	private final JPanel panel = new JPanel(new BorderLayout());
 	private windowListener windowListener;
-	private String tempFileToDelete;
-	public PreviewQuizFrame(String tempFileToDelete){
+	private String tempFolderToDelete;
+	public PreviewQuizFrame(String tempFolderToDelete){
 		super();
-		this.tempFileToDelete = tempFileToDelete;
+		this.tempFolderToDelete = tempFolderToDelete;
 		windowListener = new windowListener();
 		removeWindowListener(MainFrameController.view.windowListener);
 		setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
@@ -100,9 +100,19 @@ public class PreviewQuizFrame extends JFrame{
 		 * @see java.awt.event.WindowAdapter#windowClosing(java.awt.event.WindowEvent)
 		 */
 		public void windowClosing(WindowEvent e) {
-			File tmp = new File(tempFileToDelete);
-			tmp.delete();
+			File tmp = new File(tempFolderToDelete);
+			recursiveDelete(tmp);
 			dispose();
 		}
+	}
+	private void recursiveDelete(File file) {
+		if (!file.exists())
+			return;
+		if (file.isDirectory()) {
+			for (File f : file.listFiles()) {
+				recursiveDelete(f);
+			}
+		}
+		file.delete();
 	}
 }

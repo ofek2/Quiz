@@ -296,14 +296,24 @@ public class QuizCreationController implements Serializable {
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			// TODO Auto-generated method stub
-			createHtmlFile();
+	
 			try {
-				String path = (new File(".")).getCanonicalPath()+"Temp.html";
-				htmlBuilder.writeHtml(path);
-				PreviewQuizFrame frame = new PreviewQuizFrame(path);
-				frame.setVisible(true);
-				frame.loadURL("file:///"+path);
+				
+			File tempFolder = new File((new File(".")).getCanonicalPath()+"/Temp");
+			tempFolder.mkdir();
+			for (int i = 0; i < qPanels.size(); i++)
+				qPanels.get(i).saveImagesForPreview(tempFolder.getCanonicalPath());
+			
+			createHtmlFile();
+	
+
+			String path = tempFolder.getCanonicalPath()+"/Temp.html";
+			htmlBuilder.writeHtml(path);
+			
+			PreviewQuizFrame frame = new PreviewQuizFrame(path);
+			frame.setVisible(true);
+			frame.loadURL("file:///"+path);
+			
 			} catch (TransformerException e1) {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
