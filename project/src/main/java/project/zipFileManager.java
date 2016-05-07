@@ -48,14 +48,14 @@ public class zipFileManager {
 	    }
 
 	    if (fileToZip.isDirectory()) {
-	        System.out.println("+" + zipEntryName);
+	      
 	        if(fileToZip.getName().equals("OnlineQuizChecker"))
 	        	zipEntryName = null;
 	        for (File file : fileToZip.listFiles()) {
 	            addDirToZipArchive(zos, file, zipEntryName);
 	        }
 	    } else {
-	        System.out.println("   " + zipEntryName);
+	       
 	        byte[] buffer = new byte[1024];
 	        FileInputStream fis = new FileInputStream(fileToZip);
 	        zos.putNextEntry(new ZipEntry(zipEntryName));
@@ -101,8 +101,7 @@ public class zipFileManager {
 				}
 				else {
 					
-					System.out.println("Extracting file: " + destinationPath);
-					
+				
 					BufferedInputStream bis = new BufferedInputStream(zipFile.getInputStream(entry));
 
 					int b;

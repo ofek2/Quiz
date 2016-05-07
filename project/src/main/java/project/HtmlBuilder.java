@@ -223,7 +223,8 @@ public class HtmlBuilder {
 			input.setAttribute("class", "btn btn-primary");
 			input.setAttribute("type", "button");
 			input.setAttribute("onclick", "openDrawingBoard(this.form)");
-			input.appendChild(document.createTextNode("Draw An Answer"));
+			input.setAttribute("value", "Draw An Answer");
+			input.appendChild(document.createTextNode(" "));
 			form.appendChild(input);
 //			Element canvas = document.createElement("canvas");
 //			canvas.setAttribute("id", "sketchpad");
