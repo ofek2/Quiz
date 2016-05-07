@@ -37,14 +37,14 @@ public class zipFileManager {
 		}
 		 
 	}
-	public static void addDirToZipArchive(ZipOutputStream zos, File fileToZip, String parrentDirectoryName) throws Exception {
+	public static void addDirToZipArchive(ZipOutputStream zos, File fileToZip, String parentDirectoryName) throws Exception {
 	    if (fileToZip == null || !fileToZip.exists()) {
 	        return;
 	    }
 
 	    String zipEntryName = fileToZip.getName();
-	    if (parrentDirectoryName!=null && !parrentDirectoryName.isEmpty()) {
-	        zipEntryName = parrentDirectoryName + "/" + fileToZip.getName();
+	    if (parentDirectoryName!=null && !parentDirectoryName.isEmpty()) {
+	        zipEntryName = parentDirectoryName + "/" + fileToZip.getName();
 	    }
 
 	    if (fileToZip.isDirectory()) {
