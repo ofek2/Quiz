@@ -134,13 +134,14 @@ public class HtmlBuilder {
 		questionTextPara.appendChild(document.createTextNode(questionText));
 		
 		divBody.appendChild(qText);
-		
+		if(!questionImageName.equals(""))
+		{
 		Element qImage= document.createElement("qImage");
 		Element img = document.createElement("img");
 		img.setAttribute("src", questionImageName);
 		qImage.appendChild(img);
 		divBody.appendChild(qImage);
-		
+		}
 		questions.get(qNumber).getFirstChild().appendChild(divBody);
 		
 		
@@ -215,9 +216,18 @@ public class HtmlBuilder {
 		}
 		if(type.equals("Free Draw"))
 		{
-			Element canvas = document.createElement("canvas");
-			canvas.setAttribute("id", "sketchpad");
-			form.appendChild(canvas);
+			Element studentDrawing = document.createElement("studentdrawing");
+			studentDrawing.appendChild(document.createTextNode(" "));
+			form.appendChild(studentDrawing);
+			Element input = document.createElement("input");
+			input.setAttribute("class", "btn btn-primary");
+			input.setAttribute("type", "button");
+			input.setAttribute("onClick", "openDrawingBoard()");
+			input.appendChild(document.createTextNode("Draw An Answer"));
+			form.appendChild(input);
+//			Element canvas = document.createElement("canvas");
+//			canvas.setAttribute("id", "sketchpad");
+//			form.appendChild(canvas);
 			
 		}
 		addSpeakerBtn(qNumber);
@@ -326,10 +336,14 @@ public class HtmlBuilder {
 		}
 		if(type.equals("Free Draw"))
 		{
-			Element canvas = document.createElement("canvas");
-			canvas.setAttribute("id", "sketchpad");
-			form.appendChild(canvas);
-	
+			if(!answer.equals(""))
+			{
+				Element aImage = document.createElement("aImage");
+				Element img = document.createElement("img");
+				img.setAttribute("src", answer);
+				aImage.appendChild(img);
+				form.appendChild(aImage);
+			}
 		}
 	}
 	public void removeLecturerAnswers()

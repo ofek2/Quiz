@@ -542,9 +542,9 @@ public class qPanelController implements Serializable{
 	public static void renameQandAImagesToOrigin(File file)
 	{
 		try {
-			if(file.getName().contains("D"))
+			if(file.getName().endsWith("D.PNG"))
 				{
-					String str = file.getName().replace("D", "");
+					String str = file.getName().replace("D.PNG", ".PNG");
 					BufferedImage bufferedImage = null;
 					File tempFile = new File(quizPath+"/"+str);				
 						bufferedImage = ImageIO.read(file);
@@ -566,7 +566,7 @@ public class qPanelController implements Serializable{
 	{
 		BufferedImage image;
 		File fileSave;
-		if(qImgFile!=null&&!qImgFile.getName().contains("D")){
+		if(qImgFile!=null&&!qImgFile.getName().endsWith("D.PNG")){
 			try {
 				String questionLbl = view.getQuestionLbl().getText()+".PNG";
 				questionImgPath = quizPath +"/" + questionLbl;
@@ -586,7 +586,7 @@ public class qPanelController implements Serializable{
 				e.printStackTrace();
 			} 	
 		}
-		if(aImgFile!=null&&!aImgFile.getName().contains("D"))
+		if(aImgFile!=null&&!aImgFile.getName().endsWith("D.PNG"))
 		{
 			try {
 				String answerLbl = "Answer"+view.getQuestionNumber()+".PNG";
@@ -612,7 +612,7 @@ public class qPanelController implements Serializable{
 	{
 		BufferedImage image;
 		File fileSave;
-		if(qImgFile!=null&&!qImgFile.getName().contains("D")){
+		if(qImgFile!=null&&!qImgFile.getName().endsWith("D.PNG")){
 			try {
 				String questionLbl = view.getQuestionLbl().getText()+".PNG";
 				questionImgPath = path +"/" + questionLbl;
@@ -632,7 +632,7 @@ public class qPanelController implements Serializable{
 				e.printStackTrace();
 			} 	
 		}
-		if(aImgFile!=null&&!aImgFile.getName().contains("D"))
+		if(aImgFile!=null&&!aImgFile.getName().endsWith("D.PNG"))
 		{
 			try {
 				String answerLbl = "Answer"+view.getQuestionNumber()+".PNG";

@@ -252,6 +252,7 @@ public class QuizCreationController implements Serializable {
 			htmlBuilder.addQuestion(i + 1, answerType, score);
 
 			if (tempQController.getqImgFile() != null) {
+				if(!tempQController.getqImgFile().getName().endsWith("D.PNG"))
 				questionImageName = tempQController.getqImgFile().getName();
 
 			}
@@ -282,6 +283,7 @@ public class QuizCreationController implements Serializable {
 					answer = tempQController.view.getTextAreaA().getText();
 				else {
 					if (tempQController.getaImgFile() != null)
+						if(!tempQController.getaImgFile().getName().endsWith("D.PNG"))
 						answer = tempQController.getaImgFile().getPath();
 				}
 				htmlBuilder.addAnswersData(i + 1, answerType);
@@ -303,7 +305,7 @@ public class QuizCreationController implements Serializable {
 			tempFolder.mkdir();
 			for (int i = 0; i < qPanels.size(); i++)
 				qPanels.get(i).saveImagesForPreview(tempFolder.getCanonicalPath());
-			
+		
 			createHtmlFile();
 	
 
@@ -325,7 +327,7 @@ public class QuizCreationController implements Serializable {
 		}
 		
 	}
-	private void recursiveDelete(File file) {
+	public void recursiveDelete(File file) {
 		if (!file.exists())
 			return;
 		if (file.isDirectory()) {
@@ -333,7 +335,7 @@ public class QuizCreationController implements Serializable {
 				recursiveDelete(f);
 			}
 		}
-		if ((file.getName().equals("Question1D.PNG") || file.getName().equals("Answer1D.PNG")) && !file.isDirectory())
+		if (file.getName().contains("D.PNG") && !file.isDirectory())
 			file.delete();
 	}
 
