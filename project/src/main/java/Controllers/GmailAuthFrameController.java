@@ -10,10 +10,6 @@ import java.io.OutputStream;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 
-import com.itextpdf.text.Document;
-import com.itextpdf.text.html.simpleparser.HTMLWorker;
-import com.itextpdf.text.pdf.PdfWriter;
-
 import Views.GmailAuthFrame;
 import project.GoogleMail;
 import project.zipFileManager;
