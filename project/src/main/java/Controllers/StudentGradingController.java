@@ -15,29 +15,28 @@ import project.ObjectFileManager;
 
 public class StudentGradingController {
 	public StudentGradingPanel view;
-	private String studentQuizPath;
+	private String studentQuizFolderPath;
 	private String originalQuizFormPath;
 	private Container previousView;
-	private File studentQuizFile;
+	private File studentQuizFolder;
 	private String studentId;
 	private String quizName;
 	private StudentEntity result;
 	private String quizScore;
 	private String studentEmail;
-	public StudentGradingController(StudentGradingPanel view, String studentQuizPath,String originalQuizFormPath, Container previousView)
+	public StudentGradingController(StudentGradingPanel view, String studentQuizFolderPath,String originalQuizFormPath, Container previousView)
 	{
 		this.view=view;
 		this.view.gradeBtnAddActionListener(new gradeBtnAddActionListener());	
-		this.studentQuizPath=studentQuizPath;
+		this.studentQuizFolderPath=studentQuizFolderPath;
 		this.originalQuizFormPath = originalQuizFormPath;
 		this.previousView = previousView;
 		try {
-			studentQuizFile = new File(studentQuizPath);
-			studentId= (String) studentQuizFile.getName().
-					subSequence(0,studentQuizFile.getName().length()-5);
-			quizName = studentQuizFile.getParentFile().getParentFile().getName();			
+			studentQuizFolder = new File(studentQuizFolderPath);
+			studentId= studentQuizFolder.getName();
+			quizName = studentQuizFolder.getParentFile().getParentFile().getName();			
 			result =(StudentEntity) ObjectFileManager.loadObject(
-							studentQuizFile.getParentFile().getParentFile().
+					studentQuizFolder.getParentFile().getParentFile().
 							getParentFile().getParentFile().getCanonicalPath()
 							+"/Students/"+studentId+".ser");
 			studentEmail=result.getStudentEmail();
@@ -64,12 +63,17 @@ public class StudentGradingController {
 
 		public void actionPerformed(ActionEvent e) {
 			// TODO Auto-generated method stub
-			
+			String studentQuizPath=null;
 			try {
 				if(view.getLblGrade().getText().equals(view.notGraded))
 				{
+					for(int i=0;i<studentQuizFolder.listFiles().length;i++)
+						if(studentQuizFolder.listFiles()[i].getName().endsWith(".html"))
+								studentQuizPath = studentQuizFolder.listFiles()[i].getCanonicalPath();
+								
 					HtmlBuilder htmlBuilder = new HtmlBuilder();
 					htmlBuilder.prepareQuizForGrading(studentQuizPath,originalQuizFormPath);
+							
 				}
 				GradingOperation gradingOperation = new GradingOperation(view,studentQuizPath,previousView);
 				MainFrameController.view.changeContentPane(gradingOperation);
@@ -79,18 +83,21 @@ public class StudentGradingController {
 			} catch (ParserConfigurationException e1) {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
+			} catch (IOException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
 			}
 			
 			
 		}
 		
 	}
-	public String getStudentQuizPath() {
-		return studentQuizPath;
+	public String getStudentQuizFolderPath() {
+		return studentQuizFolderPath;
 	}
 
-	public File getStudentQuizFile() {
-		return studentQuizFile;
+	public File getStudentQuizFolder() {
+		return studentQuizFolder;
 	}
 
 	public String getStudentId() {

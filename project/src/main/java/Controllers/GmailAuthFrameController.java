@@ -2,9 +2,18 @@ package Controllers;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.FileReader;
 import java.io.IOException;
+import java.io.OutputStream;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
+
+import com.itextpdf.text.Document;
+import com.itextpdf.text.html.simpleparser.HTMLWorker;
+import com.itextpdf.text.pdf.PdfWriter;
+
 import Views.GmailAuthFrame;
 import project.GoogleMail;
 
@@ -82,8 +91,17 @@ public class GmailAuthFrameController {
 				if (!studentGradingControllers.isEmpty())
 					quizName = studentGradingControllers.get(0).getQuizName();
 				for (int i = 0; i < studentGradingControllers.size(); i++) {
-					GoogleMail.SendMail(studentGradingControllers.get(i).getStudentEmail(), quizName + " - Graded Quiz",
-							studentsQuizzesPaths.get(i), quizName + ".html");
+					try {
+						String studentId = new File(studentsQuizzesPaths.get(i)).getName();
+						String temp = getStudentQuizPath(studentsQuizzesPaths.get(i));
+						String pdfPath = studentsQuizzesPaths.get(i)+"/"+studentId+".pdf";
+						convertHtmlToPdf(temp,pdfPath);
+						GoogleMail.SendMail(studentGradingControllers.get(i).getStudentEmail(), quizName + " - Graded Quiz",
+								pdfPath	, quizName + ".pdf");
+					} catch (IOException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
 				}
 				JOptionPane.showMessageDialog(null,
 						"The graded quizzes were sent successfully to your students' emails.",
@@ -91,6 +109,30 @@ public class GmailAuthFrameController {
 			}
 		}
 
-	}
+		private String getStudentQuizPath(String studentFolder) throws IOException {
+			// TODO Auto-generated method stub
+			File folder = new File(studentFolder);
+			if(folder.exists())
+				for(int i = 0;i<folder.listFiles().length;i++)
+					if(folder.listFiles()[i].getName().endsWith(".html"))
+						return folder.listFiles()[i].getCanonicalPath();
+						
+			return null;
+		}
+		private void convertHtmlToPdf(String htmlPath,String pdfPath){
+		try {
+		    OutputStream file = new FileOutputStream(new File(pdfPath));
+		    Document document = new Document();
+		    PdfWriter.getInstance(document, file);
+		    document.open();
+		    HTMLWorker htmlWorker = new HTMLWorker(document);
+		    htmlWorker.parse(new FileReader(new File(htmlPath)));
+		    document.close();
+		    file.close();
+		} catch (Exception e) {
+		    e.printStackTrace();
+		}
 
+	}
+	}
 }

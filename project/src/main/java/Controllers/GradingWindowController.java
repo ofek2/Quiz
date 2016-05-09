@@ -3,8 +3,17 @@ package Controllers;
 import java.awt.Container;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.FileReader;
+import java.io.OutputStream;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
+
+import com.itextpdf.text.Document;
+import com.itextpdf.text.html.simpleparser.HTMLWorker;
+import com.itextpdf.text.pdf.PdfWriter;
+
 import Views.GmailAuthFrame;
 import Views.GradingWindowView;
 import Views.StudentGradingPanel;
@@ -127,6 +136,7 @@ public class GradingWindowController {
 			}
 
 			if (allChecked) {
+				
 				new GmailAuthFrameController(new GmailAuthFrame(), studentGradingControllers, studentsQuizzesPaths);
 
 			} else

@@ -948,7 +948,8 @@ public class InitialWindowController {
 						if(studentsAnswersFolder.listFiles()!=null)
 						if (studentsAnswersFolder.listFiles().length > 0)
 							for (File child : studentsAnswersFolder.listFiles()) {
-								studentsInQuiz.add(child.getName().substring(0, child.getName().length() - 5));
+//								studentsInQuiz.add(child.getName().substring(0, child.getName().length() - 5));
+								studentsInQuiz.add(child.getName());
 								studentsQuizzesPaths.add(child.getCanonicalPath());
 								// studentsInQuiz.add((StudentQuizEntity)
 								// ObjectFileManager.loadObject(child.getCanonicalPath()));
