@@ -97,6 +97,7 @@ public class GmailAuthFrameController {
 					zipFileManager.createZipFile(new File(studentsQuizzesPaths.get(i)), zipPath);
 					GoogleMail.SendMail(studentGradingControllers.get(i).getStudentEmail(), quizName + " - Graded Quiz",
 							zipPath	, quizName + ".zip");
+					new File(zipPath).delete();
 				}
 				JOptionPane.showMessageDialog(null,
 						"The graded quizzes were sent successfully to your students' emails.",
