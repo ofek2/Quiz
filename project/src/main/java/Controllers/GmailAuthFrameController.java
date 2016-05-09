@@ -16,6 +16,7 @@ import com.itextpdf.text.pdf.PdfWriter;
 
 import Views.GmailAuthFrame;
 import project.GoogleMail;
+import project.zipFileManager;
 
 /**
  * The Class GmailAuthFrameController.
@@ -91,48 +92,16 @@ public class GmailAuthFrameController {
 				if (!studentGradingControllers.isEmpty())
 					quizName = studentGradingControllers.get(0).getQuizName();
 				for (int i = 0; i < studentGradingControllers.size(); i++) {
-					try {
-						String studentId = new File(studentsQuizzesPaths.get(i)).getName();
-						String temp = getStudentQuizPath(studentsQuizzesPaths.get(i));
-						String pdfPath = studentsQuizzesPaths.get(i)+"/"+studentId+".pdf";
-						convertHtmlToPdf(temp,pdfPath);
-						GoogleMail.SendMail(studentGradingControllers.get(i).getStudentEmail(), quizName + " - Graded Quiz",
-								pdfPath	, quizName + ".pdf");
-					} catch (IOException e1) {
-						// TODO Auto-generated catch block
-						e1.printStackTrace();
-					}
+					String studentId = new File(studentsQuizzesPaths.get(i)).getName();
+					String zipPath = studentsQuizzesPaths.get(i)+"/"+studentId+".zip";
+					zipFileManager.createZipFile(new File(studentsQuizzesPaths.get(i)), zipPath);
+					GoogleMail.SendMail(studentGradingControllers.get(i).getStudentEmail(), quizName + " - Graded Quiz",
+							zipPath	, quizName + ".zip");
 				}
 				JOptionPane.showMessageDialog(null,
 						"The graded quizzes were sent successfully to your students' emails.",
 						"Emails Delivered Successfully", JOptionPane.INFORMATION_MESSAGE);
 			}
 		}
-
-		private String getStudentQuizPath(String studentFolder) throws IOException {
-			// TODO Auto-generated method stub
-			File folder = new File(studentFolder);
-			if(folder.exists())
-				for(int i = 0;i<folder.listFiles().length;i++)
-					if(folder.listFiles()[i].getName().endsWith(".html"))
-						return folder.listFiles()[i].getCanonicalPath();
-						
-			return null;
-		}
-		private void convertHtmlToPdf(String htmlPath,String pdfPath){
-		try {
-		    OutputStream file = new FileOutputStream(new File(pdfPath));
-		    Document document = new Document();
-		    PdfWriter.getInstance(document, file);
-		    document.open();
-		    HTMLWorker htmlWorker = new HTMLWorker(document);
-		    htmlWorker.parse(new FileReader(new File(htmlPath)));
-		    document.close();
-		    file.close();
-		} catch (Exception e) {
-		    e.printStackTrace();
-		}
-
-	}
 	}
 }
