@@ -155,7 +155,7 @@ public class GradingOperation extends ViewPanel {
 								studentQuizFile.getName().length() - 5);
 						studentFilePath = studentQuizFile.getParentFile().getParentFile().getParentFile()
 								.getParentFile().getParentFile().getCanonicalPath() + "/Students/" + studentId + ".ser";
-						quizName = studentQuizFile.getParentFile().getParentFile().getName();
+						quizName = studentQuizFile.getParentFile().getParentFile().getParentFile().getName();
 						StudentEntity result = (StudentEntity) ObjectFileManager.loadObject(studentFilePath);
 
 						result.setQuizScore(quizName, score);
