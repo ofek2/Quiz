@@ -622,7 +622,7 @@ public class InitialWindowController {
 								view.loadStudents(view.getRemoveStudentCourseCB().getSelectedIndex());
 								view.getRemoveStudentsIds().addItemListener(removeStudentsIdsAddItemListener);
 							} else if (overWrite == JOptionPane.NO_OPTION || overWrite == JOptionPane.CLOSED_OPTION)
-								;
+								overWrite = JOptionPane.YES_OPTION;
 						}
 					} catch (NumberFormatException e1) {
 						JOptionPane.showMessageDialog(null, "Please enter integers only in the student's id", "Alert",
