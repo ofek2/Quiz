@@ -399,6 +399,13 @@ public class HtmlBuilder {
 			in2 = new FileInputStream(new File(studentQuizPath));
 			HtmlParser prepared = new HtmlParser(in2);
 			
+//----------Unhide hidden questions----------//
+			NodeList qTexts = prepared.document.getElementsByTagName("qText");
+			for(int i = 0;i<qTexts.getLength();i++)
+			{
+				Element questionTextPara= (Element) ((Element)qTexts.item(i)).getElementsByTagName("p").item(0);
+				questionTextPara.removeAttribute("hidden");
+			}
 //----------Copy Lecturer Answers To The Quiz and Auto check multiple choice questions----------//
 			
 			NodeList answerElements = original.document.getElementsByTagName("answer");
@@ -441,12 +448,6 @@ public class HtmlBuilder {
 				Element textArea = (Element)textAreas.item(i);
 				textArea.setAttribute("disabled","disabled");
 			}
-			//add someshit about the canvas here ----------
-			//-------//
-			
-
-			
-
 			prepared.writeHtml(studentQuizPath);
 			
 		} catch (FileNotFoundException | TransformerException e) {
