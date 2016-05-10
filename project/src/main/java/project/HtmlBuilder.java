@@ -123,7 +123,7 @@ public class HtmlBuilder {
 		questions.add(questionElement);
 		mainDivElement.appendChild(questionElement);
 	}
-	public void addQuestionData(int questionNumber,String questionText,String questionImageName)
+	public void addQuestionData(int questionNumber,String questionText,String questionImageName,boolean hideQuestion)
 	{
 		int qNumber = questionNumber-1;
 		this.questionText = questionText;
@@ -133,7 +133,8 @@ public class HtmlBuilder {
 		Element questionTextPara = document.createElement("p");
 		qText.appendChild(questionTextPara);
 		questionTextPara.appendChild(document.createTextNode(questionText));
-		
+		if(hideQuestion)
+			questionTextPara.setAttribute("hidden", "hidden");
 		divBody.appendChild(qText);
 		if(!questionImageName.equals(""))
 		{
@@ -147,7 +148,7 @@ public class HtmlBuilder {
 		
 		
 	}
-	public void addAnswersData(int questionNumber,String type,ArrayList<String> choices,boolean enableListening,boolean hideQuestion)
+	public void addAnswersData(int questionNumber,String type,ArrayList<String> choices,boolean enableListening)
 	{
 		int qNumber = questionNumber-1;
 		String choicesText = "";
@@ -208,7 +209,7 @@ public class HtmlBuilder {
 			addSpeakerBtn(qNumber,textToSpeechText);
 		}
 	}
-	public void addAnswersData(int questionNumber,String type,boolean enableListening,boolean hideQuestion)
+	public void addAnswersData(int questionNumber,String type,boolean enableListening)
 	{
 		int qNumber = questionNumber-1;
 		Element qAnswers = document.createElement("qAnswers");

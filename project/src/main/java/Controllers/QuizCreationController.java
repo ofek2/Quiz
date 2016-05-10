@@ -242,7 +242,13 @@ public class QuizCreationController implements Serializable {
 			String answerType = tempQpanel.getAnswerTypeCb().getItemAt(index);
 			ArrayList<String> choices;
 			String score;
-
+			//listening part
+			boolean enableListening = tempQpanel.getListenChkBox().isSelected();
+			boolean hideQuestion;
+			if(enableListening)
+				hideQuestion = tempQpanel.getChckbxHideQuestion().isSelected();
+			else
+				hideQuestion=false;
 			if (tempQpanel.getScoreTextField().getText().isEmpty()) {
 				score = "0";
 				tempQpanel.getScoreTextField().setText(score);
@@ -251,9 +257,7 @@ public class QuizCreationController implements Serializable {
 			String questionImageName = "";
 			htmlBuilder.addQuestion(i + 1, answerType, score);
 
-			//listening part
-			boolean enableListening = tempQpanel.getListenChkBox().isSelected();
-			boolean hideQuestion = tempQpanel.getChckbxHideQuestion().isSelected();
+		
 			
 			
 			//
@@ -262,7 +266,7 @@ public class QuizCreationController implements Serializable {
 				questionImageName = tempQController.getqImgFile().getName();
 
 			}
-			htmlBuilder.addQuestionData(i + 1, tempQpanel.getTextAreaQ().getText(), questionImageName);
+			htmlBuilder.addQuestionData(i + 1, tempQpanel.getTextAreaQ().getText(), questionImageName,hideQuestion);
 			String answer = "";
 			if (answerType.equals("Multiple Choice")) {
 
@@ -282,7 +286,7 @@ public class QuizCreationController implements Serializable {
 					type = "Multiple Choice";
 				else
 					type = "Single Choice";
-				htmlBuilder.addAnswersData(i + 1, type, choices,enableListening,hideQuestion);
+				htmlBuilder.addAnswersData(i + 1, type, choices,enableListening);
 				htmlBuilder.addLecturerAnswers(i + 1, type, choices, answer);
 			} else {
 				if (answerType.equals("Free Text"))
@@ -292,7 +296,7 @@ public class QuizCreationController implements Serializable {
 						if(!tempQController.getaImgFile().getName().endsWith("D.PNG"))
 						answer = tempQController.getaImgFile().getPath();
 				}
-				htmlBuilder.addAnswersData(i + 1, answerType,enableListening,hideQuestion);
+				htmlBuilder.addAnswersData(i + 1, answerType,enableListening);
 				htmlBuilder.addLecturerAnswers(i + 1, answerType, answer);
 			}
 
