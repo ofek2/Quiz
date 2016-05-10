@@ -27,6 +27,7 @@ public class HtmlBuilder {
 	private Element scoreScript;
 	private ArrayList<Element> questions;
 	
+	private String questionText;
 	public HtmlBuilder() throws ParserConfigurationException, FileNotFoundException{
 		questions=new ArrayList<Element>();
 		
@@ -125,7 +126,7 @@ public class HtmlBuilder {
 	public void addQuestionData(int questionNumber,String questionText,String questionImageName)
 	{
 		int qNumber = questionNumber-1;
-		
+		this.questionText = questionText;
 		Element divBody = document.createElement("div");
 		divBody.setAttribute("class", "panel-body");
 		Element qText= document.createElement("qText");
@@ -146,9 +147,10 @@ public class HtmlBuilder {
 		
 		
 	}
-	public void addAnswersData(int questionNumber,String type,ArrayList<String> choices)
+	public void addAnswersData(int questionNumber,String type,ArrayList<String> choices,boolean enableListening,boolean hideQuestion)
 	{
 		int qNumber = questionNumber-1;
+		String choicesText = "";
 		if(type.equals("Single Choice"))
 			questions.get(qNumber).setAttribute("type", "Single Choice");
 		Element qAnswers = document.createElement("qAnswers");
@@ -188,12 +190,25 @@ public class HtmlBuilder {
 			divListItem.appendChild(label);
 			divListGroup.appendChild(divListItem);
 			
+			//Adding the option to the listening
+			if(enableListening)
+			{
+				String currentOption = (i+1)+". "+choices.get(i);
+				currentOption= currentOption.trim();
+				if(!choices.get(i).endsWith("."))
+					currentOption = currentOption+".";
+				choicesText+= currentOption+" ";
+			}
 			
 		}
-		
-		addSpeakerBtn(qNumber);
+		if(enableListening)
+		{
+			String textToSpeechText = "Question number "+questionNumber+", "+questionText+" Possible answer choices are:"+
+			choicesText;
+			addSpeakerBtn(qNumber,textToSpeechText);
+		}
 	}
-	public void addAnswersData(int questionNumber,String type)
+	public void addAnswersData(int questionNumber,String type,boolean enableListening,boolean hideQuestion)
 	{
 		int qNumber = questionNumber-1;
 		Element qAnswers = document.createElement("qAnswers");
@@ -212,7 +227,6 @@ public class HtmlBuilder {
 			textarea.setAttribute("oninput", "sendAnswer(this.form,'"+type+"')");
 			textarea.appendChild(document.createTextNode(" "));
 			form.appendChild(textarea);
-	
 		}
 		if(type.equals("Free Draw"))
 		{
@@ -231,7 +245,11 @@ public class HtmlBuilder {
 //			form.appendChild(canvas);
 			
 		}
-		addSpeakerBtn(qNumber);
+		if(enableListening)
+		{
+			String textToSpeechText = "Question number "+questionNumber+", "+questionText;
+			addSpeakerBtn(qNumber,textToSpeechText);
+		}
 	}
 	public void addLecturerAnswers(int questionNumber,String type,ArrayList<String> choices,String answer)
 	{
@@ -445,18 +463,17 @@ public class HtmlBuilder {
 
 		//System.out.println("File saved!");
 	}
-	private void addSpeakerBtn(int qNumber)
+	private void addSpeakerBtn(int qNumber,String textToSpeechText)
 	{
 		Element divFooter = document.createElement("div");
 		divFooter.setAttribute("class", "panel-footer");
 		Element input = document.createElement("input");
 		input.setAttribute("class", "btn btn-primary");
 		input.setAttribute("type", "button");
-		input.setAttribute("src", "g.gif");
-		input.setAttribute("onClick", "listen()");
-		input.appendChild(document.createTextNode(" Click here to listen the question"));
+		input.setAttribute("value", "Listen");
+		input.setAttribute("texttospeech",textToSpeechText);
+		input.setAttribute("onClick", "listen(this)");
 		divFooter.appendChild(input);
-	
 		questions.get(qNumber).getFirstChild().appendChild(divFooter);
 	}
 	public Document getDocument()

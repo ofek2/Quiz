@@ -251,6 +251,12 @@ public class QuizCreationController implements Serializable {
 			String questionImageName = "";
 			htmlBuilder.addQuestion(i + 1, answerType, score);
 
+			//listening part
+			boolean enableListening = tempQpanel.getListenChkBox().isSelected();
+			boolean hideQuestion = tempQpanel.getChckbxHideQuestion().isSelected();
+			
+			
+			//
 			if (tempQController.getqImgFile() != null) {
 				if(!tempQController.getqImgFile().getName().endsWith("D.PNG"))
 				questionImageName = tempQController.getqImgFile().getName();
@@ -276,7 +282,7 @@ public class QuizCreationController implements Serializable {
 					type = "Multiple Choice";
 				else
 					type = "Single Choice";
-				htmlBuilder.addAnswersData(i + 1, type, choices);
+				htmlBuilder.addAnswersData(i + 1, type, choices,enableListening,hideQuestion);
 				htmlBuilder.addLecturerAnswers(i + 1, type, choices, answer);
 			} else {
 				if (answerType.equals("Free Text"))
@@ -286,7 +292,7 @@ public class QuizCreationController implements Serializable {
 						if(!tempQController.getaImgFile().getName().endsWith("D.PNG"))
 						answer = tempQController.getaImgFile().getPath();
 				}
-				htmlBuilder.addAnswersData(i + 1, answerType);
+				htmlBuilder.addAnswersData(i + 1, answerType,enableListening,hideQuestion);
 				htmlBuilder.addLecturerAnswers(i + 1, answerType, answer);
 			}
 
