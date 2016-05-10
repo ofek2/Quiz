@@ -63,14 +63,10 @@ public class StudentGradingController {
 
 		public void actionPerformed(ActionEvent e) {
 			// TODO Auto-generated method stub
-			String studentQuizPath=null;
+			String studentQuizPath=studentQuizFolderPath+"/"+studentId+".html";
 			try {
 				if(view.getLblGrade().getText().equals(view.notGraded))
-				{
-					for(int i=0;i<studentQuizFolder.listFiles().length;i++)
-						if(studentQuizFolder.listFiles()[i].getName().endsWith(".html"))
-								studentQuizPath = studentQuizFolder.listFiles()[i].getCanonicalPath();
-								
+				{			
 					HtmlBuilder htmlBuilder = new HtmlBuilder();
 					htmlBuilder.prepareQuizForGrading(studentQuizPath,originalQuizFormPath);
 							
