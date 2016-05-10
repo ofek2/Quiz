@@ -83,10 +83,9 @@ public class GradesDistributionGraph extends ViewPanel implements Runnable{
         XYChart.Series series1 = new XYChart.Series();
         series1.setName("Percentage");       
         for (int i = 0; i < quizScores.size(); i++) {
-        	if(quizScores.equals("-"))
+        	if(quizScores.get(i).equals("-"))
         		partitionsPercentages[0]+=1;
-        	else
-			if(Double.parseDouble(quizScores.get(i))<partition[0])
+        	else if(Double.parseDouble(quizScores.get(i))<partition[0])
 				partitionsPercentages[0]+=1;
 			else if(Double.parseDouble(quizScores.get(i))<partition[1])
 				partitionsPercentages[1]+=1;
