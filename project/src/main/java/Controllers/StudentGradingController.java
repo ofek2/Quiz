@@ -51,7 +51,7 @@ public class StudentGradingController {
 	
 	public void updateQuizScoreInView()
 	{
-		System.out.println(quizScore);
+
 			if(!quizScore.equals("-1"))
 			{
 				view.getLblGrade().setText(quizScore);
