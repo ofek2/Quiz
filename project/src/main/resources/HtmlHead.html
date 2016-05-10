@@ -191,9 +191,9 @@
         			items[0] = form.elements[0].value;
         		Android.getAnswer(form.name,items,type);
         	}
-        	function listen()
+        	function listen(input)
         	{
-        		Android.listen();
+        		Android.listen(input.getAttribute("texttospeech"));
         	}
         	function openDrawingBoard(form)
         	{
