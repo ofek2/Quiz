@@ -81,7 +81,7 @@ public class ReportsController {
 					out.close();
 					JOptionPane.showMessageDialog(null,
 							"The report was saved into: " + coursePath,
-							"Alert", JOptionPane.ERROR_MESSAGE);
+							"Alert", JOptionPane.INFORMATION_MESSAGE);
 				} catch (IOException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
