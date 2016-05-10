@@ -123,7 +123,7 @@ public class HtmlBuilder {
 		questions.add(questionElement);
 		mainDivElement.appendChild(questionElement);
 	}
-	public void addQuestionData(int questionNumber,String questionText,String questionImageName,boolean hideQuestion)
+	public void addQuestionData(int questionNumber,String questionText,String questionImageName)
 	{
 		int qNumber = questionNumber-1;
 		this.questionText = questionText;
@@ -133,8 +133,7 @@ public class HtmlBuilder {
 		Element questionTextPara = document.createElement("p");
 		qText.appendChild(questionTextPara);
 		questionTextPara.appendChild(document.createTextNode(questionText));
-		if(hideQuestion)
-			questionTextPara.setAttribute("hidden", "hidden");
+		
 		divBody.appendChild(qText);
 		if(!questionImageName.equals(""))
 		{
@@ -366,9 +365,9 @@ public class HtmlBuilder {
 			}
 		}
 	}
-	public void removeLecturerAnswers()
+	public void removeLecturerAnswers(ArrayList<Boolean> questionsToHide)
 	{
-		
+		hideSelectedQuestions(questionsToHide);
 		NodeList answers = document.getElementsByTagName("answer");
 		
 		for(int i=answers.getLength()-1;i>=0;i--)
@@ -379,6 +378,17 @@ public class HtmlBuilder {
 		//delete script for auto scoring
 		scoreScript.getParentNode().removeChild(scoreScript);
 	}
+	private void hideSelectedQuestions(ArrayList<Boolean> questionsToHide) {
+		// TODO Auto-generated method stub
+		NodeList qTexts = document.getElementsByTagName("qText");
+		for(int i = 0;i<qTexts.getLength();i++)
+		{
+			Element questionTextPara= (Element) ((Element)qTexts.item(i)).getElementsByTagName("p").item(0);
+			if(questionsToHide.get(i))
+				questionTextPara.setAttribute("hidden", "hidden");
+		}
+	}
+
 	public void prepareQuizForGrading(String studentQuizPath,String originalQuizFormPath)
 	{
 		

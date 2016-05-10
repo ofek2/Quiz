@@ -45,7 +45,7 @@ public class QuizCreationController implements Serializable {
 	public static int saveFlag = 1;
 	private transient InitialWindowView initialWindowView;
 	private windowListener windowListener;
-
+	private ArrayList<Boolean> questionsToHide = new ArrayList<>();
 	final static int TOTAL_GRADE = 100;
 	
 	public QuizCreationController(QuizCreationView view, QuizEntity entity, InitialWindowView initialWindowView) {
@@ -199,7 +199,7 @@ public class QuizCreationController implements Serializable {
 			try {
 				htmlBuilder.writeHtml(
 						entity.getQuizFormFolder().getCanonicalPath() + "/" + entity.getName() + "WithAnswers.html");
-				htmlBuilder.removeLecturerAnswers();
+				htmlBuilder.removeLecturerAnswers(questionsToHide);
 				htmlBuilder.writeHtml(entity.getQuizFormFolder().getCanonicalPath() + "/" + entity.getName() + ".html");
 				initialWindowView.setTree(new JTree(InitialWindowView
 						.filesTree(new File(new File(".").getCanonicalPath() + "/OnlineQuizChecker"))));
@@ -249,6 +249,7 @@ public class QuizCreationController implements Serializable {
 				hideQuestion = tempQpanel.getChckbxHideQuestion().isSelected();
 			else
 				hideQuestion=false;
+			questionsToHide.add(hideQuestion);
 			if (tempQpanel.getScoreTextField().getText().isEmpty()) {
 				score = "0";
 				tempQpanel.getScoreTextField().setText(score);
@@ -266,7 +267,7 @@ public class QuizCreationController implements Serializable {
 				questionImageName = tempQController.getqImgFile().getName();
 
 			}
-			htmlBuilder.addQuestionData(i + 1, tempQpanel.getTextAreaQ().getText(), questionImageName,hideQuestion);
+			htmlBuilder.addQuestionData(i + 1, tempQpanel.getTextAreaQ().getText(), questionImageName);
 			String answer = "";
 			if (answerType.equals("Multiple Choice")) {
 
