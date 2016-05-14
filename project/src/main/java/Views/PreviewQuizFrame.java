@@ -41,7 +41,7 @@ public class PreviewQuizFrame extends JFrame{
 		this.controller = controller;
 		this.tempFolderToDelete = tempFolderToDelete;
 		windowListener = new windowListener();
-		removeWindowListener(MainFrameController.view.windowListener);
+	//	removeWindowListener(MainFrameController.view.windowListener);
 		setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 		addWindowListener(windowListener);
 		initComponents();
@@ -106,8 +106,8 @@ public class PreviewQuizFrame extends JFrame{
 			File tmp = new File(tempFolderToDelete);
 			for(int i = 0;i<controller.qPanels.size();i++)
 			{
-				controller.qPanels.get(i).settempaImgFile(null);
-				controller.qPanels.get(i).settempqImgFile(null);
+				controller.qPanels.get(i).settempaImgFile(controller.qPanels.get(i).getaImgFile());
+				controller.qPanels.get(i).settempqImgFile(controller.qPanels.get(i).getqImgFile());
 			}
 			recursiveDelete(tmp);
 			dispose();

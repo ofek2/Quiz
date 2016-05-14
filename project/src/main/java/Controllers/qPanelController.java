@@ -314,7 +314,8 @@ public class qPanelController implements Serializable{
 			returnVal=qFileChooser.showSaveDialog(view.getImageButtonsPanel());
 			if(returnVal==qFileChooser.APPROVE_OPTION)
 			{
-				qImgFile = qFileChooser.getSelectedFile();				
+				qImgFile = qFileChooser.getSelectedFile();		
+				tempqImgFile = qImgFile;
 				questionLbl = view.getQuestionLbl().getText()+".PNG";
 				questionImgPath = quizPath +"/" + questionLbl;
 				view.getqImage().setVisible(true);
@@ -357,6 +358,7 @@ public class qPanelController implements Serializable{
 			if(returnVal==aFileChooser.APPROVE_OPTION)
 			{
 				aImgFile = aFileChooser.getSelectedFile();				
+				tempaImgFile = aImgFile;
 				answerLbl = "Answer"+view.getQuestionNumber()+".PNG";
 				answerImgPath = quizPath +"/" + answerLbl;
 				view.getRemoveAnswerImageBtn().setVisible(true);
@@ -457,6 +459,7 @@ public class qPanelController implements Serializable{
 		public void actionPerformed(ActionEvent e) {
 			// TODO Auto-generated method stub
 			renameQuestionImage();
+			tempqImgFile = null;
 			view.getRemoveQuestionImageBtn().setVisible(false);
 			view.getqImage().setVisible(false);
 			view.getImageButtonsPanel().revalidate();
@@ -512,6 +515,7 @@ public class qPanelController implements Serializable{
 	public void removeAnswerImage()
 	{
 		renameAnswerImage();
+		tempaImgFile = null;
 		view.getRemoveAnswerImageBtn().setVisible(false);
 		view.getbtnViewAnswerImage().setVisible(false);
 		view.getAnswerImageButtonsPanel().revalidate();
@@ -619,41 +623,32 @@ public class qPanelController implements Serializable{
 	{
 		BufferedImage image;
 		File fileSave;
-		if(qImgFile!=null&&!qImgFile.getName().endsWith("D.PNG")){
+		if(tempqImgFile!=null&&!tempqImgFile.getName().endsWith("D.PNG")){
 			try {
 				String questionLbl = view.getQuestionLbl().getText()+".PNG";
-				questionImgPath = path +"/" + questionLbl;
-				fileExtension = Files.getFileExtension(qImgFile.getCanonicalPath());
-				
-				image = ImageIO.read(qImgFile); 
+				questionImgPath = path +"\\" + questionLbl;
+				System.out.println(questionImgPath);
+				System.out.println(tempqImgFile.getCanonicalPath());
+				fileExtension = Files.getFileExtension(tempqImgFile.getCanonicalPath());
+				image = ImageIO.read(tempqImgFile); 
 				fileSave = new File(questionImgPath);
 				ImageIO.write(image,fileExtension , fileSave);		
-//				if(qImgFile.getParent().equals(path))
-//				{
-//				if(!qImgFile.getName().equals(questionLbl))
-//				qImgFile.delete();
-//				}
 				tempqImgFile = fileSave;
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			} 	
 		}
-		if(aImgFile!=null&&!aImgFile.getName().endsWith("D.PNG"))
+		if(tempaImgFile!=null&&!tempaImgFile.getName().endsWith("D.PNG"))
 		{
 			try {
 				String answerLbl = "Answer"+view.getQuestionNumber()+".PNG";
-				answerImgPath = path +"/" + answerLbl;
-				fileExtension = Files.getFileExtension(aImgFile.getCanonicalPath());
+				answerImgPath = path +"\\" + answerLbl;
+				fileExtension = Files.getFileExtension(tempaImgFile.getCanonicalPath());
 				
-				image = ImageIO.read(aImgFile); 	
+				image = ImageIO.read(tempaImgFile); 	
 				fileSave = new File(answerImgPath);
 				ImageIO.write(image,fileExtension , fileSave);
-//				if(aImgFile.getParent().equals(path))
-//				{
-//				if(!aImgFile.getName().equals(answerLbl))
-//				aImgFile.delete();
-//				}
 				tempaImgFile = fileSave;
 			} catch (IOException e) {
 				// TODO Auto-generated catch block

@@ -92,6 +92,8 @@ public class QuizCreationController implements Serializable {
 		qPanels = objectEntity.getqPanels();
 		for (int i = 0; i < qPanels.size(); i++) {
 			qPanels.get(i).initializeFileChoosers();
+			qPanels.get(i).settempaImgFile(qPanels.get(i).getaImgFile());
+			qPanels.get(i).settempqImgFile(qPanels.get(i).getqImgFile());
 			qPanels.get(i).setParentView(view);
 			addExitingQpanel(qPanels.get(i).view);
 		}
