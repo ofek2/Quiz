@@ -60,6 +60,12 @@ public class qPanelController implements Serializable{
 	/** The answer img file. */
 	private File aImgFile;
 	
+	/** The question img file for preview. */
+	private File tempqImgFile;
+	
+	/** The answer img file for preview. */
+	private File tempaImgFile;
+	
 	/** The file extension. */
 	private static String fileExtension;
 	
@@ -592,7 +598,8 @@ public class qPanelController implements Serializable{
 				String answerLbl = "Answer"+view.getQuestionNumber()+".PNG";
 				answerImgPath = quizPath +"/" + answerLbl;
 				fileExtension = Files.getFileExtension(aImgFile.getCanonicalPath());
-				
+				System.out.println(answerImgPath);
+				System.out.println(aImgFile.getPath());
 				image = ImageIO.read(aImgFile); 	
 				fileSave = new File(answerImgPath);
 				ImageIO.write(image,fileExtension , fileSave);
@@ -621,12 +628,12 @@ public class qPanelController implements Serializable{
 				image = ImageIO.read(qImgFile); 
 				fileSave = new File(questionImgPath);
 				ImageIO.write(image,fileExtension , fileSave);		
-				if(qImgFile.getParent().equals(path))
-				{
-				if(!qImgFile.getName().equals(questionLbl))
-				qImgFile.delete();
-				}
-				qImgFile = fileSave;
+//				if(qImgFile.getParent().equals(path))
+//				{
+//				if(!qImgFile.getName().equals(questionLbl))
+//				qImgFile.delete();
+//				}
+				tempqImgFile = fileSave;
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -642,12 +649,12 @@ public class qPanelController implements Serializable{
 				image = ImageIO.read(aImgFile); 	
 				fileSave = new File(answerImgPath);
 				ImageIO.write(image,fileExtension , fileSave);
-				if(aImgFile.getParent().equals(path))
-				{
-				if(!aImgFile.getName().equals(answerLbl))
-				aImgFile.delete();
-				}
-				aImgFile = fileSave;
+//				if(aImgFile.getParent().equals(path))
+//				{
+//				if(!aImgFile.getName().equals(answerLbl))
+//				aImgFile.delete();
+//				}
+				tempaImgFile = fileSave;
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -790,6 +797,43 @@ public class qPanelController implements Serializable{
 		this.aImgFile = aImgFile;
 	}
 	
+	/**
+	 * Gets the question image file.
+	 *
+	 * @return the question image file
+	 */
+	public File gettempqImgFile() {
+		return tempqImgFile;
+	}
+	
+	/**
+	 * Sets the question image file.
+	 *
+	 * @param qImgFile the new question image file
+	 */
+	public void settempqImgFile(File qImgFile) {
+		this.tempqImgFile = qImgFile;
+	}
+	
+	/**
+	 * Gets the answer image file.
+	 *
+	 * @return the answer image file
+	 */
+	public File gettempaImgFile() {
+		return tempaImgFile;
+	}
+	
+	/**
+	 * Sets the answer image file.
+	 *
+	 * @param aImgFile the new answer image file
+	 */
+	public void settempaImgFile(File aImgFile) {
+		this.tempaImgFile = aImgFile;
+	}
+	
+
 	/**
 	 * Gets the file extension.
 	 *

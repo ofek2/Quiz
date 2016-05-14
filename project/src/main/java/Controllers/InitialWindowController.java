@@ -904,7 +904,7 @@ public class InitialWindowController {
 				 */
 				public void actionPerformed(ActionEvent e) {
 					// TODO Auto-generated method stub
-					if(JOptionPane.showConfirmDialog(MainFrameController.view, "Are you sure you want to delete this course?") == JOptionPane.YES_OPTION)
+					if(JOptionPane.showConfirmDialog(MainFrameController.view, "Are you sure you want to delete this course?","Warning!",JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION)
 					{
 						if (popUpMenuFlag == 0) {
 							courseFolder = new File(Constants.ROOTPATH

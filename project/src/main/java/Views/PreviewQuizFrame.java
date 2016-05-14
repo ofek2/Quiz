@@ -17,6 +17,7 @@ import org.w3c.dom.Document;
 import org.w3c.dom.NodeList;
 
 import Controllers.MainFrameController;
+import Controllers.QuizCreationController;
 import Controllers.removeFromDropbox;
 import Entities.Constants;
 import javafx.application.Platform;
@@ -34,8 +35,10 @@ public class PreviewQuizFrame extends JFrame{
 	private final JPanel panel = new JPanel(new BorderLayout());
 	private windowListener windowListener;
 	private String tempFolderToDelete;
-	public PreviewQuizFrame(String tempFolderToDelete){
+	private QuizCreationController controller;
+	public PreviewQuizFrame(String tempFolderToDelete,QuizCreationController controller){
 		super();
+		this.controller = controller;
 		this.tempFolderToDelete = tempFolderToDelete;
 		windowListener = new windowListener();
 		removeWindowListener(MainFrameController.view.windowListener);
@@ -101,6 +104,11 @@ public class PreviewQuizFrame extends JFrame{
 		 */
 		public void windowClosing(WindowEvent e) {
 			File tmp = new File(tempFolderToDelete);
+			for(int i = 0;i<controller.qPanels.size();i++)
+			{
+				controller.qPanels.get(i).settempaImgFile(null);
+				controller.qPanels.get(i).settempqImgFile(null);
+			}
 			recursiveDelete(tmp);
 			dispose();
 		}

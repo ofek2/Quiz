@@ -40,7 +40,7 @@ public class QuizCreationController implements Serializable {
 	private QuizCreationView view;
 	private QuizEntity entity;
 	private qPanelController qPanelController;
-	protected static ArrayList<qPanelController> qPanels;
+	public static ArrayList<qPanelController> qPanels;
 	private HtmlBuilder htmlBuilder;
 	public static int saveFlag = 1;
 	private transient InitialWindowView initialWindowView;
@@ -194,7 +194,7 @@ public class QuizCreationController implements Serializable {
 			
 			recursiveDelete(entity.getQuizFormFolder());
 			
-			createHtmlFile();
+			createHtmlFile("FINAL");
 			
 			try {
 				htmlBuilder.writeHtml(
@@ -217,7 +217,7 @@ public class QuizCreationController implements Serializable {
 			}
 		}
 	}
-	private void createHtmlFile()
+	private void createHtmlFile(String state)
 	{
 
 		try {
@@ -262,10 +262,17 @@ public class QuizCreationController implements Serializable {
 			
 			
 			//
-			if (tempQController.getqImgFile() != null) {
-				if(!tempQController.getqImgFile().getName().endsWith("D.PNG"))
-				questionImageName = tempQController.getqImgFile().getName();
-
+			if(state.equals("FINAL"))
+			{
+				if (tempQController.getqImgFile() != null) {
+					if(!tempQController.getqImgFile().getName().endsWith("D.PNG"))
+					questionImageName = tempQController.getqImgFile().getName();
+				}
+			}
+			else {
+				if (tempQController.gettempqImgFile() != null) {
+					questionImageName = tempQController.gettempqImgFile().getName();
+				}
 			}
 			htmlBuilder.addQuestionData(i + 1, tempQpanel.getTextAreaQ().getText(), questionImageName);
 			String answer = "";
@@ -293,9 +300,17 @@ public class QuizCreationController implements Serializable {
 				if (answerType.equals("Free Text"))
 					answer = tempQController.view.getTextAreaA().getText();
 				else {
-					if (tempQController.getaImgFile() != null)
-						if(!tempQController.getaImgFile().getName().endsWith("D.PNG"))
-						answer = tempQController.getaImgFile().getPath();
+					if(state.equals("FINAL"))
+					{
+						if (tempQController.getaImgFile() != null)
+							if(!tempQController.getaImgFile().getName().endsWith("D.PNG"))
+							answer = tempQController.getaImgFile().getName();
+					}
+					else
+					{
+						if (tempQController.gettempaImgFile() != null)
+							answer = tempQController.gettempaImgFile().getName();
+					}
 				}
 				htmlBuilder.addAnswersData(i + 1, answerType,enableListening);
 				htmlBuilder.addLecturerAnswers(i + 1, answerType, answer);
@@ -317,13 +332,13 @@ public class QuizCreationController implements Serializable {
 			for (int i = 0; i < qPanels.size(); i++)
 				qPanels.get(i).saveImagesForPreview(tempFolder.getCanonicalPath());
 		
-			createHtmlFile();
+			createHtmlFile("TEMP");
 	
 
 			String path = tempFolder.getCanonicalPath()+"/Temp.html";
 			htmlBuilder.writeHtml(path);
 			
-			PreviewQuizFrame frame = new PreviewQuizFrame(path);
+			PreviewQuizFrame frame = new PreviewQuizFrame(tempFolder.getCanonicalPath(),QuizCreationController.this);
 			frame.setVisible(true);
 			frame.loadURL("file:///"+path);
 			
