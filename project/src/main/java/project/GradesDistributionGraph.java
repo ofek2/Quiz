@@ -56,7 +56,7 @@ public class GradesDistributionGraph extends ViewPanel implements Runnable{
 		JMenuItem mntmExit = new JMenuItem("Exit");
 		graphMenu.add(mntmExit);
 		mntmExit.addActionListener(new ExitListener());
-		fxPanel.setBounds(MainFrameController.view.getContentPane().getWidth()/8,70,MainFrameController.view.getContentPane().getWidth()*6/8, 800);
+		fxPanel.setBounds(MainFrameController.view.getContentPane().getWidth()/8,20,MainFrameController.view.getContentPane().getWidth()*6/8,640);
 		fxPanel.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
 		add(fxPanel);
 		thread = new Thread(this);

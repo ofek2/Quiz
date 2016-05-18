@@ -1,6 +1,7 @@
 package project;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Container;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -50,16 +51,17 @@ public class GradingOperation extends ViewPanel {
 	public GradingOperation(StudentGradingPanel studentGradingPanel, String studentQuizPath, Container previousView) {
 		fxPanel = new JFXPanel();
 		createScene();
+		setBackground(Color.white);
 		this.studentGradingPanel = studentGradingPanel;
 		this.studentQuizPath = studentQuizPath;
 		this.previousView = previousView;
 		setLayout(null);
 		JPanel panel = new JPanel();
-		panel.setBounds(getWidth() / 16, 70,
-			getWidth() * 6 / 8, getHeight()-40);
+		panel.setBounds(40, 30,
+			920, 650);
 		panel.add(fxPanel, BorderLayout.CENTER);
 		add(panel);
-	
+		
 		JMenuBar menuBar = new JMenuBar();
 		menuBar.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
 		menuBar.setBackground(java.awt.Color.WHITE);
