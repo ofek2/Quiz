@@ -25,7 +25,7 @@ import javafx.scene.shape.Box;
 
 import java.awt.Color;
 import java.awt.GridLayout;
-
+import java.awt.Insets;
 import java.awt.Cursor;
 
 public class QuizCreationView extends ViewPanel {
@@ -125,7 +125,7 @@ public class QuizCreationView extends ViewPanel {
 
 		addBtn = new JButton("Add question");
 		addBtn.setAlignmentX(CENTER_ALIGNMENT);
-		addBtn.setBackground(Color.WHITE);
+		addBtn.setBackground(new Color(65, 105, 225));
 		panel.add(addBtn);
 		addBtn.setAlignmentY(0.0f);
 		setVisible(true);

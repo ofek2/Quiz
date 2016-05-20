@@ -14,7 +14,6 @@ import javax.swing.JPanel;
 
 import Controllers.MainFrameController;
 import Controllers.ReportsController;
-import project.GradesDistributionGraph;
 
 public class CTable extends JPanel{
 	/**

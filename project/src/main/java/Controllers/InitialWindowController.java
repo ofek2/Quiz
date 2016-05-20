@@ -531,14 +531,33 @@ public class InitialWindowController {
 								studentFile = new File(Constants.ROOTPATH
 										+ (String) view.getRemoveStudentCourseCB().getSelectedItem() + "/Students/"
 										+ (String) view.getRemoveStudentsIds().getSelectedItem() + ".ser");
-							if((new File(Constants.ROOTPATH
-									+ studentCourse + "/Quizzes/" + studentId + "/StudentsAnswers/"))!=null)
+//							if((new File(Constants.ROOTPATH
+//									+ studentCourse + "/Quizzes/" + studentId + "/StudentsAnswers/"))!=null)
+//							{
+//								if((studentAnswer = new File(Constants.ROOTPATH
+//										+ studentCourse + "/Quizzes/" + studentId + "/StudentsAnswers/"
+//										+ studentId + ".html")).exists())
+//									studentAnswer.delete();
+//							}
+							File Quizzes = new File(Constants.ROOTPATH + studentCourse + "/Quizzes");
+							boolean studentCanBeDeleted = true;
+							if(Quizzes.isDirectory())
 							{
-								if((studentAnswer = new File(Constants.ROOTPATH
-										+ studentCourse + "/Quizzes/" + studentId + "/StudentsAnswers/"
-										+ studentId + ".html")).exists())
-									studentAnswer.delete();
+									for(int i=0;i<Quizzes.listFiles().length;i++)
+									{
+										// check if the student any quiz
+										if(Quizzes.listFiles()[i].isDirectory())
+										{
+											File quiz = Quizzes.listFiles()[i];
+											
+											 // check if the student took this quiz already.
+											if(new File(quiz.getCanonicalPath()+"/StudentsAnswers/"+studentId).exists())
+												studentCanBeDeleted=false;
+										}
+											
+									}
 							}
+							if(studentCanBeDeleted){
 							studentFile.delete();
 							view.getRemoveStudentsIds().removeItemListener(removeStudentsIdsAddItemListener);
 							view.loadStudents(view.getRemoveStudentCourseCB().getSelectedIndex());
@@ -547,6 +566,9 @@ public class InitialWindowController {
 									.filesTree(new File(new File(".").getCanonicalPath() + "/OnlineQuizChecker"))));
 							JOptionPane.showMessageDialog(null, "The student removed successfully");
 							// removeStudentDialog.setVisible(false);///////////////////////
+							}
+							else
+								JOptionPane.showMessageDialog(null, "You can't remove this student because he already took one of your quizzes","Warning!",JOptionPane.WARNING_MESSAGE);
 						}
 					} catch (IOException e1) {
 						// TODO Auto-generated catch block
@@ -1123,6 +1145,10 @@ public class InitialWindowController {
 
 						public void actionPerformed(ActionEvent e) {
 							// TODO Auto-generated method stub
+							QuizEntity quizEntity = new QuizEntity(quizName, quizCourseName);
+							File temp = quizEntity.getStudentsAnswersFolder();
+							if(!temp.exists())
+							{
 							if(JOptionPane.showConfirmDialog(MainFrameController.view, "Are you sure you want to delete this quiz?")== JOptionPane.YES_OPTION)
 							{
 								try {
@@ -1136,6 +1162,10 @@ public class InitialWindowController {
 								e1.printStackTrace();
 							}
 							}
+							}
+							else
+								JOptionPane.showMessageDialog(null, "You can't remove a quiz that was already been taken by your students.", "Quiz performed",
+										JOptionPane.WARNING_MESSAGE);
 						}
 					});
 					quizPopupMenu.add(editQuiz);

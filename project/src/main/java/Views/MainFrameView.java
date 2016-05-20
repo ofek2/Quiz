@@ -25,6 +25,7 @@ public class MainFrameView extends JFrame implements Serializable{
 	public static windowListener windowListener;
 	public MainFrameView() {
 		super();
+		setTitle("Online Quiz Checker");
 		/*try {
 			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
 		} catch (ClassNotFoundException e) {

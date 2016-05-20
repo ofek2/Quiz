@@ -28,6 +28,8 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 
 import Controllers.MainFrameController;
 import Controllers.MultipleChoicePanelController;
+import Entities.Constants;
+
 import javax.swing.BoxLayout;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
@@ -72,7 +74,7 @@ public class qPanel extends JPanel implements Serializable{
 	private transient FileNameExtensionFilter extensionFilter;
 	private MultipleChoicePanelController multipleChoicePanelController;
 	
-	private final static int width=MainFrameController.view.getContentPane().getWidth()-80;
+	private final static int width=Constants.FRAME_WIDTH-80;
 //	private final static int height=(int) (MainFrameController.view.getContentPane().getHeight()/3);
 //	private final static int width=1900;
 	private final static int height=600;
@@ -97,6 +99,8 @@ public class qPanel extends JPanel implements Serializable{
 	private JPanel panel_4;
 	private JPanel panel;
 	public JPanel mainPanel;
+	private JPanel panel_1;
+	private JPanel panel_5;
 	/**
 	 * Create the panel.
 	 */
@@ -113,7 +117,7 @@ public class qPanel extends JPanel implements Serializable{
 		add(javax.swing.Box.createVerticalStrut(qPanelsGap));
 		
 		mainPanel = new JPanel();
-		mainPanel.setBorder(new LineBorder(new Color(0, 0, 0)));
+		mainPanel.setBorder(new LineBorder(new Color(0, 0, 0), 1, true));
 		mainPanel.setBackground(SystemColor.textHighlight);
 		add(mainPanel);
 		mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.Y_AXIS));
@@ -163,6 +167,7 @@ public class qPanel extends JPanel implements Serializable{
 		headPanel.add(panel_2);
 		
 		btnRemove = new JButton("X");
+		btnRemove.setBackground(new Color(255, 255, 255));
 		panel_2.add(btnRemove);
 		btnRemove.setPreferredSize(new Dimension(30, 30));
 		btnRemove.setSize(new Dimension(25, 40));
@@ -170,10 +175,17 @@ public class qPanel extends JPanel implements Serializable{
 		btnRemove.setMinimumSize(new Dimension(0, 0));
 		btnRemove.setMargin(new Insets(0, 0, 0, 0));
 		
+		panel_5 = new JPanel();
+		panel_5.setPreferredSize(new Dimension(10, 7));
+		panel_5.setMaximumSize(new Dimension(32767, 7));
+		panel_5.setBorder(new MatteBorder(1, 0, 1, 0, (Color) new Color(0, 0, 0)));
+		panel_5.setBackground(Color.WHITE);
+		mainPanel.add(panel_5);
+		
 		questionPartPanel = new JPanel();
-		mainPanel.add(questionPartPanel);
 		questionPartPanel.setOpaque(false);
-		questionPartPanel.setBorder(new TitledBorder(UIManager.getBorder("TitledBorder.border"), "The Question", TitledBorder.LEFT, TitledBorder.TOP, new Font("Tahoma", Font.PLAIN, 14), new Color(255, 255, 255)));
+		mainPanel.add(questionPartPanel);
+		questionPartPanel.setBorder(new TitledBorder(UIManager.getBorder("TitledBorder.border"), "The Question", TitledBorder.LEFT, TitledBorder.TOP, new Font("Tahoma", Font.BOLD, 16), new Color(255, 255, 255)));
 		questionPartPanel.setLayout(new GridLayout(0, 2, 0, 0));
 		
 		JPanel questionTextPanel = new JPanel();
@@ -187,30 +199,11 @@ public class qPanel extends JPanel implements Serializable{
 		textPanel.setPreferredSize(new Dimension(10, 100));
 		textPanel.setMinimumSize(new Dimension(10, 100));
 		questionTextPanel.add(textPanel);
-		GridBagLayout gbl_textPanel = new GridBagLayout();
-		gbl_textPanel.columnWidths = new int[]{95, 198, 0};
-		gbl_textPanel.rowHeights = new int[]{100, 0};
-		gbl_textPanel.columnWeights = new double[]{0.0, 1.0, Double.MIN_VALUE};
-		gbl_textPanel.rowWeights = new double[]{0.0, Double.MIN_VALUE};
-		textPanel.setLayout(gbl_textPanel);
-		
-		JLabel lblEnterQuestion = new JLabel("Enter question:");
-		lblEnterQuestion.setVerticalAlignment(SwingConstants.TOP);
-		lblEnterQuestion.setHorizontalAlignment(SwingConstants.CENTER);
-		GridBagConstraints gbc_lblEnterQuestion = new GridBagConstraints();
-		gbc_lblEnterQuestion.fill = GridBagConstraints.BOTH;
-		gbc_lblEnterQuestion.insets = new Insets(0, 0, 0, 5);
-		gbc_lblEnterQuestion.gridx = 0;
-		gbc_lblEnterQuestion.gridy = 0;
-		textPanel.add(lblEnterQuestion, gbc_lblEnterQuestion);
+		textPanel.setLayout(new BoxLayout(textPanel, BoxLayout.X_AXIS));
 		
 		JScrollPane scrollPane = new JScrollPane();
 		scrollPane.setOpaque(false);
-		GridBagConstraints gbc_scrollPane = new GridBagConstraints();
-		gbc_scrollPane.fill = GridBagConstraints.BOTH;
-		gbc_scrollPane.gridx = 1;
-		gbc_scrollPane.gridy = 0;
-		textPanel.add(scrollPane, gbc_scrollPane);
+		textPanel.add(scrollPane);
 		
 		textAreaQ = new JTextArea();
 		textAreaQ.setFont(new Font("Courier New", Font.PLAIN, 12));
@@ -271,10 +264,17 @@ public class qPanel extends JPanel implements Serializable{
 		btnRemoveQuestionImage.setBackground(Color.WHITE);
 		imageButtonsPanel.add(btnRemoveQuestionImage);
 		
+		panel_1 = new JPanel();
+		panel_1.setPreferredSize(new Dimension(10, 7));
+		panel_1.setBorder(new MatteBorder(1, 0, 1, 0, (Color) new Color(0, 0, 0)));
+		panel_1.setBackground(Color.WHITE);
+		panel_1.setMaximumSize(new Dimension(32767, 7));
+		mainPanel.add(panel_1);
+		
 		answerPartPanel = new JPanel();
-		mainPanel.add(answerPartPanel);
 		answerPartPanel.setOpaque(false);
-		answerPartPanel.setBorder(new TitledBorder(UIManager.getBorder("TitledBorder.border"), "The Answer", TitledBorder.LEADING, TitledBorder.TOP, new Font("Tahoma", Font.PLAIN, 14), Color.WHITE));
+		mainPanel.add(answerPartPanel);
+		answerPartPanel.setBorder(new TitledBorder(UIManager.getBorder("TitledBorder.border"), "The Answer", TitledBorder.LEADING, TitledBorder.TOP, new Font("Tahoma", Font.BOLD, 16), Color.WHITE));
 		answerPartPanel.setLayout(new BoxLayout(answerPartPanel, BoxLayout.Y_AXIS));
 		
 		answerTitlePanel = new JPanel();

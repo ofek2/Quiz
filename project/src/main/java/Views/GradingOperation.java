@@ -1,4 +1,4 @@
-package project;
+package Views;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -28,9 +28,9 @@ import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 import Controllers.MainFrameController;
 import Entities.StudentEntity;
-import Views.StudentGradingPanel;
-import Views.ViewPanel;
 import netscape.javascript.JSObject;
+import project.HtmlParser;
+import project.ObjectFileManager;
 
 public class GradingOperation extends ViewPanel {
 

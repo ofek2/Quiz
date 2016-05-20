@@ -8,8 +8,8 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import javax.xml.parsers.ParserConfigurationException;
 import Entities.StudentEntity;
+import Views.GradingOperation;
 import Views.StudentGradingPanel;
-import project.GradingOperation;
 import project.HtmlBuilder;
 import project.ObjectFileManager;
 

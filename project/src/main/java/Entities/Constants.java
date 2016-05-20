@@ -17,4 +17,7 @@ public class Constants {
 	
 	final public static String SAVE = "save";
 	final public static String SAVE_AND_EXIT = "save_and_exit";
+	
+	public static int FRAME_WIDTH = 1000;
+	public static int FRAME_HEIGHT = 700;
 }

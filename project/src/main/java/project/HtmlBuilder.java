@@ -130,7 +130,7 @@ public class HtmlBuilder {
 		Element divBody = document.createElement("div");
 		divBody.setAttribute("class", "panel-body");
 		Element qText= document.createElement("qText");
-		Element questionTextPara = document.createElement("p");
+		Element questionTextPara = document.createElement("pre");
 		qText.appendChild(questionTextPara);
 		questionTextPara.appendChild(document.createTextNode(questionText));
 		
@@ -203,7 +203,11 @@ public class HtmlBuilder {
 		}
 		if(enableListening)
 		{
-			String textToSpeechText = "Question number "+questionNumber+", "+questionText+" Possible answer choices are:"+
+			String [] fixedQuestionText = questionText.split("\\n");
+			String questionTextToSpeak="";
+			for (int i = 0 ; i<fixedQuestionText.length;i++)
+				questionTextToSpeak += fixedQuestionText[i];
+			String textToSpeechText = "Question number "+questionNumber+", "+questionTextToSpeak+" Possible answer choices are:"+
 			choicesText;
 			addSpeakerBtn(qNumber,textToSpeechText);
 		}
@@ -263,7 +267,7 @@ public class HtmlBuilder {
 	
 		
 		Element divAnswer = document.createElement("div");
-		divAnswer.setAttribute("class", "panel panel-default");
+		divAnswer.setAttribute("class", "panel panel-success");
 		answers.appendChild(divAnswer);
 		
 		Element divHead = document.createElement("div");
@@ -271,7 +275,7 @@ public class HtmlBuilder {
 		divAnswer.appendChild(divHead);
 		
 		Element h1 = document.createElement("h1");
-		h1.appendChild(document.createTextNode("Question "+questionNumber));
+		h1.appendChild(document.createTextNode("Question "+questionNumber+" - Correct Answer"));
 		divHead.appendChild(h1);
 		
 		Element divBody = document.createElement("div");
@@ -328,7 +332,7 @@ public class HtmlBuilder {
 		questions.get(qNumber).appendChild(answers);
 		
 		Element divAnswer = document.createElement("div");
-		divAnswer.setAttribute("class", "panel panel-default");
+		divAnswer.setAttribute("class", "panel panel-success");
 		answers.appendChild(divAnswer);
 		
 		Element divHead = document.createElement("div");
@@ -336,7 +340,7 @@ public class HtmlBuilder {
 		divAnswer.appendChild(divHead);
 		
 		Element h1 = document.createElement("h1");
-		h1.appendChild(document.createTextNode("Question "+questionNumber));
+		h1.appendChild(document.createTextNode("Question "+questionNumber+" - Correct Answer"));
 		divHead.appendChild(h1);
 		
 		Element divBody = document.createElement("div");
@@ -348,7 +352,7 @@ public class HtmlBuilder {
 		
 		if(type.equals("Free Text"))
 		{
-			Element questionTextPara = document.createElement("p");
+			Element questionTextPara = document.createElement("pre");
 			questionTextPara.appendChild(document.createTextNode(answer));
 			form.appendChild(questionTextPara);
 	
@@ -383,9 +387,15 @@ public class HtmlBuilder {
 		NodeList qTexts = document.getElementsByTagName("qText");
 		for(int i = 0;i<qTexts.getLength();i++)
 		{
-			Element questionTextPara= (Element) ((Element)qTexts.item(i)).getElementsByTagName("p").item(0);
+			Element questionTextPara= (Element) ((Element)qTexts.item(i)).getElementsByTagName("pre").item(0);
 			if(questionsToHide.get(i))
+			{
 				questionTextPara.setAttribute("hidden", "hidden");
+				Element instructionText = document.createElement("p");
+				instructionText.appendChild(document.createTextNode("Click on the \"Listen\" button in order to listen to the question."));
+				qTexts.item(i).appendChild(instructionText);
+			}
+		
 		}
 	}
 
@@ -403,7 +413,7 @@ public class HtmlBuilder {
 			NodeList qTexts = prepared.document.getElementsByTagName("qText");
 			for(int i = 0;i<qTexts.getLength();i++)
 			{
-				Element questionTextPara= (Element) ((Element)qTexts.item(i)).getElementsByTagName("p").item(0);
+				Element questionTextPara= (Element) ((Element)qTexts.item(i)).getElementsByTagName("pre").item(0);
 				questionTextPara.removeAttribute("hidden");
 			}
 //----------Copy Lecturer Answers To The Quiz and Auto check multiple choice questions----------//

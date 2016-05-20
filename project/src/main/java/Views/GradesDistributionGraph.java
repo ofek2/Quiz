@@ -1,4 +1,4 @@
-package project;
+package Views;
 
 import java.awt.Container;
 import java.awt.event.ActionEvent;
@@ -9,7 +9,6 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.border.EtchedBorder;
 import Controllers.MainFrameController;
-import Views.ViewPanel;
 import javafx.application.Platform;
 import javafx.embed.swing.JFXPanel;
 import javafx.scene.Scene;
