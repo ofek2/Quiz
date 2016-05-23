@@ -14,7 +14,7 @@ public class Constants {
 			e.printStackTrace();
 		}
 	}
-	
+	final public static String APP_NAME = "OnlineQuizChecker";
 	final public static String SAVE = "save";
 	final public static String SAVE_AND_EXIT = "save_and_exit";
 	

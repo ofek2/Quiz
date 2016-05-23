@@ -798,6 +798,7 @@ public class InitialWindowController {
 						QuizCreationController quizCreationController = new QuizCreationController(quizCreationView,
 								result, view);
 						quizCreationView.getQuizName().setText(quizName);
+						quizCreationView.getCourseName().setText(courseName);
 						QuizCreationController.saveFlag = 1;
 						if (popUpMenuFlag == 0)
 							menuController.editQuizdialog.dispose();

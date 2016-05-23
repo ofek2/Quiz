@@ -30,7 +30,7 @@ import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
 
 public class PreviewQuizFrame extends JFrame{
-	private final JFXPanel jfxPanel = new JFXPanel();
+	private  JFXPanel jfxPanel;
 	private WebEngine engine;
 	private final JPanel panel = new JPanel(new BorderLayout());
 	private windowListener windowListener;
@@ -39,6 +39,7 @@ public class PreviewQuizFrame extends JFrame{
 	public PreviewQuizFrame(String tempFolderToDelete,QuizCreationController controller){
 		super();
 		this.controller = controller;
+		jfxPanel = new JFXPanel();
 		this.tempFolderToDelete = tempFolderToDelete;
 		windowListener = new windowListener();
 	//	removeWindowListener(MainFrameController.view.windowListener);
@@ -65,9 +66,11 @@ public class PreviewQuizFrame extends JFrame{
 			public void run() {
 
 				WebView view = new WebView();
+				
 				engine = view.getEngine();
-
+				
 				jfxPanel.setScene(new Scene(view));
+			
 			}
 		});
 	}
@@ -81,7 +84,7 @@ public class PreviewQuizFrame extends JFrame{
 				if (tmp == null) {
 					tmp = toURL("http://" + url);
 				}
-
+			
 				engine.load(tmp);
 			}
 		});
