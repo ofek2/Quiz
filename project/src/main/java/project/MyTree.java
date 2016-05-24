@@ -68,7 +68,7 @@ public class MyTree {
 
 		DefaultMutableTreeNode root = new DefaultMutableTreeNode("Root");
 		FirstNode = new DefaultMutableTreeNode(
-				new TestNode("OnlineQuizChecker", Color.WHITE.darker(), d64, true));
+				new TestNode("Courses", Color.BLUE.brighter().brighter(), d64, true));
 		root.add(FirstNode); // add current folder to the tree
 		File file = new File(path);
 		addNodes(FirstNode, 0, file);
@@ -113,9 +113,6 @@ public class MyTree {
 			if (file.isDirectory()) {
 				for (int i = 0; i < file.listFiles().length; i++) {
 					String name = file.listFiles()[i].getName();
-					if (name.endsWith(".ser"))
-						name = name.split("\\.")[0];
-
 					DefaultMutableTreeNode set1 = new DefaultMutableTreeNode(
 							new TestNode(name, Color.ORANGE, d64, true));
 					root.add(set1); // add current folder to the tree
@@ -136,7 +133,7 @@ public class MyTree {
 						name = name.split("\\.")[0];
 
 					DefaultMutableTreeNode set1 = new DefaultMutableTreeNode(
-							new TestNode(name, Color.GREEN, d48, true));
+							new TestNode(name, Color.GREEN, d32, true));
 					root.add(set1); // add current folder to the tree
 
 					addNodes(set1, level + 1, file.listFiles()[i]); // add next
@@ -151,11 +148,10 @@ public class MyTree {
 			if (file.isDirectory()) {
 				for (int i = 0; i < file.listFiles().length; i++) {
 					String name = file.listFiles()[i].getName();
-					if (name.endsWith(".ser"))
+					if(name.endsWith(".ser"))
 						name = name.split("\\.")[0];
-
 					DefaultMutableTreeNode set1 = new DefaultMutableTreeNode(
-							new TestNode(name, Color.BLUE, d32, true));
+							new TestNode(name, Color.BLUE, d24, true));
 					root.add(set1); // add current folder to the tree
 					
 					addNodes(set1, level + 1, file.listFiles()[i]); // add next
@@ -166,24 +162,6 @@ public class MyTree {
 				}
 			}
 			break;
-		default:
-			if (file.isDirectory()) {
-				for (int i = 0; i < file.listFiles().length; i++) {
-					String name = file.listFiles()[i].getName();
-					if (name.endsWith(".ser"))
-						name = name.split("\\.")[0];
-
-					DefaultMutableTreeNode set1 = new DefaultMutableTreeNode(
-							new TestNode(name, Color.GRAY, d24, true));
-					root.add(set1); // add current folder to the tree
-
-					addNodes(set1, level + 1, file.listFiles()[i]); // add next
-																	// file/folder
-																	// to the
-																	// tree
-
-				}
-			}
 		}
 
 	}
@@ -266,7 +244,7 @@ class TestNode implements Icon {
 	public void paintIcon(Component c, Graphics g, int x, int y) {
 		g.setColor(color);
 		g.fillRect(x + GAP, y + GAP, dim.width - GAP - GAP, dim.height - GAP - GAP);
-		if (dim.width < 64) {
+		if (dim.width > 24) {
 			Graphics2D g2 = (Graphics2D) g.create();
 			g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 			int w6 = dim.width / 12;

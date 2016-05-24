@@ -1089,6 +1089,7 @@ public class InitialWindowController {
 					MouseAdapter adapter;
 					return adapter = new MouseAdapter() {
 						public void mousePressed(MouseEvent e) {
+							String rootName = "Courses";
 							if (e.getButton() == MouseEvent.BUTTON3) {
 								TreePath pathForLocation = view.getTree().getPathForLocation(e.getPoint().x,
 										e.getPoint().y);
@@ -1097,12 +1098,12 @@ public class InitialWindowController {
 											.getLastPathComponent();
 									String chosenFileName = pathForLocation.getLastPathComponent().toString();
 									pathForLocation.getLastPathComponent();
-									if (chosenFileName.equals("OnlineQuizChecker"))
+									if (chosenFileName.equals(rootName))
 										view.getTree().setComponentPopupMenu(rootPopupMenu());
-									else if (selectedNode.getParent().toString().equals("OnlineQuizChecker"))
+									else if (selectedNode.getParent().toString().equals(rootName))
 										view.getTree().setComponentPopupMenu(removeCoursePopupMenu(chosenFileName));
 									else if (selectedNode.getParent().getParent().toString()
-											.equals("OnlineQuizChecker")) {
+											.equals(rootName)) {
 										if (chosenFileName.equals("Students"))
 											view.getTree().setComponentPopupMenu(registerStudentPopupMenu(selectedNode.getParent().toString()));
 										else if (chosenFileName.equals("Quizzes"))
