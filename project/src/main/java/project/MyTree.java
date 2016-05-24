@@ -16,7 +16,7 @@ public class MyTree {
 	private static Dimension d48 = new Dimension(48, 48);
 	private static Dimension d32 = new Dimension(32, 32);
 	private static Dimension d24 = new Dimension(24, 24);
-
+	private static DefaultMutableTreeNode FirstNode;
 	public JTree makeUI() {
 
 		IconUIResource emptyIcon = new IconUIResource(new Icon() {
@@ -50,6 +50,7 @@ public class MyTree {
 		});
 
 		JTree tree = new JTree(makeModel(Constants.ROOTPATH));
+		tree.expandPath(new TreePath(FirstNode.getPath()));
 		tree.setCellRenderer(new TestTreeCellRenderer());
 		// tree.setRowHeight(0);
 		tree.setFont(new Font("Arial", Font.PLAIN, 20));
@@ -66,8 +67,11 @@ public class MyTree {
 	private static TreeModel makeModel(String path) {
 
 		DefaultMutableTreeNode root = new DefaultMutableTreeNode("Root");
+		FirstNode = new DefaultMutableTreeNode(
+				new TestNode("OnlineQuizChecker", Color.WHITE.darker(), d64, true));
+		root.add(FirstNode); // add current folder to the tree
 		File file = new File(path);
-		addNodes(root, 0, file);
+		addNodes(FirstNode, 0, file);
 		//
 		// DefaultMutableTreeNode set1 = new DefaultMutableTreeNode(
 		// new TestNode("SubCategory 1", Color.ORANGE, d64, false));
@@ -113,7 +117,7 @@ public class MyTree {
 						name = name.split("\\.")[0];
 
 					DefaultMutableTreeNode set1 = new DefaultMutableTreeNode(
-							new TestNode(name, Color.ORANGE, d64, false));
+							new TestNode(name, Color.ORANGE, d64, true));
 					root.add(set1); // add current folder to the tree
 
 					addNodes(set1, level + 1, file.listFiles()[i]); // add next
@@ -132,7 +136,7 @@ public class MyTree {
 						name = name.split("\\.")[0];
 
 					DefaultMutableTreeNode set1 = new DefaultMutableTreeNode(
-							new TestNode(name, Color.GREEN, d48, false));
+							new TestNode(name, Color.GREEN, d48, true));
 					root.add(set1); // add current folder to the tree
 
 					addNodes(set1, level + 1, file.listFiles()[i]); // add next
@@ -151,14 +155,14 @@ public class MyTree {
 						name = name.split("\\.")[0];
 
 					DefaultMutableTreeNode set1 = new DefaultMutableTreeNode(
-							new TestNode(name, Color.BLUE, d32, false));
+							new TestNode(name, Color.BLUE, d32, true));
 					root.add(set1); // add current folder to the tree
-
+					
 					addNodes(set1, level + 1, file.listFiles()[i]); // add next
 																	// file/folder
 																	// to the
 																	// tree
-
+					
 				}
 			}
 			break;
@@ -170,7 +174,7 @@ public class MyTree {
 						name = name.split("\\.")[0];
 
 					DefaultMutableTreeNode set1 = new DefaultMutableTreeNode(
-							new TestNode(name, Color.GRAY, d24, false));
+							new TestNode(name, Color.GRAY, d24, true));
 					root.add(set1); // add current folder to the tree
 
 					addNodes(set1, level + 1, file.listFiles()[i]); // add next
@@ -210,7 +214,7 @@ class TestTreeCellRenderer extends DefaultTreeCellRenderer {
 	@Override
 	public Component getTreeCellRendererComponent(JTree tree, Object value, boolean selected, boolean expanded,
 			boolean leaf, int row, boolean hasFocus) {
-		setBackgroundSelectionColor(Color.yellow);
+		setBackgroundSelectionColor(Color.green.darker());
 		JLabel l = (JLabel) super.getTreeCellRendererComponent(tree, value, selected, expanded, leaf, row, hasFocus);
 		if (value instanceof DefaultMutableTreeNode) {
 			DefaultMutableTreeNode node = (DefaultMutableTreeNode) value;

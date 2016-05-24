@@ -8,8 +8,10 @@ import java.awt.Color;
 import javax.swing.JMenuItem;
 import javax.swing.border.EtchedBorder;
 import javax.swing.tree.DefaultMutableTreeNode;
+import javax.swing.tree.TreeModel;
 import javax.swing.JTree;
 import javax.swing.ScrollPaneConstants;
+import javax.swing.UIManager;
 
 import java.awt.Component;
 import java.awt.event.ActionListener;
@@ -29,6 +31,8 @@ import java.util.Vector;
 import javax.swing.JLabel;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
+
+import project.MyTree;
 import project.ObjectFileManager;
 import Controllers.InitialWindowController;
 import Controllers.MainFrameController;
@@ -87,7 +91,7 @@ public class InitialWindowView extends ViewPanel {
 	 */
 	public InitialWindowView() {
 		setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
-
+	    
 		menuBar = new JMenuBar();
 		menuBar.setPreferredSize(new Dimension(100000, 30));
 		menuBar.setMinimumSize(new Dimension(0, 30));
@@ -139,19 +143,16 @@ public class InitialWindowView extends ViewPanel {
 
 		
 		
-		try {
-			tree = new JTree(filesTree(new File(new File(".").getCanonicalPath() + "/OnlineQuizChecker")));
-			tree.setFont(new Font("Arial", Font.PLAIN, 24));
-			tree.setRowHeight(35);
-			//tree.setBounds(0, 30, MainFrameController.view.getWidth(), MainFrameController.view.getHeight());
-			scrollPane = new JScrollPane(tree, ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED,
-					ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
-			scrollPane.getVerticalScrollBar().setUnitIncrement(16);
-			add(scrollPane);
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		MyTree myTree = new MyTree();
+		tree = myTree.makeUI();
+//			tree = new JTree(myTree.makeModel(new File(".").getCanonicalPath() + "/OnlineQuizChecker"));
+		//tree.setFont(new Font("Arial", Font.PLAIN, 24));
+		//tree.setRowHeight(35);
+		//tree.setBounds(0, 30, MainFrameController.view.getWidth(), MainFrameController.view.getHeight());
+		scrollPane = new JScrollPane(tree, ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED,
+				ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+		scrollPane.getVerticalScrollBar().setUnitIncrement(16);
+		add(scrollPane);
 		Vector<String> vec = new Vector<String>();
 		for (int i = 0; i < InitialWindowController.coursesFiles.size(); i++)
 			vec.add(InitialWindowController.coursesFiles.get(i).getCourseFolderName());
@@ -597,10 +598,11 @@ public class InitialWindowView extends ViewPanel {
 	public void setTree(JTree tree) {
 
 		MouseListener[] mouseListener = this.tree.getMouseListeners();
-		
-		this.tree = tree;
-		this.tree.setFont(new Font("Arial", Font.PLAIN, 24));
-		this.tree.setRowHeight(35);
+		MyTree myTree = new MyTree();
+		this.tree = myTree.makeUI();
+		//this.tree = tree;
+//		this.tree.setFont(new Font("Arial", Font.PLAIN, 24));
+//		this.tree.setRowHeight(35);
 		if (mouseListener.length > 1)
 			this.tree.addMouseListener((MouseAdapter) mouseListener[1]);
 		scrollPane.setViewportView(this.tree);
