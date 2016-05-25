@@ -414,6 +414,7 @@ public class HtmlBuilder {
 			for(int i = 0;i<qTexts.getLength();i++)
 			{
 				Element questionTextPara= (Element) ((Element)qTexts.item(i)).getElementsByTagName("pre").item(0);
+				if(questionTextPara !=null)
 				questionTextPara.removeAttribute("hidden");
 			}
 //----------Copy Lecturer Answers To The Quiz and Auto check multiple choice questions----------//
