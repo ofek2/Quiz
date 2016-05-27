@@ -65,7 +65,7 @@ public class StudentGradingController {
 			// TODO Auto-generated method stub
 			String studentQuizPath=studentQuizFolderPath+"/"+studentId+".html";
 			try {
-				if(view.getLblGrade().getText().equals(view.notGraded))
+				if(view.getGradeBtn().getText().equals("Grade"))
 				{			
 					HtmlBuilder htmlBuilder = new HtmlBuilder();
 					htmlBuilder.prepareQuizForGrading(studentQuizPath,originalQuizFormPath);

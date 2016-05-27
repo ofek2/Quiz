@@ -2,6 +2,7 @@ package Views;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.Container;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -18,6 +19,8 @@ import javafx.embed.swing.JFXPanel;
 import javafx.scene.Scene;
 import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
+
+import javax.swing.JLabel;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
@@ -31,6 +34,10 @@ import Entities.StudentEntity;
 import netscape.javascript.JSObject;
 import project.HtmlParser;
 import project.ObjectFileManager;
+
+import javax.swing.Box;
+import javax.swing.BoxLayout;
+import java.awt.Font;
 
 public class GradingOperation extends ViewPanel {
 
@@ -49,17 +56,33 @@ public class GradingOperation extends ViewPanel {
 
 	@SuppressWarnings("deprecation")
 	public GradingOperation(StudentGradingPanel studentGradingPanel, String studentQuizPath, Container previousView) {
-		fxPanel = new JFXPanel();
-		createScene();
 		setBackground(Color.white);
 		this.studentGradingPanel = studentGradingPanel;
 		this.studentQuizPath = studentQuizPath;
 		this.previousView = previousView;
+		createScene();
 		setLayout(null);
+		
+		fxPanel = new JFXPanel();
+		fxPanel.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
 		JPanel panel = new JPanel();
 		panel.setBounds(40, 30,
-			920, 650);
-		panel.add(fxPanel, BorderLayout.CENTER);
+			920, 550);
+		panel.setBackground(Color.white);
+		panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
+			
+		JLabel studentIdLbl = new JLabel("Currently grading student ID: "+this.studentGradingPanel.getLblStudentid().getText());
+		studentIdLbl.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		
+		Component verticalStrut = Box.createVerticalStrut(20);
+		
+		panel.add(verticalStrut);
+		
+		panel.add(studentIdLbl);
+		
+		panel.add(verticalStrut);
+		
+		panel.add(fxPanel);
 		add(panel);
 		
 		JMenuBar menuBar = new JMenuBar();
@@ -80,7 +103,8 @@ public class GradingOperation extends ViewPanel {
 
 		public void actionPerformed(ActionEvent e) {
 			// TODO Auto-generated method stub
-
+			if (studentGradingPanel.getGradeBtn().getText().equals("Grade"))
+				studentGradingPanel.getGradeBtn().setText("Edit");
 			MainFrameController.view.changeContentPane((ViewPanel) previousView);
 
 		}
@@ -124,6 +148,7 @@ public class GradingOperation extends ViewPanel {
 		public void receiveInput(String score, String questionNumber) {
 			// Platform.exit();
 			// System.out.print(score+","+questionNumber);
+		
 			insertScoreToHTML(studentQuizPath, score, questionNumber);
 		}
 
@@ -166,8 +191,8 @@ public class GradingOperation extends ViewPanel {
 						oos.writeObject(result);
 						oos.close();
 						studentGradingPanel.getLblGrade().setText(score);
-						if (studentGradingPanel.getGradeBtn().getText().equals("Grade"))
-							studentGradingPanel.getGradeBtn().setText("Edit");
+//						if (studentGradingPanel.getGradeBtn().getText().equals("Grade"))
+//							studentGradingPanel.getGradeBtn().setText("Edit");
 					} catch (IOException e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();

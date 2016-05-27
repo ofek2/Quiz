@@ -125,7 +125,6 @@ public class QuizCreationView extends ViewPanel {
 
 		addBtn = new JButton("Add question");
 		addBtn.setAlignmentX(CENTER_ALIGNMENT);
-		addBtn.setBackground(new Color(65, 105, 225));
 		panel.add(addBtn);
 		addBtn.setAlignmentY(0.0f);
 		setVisible(true);
