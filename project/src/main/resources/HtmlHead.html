@@ -199,7 +199,7 @@
         	{
         		Android.openDrawingBoard(form.name);
         	}
-            function updateFinalScore() {
+            function updateFinalScore(b) {
                 var finalScore = parseInt("0");
                 var inputs = document.getElementsByTagName("input");
                 for (var i = 0; i != inputs.length; i++) {
@@ -209,6 +209,7 @@
                 }
 
                 document.getElementById("finalScore").innerHTML = finalScore;
+                if(b == true)
                 Desktop.receiveInput(finalScore,'fscore');
             }
             function check(input)
@@ -231,7 +232,7 @@ function myFunction(formName,score) {
         if(inputs[splitedAnswer[0]-1].checked==false)
         {
             score[0].value="0";
-            updateFinalScore();
+            updateFinalScore(false);
             return;
         }
     }
@@ -254,7 +255,7 @@ function myFunction(formName,score) {
                       inputs[j].checked=inputs[j].defaultChecked;
             
             score[0].value="0";   
-            updateFinalScore();
+            updateFinalScore(false);
             return;
         }
     }
@@ -266,7 +267,7 @@ function myFunction(formName,score) {
     for(i=0;i!=inputs.length;i++)
       inputs[i].checked=inputs[i].defaultChecked;
     
-    updateFinalScore();
+    updateFinalScore(false);
  
 }
 </script>
