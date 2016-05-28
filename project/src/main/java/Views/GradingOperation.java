@@ -199,7 +199,9 @@ public class GradingOperation extends ViewPanel {
 					}
 
 				}
+			//	studentQuiz.document.removeChild(studentQuiz.document.getElementById("scoreScript"));
 				studentQuiz.writeHtml(studentQuizPath);
+				engine.load("file:///" + studentQuizPath);
 			} catch (FileNotFoundException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();

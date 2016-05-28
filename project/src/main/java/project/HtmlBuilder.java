@@ -109,7 +109,7 @@ public class HtmlBuilder {
 		input.setAttribute("name", "ScoreQ"+qNumber);
 		input.setAttribute("type", "hidden");
 		input.setAttribute("maxlength", "2");
-		input.setAttribute("oninput", "Desktop.receiveInput(this.value,"+qNumber+");updateFinalScore();");
+		input.setAttribute("oninput", "Desktop.receiveInput(this.value,"+qNumber+");updateFinalScore(true);");
 		input.appendChild(document.createTextNode(" "));
 		div.appendChild(input);
 		div.appendChild(document.createTextNode("/"));
