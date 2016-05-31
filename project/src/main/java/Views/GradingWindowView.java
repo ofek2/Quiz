@@ -7,10 +7,12 @@ import javax.swing.JMenu;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.event.ActionListener;
 import javax.swing.JScrollPane;
+import javax.swing.JSeparator;
 import javax.swing.JTable;
 import javax.swing.SwingConstants;
 import javax.swing.border.EtchedBorder;
@@ -25,6 +27,7 @@ public class GradingWindowView extends ViewPanel {
 	public static JTable table;
 	public static JScrollPane scrollPane;
 	public JPanel tablePanel;
+	private JMenu mnHelpMenu;
 	/**
 	 * Create the panel.
 	 */
@@ -45,6 +48,18 @@ public class GradingWindowView extends ViewPanel {
 		
 		JMenuItem mntmExit = new JMenuItem("Exit");
 		mnFile.add(mntmExit);
+		
+		JSeparator separator1 = new JSeparator();
+		separator1.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
+		separator1.setBackground(Color.LIGHT_GRAY);
+		separator1.setMaximumSize(new Dimension(2, 100));
+		separator1.setAlignmentX(Component.LEFT_ALIGNMENT);
+		menuBar.add(separator1);
+		
+		mnHelpMenu = new JMenu("Help");
+		JMenuItem mntmHelpContents = new JMenuItem("Help Contents");
+		mnHelpMenu.add(mntmHelpContents);
+		menuBar.add(mnHelpMenu);
 		
 		scrollPane = new JScrollPane();
 		scrollPane.setBounds(MainFrameController.view.getContentPane().getWidth()/4,70, MainFrameController.view.getContentPane().getWidth()/2, MainFrameController.view.getContentPane().getHeight()-100);
@@ -109,5 +124,8 @@ public class GradingWindowView extends ViewPanel {
 		table = customTable;
 		scrollPane.setViewportView(table);
 	}
-	
+	public void addHelpActionListener(ActionListener listener)
+	{
+		mnHelpMenu.getItem(0).addActionListener(listener);
+	}
 }

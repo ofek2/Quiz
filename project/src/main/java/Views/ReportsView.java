@@ -49,6 +49,7 @@ public class ReportsView extends ViewPanel{
 	private JButton [] titleButtons;
 	public CTable table = null;
 	private JLabel courseLabel;
+	private JMenu mnHelpMenu;
 	public ReportsView() {
 		setBackground(Color.WHITE);
 //		setPreferredSize(new Dimension(1000, 700));
@@ -70,6 +71,18 @@ public class ReportsView extends ViewPanel{
 		
 		JMenuItem mntmExit = new JMenuItem("Exit");
 		mnFile.add(mntmExit);
+		JSeparator separator2 = new JSeparator();
+		separator2.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
+		separator2.setBackground(Color.LIGHT_GRAY);
+		separator2.setMaximumSize(new Dimension(2, 100));
+		separator2.setAlignmentX(Component.LEFT_ALIGNMENT);
+		menuBar.add(separator2);
+
+		mnHelpMenu = new JMenu("Help");
+		JMenuItem mntmHelpContents = new JMenuItem("Help Contents");
+		mnHelpMenu.add(mntmHelpContents);
+
+		menuBar.add(mnHelpMenu);
 		
 		JPanel headPanel = new JPanel();
 		headPanel.setOpaque(false);
@@ -287,6 +300,10 @@ public class ReportsView extends ViewPanel{
 	public void setViewPortForScrollPane(CTable table2) {
 		// TODO Auto-generated method stub
 		scrollPane.setViewportView(table2);
+	}
+	public void addHelpActionListener(ActionListener listener)
+	{
+		mnHelpMenu.getItem(0).addActionListener(listener);
 	}
 	
 }

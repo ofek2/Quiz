@@ -35,6 +35,7 @@ import Entities.StudentEntity;
 import Views.CoursesCheckingFrame;
 import Views.CustomDialog;
 import Views.GradingWindowView;
+import Views.HelpFrame;
 import Views.InitialWindowView;
 import Views.QuizCreationView;
 import Views.ReportsView;
@@ -42,7 +43,7 @@ import project.ObjectFileManager;
 
 /**
  * The Class InitialWindowController.
- * This class controls the InitialWindowView events.
+ * This class controls the {@link InitialWindowView} events.
  * Meant for managing the user's (a lecturer) courses, quizzes, students and students' grades.
  */
 public class InitialWindowController {
@@ -57,13 +58,13 @@ public class InitialWindowController {
 	public static ArrayList<CourseEntity> coursesFiles;
 	
 	/** The ids edit add item listener. */
-	private coursesIdsEditAddItemListener idsEditAddItemListener;
+	private coursesIdsEditItemListener idsEditItemListener;
 	
 	/** The remove student course add item listener. */
-	private removeStudentCourseCBAddItemListener removeStudentCourseAddItemListener;
+	private removeStudentCourseCBItemListener removeStudentCourseItemListener;
 	
 	/** The remove students ids add item listener. */
-	private removeStudentsIdsCBAddItemListener removeStudentsIdsAddItemListener;
+	private removeStudentsIdsCBItemListener removeStudentsIdsItemListener;
 	
 	/** The course id grade item listener. */
 	private courseIdGradeItemListener courseIdGradeItemListener;
@@ -101,13 +102,13 @@ public class InitialWindowController {
 	 */
 	private void addListeners() {
 
-		idsEditAddItemListener = new coursesIdsEditAddItemListener();
-		removeStudentCourseAddItemListener = new removeStudentCourseCBAddItemListener();
-		removeStudentsIdsAddItemListener = new removeStudentsIdsCBAddItemListener();
+		idsEditItemListener = new coursesIdsEditItemListener();
+		removeStudentCourseItemListener = new removeStudentCourseCBItemListener();
+		removeStudentsIdsItemListener = new removeStudentsIdsCBItemListener();
 		courseIdGradeItemListener = new courseIdGradeItemListener();
-		view.coursesIdsEditAddItemListener(idsEditAddItemListener);
-		view.removeStudentCourseCBAddItemListener(removeStudentCourseAddItemListener);
-		view.removeStudentsIdsCBAddItemListener(removeStudentsIdsAddItemListener);
+		view.coursesIdsEditAddItemListener(idsEditItemListener);
+		view.removeStudentCourseCBAddItemListener(removeStudentCourseItemListener);
+		view.removeStudentsIdsCBAddItemListener(removeStudentsIdsItemListener);
 		view.courseIdGradeAddItemListener(courseIdGradeItemListener);
 		view.getTree().addMouseListener(menuController.dialogsBtnsController.popUpMenusController.treeMouseListener());
 
@@ -149,11 +150,38 @@ public class InitialWindowController {
 					new RegisterStudentListener("",""), new RemoveStudentListener() , new SaveFilesListener()};
 			view.addQuizManagementListeners(quizMngmntListeners);
 			view.addCourseManagementListeners(courseMngmntListeners);
+			view.addHelpActionListener(new HelpListener());
 			dialogsBtnsController = new DialogsBtnsController();
 		}
 		
 		/**
-		 * Listener for new quiz menu option events
+		 * The listener interface for receiving help events.
+		 * The class that is interested in processing a help
+		 * event implements this interface, and the object created
+		 * with that class is registered with a component using the
+		 * component's <code>addHelpListener<code> method. When
+		 * the help event occurs, that object's appropriate
+		 * method is invoked.
+		 *
+		 * @see HelpEvent
+		 */
+		class HelpListener implements ActionListener
+		{
+
+			/* (non-Javadoc)
+			 * @see java.awt.event.ActionListener#actionPerformed(java.awt.event.ActionEvent)
+			 */
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				new helpFrameController(new HelpFrame(Constants.MAINSCREEN_HELP_FOLDER));
+			}
+			
+		}
+		
+		/**
+		 * Listener for new quiz menu option events.
+		 *
 		 * @see NewQuizEvent
 		 */
 		class NewQuizListener implements ActionListener {
@@ -181,7 +209,8 @@ public class InitialWindowController {
 		}
 		
 		/**
-		 * Listener for edit quiz menu option events
+		 * Listener for edit quiz menu option events.
+		 *
 		 * @see EditQuizEvent
 		 */
 		class EditQuizListener implements ActionListener {
@@ -212,7 +241,8 @@ public class InitialWindowController {
 		}
 
 		/**
-		 * Listener for grade quiz menu option events
+		 * Listener for grade quiz menu option events.
+		 *
 		 * @see GradeQuizEvent
 		 */
 		class GradeQuizListener implements ActionListener {
@@ -243,7 +273,8 @@ public class InitialWindowController {
 		}
 
 		/**
-		 * Listener for reports menu option events
+		 * Listener for reports menu option events.
+		 *
 		 * @see ReportsEvent
 		 */
 		class ReportsListener implements ActionListener {
@@ -261,7 +292,8 @@ public class InitialWindowController {
 		}
 		
 		/**
-			 * Listener for save files menu option events
+		 * Listener for save files menu option events.
+		 *
 		 * @see SaveFilesEvent
 		 */
 		class SaveFilesListener implements ActionListener
@@ -287,7 +319,8 @@ public class InitialWindowController {
 		}
 		
 		/**
-		 * Listener for add course menu option events
+		 * Listener for add course menu option events.
+		 *
 		 * @see AddCourseEvent
 		 */
 		class AddCourseListener implements ActionListener {
@@ -309,7 +342,8 @@ public class InitialWindowController {
 		}
 
 		/**
-		 * Listener for remove course menu option events
+		 * Listener for remove course menu option events.
+		 *
 		 * @see RemoveCourseEvent
 		 */
 		class RemoveCourseListener implements ActionListener {
@@ -336,7 +370,8 @@ public class InitialWindowController {
 		}
 
 		/**
-		 * Listener for register student menu option events
+		 * Listener for register student menu option events.
+		 *
 		 * @see RegisterStudentEvent
 		 */
 		class RegisterStudentListener implements ActionListener {
@@ -420,7 +455,8 @@ public class InitialWindowController {
 		}
 
 		/**
-		 * Listener for remove student menu option events
+		 * Listener for remove student menu option events.
+		 *
 		 * @see RemoveStudentEvent
 		 */
 		class RemoveStudentListener implements ActionListener {
@@ -441,9 +477,9 @@ public class InitialWindowController {
 				removeStudentDialog.setVisible(true);
 				removeStudentDialog.setResizable(false);
 				removeStudentDialog.getContentPane().add(view.getRemoveStudentDialogPanel());
-				view.getRemoveStudentsIds().removeItemListener(removeStudentsIdsAddItemListener);
+				view.getRemoveStudentsIds().removeItemListener(removeStudentsIdsItemListener);
 				view.loadStudents(view.getRemoveStudentCourseCB().getSelectedIndex());
-				view.getRemoveStudentsIds().addItemListener(removeStudentsIdsAddItemListener);
+				view.getRemoveStudentsIds().addItemListener(removeStudentsIdsItemListener);
 				}
 				// view.loadStudents(view.getRemoveStudentCourseCB().getSelectedIndex());
 			}
@@ -474,7 +510,8 @@ public class InitialWindowController {
 			}
 
 			/**
-			 * Listener for remove student button click event
+			 * Listener for remove student button click event.
+			 *
 			 * @see removeStudentBtnEvent
 			 */
 			class removeStudentBtnListener implements ActionListener {
@@ -530,15 +567,7 @@ public class InitialWindowController {
 							if (popUpMenuFlag == 0)
 								studentFile = new File(Constants.ROOTPATH
 										+ (String) view.getRemoveStudentCourseCB().getSelectedItem() + "/Students/"
-										+ (String) view.getRemoveStudentsIds().getSelectedItem() + ".ser");
-//							if((new File(Constants.ROOTPATH
-//									+ studentCourse + "/Quizzes/" + studentId + "/StudentsAnswers/"))!=null)
-//							{
-//								if((studentAnswer = new File(Constants.ROOTPATH
-//										+ studentCourse + "/Quizzes/" + studentId + "/StudentsAnswers/"
-//										+ studentId + ".html")).exists())
-//									studentAnswer.delete();
-//							}
+										+ (String) view.getRemoveStudentsIds().getSelectedItem() + ".ser");					
 							File Quizzes = new File(Constants.ROOTPATH + studentCourse + "/Quizzes");
 							boolean studentCanBeDeleted = true;
 							if(Quizzes.isDirectory())
@@ -559,13 +588,13 @@ public class InitialWindowController {
 							}
 							if(studentCanBeDeleted){
 							studentFile.delete();
-							view.getRemoveStudentsIds().removeItemListener(removeStudentsIdsAddItemListener);
+							view.getRemoveStudentsIds().removeItemListener(removeStudentsIdsItemListener);
 							view.loadStudents(view.getRemoveStudentCourseCB().getSelectedIndex());
-							view.getRemoveStudentsIds().addItemListener(removeStudentsIdsAddItemListener);
+							view.getRemoveStudentsIds().addItemListener(removeStudentsIdsItemListener);
 							view.setTree(new JTree(InitialWindowView
 									.filesTree(new File(new File(".").getCanonicalPath() + "/OnlineQuizChecker"))));
 							JOptionPane.showMessageDialog(null, "The student removed successfully");
-							// removeStudentDialog.setVisible(false);///////////////////////
+						
 							}
 							else
 								JOptionPane.showMessageDialog(null, "You can't remove this student because he already took one of your quizzes","Warning!",JOptionPane.WARNING_MESSAGE);
@@ -579,7 +608,8 @@ public class InitialWindowController {
 			}
 
 			/**
-			 * Listener for register student button click event
+			 * Listener for register student button click event.
+			 *
 			 * @see registerStudentBtnEvent
 			 */
 			class registerStudentBtnListener implements ActionListener {
@@ -640,9 +670,9 @@ public class InitialWindowController {
 								JOptionPane.showMessageDialog(null, "The student registered successfully");
 								view.setTree(new JTree(InitialWindowView
 										.filesTree(new File(new File(".").getCanonicalPath() + "/OnlineQuizChecker"))));
-								view.getRemoveStudentsIds().removeItemListener(removeStudentsIdsAddItemListener);
+								view.getRemoveStudentsIds().removeItemListener(removeStudentsIdsItemListener);
 								view.loadStudents(view.getRemoveStudentCourseCB().getSelectedIndex());
-								view.getRemoveStudentsIds().addItemListener(removeStudentsIdsAddItemListener);
+								view.getRemoveStudentsIds().addItemListener(removeStudentsIdsItemListener);
 							} else if (overWrite == JOptionPane.NO_OPTION || overWrite == JOptionPane.CLOSED_OPTION)
 								overWrite = JOptionPane.YES_OPTION;
 						}
@@ -661,7 +691,8 @@ public class InitialWindowController {
 			}
 
 			/**
-			 * Listener for create course button click event
+			 * Listener for create course button click event.
+			 *
 			 * @see CreateCourseBtnEvent
 			 */
 			class CreateCourseBtnListener implements ActionListener {
@@ -729,7 +760,8 @@ public class InitialWindowController {
 			}
 
 			/**
-			 * Listener for edit quiz button click event
+			 * Listener for edit quiz button click event.
+			 *
 			 * @see EditQuizBtnEvent
 			 */
 			public class EditQuizBtnListener implements ActionListener {
@@ -753,6 +785,7 @@ public class InitialWindowController {
 				/**
 				 * Instantiates a new edits the quiz btn listener.
 				 *
+				 * @param courseName the course name
 				 * @param quizName the quiz name
 				 */
 				public EditQuizBtnListener(String courseName,String quizName) {
@@ -812,7 +845,8 @@ public class InitialWindowController {
 			}
 
 			/**
-			 * Listener for create quiz button click event
+			 * Listener for create quiz button click event.
+			 *
 			 * @see CreateQuizBtnEvent
 			 */
 			class CreateQuizBtnListener implements ActionListener {
@@ -845,9 +879,6 @@ public class InitialWindowController {
 			 */
 			public boolean createNewQuiz(String quizName, String courseName) {
 				File quizFolder;
-//				File quizFormFolder;
-//				File studentsFilesFolder;
-
 				if (quizName.isEmpty())
 				{
 					JOptionPane.showMessageDialog(null, "This quiz name is empty, please choose another name", "Alert",
@@ -859,8 +890,6 @@ public class InitialWindowController {
 						quizFolder = new File(Constants.ROOTPATH + courseName
 								+ "/Quizzes/" + quizName);
 						if (!quizFolder.exists()) {
-//							quizFormFolder = new File(quizFolder.getCanonicalPath() + "/Form");
-//							studentsFilesFolder = new File(quizFolder.getCanonicalPath() + "/StudentsAnswers");
 							QuizCreationView quizCreationView = new QuizCreationView();
 							QuizEntity quizEntity = new QuizEntity(quizName, courseName);
 							new QuizCreationController(quizCreationView, quizEntity, view);
@@ -877,11 +906,7 @@ public class InitialWindowController {
 							return false;
 						}
 
-					} 
-//					catch (IOException e1) {
-//						// TODO Auto-generated catch block
-//						e1.printStackTrace();
-//					} 
+					} 				
 					catch (NullPointerException e1) {
 						// TODO Auto-generated catch block
 						e1.printStackTrace();
@@ -891,7 +916,8 @@ public class InitialWindowController {
 			}
 
 			/**
-			 * Listener for remove course button click event
+			 * Listener for remove course button click event.
+			 *
 			 * @see RemoveCourseBtnEvent
 			 */
 			class RemoveCourseBtnListener implements ActionListener {
@@ -947,7 +973,8 @@ public class InitialWindowController {
 			}
 
 			/**
-			 * Listener for grade quiz button click event
+			 * Listener for grade quiz button click event.
+			 *
 			 * @see gradeQuizBtnEvent
 			 */
 			class gradeQuizBtnListener implements ActionListener {
@@ -957,9 +984,6 @@ public class InitialWindowController {
 				 */
 				public void actionPerformed(ActionEvent e) {
 					try {
-
-						// ArrayList<StudentQuizEntity> studentsInQuiz = new
-						// ArrayList<StudentQuizEntity>();
 						ArrayList<String> studentsInQuiz = new ArrayList<String>();
 						ArrayList<String> studentsQuizzesPaths = new ArrayList<String>();
 						String courseName = (String) view.getCourseIdGradeCB().getSelectedItem();
@@ -971,11 +995,8 @@ public class InitialWindowController {
 						if(studentsAnswersFolder.listFiles()!=null)
 						if (studentsAnswersFolder.listFiles().length > 0)
 							for (File child : studentsAnswersFolder.listFiles()) {
-//								studentsInQuiz.add(child.getName().substring(0, child.getName().length() - 5));
 								studentsInQuiz.add(child.getName());
-								studentsQuizzesPaths.add(child.getCanonicalPath());
-								// studentsInQuiz.add((StudentQuizEntity)
-								// ObjectFileManager.loadObject(child.getCanonicalPath()));
+								studentsQuizzesPaths.add(child.getCanonicalPath());	
 							}
 						String formPath = Constants.ROOTPATH + courseName
 								+ "/Quizzes/" + quizName + "/Form/" + quizName + "WithAnswers.html";
@@ -984,14 +1005,11 @@ public class InitialWindowController {
 						// TODO Auto-generated catch block
 						e1.printStackTrace();
 					}
-
-					// initiateGradingProcess();
-
 				}
 
 			}
 
-			// public void initiateGradingProcess(ArrayList<StudentQuizEntity>
+		
 			/**
 			 * Initiate grading process.
 			 *
@@ -999,7 +1017,6 @@ public class InitialWindowController {
 			 * @param studentsQuizzesPaths the students quizzes paths
 			 * @param originalQuizFormPath the original quiz form path
 			 */
-			// students) {
 			public void initiateGradingProcess(ArrayList<String> students, ArrayList<String> studentsQuizzesPaths,
 					String originalQuizFormPath) {
 				GradingWindowView gradingWindowView = new GradingWindowView();
@@ -1310,7 +1327,7 @@ public class InitialWindowController {
 	 * Item Listener for the JComboBox that holds the courses ids in the removeStudentDialog.
 	 * @see removeStudentCourseCBAddItemEvent
 	 */
-	class removeStudentCourseCBAddItemListener implements ItemListener {
+	class removeStudentCourseCBItemListener implements ItemListener {
 
 		/* (non-Javadoc)
 		 * @see java.awt.event.ItemListener#itemStateChanged(java.awt.event.ItemEvent)
@@ -1318,9 +1335,9 @@ public class InitialWindowController {
 		public void itemStateChanged(ItemEvent e) {
 			// TODO Auto-generated method stub
 			JComboBox temp = (JComboBox) e.getSource();
-			view.getRemoveStudentsIds().removeItemListener(removeStudentsIdsAddItemListener);
+			view.getRemoveStudentsIds().removeItemListener(removeStudentsIdsItemListener);
 			view.loadStudents(temp.getSelectedIndex());
-			view.getRemoveStudentsIds().addItemListener(removeStudentsIdsAddItemListener);
+			view.getRemoveStudentsIds().addItemListener(removeStudentsIdsItemListener);
 		}
 
 	}
@@ -1329,7 +1346,7 @@ public class InitialWindowController {
 	 * Item Listener for the JComboBox that holds the students' ids in the removeStudentDialog.
 	 * @see removeStudentsIdsCBAddItemEvent
 	 */
-	class removeStudentsIdsCBAddItemListener implements ItemListener {
+	class removeStudentsIdsCBItemListener implements ItemListener {
 
 		/* (non-Javadoc)
 		 * @see java.awt.event.ItemListener#itemStateChanged(java.awt.event.ItemEvent)
@@ -1337,10 +1354,7 @@ public class InitialWindowController {
 		public void itemStateChanged(ItemEvent e) {
 			// TODO Auto-generated method stub
 			JComboBox temp = (JComboBox) e.getSource();
-			try {
-				// System.out.println("1"+coursesFiles.get(view.getRemoveStudentCourseCB().getSelectedIndex()).getCourseFolder()
-				// .getCanonicalPath() + "/Students/" + (String)
-				// temp.getSelectedItem() + ".ser");
+			try {	
 				view.loadStudentNameToRemoveLbl(
 						coursesFiles.get(view.getRemoveStudentCourseCB().getSelectedIndex()).getCourseFolder()
 								.getCanonicalPath() + "/Students/" + (String) temp.getSelectedItem() + ".ser");
@@ -1356,7 +1370,7 @@ public class InitialWindowController {
 	 * Item Listener for the JComboBox that holds the courses ids in the editQuizDialog.
 	 * @see coursesIdsEditAddItemEvent
 	 */
-	class coursesIdsEditAddItemListener implements ItemListener {
+	class coursesIdsEditItemListener implements ItemListener {
 
 		/* (non-Javadoc)
 		 * @see java.awt.event.ItemListener#itemStateChanged(java.awt.event.ItemEvent)
@@ -1424,7 +1438,7 @@ public class InitialWindowController {
 	public void coursesUpdate() {
 		view.getCoursesIds().removeAllItems();
 		view.getRemoveCourses().removeAllItems();
-		view.getCoursesIdsEdit().removeItemListener(idsEditAddItemListener);
+		view.getCoursesIdsEdit().removeItemListener(idsEditItemListener);
 		view.getCoursesIdsEdit().removeAllItems();
 		view.getCourseIdGradeCB().removeItemListener(courseIdGradeItemListener);
 		view.getCourseIdGradeCB().removeAllItems();
@@ -1433,13 +1447,13 @@ public class InitialWindowController {
 		view.getCourseIdGradeCB().removeAllItems();
 
 		view.getCourseIdGradeCB().addItemListener(courseIdGradeItemListener);
-		view.coursesIdsEditAddItemListener(idsEditAddItemListener);
-		//
+		view.coursesIdsEditAddItemListener(idsEditItemListener);
+		
 
-		view.getRemoveStudentsIds().removeItemListener(removeStudentsIdsAddItemListener);
-		view.getRemoveStudentCourseCB().removeItemListener(removeStudentCourseAddItemListener);
+		view.getRemoveStudentsIds().removeItemListener(removeStudentsIdsItemListener);
+		view.getRemoveStudentCourseCB().removeItemListener(removeStudentCourseItemListener);
 		view.getRemoveStudentCourseCB().removeAllItems();
-		//
+	
 		for (int i = 0; i < InitialWindowController.coursesFiles.size(); i++) {
 			String item = InitialWindowController.coursesFiles.get(i).getCourseFolderName();
 			view.getCoursesIds().addItem(item);
@@ -1449,8 +1463,8 @@ public class InitialWindowController {
 			view.getRegisterStudentCourseCB().addItem(item);
 			view.getCourseIdGradeCB().addItem(item);
 		}
-		view.getRemoveStudentsIds().addItemListener(removeStudentsIdsAddItemListener);
-		view.getRemoveStudentCourseCB().addItemListener(removeStudentCourseAddItemListener);
+		view.getRemoveStudentsIds().addItemListener(removeStudentsIdsItemListener);
+		view.getRemoveStudentCourseCB().addItemListener(removeStudentCourseItemListener);
 
 		try {
 			view.setTree(new JTree(

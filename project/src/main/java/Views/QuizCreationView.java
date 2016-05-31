@@ -17,6 +17,7 @@ import javax.swing.BoxLayout;
 import java.awt.Dimension;
 
 import javax.swing.JScrollPane;
+import javax.swing.JSeparator;
 import javax.swing.ScrollPaneConstants;
 import javax.swing.border.EtchedBorder;
 import javax.swing.border.TitledBorder;
@@ -24,6 +25,7 @@ import javax.swing.border.TitledBorder;
 import javafx.scene.shape.Box;
 
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.GridLayout;
 import java.awt.Insets;
 import java.awt.Cursor;
@@ -40,6 +42,7 @@ public class QuizCreationView extends ViewPanel {
 	private JLabel courseName;
 	private JMenuBar menuBar;
 	private JMenu fileMenu;
+	private JMenu mnHelpMenu;
 
 	// private JSpinner percentageFromFgrade;
 	public QuizCreationView() {
@@ -66,7 +69,20 @@ public class QuizCreationView extends ViewPanel {
 		
 		JMenuItem exitItem = new JMenuItem("Exit");
 		fileMenu.add(exitItem);
+		
+		JSeparator separator1 = new JSeparator();
+		separator1.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
+		separator1.setBackground(Color.LIGHT_GRAY);
+		separator1.setMaximumSize(new Dimension(2, 100));
+		separator1.setAlignmentX(Component.LEFT_ALIGNMENT);
+		menuBar.add(separator1);
+		
+		mnHelpMenu = new JMenu("Help");
+		JMenuItem mntmHelpContents = new JMenuItem("Help Contents");
+		mnHelpMenu.add(mntmHelpContents);
 
+		menuBar.add(mnHelpMenu);
+		
 		panel = new JPanel();
 		panel.setLayout(new BoxLayout(panel, BoxLayout.PAGE_AXIS));
 		panel.setBackground(Color.WHITE);
@@ -149,5 +165,8 @@ public class QuizCreationView extends ViewPanel {
 	public JLabel getCourseName() {
 		return courseName;
 	}
-
+	public void addHelpActionListener(ActionListener listener)
+	{
+		mnHelpMenu.getItem(0).addActionListener(listener);
+	}
 }

@@ -7,22 +7,49 @@ import Views.CustomDialog;
 import project.ObjectFileManager;
 import project.zipFileManager;
 
+/**
+ * The Class removeFromDropbox. This class is responsible for removing files
+ * from the user's Dropbox account before uploading new files.
+ */
+public class removeFromDropbox extends SwingWorker<Void, Void> {
 
-public class removeFromDropbox extends SwingWorker<Void, Void>{
-	
+	/** The dialog. */
 	private CustomDialog dialog;
+
+	/** The source. */
 	private String source;
-	public removeFromDropbox(CustomDialog dialog,String source) {
+
+	/**
+	 * Instantiates a new removes the from dropbox.
+	 *
+	 * @param dialog
+	 *            the dialog
+	 * @param source
+	 *            the source
+	 */
+	public removeFromDropbox(CustomDialog dialog, String source) {
 		super();
 		this.dialog = dialog;
 		this.source = source;
 	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see javax.swing.SwingWorker#doInBackground()
+	 */
 	@Override
 	protected Void doInBackground() throws Exception {
 		// TODO Auto-generated method stub
 		DropBoxSimple.deleteRemovedFilesFromDropbox();
 		return null;
 	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see javax.swing.SwingWorker#done()
+	 */
 	@Override
 	protected void done() {
 		// TODO Auto-generated method stub
@@ -32,14 +59,12 @@ public class removeFromDropbox extends SwingWorker<Void, Void>{
 		try {
 			appFolder = new File(new File(".").getCanonicalPath() + "/OnlineQuizChecker");
 			long folderSize = ObjectFileManager.folderSize(appFolder);
-			DropBoxSimple.progressListener.init(folderSize,  "uploaded"); 
+			DropBoxSimple.progressListener.init(folderSize, "uploaded");
 			DropBoxSimple.progressListener.dialog.setVisible(true);
-			zipFileManager.createZipFile(appFolder,(new File(".")).getCanonicalPath()+"/OnlineQuizChecker.zip");
+			zipFileManager.createZipFile(appFolder, (new File(".")).getCanonicalPath() + "/OnlineQuizChecker.zip");
 			SwingWorker<Void, Void> uploadFolder = new uploadToDropbox(source);
 			uploadFolder.execute();
-			
-//			DropBoxSimple.uploadFolder(new File(new File(".") + "/OnlineQuizChecker/"), "/");
-//			DropBoxSimple.progressListener.dialog.setVisible(false);
+
 		} catch (IOException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
@@ -47,4 +72,3 @@ public class removeFromDropbox extends SwingWorker<Void, Void>{
 	}
 
 }
-

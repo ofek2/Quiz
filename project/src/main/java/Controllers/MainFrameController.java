@@ -11,7 +11,7 @@ import Entities.CourseEntity;
 
 /**
  * The Class MainFrameController.
- * This class controls the MainFrameView events.
+ * This class controls the {@MainFrameView} events.
  */
 public class MainFrameController {
 	

@@ -1,4 +1,5 @@
 package project;
+
 import com.google.api.client.googleapis.auth.oauth2.GoogleAuthorizationCodeFlow;
 import com.google.api.client.googleapis.auth.oauth2.GoogleAuthorizationCodeTokenRequest;
 import com.google.api.client.googleapis.auth.oauth2.GoogleClientSecrets;
@@ -13,6 +14,9 @@ import com.google.api.client.json.JsonFactory;
 import com.google.api.client.util.store.FileDataStoreFactory;
 import com.google.api.services.gmail.GmailScopes;
 import com.google.api.services.gmail.model.*;
+
+import Views.GradingWindowView;
+
 import com.google.api.services.gmail.Gmail;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -34,7 +38,13 @@ import javax.mail.internet.MimeBodyPart;
 import javax.mail.internet.MimeMessage;
 import javax.mail.internet.MimeMultipart;
 
+/**
+ * The Class GoogleMail.
+ * This class controls the Gmail operations made in the {@link GradingWindowView}
+ */
 public class GoogleMail {
+
+	/** The service. */
 	public static Gmail service;
 	/** Application name. */
 	private static final String APPLICATION_NAME = "Gmail API Java Quickstart";
@@ -59,9 +69,12 @@ public class GoogleMail {
 	 */
 	private static final List<String> SCOPES = Arrays.asList(GmailScopes.GMAIL_SEND);
 
+	/** The Constant CALLBACK_URL. */
 	private static final String CALLBACK_URL = "urn:ietf:wg:oauth:2.0:oob";
-	
+
+	/** The flow. */
 	private static GoogleAuthorizationCodeFlow flow;
+
 	static {
 		try {
 			HTTP_TRANSPORT = GoogleNetHttpTransport.newTrustedTransport();
@@ -72,12 +85,12 @@ public class GoogleMail {
 		}
 	}
 
-	
 	/**
 	 * Creates an authorized Credential object.
-	 * 
+	 *
 	 * @return an authorized Credential object.
 	 * @throws IOException
+	 *             Signals that an I/O exception has occurred.
 	 */
 	public static String startAuthorize() throws IOException {
 		// Load client secrets.
@@ -85,15 +98,23 @@ public class GoogleMail {
 		GoogleClientSecrets clientSecrets = GoogleClientSecrets.load(JSON_FACTORY, new InputStreamReader(in));
 
 		// Build flow and trigger user authorization request.
-		flow = new GoogleAuthorizationCodeFlow.Builder(HTTP_TRANSPORT, JSON_FACTORY,
-				clientSecrets, SCOPES).setDataStoreFactory(DATA_STORE_FACTORY).setAccessType("offline").build();
+		flow = new GoogleAuthorizationCodeFlow.Builder(HTTP_TRANSPORT, JSON_FACTORY, clientSecrets, SCOPES)
+				.setDataStoreFactory(DATA_STORE_FACTORY).setAccessType("offline").build();
 		String authorizeUrl = flow.newAuthorizationUrl().setRedirectUri(CALLBACK_URL).build();
-	
+
 		return authorizeUrl;
 	}
-	public static void finishAuth(String authorizationCode) throws IOException
-	{
-		
+
+	/**
+	 * Finish auth.
+	 *
+	 * @param authorizationCode
+	 *            the authorization code
+	 * @throws IOException
+	 *             Signals that an I/O exception has occurred.
+	 */
+	public static void finishAuth(String authorizationCode) throws IOException {
+
 		// Load client secrets.
 		InputStream in = GoogleMail.class.getResourceAsStream("/client_secrets.json");
 		GoogleClientSecrets clientSecrets = GoogleClientSecrets.load(JSON_FACTORY, new InputStreamReader(in));
@@ -110,30 +131,43 @@ public class GoogleMail {
 
 		// Set authorized credentials.
 		credential.setFromTokenResponse(tokenResponse);
-	
+
 		System.out.println("Credentials saved to " + DATA_STORE_DIR.getAbsolutePath());
-		
-		service = new Gmail.Builder(HTTP_TRANSPORT, JSON_FACTORY, credential).setApplicationName(APPLICATION_NAME).build();
+
+		service = new Gmail.Builder(HTTP_TRANSPORT, JSON_FACTORY, credential).setApplicationName(APPLICATION_NAME)
+				.build();
 
 	}
-//	/**
-//	 * Build and return an authorized Gmail client service.
-//	 * 
-//	 * @return an authorized Gmail client service
-//	 * @throws IOException
-//	 */
-//	public static Gmail getGmailService() throws IOException {
-//		Credential credential = startAuthorize();
-//		return new Gmail.Builder(HTTP_TRANSPORT, JSON_FACTORY, credential).setApplicationName(APPLICATION_NAME).build();
-//	}
+	// /**
+	// * Build and return an authorized Gmail client service.
+	// *
+	// * @return an authorized Gmail client service
+	// * @throws IOException
+	// */
+	// public static Gmail getGmailService() throws IOException {
+	// Credential credential = startAuthorize();
+	// return new Gmail.Builder(HTTP_TRANSPORT, JSON_FACTORY,
+	// credential).setApplicationName(APPLICATION_NAME).build();
+	// }
 
-	public static void SendMail(String studentsMail, String subject, String quizPath,
-			String fileName) {
+	/**
+	 * Send mail.
+	 *
+	 * @param studentsMail
+	 *            the students mail
+	 * @param subject
+	 *            the subject
+	 * @param quizPath
+	 *            the quiz path
+	 * @param fileName
+	 *            the file name
+	 */
+	public static void SendMail(String studentsMail, String subject, String quizPath, String fileName) {
 		// Build a new authorized API client service.
 
 		try {
 			MimeMessage email;
-			email = createEmailWithAttachment(studentsMail, "me", subject, "",quizPath,fileName);
+			email = createEmailWithAttachment(studentsMail, "me", subject, "", quizPath, fileName);
 			Message message = createMessageWithEmail(email);
 			message = service.users().messages().send("me", message).execute();
 		} catch (MessagingException | IOException e) {
@@ -143,6 +177,21 @@ public class GoogleMail {
 
 	}
 
+	/**
+	 * Creates the email.
+	 *
+	 * @param to
+	 *            the to
+	 * @param from
+	 *            the from
+	 * @param subject
+	 *            the subject
+	 * @param bodyText
+	 *            the body text
+	 * @return the mime message
+	 * @throws MessagingException
+	 *             the messaging exception
+	 */
 	public static MimeMessage createEmail(String to, String from, String subject, String bodyText)
 			throws MessagingException {
 		Properties props = new Properties();
@@ -155,6 +204,17 @@ public class GoogleMail {
 		return email;
 	}
 
+	/**
+	 * Creates the message with email.
+	 *
+	 * @param email
+	 *            the email
+	 * @return the message
+	 * @throws MessagingException
+	 *             the messaging exception
+	 * @throws IOException
+	 *             Signals that an I/O exception has occurred.
+	 */
 	public static Message createMessageWithEmail(MimeMessage email) throws MessagingException, IOException {
 		ByteArrayOutputStream bytes = new ByteArrayOutputStream();
 		email.writeTo(bytes);
@@ -164,6 +224,27 @@ public class GoogleMail {
 		return message;
 	}
 
+	/**
+	 * Creates the email with attachment.
+	 *
+	 * @param to
+	 *            the to
+	 * @param from
+	 *            the from
+	 * @param subject
+	 *            the subject
+	 * @param bodyText
+	 *            the body text
+	 * @param filePath
+	 *            the file path
+	 * @param filename
+	 *            the filename
+	 * @return the mime message
+	 * @throws MessagingException
+	 *             the messaging exception
+	 * @throws IOException
+	 *             Signals that an I/O exception has occurred.
+	 */
 	public static MimeMessage createEmailWithAttachment(String to, String from, String subject, String bodyText,
 			String filePath, String filename) throws MessagingException, IOException {
 		Properties props = new Properties();

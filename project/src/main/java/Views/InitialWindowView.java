@@ -86,6 +86,7 @@ public class InitialWindowView extends ViewPanel {
 	private JButton gradeBtn;
 
 	private JScrollPane scrollPane;
+	private JMenu mnHelpMenu;
 	/**
 	 * Create the panel.
 	 */
@@ -118,12 +119,12 @@ public class InitialWindowView extends ViewPanel {
 		JMenuItem mntmSave = new JMenuItem("Save Files");
 		mnCourseManagement.add(mntmSave);
 
-		JSeparator separator = new JSeparator();
-		separator.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
-		separator.setBackground(Color.LIGHT_GRAY);
-		separator.setMaximumSize(new Dimension(2, 100));
-		separator.setAlignmentX(Component.LEFT_ALIGNMENT);
-		menuBar.add(separator);
+		JSeparator separator1 = new JSeparator();
+		separator1.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
+		separator1.setBackground(Color.LIGHT_GRAY);
+		separator1.setMaximumSize(new Dimension(2, 100));
+		separator1.setAlignmentX(Component.LEFT_ALIGNMENT);
+		menuBar.add(separator1);
 
 		mnQuizMngMenu = new JMenu("Quiz Management");
 		mnQuizMngMenu.setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
@@ -140,8 +141,19 @@ public class InitialWindowView extends ViewPanel {
 
 		JMenuItem mntmReports = new JMenuItem("Reports");
 		mnQuizMngMenu.add(mntmReports);
-
 		
+		JSeparator separator2 = new JSeparator();
+		separator2.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
+		separator2.setBackground(Color.LIGHT_GRAY);
+		separator2.setMaximumSize(new Dimension(2, 100));
+		separator2.setAlignmentX(Component.LEFT_ALIGNMENT);
+		menuBar.add(separator2);
+
+		mnHelpMenu = new JMenu("Help");
+		JMenuItem mntmHelpContents = new JMenuItem("Help Contents");
+		mnHelpMenu.add(mntmHelpContents);
+
+		menuBar.add(mnHelpMenu);
 		
 		MyTree myTree = new MyTree();
 		tree = myTree.makeUI();
@@ -546,7 +558,10 @@ public class InitialWindowView extends ViewPanel {
 	public void courseIdGradeAddItemListener(ItemListener listener) {
 		courseIdGradeCB.addItemListener(listener);
 	}
-
+	public void addHelpActionListener(ActionListener listener)
+	{
+		mnHelpMenu.getItem(0).addActionListener(listener);
+	}
 	public JPanel getNewQuizDialogPanel() {
 		return newQuizDialogPanel;
 	}

@@ -13,65 +13,117 @@ import Views.StudentGradingPanel;
 import project.HtmlBuilder;
 import project.ObjectFileManager;
 
+/**
+ * The Class StudentGradingController. This class controls the
+ * {@link StudentGradingPanel} events.
+ */
 public class StudentGradingController {
+
+	/** The view. */
 	public StudentGradingPanel view;
+
+	/** The student quiz folder path. */
 	private String studentQuizFolderPath;
+
+	/** The original quiz form path. */
 	private String originalQuizFormPath;
+
+	/** The previous view. */
 	private Container previousView;
+
+	/** The student quiz folder. */
 	private File studentQuizFolder;
+
+	/** The student id. */
 	private String studentId;
+
+	/** The quiz name. */
 	private String quizName;
+
+	/** The result. */
 	private StudentEntity result;
+
+	/** The quiz score. */
 	private String quizScore;
+
+	/** The student email. */
 	private String studentEmail;
-	public StudentGradingController(StudentGradingPanel view, String studentQuizFolderPath,String originalQuizFormPath, Container previousView)
-	{
-		this.view=view;
-		this.view.gradeBtnAddActionListener(new gradeBtnAddActionListener());	
-		this.studentQuizFolderPath=studentQuizFolderPath;
+
+	/**
+	 * Instantiates a new student grading controller.
+	 *
+	 * @param view
+	 *            the view
+	 * @param studentQuizFolderPath
+	 *            the student quiz folder path
+	 * @param originalQuizFormPath
+	 *            the original quiz form path
+	 * @param previousView
+	 *            the previous view
+	 */
+	public StudentGradingController(StudentGradingPanel view, String studentQuizFolderPath, String originalQuizFormPath,
+			Container previousView) {
+		this.view = view;
+		this.view.gradeBtnAddActionListener(new gradeBtnAddActionListener());
+		this.studentQuizFolderPath = studentQuizFolderPath;
 		this.originalQuizFormPath = originalQuizFormPath;
 		this.previousView = previousView;
 		try {
 			studentQuizFolder = new File(studentQuizFolderPath);
-			studentId= studentQuizFolder.getName();
-			quizName = studentQuizFolder.getParentFile().getParentFile().getName();			
-			result =(StudentEntity) ObjectFileManager.loadObject(
-					studentQuizFolder.getParentFile().getParentFile().
-							getParentFile().getParentFile().getCanonicalPath()
-							+"/Students/"+studentId+".ser");
-			studentEmail=result.getStudentEmail();
+			studentId = studentQuizFolder.getName();
+			quizName = studentQuizFolder.getParentFile().getParentFile().getName();
+			result = (StudentEntity) ObjectFileManager.loadObject(
+					studentQuizFolder.getParentFile().getParentFile().getParentFile().getParentFile().getCanonicalPath()
+							+ "/Students/" + studentId + ".ser");
+			studentEmail = result.getStudentEmail();
 			quizScore = result.getScore(quizName);
 			updateQuizScoreInView();
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
-	}
-	
-	public void updateQuizScoreInView()
-	{
 
-			if(!quizScore.equals("-1"))
-			{
-				view.getLblGrade().setText(quizScore);
-				view.getGradeBtn().setText("Edit");
-			}
 	}
-	class gradeBtnAddActionListener implements ActionListener
-	{
 
+	/**
+	 * Update quiz score in view.
+	 */
+	public void updateQuizScoreInView() {
+
+		if (!quizScore.equals("-1")) {
+			view.getLblGrade().setText(quizScore);
+			view.getGradeBtn().setText("Edit");
+		}
+	}
+
+	/**
+	 * The listener interface for receiving gradeBtnAddAction events. The class
+	 * that is interested in processing a gradeBtnAddAction event implements
+	 * this interface, and the object created with that class is registered with
+	 * a component using the component's <code>addgradeBtnAddActionListener
+	 * <code> method. When the gradeBtnAddAction event occurs, that object's
+	 * appropriate method is invoked.
+	 *
+	 * @see gradeBtnAddActionEvent
+	 */
+	class gradeBtnAddActionListener implements ActionListener {
+
+		/*
+		 * (non-Javadoc)
+		 * 
+		 * @see java.awt.event.ActionListener#actionPerformed(java.awt.event.
+		 * ActionEvent)
+		 */
 		public void actionPerformed(ActionEvent e) {
 			// TODO Auto-generated method stub
-			String studentQuizPath=studentQuizFolderPath+"/"+studentId+".html";
+			String studentQuizPath = studentQuizFolderPath + "/" + studentId + ".html";
 			try {
-				if(view.getGradeBtn().getText().equals("Grade"))
-				{			
+				if (view.getGradeBtn().getText().equals("Grade")) {
 					HtmlBuilder htmlBuilder = new HtmlBuilder();
-					htmlBuilder.prepareQuizForGrading(studentQuizPath,originalQuizFormPath);
-							
+					htmlBuilder.prepareQuizForGrading(studentQuizPath, originalQuizFormPath);
+
 				}
-				GradingOperation gradingOperation = new GradingOperation(view,studentQuizPath,previousView);
+				GradingOperation gradingOperation = new GradingOperation(view, studentQuizPath, previousView);
 				MainFrameController.view.changeContentPane(gradingOperation);
 			} catch (FileNotFoundException e1) {
 				// TODO Auto-generated catch block
@@ -83,29 +135,54 @@ public class StudentGradingController {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}
-			
-			
+
 		}
-		
+
 	}
+
+	/**
+	 * Gets the student quiz folder path.
+	 *
+	 * @return the student quiz folder path
+	 */
 	public String getStudentQuizFolderPath() {
 		return studentQuizFolderPath;
 	}
 
+	/**
+	 * Gets the student quiz folder.
+	 *
+	 * @return the student quiz folder
+	 */
 	public File getStudentQuizFolder() {
 		return studentQuizFolder;
 	}
 
+	/**
+	 * Gets the student id.
+	 *
+	 * @return the student id
+	 */
 	public String getStudentId() {
 		return studentId;
 	}
 
+	/**
+	 * Gets the student email.
+	 *
+	 * @return the student email
+	 */
 	public String getStudentEmail() {
 		return studentEmail;
 	}
 
+	/**
+	 * Gets the quiz name.
+	 *
+	 * @return the quiz name
+	 */
 	public String getQuizName() {
 		return quizName;
 	}
-	
+
 }

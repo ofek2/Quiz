@@ -23,6 +23,7 @@ import javax.swing.JButton;
 
 public class IntroFrame extends JFrame{
 	private JButton loginBtn;
+	private JButton helpBtn;
 	public IntroFrame()
 	{
 		setTitle("Online Quiz Checker");
@@ -31,6 +32,17 @@ public class IntroFrame extends JFrame{
 		setSize(350,300);
 		setLocationRelativeTo(null);
 		getContentPane().setLayout(new BoxLayout(getContentPane(), BoxLayout.Y_AXIS));
+		
+		JPanel helpBtnPanel = new JPanel();
+		helpBtnPanel.setMaximumSize(new Dimension(32767, 100));
+		helpBtnPanel.setOpaque(false);
+		FlowLayout flowLayout = (FlowLayout) helpBtnPanel.getLayout();
+		flowLayout.setAlignment(FlowLayout.LEFT);
+		getContentPane().add(helpBtnPanel);
+		
+		helpBtn = new JButton("Help");
+		helpBtn.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		helpBtnPanel.add(helpBtn);
 		JPanel logoPanel = new JPanel();
 		logoPanel.setMaximumSize(new Dimension(32767, 100));
 		logoPanel.setOpaque(false);
@@ -70,5 +82,9 @@ public class IntroFrame extends JFrame{
 	public void addLoginBtnListener(ActionListener actionListener)
 	{
 		loginBtn.addActionListener(actionListener);
+	}
+	public void addHelpBtnListener(ActionListener actionListener)
+	{
+		helpBtn.addActionListener(actionListener);
 	}
 }

@@ -29,7 +29,8 @@ import Views.qPanel;
 
 /**
  * The Class qPanelController.
- * This class controls a qPanel events.
+ * This class controls a {@qPanel} events.
+ * qPanel is a single question panel in the QuizCreation screen.
  */
 public class qPanelController implements Serializable{
 	
@@ -144,6 +145,13 @@ public class qPanelController implements Serializable{
 	}
 	
 /**
+ * The listener interface for receiving textItem events.
+ * The class that is interested in processing a textItem
+ * event implements this interface, and the object created
+ * with that class is registered with a component using the
+ * component's <code>addtextItemListener<code> method. When
+ * the textItem event occurs, that object's appropriate
+ * method is invoked.
  *
  * @see textItemEvent
  */
@@ -180,7 +188,8 @@ public class qPanelController implements Serializable{
 	}
 	
 	/**
-	 * Listener for the remove image button 
+	 * Listener for the remove image button .
+	 *
 	 * @see removeBtnEvent
 	 */
 	class removeBtnListener implements ActionListener,Serializable
@@ -235,7 +244,8 @@ public class qPanelController implements Serializable{
 	}
 	
 	/**
-	 * Item Listener for answer type JComboBox
+	 * Item Listener for answer type JComboBox.
+	 *
 	 * @see aTypeItemEvent
 	 */
 	class aTypeItemListener implements ItemListener,Serializable
@@ -259,7 +269,14 @@ public class qPanelController implements Serializable{
 	}
 	
 	/**
-	 * 
+	 * The listener interface for receiving listenChkBox events.
+	 * The class that is interested in processing a listenChkBox
+	 * event implements this interface, and the object created
+	 * with that class is registered with a component using the
+	 * component's <code>addlistenChkBoxListener<code> method. When
+	 * the listenChkBox event occurs, that object's appropriate
+	 * method is invoked.
+	 *
 	 * @see listenChkBoxEvent
 	 */
 	class listenChkBoxListener implements ActionListener,Serializable
@@ -285,7 +302,8 @@ public class qPanelController implements Serializable{
 	}
 	
 	/**
-	 * Listener for question as an image browse button
+	 * Listener for question as an image browse button.
+	 *
 	 * @see qBrowseBtnEvent
 	 */
 	class qBrowseBtnListener implements ActionListener,Serializable
@@ -328,7 +346,8 @@ public class qPanelController implements Serializable{
 	}
 	
 	/**
-	 * Listener for answer as an image browse button
+	 * Listener for answer as an image browse button.
+	 *
 	 * @see ansBrowseBtnEvent
 	 */
 	class ansBrowseBtnListener implements ActionListener,Serializable
@@ -371,7 +390,8 @@ public class qPanelController implements Serializable{
 	}
 	
 	/**
-	 * Listener for viewing the selected question image
+	 * Listener for viewing the selected question image.
+	 *
 	 * @see qImageBtnEvent
 	 */
 	class qImageBtnListener implements ActionListener,Serializable
@@ -407,7 +427,8 @@ public class qPanelController implements Serializable{
 	}
 	
 	/**
-	 * Listener for viewing the selected answer image
+	 * Listener for viewing the selected answer image.
+	 *
 	 * @see viewAnswerImageBtnAddEvent
 	 */
 	class viewAnswerImageBtnAddListener implements ActionListener,Serializable
@@ -444,7 +465,8 @@ public class qPanelController implements Serializable{
 	
 	
 	/**
-	 * Listener for remove question image button
+	 * Listener for remove question image button.
+	 *
 	 * @see removeQuestionImageBtnEvent
 	 */
 	class removeQuestionImageBtnListener implements ActionListener,Serializable
@@ -468,7 +490,8 @@ public class qPanelController implements Serializable{
 	}
 	
 	/**
-	 * Listener for remove answer image button
+	 * Listener for remove answer image button.
+	 *
 	 * @see removeAnswerImageBtnEvent
 	 */
 	class removeAnswerImageBtnListener implements ActionListener,Serializable
@@ -619,6 +642,12 @@ public class qPanelController implements Serializable{
 			} 	
 		}
 	}
+	
+	/**
+	 * Save images for preview.
+	 *
+	 * @param path the path
+	 */
 	public void saveImagesForPreview(String path)
 	{
 		BufferedImage image;
