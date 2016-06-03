@@ -141,6 +141,12 @@ public class QuizCreationController implements Serializable {
 		qPanels = objectEntity.getqPanels();
 		for (int i = 0; i < qPanels.size(); i++) {
 			qPanels.get(i).initializeFileChoosers();
+			try {
+				qPanels.get(i).setQuizPath(objectEntity.getQuizEntity().getQuizFormFolder().getCanonicalPath());
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 			qPanels.get(i).settempaImgFile(qPanels.get(i).getaImgFile());
 			qPanels.get(i).settempqImgFile(qPanels.get(i).getqImgFile());
 			qPanels.get(i).setParentView(view);
@@ -633,6 +639,9 @@ public class QuizCreationController implements Serializable {
 				MainFrameController.view.addWindowListener(InitialWindowController.windowListener);
 
 			}
+			File tempPicturesFolder = new File(new File(".")+"/tempPicturesFolder");
+			if(tempPicturesFolder.exists())
+				recursiveDelete(tempPicturesFolder,false);
 		}
 	}
 

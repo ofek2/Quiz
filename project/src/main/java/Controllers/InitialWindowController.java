@@ -803,12 +803,14 @@ public class InitialWindowController {
 					String courseFolder = null;
 					if (popUpMenuFlag == 0)
 					{
+						courseName = view.getCoursesIdsEdit().getItemAt(view.getCoursesIdsEdit().getSelectedIndex());
+						quizName = view.getQuizzes().getItemAt(view.getQuizzes().getSelectedIndex());
 						try {
 							courseFolder = coursesFiles.get(view.getCoursesIdsEdit().getSelectedIndex()).getCourseFolder().getCanonicalPath();
 							} catch (IOException e2) {e2.printStackTrace();
 						}
 						
-						quizName = view.getQuizzes().getItemAt(view.getQuizzes().getSelectedIndex());
+						
 					} else
 						courseFolder = Constants.ROOTPATH + courseName;
 						

@@ -630,6 +630,7 @@ public class qPanelController implements Serializable{
 		if(qImgFile!=null&&!qImgFile.getName().endsWith("D.PNG")){
 			try {
 				String questionLbl = view.getQuestionLbl().getText()+".PNG";
+				System.out.println(quizPath+"/" + questionLbl);
 				questionImgPath = quizPath +"/" + questionLbl;
 				fileExtension = Files.getFileExtension(qImgFile.getCanonicalPath());
 				

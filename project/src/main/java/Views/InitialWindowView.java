@@ -621,11 +621,20 @@ public class InitialWindowView extends ViewPanel {
 		if (mouseListener.length > 1)
 			this.tree.addMouseListener((MouseAdapter) mouseListener[1]);
 		scrollPane.setViewportView(this.tree);
+		expandAllNodes(this.tree, 0, this.tree.getRowCount());
 //		this.tree.setBounds(0, 30, MainFrameController.view.getWidth(), MainFrameController.view.getHeight());
 		scrollPane.revalidate();
 		revalidate();
 	}
+	private void expandAllNodes(JTree tree, int startingIndex, int rowCount){
+	    for(int i=startingIndex;i<rowCount;++i){
+	        tree.expandRow(i);
+	    }
 
+	    if(tree.getRowCount()!=rowCount){
+	        expandAllNodes(tree, rowCount, tree.getRowCount());
+	    }
+	}
 	public JComboBox<String> getCoursesIdsEdit() {
 		return coursesIdsEdit;
 	}

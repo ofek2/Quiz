@@ -369,13 +369,17 @@ public class qPanel extends JPanel implements Serializable{
 		ansBrowseBtn.setBackground(Color.WHITE);
 		answerImageButtonsPanel.add(ansBrowseBtn);
 		
-		btnRemoveAnswerImage = new JButton("Remove Image");
-		btnRemoveAnswerImage.setBackground(Color.WHITE);
-		answerImageButtonsPanel.add(btnRemoveAnswerImage);
+	
 		
 		btnViewAnswerImage = new JButton("View Image");
 		btnViewAnswerImage.setBackground(Color.WHITE);
 		answerImageButtonsPanel.add(btnViewAnswerImage);
+		
+		btnRemoveAnswerImage = new JButton("Remove Image");
+		btnRemoveAnswerImage.setBackground(Color.WHITE);
+		answerImageButtonsPanel.add(btnRemoveAnswerImage);
+		
+		
 		btnViewAnswerImage.setVisible(false);
 		btnRemoveAnswerImage.setVisible(false);
 		freeTextPanel.setOpaque(false);
