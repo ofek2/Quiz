@@ -332,7 +332,7 @@ public class QuizCreationController implements Serializable {
 			for (int i = 0; i < qPanels.size(); i++)
 				qPanels.get(i).saveImages();
 
-			recursiveDelete(entity.getQuizFormFolder());
+			recursiveDelete(entity.getQuizFormFolder(),true);
 
 			createHtmlFile("FINAL");
 
@@ -514,15 +514,20 @@ public class QuizCreationController implements Serializable {
 	 * @param file
 	 *            the file
 	 */
-	public void recursiveDelete(File file) {
+	public void recursiveDelete(File file,boolean specific) {
 		if (!file.exists())
 			return;
 		if (file.isDirectory()) {
 			for (File f : file.listFiles()) {
-				recursiveDelete(f);
+				recursiveDelete(f,specific);
 			}
 		}
-		if (file.getName().contains("D.PNG") && !file.isDirectory())
+		if(specific)
+		{
+			if (file.getName().contains("D.PNG") && !file.isDirectory())
+				file.delete();
+		}
+		else
 			file.delete();
 	}
 
@@ -562,6 +567,7 @@ public class QuizCreationController implements Serializable {
 					MainFrameController.view.changeContentPane(initialWindowView);
 					MainFrameController.view.removeWindowListener(windowListener);
 					MainFrameController.view.addWindowListener(InitialWindowController.windowListener);
+					
 				}
 			} else {
 
@@ -572,8 +578,11 @@ public class QuizCreationController implements Serializable {
 				// // TODO Auto-generated catch block
 				// e1.printStackTrace();
 				// }
-
+			
 			}
+			File tempPicturesFolder = new File(new File(".")+"/tempPicturesFolder");
+			if(tempPicturesFolder.exists())
+				recursiveDelete(tempPicturesFolder,false);
 		}
 	}
 

@@ -1492,11 +1492,16 @@ public class InitialWindowController {
 			CoursesCheckingFrame ccf = new CoursesCheckingFrame(coursesFiles);
 			if(ccf.check())
 			{
-				CustomDialog dialog = new CustomDialog("<html><body>Please wait while your files are being <br>uploaded to your dropbox account</body></html>");
-				dialog.setTitle("Alert");
-				dialog.setVisible(true);
-				SwingWorker<Void, Void> recursiveDeleteDropboxFolder = new removeFromDropbox(dialog,Constants.SAVE_AND_EXIT);
-				recursiveDeleteDropboxFolder.execute();
+				if(JOptionPane.showConfirmDialog(MainFrameController.view, "Do you want to save your data before exiting?","Warning!",JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION)
+				{
+					CustomDialog dialog = new CustomDialog("<html><body>Please wait while your files are being <br>uploaded to your dropbox account</body></html>");
+					dialog.setTitle("Alert");
+					dialog.setVisible(true);
+					SwingWorker<Void, Void> recursiveDeleteDropboxFolder = new removeFromDropbox(dialog,Constants.SAVE_AND_EXIT);
+					recursiveDeleteDropboxFolder.execute();
+				}
+				else
+					System.exit(0);
 			}
 		}
 	}

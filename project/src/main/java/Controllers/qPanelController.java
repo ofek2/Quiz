@@ -82,6 +82,7 @@ public class qPanelController implements Serializable{
 	/** The text item listener. */
 	public static textItemListener textItemListener;
 	
+	private File tempPicturesFolder;
 	/**
 	 * Instantiates a new q panel controller.
 	 *
@@ -103,6 +104,7 @@ public class qPanelController implements Serializable{
 		this.view.removeQuestionImageBtnAddListener(new removeQuestionImageBtnListener());
 		this.view.removeAnswerImageBtnAddListener(new removeAnswerImageBtnListener());
 		textItemListener = new textItemListener();
+		
 		setqPanelListeners();
 		qFileChooser=this.view.getQuestionFileChooser();
 		aFileChooser=this.view.getAnswerFileChooser();
@@ -333,9 +335,23 @@ public class qPanelController implements Serializable{
 			if(returnVal==qFileChooser.APPROVE_OPTION)
 			{
 				qImgFile = qFileChooser.getSelectedFile();		
-				tempqImgFile = qImgFile;
+				tempPicturesFolder = new File(new File(".")+"/tempPictures");
+				tempPicturesFolder.mkdir();
+				
+				
 				questionLbl = view.getQuestionLbl().getText()+".PNG";
-				questionImgPath = quizPath +"/" + questionLbl;
+				try {
+					questionImgPath = tempPicturesFolder.getCanonicalPath() +"/" + questionLbl;
+					fileExtension = Files.getFileExtension(qImgFile.getCanonicalPath());				
+					image = ImageIO.read(qImgFile); 
+					fileSave = new File(questionImgPath);
+					ImageIO.write(image,fileExtension , fileSave);	
+				} catch (IOException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+				qImgFile = fileSave;
+				tempqImgFile = qImgFile;
 				view.getqImage().setVisible(true);
 				view.getRemoveQuestionImageBtn().setVisible(true);
 				view.getImageButtonsPanel().revalidate();
@@ -376,10 +392,24 @@ public class qPanelController implements Serializable{
 			returnVal=aFileChooser.showSaveDialog(view.getAnswerPanel());
 			if(returnVal==aFileChooser.APPROVE_OPTION)
 			{
-				aImgFile = aFileChooser.getSelectedFile();				
+				aImgFile = aFileChooser.getSelectedFile();			
+				tempPicturesFolder = new File(new File(".")+"/tempPictures");
+				tempPicturesFolder.mkdir();
+				try {
+					answerLbl = "Answer"+view.getQuestionNumber()+".PNG";
+					answerImgPath = tempPicturesFolder.getCanonicalPath() +"/" + answerLbl;
+					fileExtension = Files.getFileExtension(aImgFile.getCanonicalPath());				
+					image = ImageIO.read(aImgFile); 
+					fileSave = new File(answerImgPath);
+					ImageIO.write(image,fileExtension , fileSave);	
+				} catch (IOException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+				aImgFile = fileSave;
 				tempaImgFile = aImgFile;
-				answerLbl = "Answer"+view.getQuestionNumber()+".PNG";
-				answerImgPath = quizPath +"/" + answerLbl;
+				
+				
 				view.getRemoveAnswerImageBtn().setVisible(true);
 				view.getbtnViewAnswerImage().setVisible(true);
 				view.getAnswerImageButtonsPanel().revalidate();
@@ -516,16 +546,15 @@ public class qPanelController implements Serializable{
 	public void renameQuestionImage()
 	{
 		try {
-			if(qImgFile.getParent().equals(quizPath))
-			{
+			
 				BufferedImage bufferedImage = null;
-				File tempFile = new File(quizPath+"/"+
+				File tempFile = new File(qImgFile.getParent()+"/"+
 				"Question"+view.getQuestionNumber()+"D"+".PNG");
 				bufferedImage = ImageIO.read(qImgFile);
 				ImageIO.write(bufferedImage,fileExtension , tempFile);
 				qImgFile.delete();
 				qImgFile=tempFile;
-			}
+			
 		} catch (IOException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
@@ -550,16 +579,15 @@ public class qPanelController implements Serializable{
 	public void renameAnswerImage()
 	{
 		try {
-			if(aImgFile.getParent().equals(quizPath))
-			{
+		
 				BufferedImage bufferedImage = null;
-				File tempFile = new File(quizPath+"/"+
+				File tempFile = new File(aImgFile.getParent()+"/"+
 				"Answer"+view.getQuestionNumber()+"D"+".PNG");
 				bufferedImage = ImageIO.read(aImgFile);
 				ImageIO.write(bufferedImage,fileExtension , tempFile);
 				aImgFile.delete();
 				aImgFile=tempFile;
-			}
+			
 		} catch (IOException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
@@ -641,6 +669,8 @@ public class qPanelController implements Serializable{
 				e.printStackTrace();
 			} 	
 		}
+		if(tempPicturesFolder.exists())
+		tempPicturesFolder.delete();
 	}
 	
 	/**
