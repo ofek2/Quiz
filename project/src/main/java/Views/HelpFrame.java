@@ -1,7 +1,9 @@
 package Views;
 
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 import java.net.URL;
 
 import javax.swing.ImageIcon;
@@ -21,14 +23,16 @@ import java.awt.Color;
 import javax.swing.border.LineBorder;
 
 public class HelpFrame extends JFrame{
-	private String picFolderPath;
+	private String picPath;
+	private int amountOfPictures;
 	private JLabel helpImage;
 	private JButton PrevBtn;
 	private JButton btnNext;
-	private File[] imagesArr;
-	public HelpFrame(String picFolderPath)
+	private URL[] imagesArr;
+	public HelpFrame(String picPath,int amountOfPictures)
 	{
-		this.picFolderPath = picFolderPath;
+		this.picPath = picPath;
+		this.amountOfPictures = amountOfPictures;
 		imagesArr = getImages();
 		initView(900,635);
 	}
@@ -90,46 +94,46 @@ public class HelpFrame extends JFrame{
 		setVisible(true);
 		
 	}
-	private File[] getImages()
+	private URL[] getImages()
 	{
-		File fileList = new File(getClass().getResource(picFolderPath).getFile());
-		if(fileList.isDirectory())
+		URL []urlList = new URL[amountOfPictures];
+		for(int i=0;i<amountOfPictures;i++)
 		{
-			return fileList.listFiles();
+			urlList[i]= getClass().getResource("/"+picPath+(i+1)+".png");
 		}
-		return null;	
+		return urlList;	
 	}
+	
 	public void setImage(int pos)
 	{
-		try {
-			if(pos == 0)
-				PrevBtn.setEnabled(false);
-			else 
-				PrevBtn.setEnabled(true);
-			
-			if(pos == imagesArr.length-1)
-				btnNext.setEnabled(false);
-			else
-				btnNext.setEnabled(true);
-			
-			helpImage.setIcon(new ImageIcon(imagesArr[pos].getCanonicalPath()));
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		if(pos == 0)
+			PrevBtn.setEnabled(false);
+		else 
+			PrevBtn.setEnabled(true);
+		
+		if(pos == imagesArr.length-1)
+			btnNext.setEnabled(false);
+		else
+			btnNext.setEnabled(true);
+		
+		helpImage.setIcon(new ImageIcon(imagesArr[pos]));
 	}
+	
 	public void addPrevBtnListener(ActionListener listener)
 	{
 		PrevBtn.addActionListener(listener);
 	}
+	
 	public void addNextBtnListener(ActionListener listener)
 	{
 		btnNext.addActionListener(listener);
 	}
-	public File[] getImagesArr()
+	
+	public URL[] getImagesArr()
 	{
 		return imagesArr;
 	}
+	
 	public void setImageSize(int width,int height)
 	{
 		helpImage.setMinimumSize(new Dimension(width, height));

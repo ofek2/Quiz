@@ -225,7 +225,7 @@ public class QuizCreationController implements Serializable {
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			// TODO Auto-generated method stub
-			new helpFrameController(new HelpFrame(Constants.NEWQUIZ_HELP_FOLDER));
+			new helpFrameController(new HelpFrame(Constants.HELP_NEWQUIZ,Constants.HELP_NEWQUIZ_AMOUNT));
 		}
 
 	}

@@ -73,7 +73,7 @@ public class IntroFrameController {
 		 */
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			new helpFrameController(new HelpFrame(Constants.INTROSCREEN_HELP_FOLDER));
+			new helpFrameController(new HelpFrame(Constants.HELP_INTRO,Constants.HELP_INTRO_AMOUNT));
 		}
 		
 	}

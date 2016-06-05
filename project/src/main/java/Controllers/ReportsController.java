@@ -327,7 +327,7 @@ public class ReportsController {
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			// TODO Auto-generated method stub
-			new helpFrameController(new HelpFrame(Constants.REPORTSSCREEN_HELP_FOLDER));
+			new helpFrameController(new HelpFrame(Constants.HELP_REPORTS,Constants.HELP_REPORTS_AMOUNT));
 		}
 
 	}

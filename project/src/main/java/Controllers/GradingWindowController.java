@@ -195,7 +195,7 @@ public class GradingWindowController {
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			// TODO Auto-generated method stub
-			new helpFrameController(new HelpFrame(Constants.GRADEQUIZ_HELP_FOLDER));
+			new helpFrameController(new HelpFrame(Constants.HELP_GRADEQUIZ,Constants.HELP_GRADEQUIZ_AMOUNT));
 		}
 
 	}

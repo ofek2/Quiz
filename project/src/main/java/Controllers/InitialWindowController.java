@@ -174,7 +174,7 @@ public class InitialWindowController {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
-				new helpFrameController(new HelpFrame(Constants.MAINSCREEN_HELP_FOLDER));
+				new helpFrameController(new HelpFrame(Constants.HELP_MAIN,Constants.HELP_MAIN_AMOUNT));
 			}
 			
 		}

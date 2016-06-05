@@ -37,17 +37,18 @@ public class Constants {
 	public static int FRAME_HEIGHT = 700;
 
 	/** The introscreen help folder. */
-	public static String INTROSCREEN_HELP_FOLDER = "/help/introScreen";
-	
+	public static String HELP_INTRO = "help_intro_";
+	public static int HELP_INTRO_AMOUNT = 3;
 	/** The mainscreen help folder. */
-	public static String MAINSCREEN_HELP_FOLDER = "/help/mainScreen";
-	
+	public static String HELP_MAIN = "help_main_";
+	public static int HELP_MAIN_AMOUNT = 6;
 	/** The newquiz help folder. */
-	public static String NEWQUIZ_HELP_FOLDER = "/help/newQuizScreen";
-	
+	public static String HELP_NEWQUIZ= "help_newquiz_";
+	public static int HELP_NEWQUIZ_AMOUNT = 3;
 	/** The gradequiz help folder. */
-	public static String GRADEQUIZ_HELP_FOLDER = "/help/gradeQuizScreen";
-	
+	public static String HELP_GRADEQUIZ = "help_grade_";
+	public static int HELP_GRADEQUIZ_AMOUNT = 2;
 	/** The reportsscreen help folder. */
-	public static String REPORTSSCREEN_HELP_FOLDER = "/help/reportsScreen";
+	public static String HELP_REPORTS= "help_reports_";
+	public static int HELP_REPORTS_AMOUNT = 2;
 }
