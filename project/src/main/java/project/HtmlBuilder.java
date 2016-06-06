@@ -222,6 +222,7 @@ public class HtmlBuilder {
 		if (type.equals("Single Choice"))
 			questions.get(qNumber).setAttribute("type", "Single Choice");
 		Element qAnswers = document.createElement("qAnswers");
+		qAnswers.appendChild(document.createTextNode("Answer:"));
 		questions.get(qNumber).getFirstChild().getChildNodes().item(1).appendChild(qAnswers);
 
 		Element form = document.createElement("form");
@@ -287,6 +288,7 @@ public class HtmlBuilder {
 	public void addAnswersData(int questionNumber, String type, boolean enableListening) {
 		int qNumber = questionNumber - 1;
 		Element qAnswers = document.createElement("qAnswers");
+		qAnswers.appendChild(document.createTextNode("Answer:"));
 		questions.get(qNumber).getFirstChild().getChildNodes().item(1).appendChild(qAnswers);
 
 		Element form = document.createElement("form");
@@ -535,16 +537,21 @@ public class HtmlBuilder {
 					prepared.document.getElementsByTagName("body").item(0).appendChild(script);
 				}
 
-			// ----------Disable All Inputs and Reveal Score Text
+			// ----------Disable All Inputs, Delete drawing buttons and Reveal Score Text
 			// Boxes--------------------------------//
 			NodeList inputs = prepared.document.getElementsByTagName("input");
 			for (int i = 0; i < inputs.getLength(); i++) {
 				Element input = (Element) inputs.item(i);
-				if (!input.getAttribute("id").equals("score")) {
-					input.removeAttribute("onClick");
-					input.setAttribute("disabled", "disabled");
-				} else {
-					input.setAttribute("type", "text");
+				if(input.getAttribute("type").equals("button"))
+					input.getParentNode().removeChild(input);
+				else
+				{
+					if (!input.getAttribute("id").equals("score")) {
+						input.removeAttribute("onClick");
+						input.setAttribute("disabled", "disabled");
+					} else {
+						input.setAttribute("type", "text");
+					}
 				}
 			}
 
@@ -553,6 +560,7 @@ public class HtmlBuilder {
 				Element textArea = (Element) textAreas.item(i);
 				textArea.setAttribute("disabled", "disabled");
 			}
+		
 			prepared.writeHtml(studentQuizPath);
 
 		} catch (FileNotFoundException | TransformerException e) {

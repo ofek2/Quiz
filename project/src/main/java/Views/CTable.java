@@ -71,7 +71,7 @@ public class CTable extends JPanel{
 				quizScores.add(((JLabel)rows.get(i).getRowItems().get(quizCoulmn)).getText());
 			}
 			GradesDistributionGraph gradesDistributionGraph = 
-					new GradesDistributionGraph(quizScores, ReportsController.view);
+					new GradesDistributionGraph(quizScores,((JButton)e.getSource()).getText()+" Graph", ReportsController.view);
 			MainFrameController.view.changeContentPane(gradesDistributionGraph);			
 		}
 		

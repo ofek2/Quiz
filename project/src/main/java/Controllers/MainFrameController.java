@@ -98,9 +98,8 @@ public class MainFrameController {
 					e.printStackTrace();
 				}
 
-			} else if (overWrite == JOptionPane.NO_OPTION
-					|| overWrite == JOptionPane.CLOSED_OPTION)
-				System.exit(1);
+			} 
+				
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

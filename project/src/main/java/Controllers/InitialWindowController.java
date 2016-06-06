@@ -8,6 +8,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -16,6 +17,7 @@ import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.util.ArrayList;
 
+import javax.imageio.ImageIO;
 import javax.swing.JComboBox;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
@@ -26,6 +28,8 @@ import javax.swing.JTree;
 import javax.swing.SwingWorker;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.TreePath;
+
+import com.google.common.io.Files;
 
 import Entities.Constants;
 import Entities.CourseEntity;
@@ -1000,8 +1004,9 @@ public class InitialWindowController {
 								studentsInQuiz.add(child.getName());
 								studentsQuizzesPaths.add(child.getCanonicalPath());	
 							}
-						String formPath = Constants.ROOTPATH + courseName
-								+ "/Quizzes/" + quizName + "/Form/" + quizName + "WithAnswers.html";
+						String quizFormPath =  Constants.ROOTPATH + courseName + "/Quizzes/" + quizName + "/Form/";
+						String formPath = quizFormPath + quizName + "WithAnswers.html";
+						addCorrectImageQuestionsToStudentQuizzes(studentsQuizzesPaths,quizFormPath);
 						initiateGradingProcess(studentsInQuiz, studentsQuizzesPaths, formPath);
 					} catch (IOException e1) {
 						// TODO Auto-generated catch block
@@ -1010,7 +1015,31 @@ public class InitialWindowController {
 				}
 
 			}
-
+			private void addCorrectImageQuestionsToStudentQuizzes(ArrayList<String> studentsQuizzesPaths,String quizFormPath){
+				ArrayList<File> answers = new ArrayList<File>();
+				String studentFolder;
+				File formFolder = new File(quizFormPath);
+				for(int i=0;i<formFolder.listFiles().length;i++)
+					if(formFolder.listFiles()[i].getName().startsWith("Answer"))
+						answers.add(formFolder.listFiles()[i]);
+				for(int i=0;i<studentsQuizzesPaths.size();i++)
+				{
+					studentFolder = studentsQuizzesPaths.get(i);
+					for(int j=0;j<answers.size();j++)
+					{
+						try {
+							String fileExtension = Files.getFileExtension(answers.get(j).getCanonicalPath());				
+							BufferedImage image = ImageIO.read(answers.get(j));
+							File fileSave = new File(studentFolder+"/"+answers.get(j).getName());
+							ImageIO.write(image,fileExtension , fileSave);
+						} catch (IOException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						} 
+					
+					}
+				}
+			}
 		
 			/**
 			 * Initiate grading process.
@@ -1021,11 +1050,13 @@ public class InitialWindowController {
 			 */
 			public void initiateGradingProcess(ArrayList<String> students, ArrayList<String> studentsQuizzesPaths,
 					String originalQuizFormPath) {
+				
 				GradingWindowView gradingWindowView = new GradingWindowView();
 				GradingWindowController gradingWindowController = new GradingWindowController(gradingWindowView);
 				menuController.gradeQuizDialog.dispose();
 				MainFrameController.view.changeContentPane(gradingWindowView);
 				gradingWindowController.setPreviousView(view);
+				
 				gradingWindowController.loadStudentsToTable(students, studentsQuizzesPaths, originalQuizFormPath);
 			}
 

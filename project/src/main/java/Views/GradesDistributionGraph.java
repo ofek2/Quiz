@@ -25,6 +25,7 @@ public class GradesDistributionGraph extends ViewPanel implements Runnable{
 	private static final long serialVersionUID = 1L;
 	private JFXPanel fxPanel;
 	private ArrayList<String> quizScores;
+	private String title;
 	private JMenu graphMenu;
 	private Container previousView;
 	private Thread thread;
@@ -36,9 +37,10 @@ public class GradesDistributionGraph extends ViewPanel implements Runnable{
     final static String last = "91-100";
     final static double[] partition={55,65,70,81,91,100};
     private double[] partitionsPercentages = {0,0,0,0,0,0};
-	public GradesDistributionGraph(ArrayList<String> quizScores,
+	public GradesDistributionGraph(ArrayList<String> quizScores,String title,
 			Container previousView) {
 		this.quizScores = quizScores;
+		this.title = title;
 		this.previousView = previousView;
 		setLayout(null);
 		fxPanel = new JFXPanel();
@@ -55,7 +57,7 @@ public class GradesDistributionGraph extends ViewPanel implements Runnable{
 		JMenuItem mntmExit = new JMenuItem("Exit");
 		graphMenu.add(mntmExit);
 		mntmExit.addActionListener(new ExitListener());
-		fxPanel.setBounds(MainFrameController.view.getContentPane().getWidth()/8,20,MainFrameController.view.getContentPane().getWidth()*6/8,640);
+		fxPanel.setBounds(MainFrameController.view.getContentPane().getWidth()/8,40,MainFrameController.view.getContentPane().getWidth()*6/8,620);
 		fxPanel.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
 		add(fxPanel);
 		thread = new Thread(this);
@@ -75,7 +77,7 @@ public class GradesDistributionGraph extends ViewPanel implements Runnable{
         final NumberAxis yAxis = new NumberAxis();
         final BarChart<String,Number> bc = 
             new BarChart<String,Number>(xAxis,yAxis);
-        bc.setTitle("Grades Average");
+        bc.setTitle(title);
         xAxis.setLabel("Grades");       
         yAxis.setLabel("Percentage");
  

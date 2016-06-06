@@ -66,8 +66,8 @@ public class GradingOperation extends ViewPanel {
 		fxPanel = new JFXPanel();
 		fxPanel.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
 		JPanel panel = new JPanel();
-		panel.setBounds(40, 30,
-			920, 550);
+		panel.setBounds(250, 30,
+			500, 600);
 		panel.setBackground(Color.white);
 		panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
 			
@@ -201,7 +201,7 @@ public class GradingOperation extends ViewPanel {
 				}
 			//	studentQuiz.document.removeChild(studentQuiz.document.getElementById("scoreScript"));
 				studentQuiz.writeHtml(studentQuizPath);
-				engine.load("file:///" + studentQuizPath);
+//				engine.load("file:///" + studentQuizPath);
 			} catch (FileNotFoundException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
