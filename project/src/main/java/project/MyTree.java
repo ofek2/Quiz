@@ -36,8 +36,6 @@ public class MyTree {
 		});
 		UIManager.put("Tree.expandedIcon", emptyIcon);
 		UIManager.put("Tree.collapsedIcon", emptyIcon);
-		// UIManager.put("Tree.closedIcon", emptyIcon);
-		// UIManager.put("Tree.openIcon", emptyIcon);
 		UIManager.put("Tree.paintLines", Boolean.FALSE);
 
 		UIDefaults d = new UIDefaults();
@@ -52,7 +50,6 @@ public class MyTree {
 		JTree tree = new JTree(makeModel(Constants.ROOTPATH));
 		tree.expandPath(new TreePath(FirstNode.getPath()));
 		tree.setCellRenderer(new TestTreeCellRenderer());
-		// tree.setRowHeight(0);
 		tree.setFont(new Font("Arial", Font.PLAIN, 20));
 		
 		tree.setRootVisible(false);
@@ -72,35 +69,7 @@ public class MyTree {
 		root.add(FirstNode); // add current folder to the tree
 		File file = new File(path);
 		addNodes(FirstNode, 0, file);
-		//
-		// DefaultMutableTreeNode set1 = new DefaultMutableTreeNode(
-		// new TestNode("SubCategory 1", Color.ORANGE, d64, false));
-		// set1.add(new DefaultMutableTreeNode(
-		// new TestNode("SubSubCategory 1", Color.ORANGE, d32, true)));
-		// set1.add(new DefaultMutableTreeNode(
-		// new TestNode("SubSubCategory 2", Color.CYAN.darker(), d32, true)));
-		// set1.add(new DefaultMutableTreeNode(
-		// new TestNode("SubSubCategory 3", Color.GREEN, d32, true)));
-		// DefaultMutableTreeNode set2 = new DefaultMutableTreeNode(
-		// new TestNode("SubCategory 2", Color.GREEN.darker().darker(), d64,
-		// false));
-		// DefaultMutableTreeNode set3 = new DefaultMutableTreeNode(
-		// new TestNode("SubSubCategory 5", Color.GREEN, d32, false));
-		// set3.add(new DefaultMutableTreeNode(
-		// new TestNode("SubSubSubCategory 1", Color.BLUE, d24, true)));
-		// set3.add(new DefaultMutableTreeNode(
-		// new TestNode("SubSubSubCategory 2", Color.GREEN, d24, true)));
-		// set3.add(new DefaultMutableTreeNode(
-		// new TestNode("SubSubSubCategory 3", Color.ORANGE.darker(), d24,
-		// true)));
-		// set2.add(new DefaultMutableTreeNode(
-		// new TestNode("SubSubCategory 4", Color.ORANGE.darker().darker(), d32,
-		// true)));
-		// set2.add(set3);
-		// set2.add(new DefaultMutableTreeNode(
-		// new TestNode("SubSubCategory 6", Color.ORANGE, d32, true)));
-		// root.add(set1);
-		// root.add(set2);
+		
 		return new DefaultTreeModel(root);
 	}
 
@@ -116,12 +85,10 @@ public class MyTree {
 					DefaultMutableTreeNode set1 = new DefaultMutableTreeNode(
 							new TestNode(name, Color.ORANGE, d64, true));
 					root.add(set1); // add current folder to the tree
-
 					addNodes(set1, level + 1, file.listFiles()[i]); // add next
 																	// file/folder
 																	// to the
 																	// tree
-
 				}
 			}
 			break;
@@ -131,7 +98,8 @@ public class MyTree {
 					String name = file.listFiles()[i].getName();
 					if (name.endsWith(".ser"))
 						name = name.split("\\.")[0];
-
+					if(!name.endsWith(".xls"))
+					{
 					DefaultMutableTreeNode set1 = new DefaultMutableTreeNode(
 							new TestNode(name, Color.GREEN, d32, true));
 					root.add(set1); // add current folder to the tree
@@ -140,7 +108,7 @@ public class MyTree {
 																	// file/folder
 																	// to the
 																	// tree
-
+					}
 				}
 			}
 			break;
@@ -166,26 +134,7 @@ public class MyTree {
 
 	}
 
-	// public static void main(String... args) {
-	// EventQueue.invokeLater(() -> {
-	// try {
-	// for (UIManager.LookAndFeelInfo laf: UIManager.getInstalledLookAndFeels())
-	// {
-	// if ("Nimbus".equals(laf.getName())) {
-	// UIManager.setLookAndFeel(laf.getClassName());
-	// }
-	// }
-	// } catch (Exception ex) {
-	// ex.printStackTrace();
-	// }
-	// JFrame f = new JFrame();
-	// f.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-	// f.getContentPane().add(new MyTree().makeUI());
-	// f.setSize(320, 512);
-	// f.setLocationRelativeTo(null);
-	// f.setVisible(true);
-	// });
-	// }
+	
 }
 
 class TestTreeCellRenderer extends DefaultTreeCellRenderer {

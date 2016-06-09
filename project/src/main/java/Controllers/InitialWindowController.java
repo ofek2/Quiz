@@ -1198,9 +1198,11 @@ public class InitialWindowController {
 						public void actionPerformed(ActionEvent e) {
 							// TODO Auto-generated method stub
 							QuizEntity quizEntity = new QuizEntity(quizName, quizCourseName);
-							File temp = quizEntity.getStudentsAnswersFolder();
-							if(!temp.exists())
-							{
+							
+//							**************** check this!!!!   *********************
+//							File temp = quizEntity.getStudentsAnswersFolder();
+//							if(!temp.exists())
+//							{
 							if(JOptionPane.showConfirmDialog(MainFrameController.view, "Are you sure you want to delete this quiz?")== JOptionPane.YES_OPTION)
 							{
 								try {
@@ -1214,10 +1216,10 @@ public class InitialWindowController {
 								e1.printStackTrace();
 							}
 							}
-							}
-							else
-								JOptionPane.showMessageDialog(null, "You can't remove a quiz that was already been taken by your students.", "Quiz performed",
-										JOptionPane.WARNING_MESSAGE);
+//							}
+//							else
+//								JOptionPane.showMessageDialog(null, "You can't remove a quiz that was already been taken by your students.", "Quiz performed",
+//										JOptionPane.WARNING_MESSAGE);
 						}
 					});
 					quizPopupMenu.add(editQuiz);

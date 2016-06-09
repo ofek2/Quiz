@@ -670,6 +670,7 @@ public class qPanelController implements Serializable{
 				e.printStackTrace();
 			} 	
 		}
+		if(tempPicturesFolder!=null)
 		if(tempPicturesFolder.exists())
 		tempPicturesFolder.delete();
 	}
