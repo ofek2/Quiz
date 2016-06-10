@@ -10,6 +10,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -352,6 +353,22 @@ public class QuizCreationController implements Serializable {
 				QuizObjectEntity quizObjectEntity = new QuizObjectEntity(entity, qPanels);
 				String path = entity.getQuizFormFolder().getCanonicalPath() + "/" + entity.getName() + ".ser";
 				ObjectFileManager.saveObject(quizObjectEntity, path);
+				String qPath = entity.getQuizFormFolder().getCanonicalPath();
+				qPath = qPath.substring(0, qPath.length()-5);
+				File style = new File(qPath+"/bootstrap.css");
+				
+				if(!style.exists())
+				{				
+					InputStream in = getClass().getResourceAsStream("/bootstrap.css");	
+					byte[] buffer = new byte[in.available()];
+					in.read(buffer);
+					FileOutputStream out = new FileOutputStream(style);
+					out.write(buffer);
+					out.flush();
+					out.close();
+					in.close();
+				}
+				
 				JOptionPane.showMessageDialog(null, "All of the data saved successfully");
 
 			} catch (TransformerException e1) {
@@ -496,7 +513,19 @@ public class QuizCreationController implements Serializable {
 
 				String path = tempFolder.getCanonicalPath() + "/Temp.html";
 				htmlBuilder.writeHtml(path);
-
+				File style = new File(tempFolder.getCanonicalPath()+"/bootstrap.css");
+				if(!style.exists())
+				{				
+					InputStream in = getClass().getResourceAsStream("/bootstrap.css");
+					
+					byte[] buffer = new byte[in.available()];
+					in.read(buffer);
+					FileOutputStream out = new FileOutputStream(style);
+					out.write(buffer);
+					out.flush();
+					out.close();
+					in.close();
+				}
 				PreviewQuizFrame frame = new PreviewQuizFrame(tempFolder.getCanonicalPath(),
 						QuizCreationController.this);
 				frame.setVisible(true);

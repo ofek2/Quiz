@@ -105,6 +105,7 @@ public class GradingOperation extends ViewPanel {
 			// TODO Auto-generated method stub
 			if (studentGradingPanel.getGradeBtn().getText().equals("Grade"))
 				studentGradingPanel.getGradeBtn().setText("Edit");
+	
 			MainFrameController.view.changeContentPane((ViewPanel) previousView);
 
 		}
@@ -148,10 +149,11 @@ public class GradingOperation extends ViewPanel {
 		public void receiveInput(String score, String questionNumber) {
 			// Platform.exit();
 			// System.out.print(score+","+questionNumber);
-		
+			
 			insertScoreToHTML(studentQuizPath, score, questionNumber);
+		
+			studentGradingPanel.getLblGrade().setText(score);
 		}
-
 		private void insertScoreToHTML(String studentQuizPath, String score, String questionNumber) {
 
 			try {
@@ -159,7 +161,7 @@ public class GradingOperation extends ViewPanel {
 				File studentQuizFile = new File(studentQuizPath);
 				in = new FileInputStream(studentQuizFile);
 				HtmlParser studentQuiz = new HtmlParser(in);
-				if (!questionNumber.equals("fscore")) {
+				if (!questionNumber.equals("0")) {
 					NodeList questionElement = studentQuiz.document.getElementsByTagName("Q" + questionNumber);
 					Element question = (Element) questionElement.item(0);
 					NodeList inputs = question.getElementsByTagName("input");

@@ -156,7 +156,7 @@ public class HtmlBuilder {
 		input.setAttribute("name", "ScoreQ" + qNumber);
 		input.setAttribute("type", "hidden");
 		input.setAttribute("maxlength", "2");
-		input.setAttribute("oninput", "Desktop.receiveInput(this.value," + qNumber + ");updateFinalScore(true);");
+		input.setAttribute("oninput", "Desktop.receiveInput(this.value," + qNumber + ");updateFinalScore();");
 		input.appendChild(document.createTextNode(" "));
 		div.appendChild(input);
 		div.appendChild(document.createTextNode("/"));
@@ -190,8 +190,10 @@ public class HtmlBuilder {
 		Element qText = document.createElement("qText");
 		Element questionTextPara = document.createElement("pre");
 		qText.appendChild(questionTextPara);
+		if(questionText.length()>0)
 		questionTextPara.appendChild(document.createTextNode(questionText));
-
+		else
+			questionTextPara.appendChild(document.createTextNode(" "));
 		divBody.appendChild(qText);
 		if (!questionImageName.equals("")) {
 			Element qImage = document.createElement("qImage");
@@ -439,7 +441,10 @@ public class HtmlBuilder {
 
 		if (type.equals("Free Text")) {
 			Element questionTextPara = document.createElement("pre");
-			questionTextPara.appendChild(document.createTextNode(answer));
+			if(answer.length()>0)
+				questionTextPara.appendChild(document.createTextNode(answer));
+			else
+				questionTextPara.appendChild(document.createTextNode(" "));
 			form.appendChild(questionTextPara);
 
 		}
@@ -542,19 +547,20 @@ public class HtmlBuilder {
 			NodeList inputs = prepared.document.getElementsByTagName("input");
 			for (int i = 0; i < inputs.getLength(); i++) {
 				Element input = (Element) inputs.item(i);
-				if(input.getAttribute("type").equals("button"))
-					input.getParentNode().removeChild(input);
-				else
-				{
 					if (!input.getAttribute("id").equals("score")) {
 						input.removeAttribute("onClick");
 						input.setAttribute("disabled", "disabled");
 					} else {
 						input.setAttribute("type", "text");
 					}
-				}
+				
 			}
-
+			for(int i=0;i<inputs.getLength();i++)
+			{
+				Element input = (Element) inputs.item(i);
+				if(input.getAttribute("type").equals("button"))
+					input.getParentNode().removeChild(input);
+			}
 			NodeList textAreas = prepared.document.getElementsByTagName("textarea");
 			for (int i = 0; i < textAreas.getLength(); i++) {
 				Element textArea = (Element) textAreas.item(i);
