@@ -132,13 +132,13 @@ public class GradingWindowController {
 		 */
 		public void actionPerformed(ActionEvent e) {
 			// TODO Auto-generated method stub
-
+			allChecked = true;
 			for (int i = 0; i < studentGradingPanels.size(); i++) {
 				if (studentGradingPanels.get(i).getGradeBtn().getText().equals("Grade")) {
 					allChecked = false;
 				}
 			}
-
+		
 			if (allChecked) {
 
 				new GmailAuthFrameController(new GmailAuthFrame(), studentGradingControllers, studentsQuizzesPaths);

@@ -348,7 +348,7 @@ public class HtmlBuilder {
 		questions.get(qNumber).appendChild(answers);
 
 		scoreScript.appendChild(document.createTextNode(
-				"myFunction('Q" + questionNumber + "',document.getElementsByName(\"ScoreQ" + questionNumber + "\"));"));
+				"myFunction('Q" + questionNumber + "',document.getElementsByName(\"ScoreQ" + questionNumber + "\","+questionNumber+"));"));
 
 		Element divAnswer = document.createElement("div");
 		divAnswer.setAttribute("class", "panel panel-success");
