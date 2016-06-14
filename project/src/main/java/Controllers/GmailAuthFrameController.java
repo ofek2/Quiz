@@ -10,6 +10,7 @@ import java.io.OutputStream;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 
+import Views.CustomDialog;
 import Views.GmailAuthFrame;
 import project.GoogleMail;
 import project.zipFileManager;
@@ -28,7 +29,8 @@ public class GmailAuthFrameController {
 	
 	/** The students quizzes paths. */
 	private ArrayList<String> studentsQuizzesPaths;
-
+	
+	public static int i;
 	/**
 	 * Instantiates a new Gmail auth frame controller.
 	 *
@@ -41,7 +43,7 @@ public class GmailAuthFrameController {
 		this.view = view;
 		this.studentGradingControllers = studentGradingControllers;
 		this.studentsQuizzesPaths = studentsQuizzesPaths;
-
+		i=0;
 		authorizeGmailAccount();
 
 		this.view.sendBtnAddListener(new sendBtnListener());
@@ -87,17 +89,14 @@ public class GmailAuthFrameController {
 				String quizName = "";
 				if (!studentGradingControllers.isEmpty())
 					quizName = studentGradingControllers.get(0).getQuizName();
-				for (int i = 0; i < studentGradingControllers.size(); i++) {
-					String studentId = new File(studentsQuizzesPaths.get(i)).getName();
-					String zipPath = studentsQuizzesPaths.get(i)+"/"+studentId+".zip";
-					zipFileManager.createZipFile(new File(studentsQuizzesPaths.get(i)), zipPath);
-					GoogleMail.SendMail(studentGradingControllers.get(i).getStudentEmail(), quizName + " - Graded Quiz",
-							zipPath	, quizName + ".zip");
-					new File(zipPath).delete();
-				}
-				JOptionPane.showMessageDialog(null,
-						"The graded quizzes were sent successfully to your students' emails.",
-						"Emails Delivered Successfully", JOptionPane.INFORMATION_MESSAGE);
+				CustomDialog dialog = new CustomDialog();
+				dialog.setVisible(true);
+				new sendMails(studentGradingControllers, studentsQuizzesPaths, quizName,dialog).execute();
+//					dialog.setLabelText("Total mails sent successfully: "+i+"/"+studentGradingControllers.size());
+//				dialog.dispose();
+//				JOptionPane.showMessageDialog(null,
+//						"The graded quizzes were sent successfully to your students' emails.",
+//						"Emails Delivered Successfully", JOptionPane.INFORMATION_MESSAGE);
 			}
 		}
 	}
