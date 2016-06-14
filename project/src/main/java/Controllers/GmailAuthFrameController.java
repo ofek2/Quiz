@@ -30,7 +30,6 @@ public class GmailAuthFrameController {
 	/** The students quizzes paths. */
 	private ArrayList<String> studentsQuizzesPaths;
 	
-	public static int i;
 	/**
 	 * Instantiates a new Gmail auth frame controller.
 	 *
@@ -43,7 +42,6 @@ public class GmailAuthFrameController {
 		this.view = view;
 		this.studentGradingControllers = studentGradingControllers;
 		this.studentsQuizzesPaths = studentsQuizzesPaths;
-		i=0;
 		authorizeGmailAccount();
 
 		this.view.sendBtnAddListener(new sendBtnListener());
