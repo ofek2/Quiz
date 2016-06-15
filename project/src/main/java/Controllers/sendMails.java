@@ -11,6 +11,10 @@ import Views.CustomDialog;
 import project.GoogleMail;
 import project.zipFileManager;
 
+/**
+ * The Class sendMails.This class handles mails sending.
+ * This class is used for sending mails to the students at the end of the grading process.
+ */
 public class sendMails extends SwingWorker<Void, Void>{
 
 	/** The student grading controllers. */
@@ -19,16 +23,30 @@ public class sendMails extends SwingWorker<Void, Void>{
 	/** The students quizzes paths. */
 	private ArrayList<String> studentsQuizzesPaths;
 
+	/** The quiz name. */
 	private String quizName;
 	
+	/** The dialog. */
 	private CustomDialog dialog;
 	
+	/**
+	 * Instantiates a new send mails.
+	 *
+	 * @param studentGradingControllers the student grading controllers
+	 * @param studentsQuizzesPaths the students quizzes paths
+	 * @param quizName the quiz name
+	 * @param dialog the dialog
+	 */
 	public  sendMails(ArrayList<StudentGradingController> studentGradingControllers,ArrayList<String> studentsQuizzesPaths,String quizName,CustomDialog dialog) {
 		this.studentGradingControllers = studentGradingControllers;
 		this.studentsQuizzesPaths = studentsQuizzesPaths;
 		this.quizName = quizName;
 		this.dialog = dialog;
 	}
+	
+	/* (non-Javadoc)
+	 * @see javax.swing.SwingWorker#doInBackground()
+	 */
 	@Override
 	protected Void doInBackground() throws Exception {
 		dialog.setTitle("Sending Mails");
@@ -44,6 +62,10 @@ public class sendMails extends SwingWorker<Void, Void>{
 		}
 		return null;
 	}
+	
+	/* (non-Javadoc)
+	 * @see javax.swing.SwingWorker#done()
+	 */
 	@Override
 	protected void done() {
 		// TODO Auto-generated method stub

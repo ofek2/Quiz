@@ -7,6 +7,7 @@ import javax.swing.JOptionPane;
 import Views.InitialWindowView;
 import Views.MainFrameView;
 import project.zipFileManager;
+import Entities.Constants;
 import Entities.CourseEntity;
 
 /**
@@ -60,7 +61,7 @@ public class MainFrameController {
 		
 		try {
 			appFolder = new File(new File(".").getCanonicalPath()
-					+ "/OnlineQuizChecker");
+					+ "/"+Constants.APP_NAME);
 			if (!appFolder.exists())
 				appFolder.mkdir();
 			else
@@ -77,15 +78,11 @@ public class MainFrameController {
 					DropBoxSimple.progressListener.init(dropboxtotalsize,
 							"downloaded");
 					DropBoxSimple.progressListener.dialog.setVisible(true);
-					
-					//old
-//					DropBoxSimple.downloadFolder(appFolder.getCanonicalPath(),"/");
-					
-					//new
+				
 					DropBoxSimple.downloadFolder(new File(".").getCanonicalPath(),"/");
 					
 					DropBoxSimple.progressListener.dialog.setVisible(false);
-					File zipFile = new File(new File(".").getCanonicalPath()+"/OnlineQuizChecker.zip");
+					File zipFile = new File(new File(".").getCanonicalPath()+"/"+Constants.APP_NAME+".zip");
 					if(zipFile.exists())
 					{
 						zipFileManager.unZipIt(zipFile.getCanonicalPath(), appFolder.getCanonicalPath());

@@ -23,7 +23,7 @@ import Views.ViewPanel;
 
 /**
  * The Class ReportsController. This class controls the {@link ReportsView}
- * events.
+ * events. This class is used for producing reports.
  */
 public class ReportsController {
 

@@ -23,6 +23,7 @@ import javax.swing.border.TitledBorder;
 
 import Controllers.InitialWindowController;
 import Controllers.MainFrameController;
+import Controllers.ReportsController;
 
 import java.awt.Color;
 import java.awt.Font;
@@ -35,21 +36,58 @@ import javax.swing.border.CompoundBorder;
 import javax.swing.border.LineBorder;
 import javax.swing.UIManager;
 
+/**
+ * The Class ReportsView.
+ * This class is used for producing reports.
+ * This class is a boundary controlled by {@link ReportsController}.
+ */
 public class ReportsView extends ViewPanel{
+	
+	/** The reports students ids. */
 	private JComboBox<String>reportsStudentsIds;
+	
+	/** The label reports student id. */
 	private JLabel lblReportsStudentId;
+	
+	/** The button reports show grades. */
 	private JButton btnReportsShowGrades;
+	
+	/** The reports courses. */
 	private JComboBox<String> reportsCourses;
+	
+	/** The label reports course id. */
 	private JLabel lblReportsCourseId;
+	
+	/** The scroll pane. */
 	private JScrollPane scrollPane;
+	
+	/** The menu bar. */
 	private JMenuBar menuBar;
+	
+	/** The file menu. */
 	private JMenu mnFile;
+	
+	/** The button search student. */
 	private JButton btnSearchStudent;
+	
+	/** The btn export excel file. */
 	private JButton btnExportExcelFile;
+	
+	/** The title buttons. */
 	private JButton [] titleButtons;
+	
+	/** The table. */
 	public CTable table = null;
+	
+	/** The course label. */
 	private JLabel courseLabel;
+	
+	/** The mn help menu. */
 	private JMenu mnHelpMenu;
+	
+	/**
+	 * Instantiates a new reports view.
+	 */
 	public ReportsView() {
 		setBackground(Color.WHITE);
 //		setPreferredSize(new Dimension(1000, 700));
@@ -206,19 +244,48 @@ public class ReportsView extends ViewPanel{
 //	}
 //	public void setReportsInfoPanel(JPanel reportsInfoPanel) {
 //		this.reportsInfoPanel = reportsInfoPanel;
+/**
+ * Gets the reports courses.
+ *
+ * @return the reports courses
+ */
 //	}
 	public JComboBox<String> getReportsCourses() {
 		return reportsCourses;
 	}
+	
+	/**
+	 * Sets the reports courses.
+	 *
+	 * @param reportsCourses the new reports courses
+	 */
 	public void setReportsCourses(JComboBox<String> reportsCourses) {
 		this.reportsCourses = reportsCourses;
 	}
+	
+	/**
+	 * Gets the reports students ids.
+	 *
+	 * @return the reports students ids
+	 */
 	public JComboBox<String> getReportsStudentsIds() {
 		return reportsStudentsIds;
 	}
+	
+	/**
+	 * Sets the reports students ids.
+	 *
+	 * @param reportsStudentsIds the new reports students ids
+	 */
 	public void setReportsStudentsIds(JComboBox<String> reportsStudentsIds) {
 		this.reportsStudentsIds = reportsStudentsIds;
 	}	
+	
+	/**
+	 * Gets the title buttons.
+	 *
+	 * @return the title buttons
+	 */
 	public JButton[] getTitleButtons() {
 		return titleButtons;
 	}
@@ -246,14 +313,29 @@ public class ReportsView extends ViewPanel{
 ////		}
 //	}
 
-	public void setTitleButtons(JButton[] titleButtons) {
+	/**
+ * Sets the title buttons.
+ *
+ * @param titleButtons the new title buttons
+ */
+public void setTitleButtons(JButton[] titleButtons) {
 		this.titleButtons = titleButtons;
 	}
 	
+	/**
+	 * Gets the table.
+	 *
+	 * @return the table
+	 */
 	public CTable getTable() {
 		return table;
 	}
 
+	/**
+	 * Sets the table.
+	 *
+	 * @param table the new table
+	 */
 	public void setTable(CTable table) {
 		this.table = table;
 	}
@@ -265,42 +347,97 @@ public class ReportsView extends ViewPanel{
 //		
 //	}
 	
-	public JLabel getCourseLabel() {
+	/**
+ * Gets the course label.
+ *
+ * @return the course label
+ */
+public JLabel getCourseLabel() {
 		return courseLabel;
 	}
 
+	/**
+	 * Sets the course label.
+	 *
+	 * @param courseLabel the new course label
+	 */
 	public void setCourseLabel(JLabel courseLabel) {
 		this.courseLabel = courseLabel;
 	}
 
+	/**
+	 * Gets the scroll pane.
+	 *
+	 * @return the scroll pane
+	 */
 	public JScrollPane getScrollPane() {
 		return scrollPane;
 	}
 
+	/**
+	 * Sets the scroll pane.
+	 *
+	 * @param scrollPane the new scroll pane
+	 */
 	public void setScrollPane(JScrollPane scrollPane) {
 		this.scrollPane = scrollPane;
 	}
 
+	/**
+	 * Btn reports show grades add listener.
+	 *
+	 * @param listener the listener
+	 */
 	public void btnReportsShowGradesAddListener(ActionListener listener)
 	{
 		btnReportsShowGrades.addActionListener(listener);
 	}
+	
+	/**
+	 * Btn search student add listener.
+	 *
+	 * @param listener the listener
+	 */
 	public void btnSearchStudentAddListener(ActionListener listener)
 	{
 		btnSearchStudent.addActionListener(listener);
 	}
+	
+	/**
+	 * Btn export excel file add listener.
+	 *
+	 * @param listener the listener
+	 */
 	public void btnExportExcelFileAddListener(ActionListener listener)
 	{
 		btnExportExcelFile.addActionListener(listener);
 	}
+	
+	/**
+	 * Mntm exit add listener.
+	 *
+	 * @param listener the listener
+	 */
 	public void mntmExitAddListener(ActionListener listener)
 	{
 		mnFile.getItem(0).addActionListener(listener);
 	}
+	
+	/**
+	 * Sets the view port for scroll pane.
+	 *
+	 * @param table2 the new view port for scroll pane
+	 */
 	public void setViewPortForScrollPane(CTable table2) {
 		// TODO Auto-generated method stub
 		scrollPane.setViewportView(table2);
 	}
+	
+	/**
+	 * Adds the help action listener.
+	 *
+	 * @param listener the listener
+	 */
 	public void addHelpActionListener(ActionListener listener)
 	{
 		mnHelpMenu.getItem(0).addActionListener(listener);

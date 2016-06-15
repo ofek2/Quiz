@@ -29,13 +29,36 @@ import javafx.scene.Scene;
 import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
 
+/**
+ * The Class PreviewQuizFrame.
+ * This class is used for previewing a quiz in the creation proccess.
+ */
 public class PreviewQuizFrame extends JFrame{
+	
+	/** The jfx panel. */
 	private  JFXPanel jfxPanel;
+	
+	/** The engine. */
 	private WebEngine engine;
+	
+	/** The panel. */
 	private final JPanel panel = new JPanel(new BorderLayout());
+	
+	/** The window listener. */
 	private windowListener windowListener;
+	
+	/** The temp folder to delete. */
 	private String tempFolderToDelete;
+	
+	/** The controller. */
 	private QuizCreationController controller;
+	
+	/**
+	 * Instantiates a new preview quiz frame.
+	 *
+	 * @param tempFolderToDelete the temp folder to delete
+	 * @param controller the controller
+	 */
 	public PreviewQuizFrame(String tempFolderToDelete,QuizCreationController controller){
 		super();
 		this.controller = controller;
@@ -47,6 +70,10 @@ public class PreviewQuizFrame extends JFrame{
 		addWindowListener(windowListener);
 		initComponents();
 	}
+	
+	/**
+	 * Inits the components.
+	 */
 	private void initComponents() {
 		createScene();
 		panel.add(jfxPanel, BorderLayout.CENTER);
@@ -59,6 +86,9 @@ public class PreviewQuizFrame extends JFrame{
 		setLocationRelativeTo(null);
 	}
 
+	/**
+	 * Creates the scene.
+	 */
 	private void createScene() {
 
 		Platform.runLater(new Runnable() {
@@ -75,6 +105,11 @@ public class PreviewQuizFrame extends JFrame{
 		});
 	}
 
+	/**
+	 * Load url.
+	 *
+	 * @param url the url
+	 */
 	public void loadURL(final String url) {
 		Platform.runLater(new Runnable() {
 			@Override
@@ -90,6 +125,12 @@ public class PreviewQuizFrame extends JFrame{
 		});
 	}
 
+	/**
+	 * To url.
+	 *
+	 * @param str the str
+	 * @return the string
+	 */
 	private static String toURL(String str) {
 		try {
 			return new URL(str).toExternalForm();
@@ -97,6 +138,18 @@ public class PreviewQuizFrame extends JFrame{
 			return null;
 		}
 	}
+	
+	/**
+	 * The listener interface for receiving window events.
+	 * The class that is interested in processing a window
+	 * event implements this interface, and the object created
+	 * with that class is registered with a component using the
+	 * component's <code>addwindowListener<code> method. When
+	 * the window event occurs, that object's appropriate
+	 * method is invoked.
+	 *
+	 * @see windowEvent
+	 */
 	class windowListener extends WindowAdapter implements Serializable {
 		
 		/** The Constant serialVersionUID. */
@@ -116,6 +169,12 @@ public class PreviewQuizFrame extends JFrame{
 			dispose();
 		}
 	}
+	
+	/**
+	 * Recursive delete.
+	 *
+	 * @param file the file
+	 */
 	private void recursiveDelete(File file) {
 		if (!file.exists())
 			return;

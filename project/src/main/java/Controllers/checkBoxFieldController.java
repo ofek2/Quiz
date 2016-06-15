@@ -34,7 +34,7 @@ public class checkBoxFieldController implements Serializable {
 		this.view.plusBtnAddListener(new plusBtnListener());
 		this.view.minusBtnAddListener(new minusBtnListener());
 		this.view.addAnswerTextOptionKeyListener(new answerTextOptionkeyListener());
-		this.view.addChckbxNewCheckBox(new ActionListener() {
+		this.view.addAnswerCheckBoxListener(new ActionListener() {
 
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub

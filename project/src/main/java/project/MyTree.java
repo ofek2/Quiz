@@ -10,13 +10,34 @@ import javax.swing.plaf.basic.*;
 import javax.swing.tree.*;
 
 import Entities.Constants;
+import Views.InitialWindowView;
 
+/**
+ * The Class MyTree.
+ * This class is used for creating the tree of folders in {@link InitialWindowView}.
+ */
 public class MyTree {
+	
+	/** The d64. */
 	private static Dimension d64 = new Dimension(64, 64);
+	
+	/** The d48. */
 	private static Dimension d48 = new Dimension(48, 48);
+	
+	/** The d32. */
 	private static Dimension d32 = new Dimension(32, 32);
+	
+	/** The d24. */
 	private static Dimension d24 = new Dimension(24, 24);
+	
+	/** The First node. */
 	private static DefaultMutableTreeNode FirstNode;
+	
+	/**
+	 * Make ui.
+	 *
+	 * @return the j tree
+	 */
 	public JTree makeUI() {
 
 		IconUIResource emptyIcon = new IconUIResource(new Icon() {
@@ -61,6 +82,12 @@ public class MyTree {
 		return tree;
 	}
 
+	/**
+	 * Make model.
+	 *
+	 * @param path the path
+	 * @return the tree model
+	 */
 	private static TreeModel makeModel(String path) {
 
 		DefaultMutableTreeNode root = new DefaultMutableTreeNode("Root");
@@ -73,6 +100,13 @@ public class MyTree {
 		return new DefaultTreeModel(root);
 	}
 
+	/**
+	 * Adds the nodes.
+	 *
+	 * @param root the root
+	 * @param level the level
+	 * @param file the file
+	 */
 	private static void addNodes(DefaultMutableTreeNode root, int level, File file) {
 		// TODO Auto-generated method stub
 		if (!file.exists())

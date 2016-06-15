@@ -8,19 +8,31 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.ScrollPaneConstants;
+
+import Controllers.MultipleChoicePanelController;
+
 import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
 import java.io.Serializable;
 
+/**
+ * The Class MultipleChoicePanel.
+ * This class is a boundary controlled by {@link MultipleChoicePanelController}.
+ */
 public class MultipleChoicePanel extends JPanel implements Serializable {
 
-	/**
-	 * 
-	 */
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 1L;
+	
+	/** The panel. */
 	public JPanel panel;
+	
+	/** The jsp. */
 	public JScrollPane jsp;
 
+	/**
+	 * Instantiates a new multiple choice panel.
+	 */
 	public MultipleChoicePanel() {
 		GridBagLayout gridBagLayout = new GridBagLayout();
 		gridBagLayout.columnWidths = new int[] { 444, 0 };

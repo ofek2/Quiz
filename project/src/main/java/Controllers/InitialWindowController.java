@@ -48,7 +48,7 @@ import project.ObjectFileManager;
 /**
  * The Class InitialWindowController.
  * This class controls the {@link InitialWindowView} events.
- * Meant for managing the user's (a lecturer) courses, quizzes, students and students' grades.
+ * This class is used for managing the user's (a lecturer) courses, quizzes, students and students' grades.
  */
 public class InitialWindowController {
 	
@@ -303,8 +303,12 @@ public class InitialWindowController {
 		class SaveFilesListener implements ActionListener
 		{
 
-			/* (non-Javadoc)
-			 * @see java.awt.event.ActionListener#actionPerformed(java.awt.event.ActionEvent)
+			/*
+			 * (non-Javadoc)
+			 * 
+			 * @see
+			 * java.awt.event.ActionListener#actionPerformed(java.awt.event.
+			 * ActionEvent)
 			 */
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -596,7 +600,7 @@ public class InitialWindowController {
 							view.loadStudents(view.getRemoveStudentCourseCB().getSelectedIndex());
 							view.getRemoveStudentsIds().addItemListener(removeStudentsIdsItemListener);
 							view.setTree(new JTree(InitialWindowView
-									.filesTree(new File(new File(".").getCanonicalPath() + "/OnlineQuizChecker"))));
+									.filesTree(new File(new File(".").getCanonicalPath() + "/"+Constants.APP_NAME))));
 							JOptionPane.showMessageDialog(null, "The student removed successfully");
 						
 							}
@@ -673,7 +677,7 @@ public class InitialWindowController {
 								oos.close();
 								JOptionPane.showMessageDialog(null, "The student registered successfully");
 								view.setTree(new JTree(InitialWindowView
-										.filesTree(new File(new File(".").getCanonicalPath() + "/OnlineQuizChecker"))));
+										.filesTree(new File(new File(".").getCanonicalPath() + "/"+Constants.APP_NAME))));
 								view.getRemoveStudentsIds().removeItemListener(removeStudentsIdsItemListener);
 								view.loadStudents(view.getRemoveStudentCourseCB().getSelectedIndex());
 								view.getRemoveStudentsIds().addItemListener(removeStudentsIdsItemListener);
@@ -735,7 +739,7 @@ public class InitialWindowController {
 								"Alert", JOptionPane.ERROR_MESSAGE);
 					else {
 						try {
-							courseFolder = new File(new File(".").getCanonicalPath() + "/OnlineQuizChecker" + "/"
+							courseFolder = new File(new File(".").getCanonicalPath() + "/"+Constants.APP_NAME + "/"
 									+ CourseEntity.getCourseFolderName(courseId, courseName));
 							studentsFolder = new File(courseFolder.getCanonicalPath() + "/Students");
 							quizzesFolder = new File(courseFolder.getCanonicalPath() + "/Quizzes");
@@ -1210,7 +1214,7 @@ public class InitialWindowController {
 										+ quizCourseName + "/Quizzes/" + quizName));
 								updateStudentsEntityQuizzes(new File(Constants.ROOTPATH + courseName + "/Students"), quizName);
 								view.setTree(new JTree(InitialWindowView
-										.filesTree(new File(new File(".").getCanonicalPath() + "/OnlineQuizChecker"))));
+										.filesTree(new File(new File(".").getCanonicalPath() + "/"+Constants.APP_NAME))));
 							} catch (IOException e1) {
 								// TODO Auto-generated catch block
 								e1.printStackTrace();
@@ -1503,7 +1507,7 @@ public class InitialWindowController {
 
 		try {
 			view.setTree(new JTree(
-					InitialWindowView.filesTree(new File(new File(".").getCanonicalPath() + "/OnlineQuizChecker"))));
+					InitialWindowView.filesTree(new File(new File(".").getCanonicalPath() + "/"+Constants.APP_NAME))));
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

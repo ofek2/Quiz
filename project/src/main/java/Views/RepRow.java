@@ -14,16 +14,26 @@ import java.awt.GridLayout;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
+/**
+ * The Class RepRow.
+ * This class is a single row in the reports table.
+ */
 public class RepRow extends JPanel {
 
-	/**
-	 * 
-	 */
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 1L;
+	
+	/** The row items. */
 	private ArrayList<Object> rowItems;
+	
+	/** The row index. */
 	private int rowIndex;
+	
 	/**
 	 * Create the panel.
+	 *
+	 * @param rowItems the row items
+	 * @param rowIndex the row index
 	 */
 	public RepRow(ArrayList<Object> rowItems,int rowIndex) {
 		this.rowItems = rowItems;
@@ -41,6 +51,13 @@ public class RepRow extends JPanel {
 			add((Component) object);
 		}
 	}
+	
+	/**
+	 * Adds the listener.
+	 *
+	 * @param index the index
+	 * @param listener the listener
+	 */
 	public void addListener(int index,ActionListener listener)
 	{
 		if(rowItems.get(index) instanceof JButton)
@@ -49,15 +66,38 @@ public class RepRow extends JPanel {
 		}
 	}
 	
+	/**
+	 * Gets the row items.
+	 *
+	 * @return the row items
+	 */
 	public ArrayList<Object> getRowItems() {
 		return rowItems;
 	}
+	
+	/**
+	 * Sets the row items.
+	 *
+	 * @param rowItems the new row items
+	 */
 	public void setRowItems(ArrayList<Object> rowItems) {
 		this.rowItems = rowItems;
 	}
+	
+	/**
+	 * Gets the row index.
+	 *
+	 * @return the row index
+	 */
 	public int getRowIndex() {
 		return rowIndex;
 	}
+	
+	/**
+	 * Sets the row index.
+	 *
+	 * @param rowIndex the new row index
+	 */
 	public void setRowIndex(int rowIndex) {
 		this.rowIndex = rowIndex;
 	}

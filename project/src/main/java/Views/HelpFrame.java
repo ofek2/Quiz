@@ -22,13 +22,36 @@ import javax.swing.border.EtchedBorder;
 import java.awt.Color;
 import javax.swing.border.LineBorder;
 
+/**
+ * The Class HelpFrame.
+ * This class is used for presenting the help screens.
+ */
 public class HelpFrame extends JFrame{
+	
+	/** The pic path. */
 	private String picPath;
+	
+	/** The amount of pictures. */
 	private int amountOfPictures;
+	
+	/** The help image. */
 	private JLabel helpImage;
+	
+	/** The Prev btn. */
 	private JButton PrevBtn;
+	
+	/** The btn next. */
 	private JButton btnNext;
+	
+	/** The images arr. */
 	private URL[] imagesArr;
+	
+	/**
+	 * Instantiates a new help frame.
+	 *
+	 * @param picPath the pic path
+	 * @param amountOfPictures the amount of pictures
+	 */
 	public HelpFrame(String picPath,int amountOfPictures)
 	{
 		this.picPath = picPath;
@@ -37,6 +60,12 @@ public class HelpFrame extends JFrame{
 		initView(900,635);
 	}
 	
+	/**
+	 * Inits the view.
+	 *
+	 * @param width the width
+	 * @param height the height
+	 */
 	private void initView(int width,int height) {
 		// TODO Auto-generated method stub
 		setTitle("Help");
@@ -94,6 +123,12 @@ public class HelpFrame extends JFrame{
 		setVisible(true);
 		
 	}
+	
+	/**
+	 * Gets the images.
+	 *
+	 * @return the images
+	 */
 	private URL[] getImages()
 	{
 		URL []urlList = new URL[amountOfPictures];
@@ -104,6 +139,11 @@ public class HelpFrame extends JFrame{
 		return urlList;	
 	}
 	
+	/**
+	 * Sets the image.
+	 *
+	 * @param pos the new image
+	 */
 	public void setImage(int pos)
 	{
 		if(pos == 0)
@@ -119,21 +159,42 @@ public class HelpFrame extends JFrame{
 		helpImage.setIcon(new ImageIcon(imagesArr[pos]));
 	}
 	
+	/**
+	 * Adds the prev btn listener.
+	 *
+	 * @param listener the listener
+	 */
 	public void addPrevBtnListener(ActionListener listener)
 	{
 		PrevBtn.addActionListener(listener);
 	}
 	
+	/**
+	 * Adds the next btn listener.
+	 *
+	 * @param listener the listener
+	 */
 	public void addNextBtnListener(ActionListener listener)
 	{
 		btnNext.addActionListener(listener);
 	}
 	
+	/**
+	 * Gets the images arr.
+	 *
+	 * @return the images arr
+	 */
 	public URL[] getImagesArr()
 	{
 		return imagesArr;
 	}
 	
+	/**
+	 * Sets the image size.
+	 *
+	 * @param width the width
+	 * @param height the height
+	 */
 	public void setImageSize(int width,int height)
 	{
 		helpImage.setMinimumSize(new Dimension(width, height));

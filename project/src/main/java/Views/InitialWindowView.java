@@ -38,54 +38,121 @@ import Controllers.InitialWindowController;
 import Controllers.MainFrameController;
 import Entities.StudentEntity;
 
+/**
+ * The Class InitialWindowView.
+ * This class is a boundary controlled by {@link InitialWindowController}.
+ */
 public class InitialWindowView extends ViewPanel {
-	/**
-	 * 
-	 */
+	
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 1L;
+	
+	/** The mn quiz mng menu. */
 	private JMenu mnQuizMngMenu;
+	
+	/** The menu bar. */
 	private JMenuBar menuBar;
+	
+	/** The mn course management. */
 	private JMenu mnCourseManagement;
 
+	/** The new quiz dialog panel. */
 	private JPanel newQuizDialogPanel;
+	
+	/** The courses ids. */
 	private JComboBox<String> coursesIds;
+	
+	/** The new quiz name. */
 	private JTextField newQuizName;
+	
+	/** The create new quiz button. */
 	private JButton createNewQuizBtn;
 
+	/** The edit quiz dialog panel. */
 	private JPanel editQuizDialogPanel;
+	
+	/** The courses ids edit. */
 	private JComboBox<String> coursesIdsEdit;
+	
+	/** The quizzes. */
 	public JComboBox<String> quizzes;
+	
+	/** The edit quiz button. */
 	private JButton editQuizBtn;
 
+	/** The new course id. */
 	private JTextField newCourseId;
+	
+	/** The new course dialog panel. */
 	private JPanel newCourseDialogPanel;
+	
+	/** The create new course button. */
 	private JButton createNewCourseBtn;
+	
+	/** The new course name. */
 	private JTextField newCourseName;
 
+	/** The remove course dialog panel. */
 	private JPanel removeCourseDialogPanel;
+	
+	/** The remove courses. */
 	private JComboBox<String> removeCourses;
+	
+	/** The remove course button. */
 	private JButton removeCourseBtn;
 
+	/** The tree. */
 	private JTree tree;
+	
+	/** The register student dialog panel. */
 	private JPanel registerStudentDialogPanel;
+	
+	/** The register student course cb. */
 	private JComboBox<String> registerStudentCourseCB;
+	
+	/** The student id. */
 	private JTextField studentId;
+	
+	/** The student name. */
 	private JTextField studentName;
+	
+	/** The student email. */
 	private JTextField studentEmail;
+	
+	/** The register student button. */
 	private JButton registerStudentBtn;
 
+	/** The remove student dialog panel. */
 	private JPanel removeStudentDialogPanel;
+	
+	/** The remove student course cb. */
 	private JComboBox<String> removeStudentCourseCB;
+	
+	/** The remove students ids. */
 	private JComboBox<String> removeStudentsIds;
+	
+	/** The chosen remove student name label. */
 	private JLabel chosenRemoveStudentNameLbl;
+	
+	/** The remove student button. */
 	private JButton removeStudentBtn;
 
+	/** The grade quiz dialog panel. */
 	private JPanel gradeQuizDialogPanel;
+	
+	/** The course id grade cb. */
 	private JComboBox<String> courseIdGradeCB;
+	
+	/** The quizzes to grade. */
 	public JComboBox<String> quizzesToGrade;
+	
+	/** The grade button. */
 	private JButton gradeBtn;
 
+	/** The scroll pane. */
 	private JScrollPane scrollPane;
+	
+	/** The mn help menu. */
 	private JMenu mnHelpMenu;
 	/**
 	 * Create the panel.
@@ -186,6 +253,11 @@ public class InitialWindowView extends ViewPanel {
 		gradeQuizDialogInit(vec);
 	}
 
+	/**
+	 * New quiz dialog init.
+	 *
+	 * @param vec the vec
+	 */
 	private void newQuizDialogInit(Vector<String> vec) {
 		// TODO Auto-generated method stub
 		newQuizDialogPanel = new JPanel();
@@ -223,6 +295,11 @@ public class InitialWindowView extends ViewPanel {
 
 	}
 
+	/**
+	 * Edits the quiz dialog init.
+	 *
+	 * @param vec the vec
+	 */
 	private void editQuizDialogInit(Vector<String> vec) {
 		// TODO Auto-generated method stub
 		editQuizDialogPanel = new JPanel();
@@ -263,6 +340,9 @@ public class InitialWindowView extends ViewPanel {
 		editQuizDialogPanel.setVisible(true);
 	}
 
+	/**
+	 * New course dialog init.
+	 */
 	private void newCourseDialogInit() {
 		// TODO Auto-generated method stub
 		newCourseDialogPanel = new JPanel();
@@ -296,6 +376,11 @@ public class InitialWindowView extends ViewPanel {
 
 	}
 
+	/**
+	 * Removes the course dialog init.
+	 *
+	 * @param vec the vec
+	 */
 	private void removeCourseDialogInit(Vector<String> vec) {
 		// TODO Auto-generated method stub
 		removeCourseDialogPanel = new JPanel();
@@ -323,6 +408,11 @@ public class InitialWindowView extends ViewPanel {
 
 	}
 
+	/**
+	 * Register student dialog init.
+	 *
+	 * @param vec the vec
+	 */
 	private void registerStudentDialogInit(Vector<String> vec) {
 		// TODO Auto-generated method stub
 		registerStudentDialogPanel = new JPanel();
@@ -376,6 +466,11 @@ public class InitialWindowView extends ViewPanel {
 
 	}
 
+	/**
+	 * Removes the student dialog init.
+	 *
+	 * @param vec the vec
+	 */
 	private void removeStudentDialogInit(Vector<String> vec) {
 		// TODO Auto-generated method stub
 		removeStudentDialogPanel = new JPanel();
@@ -423,6 +518,11 @@ public class InitialWindowView extends ViewPanel {
 
 	}
 
+	/**
+	 * Grade quiz dialog init.
+	 *
+	 * @param vec the vec
+	 */
 	private void gradeQuizDialogInit(Vector<String> vec) {
 		// TODO Auto-generated method stub
 		gradeQuizDialogPanel = new JPanel();
@@ -462,6 +562,11 @@ public class InitialWindowView extends ViewPanel {
 		gradeQuizDialogPanel.setVisible(true);
 	}
 
+	/**
+	 * Load students.
+	 *
+	 * @param index the index
+	 */
 	public void loadStudents(int index) {
 		File studentsFolder;
 		try {
@@ -484,6 +589,11 @@ public class InitialWindowView extends ViewPanel {
 		}
 	}
 
+	/**
+	 * Load student name to remove lbl.
+	 *
+	 * @param path the path
+	 */
 	public void loadStudentNameToRemoveLbl(String path) {
 
 		StudentEntity result = (StudentEntity) ObjectFileManager.loadObject(path);
@@ -491,125 +601,277 @@ public class InitialWindowView extends ViewPanel {
 		
 	}
 
+	/**
+	 * Gets the student id.
+	 *
+	 * @return the student id
+	 */
 	public JTextField getStudentId() {
 		return studentId;
 	}
 
+	/**
+	 * Gets the student name.
+	 *
+	 * @return the student name
+	 */
 	public JTextField getStudentName() {
 		return studentName;
 	}
 
+	/**
+	 * Gets the student email.
+	 *
+	 * @return the student email
+	 */
 	public JTextField getStudentEmail() {
 		return studentEmail;
 	}
 
+	/**
+	 * Adds the quiz management listeners.
+	 *
+	 * @param listener the listener
+	 */
 	public void addQuizManagementListeners(ActionListener[] listener) {
 		for (int i = 0; i < listener.length; i++) {
 			mnQuizMngMenu.getItem(i).addActionListener(listener[i]);
 		}
 	}
 
+	/**
+	 * Adds the course management listeners.
+	 *
+	 * @param listener the listener
+	 */
 	public void addCourseManagementListeners(ActionListener[] listener) {
 		for (int i = 0; i < listener.length; i++) {
 			mnCourseManagement.getItem(i).addActionListener(listener[i]);
 		}
 	}
 
+	/**
+	 * Register student btn add listener.
+	 *
+	 * @param listener the listener
+	 */
 	public void registerStudentBtnAddListener(ActionListener listener) {
 		registerStudentBtn.addActionListener(listener);
 	}
 
+	/**
+	 * Creates the quiz btn add listener.
+	 *
+	 * @param listener the listener
+	 */
 	public void createQuizBtnAddListener(ActionListener listener) {
 		createNewQuizBtn.addActionListener(listener);
 	}
 
+	/**
+	 * Creates the course btn add listener.
+	 *
+	 * @param listener the listener
+	 */
 	public void createCourseBtnAddListener(ActionListener listener) {
 		createNewCourseBtn.addActionListener(listener);
 	}
 
+	/**
+	 * Removes the course btn add listener.
+	 *
+	 * @param listener the listener
+	 */
 	public void removeCourseBtnAddListener(ActionListener listener) {
 		removeCourseBtn.addActionListener(listener);
 	}
 
+	/**
+	 * Edits the quiz btn add listener.
+	 *
+	 * @param listener the listener
+	 */
 	public void editQuizBtnAddListener(ActionListener listener) {
 		editQuizBtn.addActionListener(listener);
 	}
 
+	/**
+	 * Removes the student btn add listener.
+	 *
+	 * @param listener the listener
+	 */
 	public void removeStudentBtnAddListener(ActionListener listener) {
 		removeStudentBtn.addActionListener(listener);
 	}
 
+	/**
+	 * Courses ids edit add item listener.
+	 *
+	 * @param listener the listener
+	 */
 	public void coursesIdsEditAddItemListener(ItemListener listener) {
 		coursesIdsEdit.addItemListener(listener);
 	}
 
+	/**
+	 * Removes the student course cb add item listener.
+	 *
+	 * @param listener the listener
+	 */
 	public void removeStudentCourseCBAddItemListener(ItemListener listener) {
 		removeStudentCourseCB.addItemListener(listener);
 	}
 
+	/**
+	 * Removes the students ids cb add item listener.
+	 *
+	 * @param listener the listener
+	 */
 	public void removeStudentsIdsCBAddItemListener(ItemListener listener) {
 		removeStudentsIds.addItemListener(listener);
 	}
 
+	/**
+	 * Grade quiz btn add listener.
+	 *
+	 * @param listener the listener
+	 */
 	public void gradeQuizBtnAddListener(ActionListener listener) {
 		gradeBtn.addActionListener(listener);
 	}
 
+	/**
+	 * Course id grade add item listener.
+	 *
+	 * @param listener the listener
+	 */
 	public void courseIdGradeAddItemListener(ItemListener listener) {
 		courseIdGradeCB.addItemListener(listener);
 	}
+	
+	/**
+	 * Adds the help action listener.
+	 *
+	 * @param listener the listener
+	 */
 	public void addHelpActionListener(ActionListener listener)
 	{
 		mnHelpMenu.getItem(0).addActionListener(listener);
 	}
+	
+	/**
+	 * Gets the new quiz dialog panel.
+	 *
+	 * @return the new quiz dialog panel
+	 */
 	public JPanel getNewQuizDialogPanel() {
 		return newQuizDialogPanel;
 	}
 
+	/**
+	 * Gets the edits the quiz dialog panel.
+	 *
+	 * @return the edits the quiz dialog panel
+	 */
 	public JPanel getEditQuizDialogPanel() {
 		return editQuizDialogPanel;
 	}
 
+	/**
+	 * Gets the new course dialog panel.
+	 *
+	 * @return the new course dialog panel
+	 */
 	public JPanel getNewCourseDialogPanel() {
 		return newCourseDialogPanel;
 	}
 
+	/**
+	 * Gets the removes the course dialog panel.
+	 *
+	 * @return the removes the course dialog panel
+	 */
 	public JPanel getRemoveCourseDialogPanel() {
 		return removeCourseDialogPanel;
 	}
 
+	/**
+	 * Gets the removes the student dialog panel.
+	 *
+	 * @return the removes the student dialog panel
+	 */
 	public JPanel getRemoveStudentDialogPanel() {
 		return removeStudentDialogPanel;
 	}
 
+	/**
+	 * Gets the register student dialog panel.
+	 *
+	 * @return the register student dialog panel
+	 */
 	public JPanel getRegisterStudentDialogPanel() {
 		return registerStudentDialogPanel;
 	}
 
+	/**
+	 * Gets the grade quiz dialog panel.
+	 *
+	 * @return the grade quiz dialog panel
+	 */
 	public JPanel getGradeQuizDialogPanel() {
 		return gradeQuizDialogPanel;
 	}
 
+	/**
+	 * Gets the register student course cb.
+	 *
+	 * @return the register student course cb
+	 */
 	public JComboBox<String> getRegisterStudentCourseCB() {
 		return registerStudentCourseCB;
 	}
 
+	/**
+	 * Gets the removes the student course cb.
+	 *
+	 * @return the removes the student course cb
+	 */
 	public JComboBox<String> getRemoveStudentCourseCB() {
 		return removeStudentCourseCB;
 	}
 
+	/**
+	 * Gets the removes the students ids.
+	 *
+	 * @return the removes the students ids
+	 */
 	public JComboBox<String> getRemoveStudentsIds() {
 		return removeStudentsIds;
 	}
 
+	/**
+	 * Gets the course id grade cb.
+	 *
+	 * @return the course id grade cb
+	 */
 	public JComboBox<String> getCourseIdGradeCB() {
 		return courseIdGradeCB;
 	}
 
+	/**
+	 * Gets the tree.
+	 *
+	 * @return the tree
+	 */
 	public JTree getTree() {
 		return tree;
 	}
 
+	/**
+	 * Sets the tree.
+	 *
+	 * @param tree the new tree
+	 */
 	public void setTree(JTree tree) {
 
 		MouseListener[] mouseListener = this.tree.getMouseListeners();
@@ -626,6 +888,14 @@ public class InitialWindowView extends ViewPanel {
 		scrollPane.revalidate();
 		revalidate();
 	}
+	
+	/**
+	 * Expand all nodes.
+	 *
+	 * @param tree the tree
+	 * @param startingIndex the starting index
+	 * @param rowCount the row count
+	 */
 	private void expandAllNodes(JTree tree, int startingIndex, int rowCount){
 	    for(int i=startingIndex;i<rowCount;++i){
 	        tree.expandRow(i);
@@ -635,50 +905,112 @@ public class InitialWindowView extends ViewPanel {
 	        expandAllNodes(tree, rowCount, tree.getRowCount());
 	    }
 	}
+	
+	/**
+	 * Gets the courses ids edit.
+	 *
+	 * @return the courses ids edit
+	 */
 	public JComboBox<String> getCoursesIdsEdit() {
 		return coursesIdsEdit;
 	}
 
+	/**
+	 * Sets the courses ids edit.
+	 *
+	 * @param coursesIdsEdit the new courses ids edit
+	 */
 	public void setCoursesIdsEdit(JComboBox<String> coursesIdsEdit) {
 		this.coursesIdsEdit = coursesIdsEdit;
 	}
 
+	/**
+	 * Gets the quizzes.
+	 *
+	 * @return the quizzes
+	 */
 	public JComboBox<String> getQuizzes() {
 		return quizzes;
 	}
 
+	/**
+	 * Sets the quizzes.
+	 *
+	 * @param quizzes the new quizzes
+	 */
 	public void setQuizzes(JComboBox<String> quizzes) {
 		this.quizzes = quizzes;
 	}
 
+	/**
+	 * Gets the quizzes to grade.
+	 *
+	 * @return the quizzes to grade
+	 */
 	public JComboBox<String> getQuizzesToGrade() {
 		return quizzesToGrade;
 	}
 
+	/**
+	 * Sets the quizzes to grade.
+	 *
+	 * @param quizzesToGrade the new quizzes to grade
+	 */
 	public void setQuizzesToGrade(JComboBox<String> quizzesToGrade) {
 		this.quizzesToGrade = quizzesToGrade;
 	}
 
+	/**
+	 * Gets the new quiz name.
+	 *
+	 * @return the new quiz name
+	 */
 	public JTextField getNewQuizName() {
 		return newQuizName;
 	}
 
+	/**
+	 * Gets the new course id.
+	 *
+	 * @return the new course id
+	 */
 	public JTextField getNewCourseId() {
 		return newCourseId;
 	}
 
+	/**
+	 * Gets the new course name.
+	 *
+	 * @return the new course name
+	 */
 	public JTextField getNewCourseName() {
 		return newCourseName;
 	}
 
+	/**
+	 * Gets the courses ids.
+	 *
+	 * @return the courses ids
+	 */
 	public JComboBox<String> getCoursesIds() {
 		return coursesIds;
 	}
 
+	/**
+	 * Gets the removes the courses.
+	 *
+	 * @return the removes the courses
+	 */
 	public JComboBox<String> getRemoveCourses() {
 		return removeCourses;
 	}
 
+	/**
+	 * Files tree.
+	 *
+	 * @param file the file
+	 * @return the default mutable tree node
+	 */
 	public static DefaultMutableTreeNode filesTree(File file) {
 		String fileName = file.getName();
 		DefaultMutableTreeNode treeNode;
@@ -694,38 +1026,83 @@ public class InitialWindowView extends ViewPanel {
 		return treeNode;
 	}
 
+	/**
+	 * Gets the creates the new quiz btn.
+	 *
+	 * @return the creates the new quiz btn
+	 */
 	public JButton getCreateNewQuizBtn() {
 		return createNewQuizBtn;
 	}
 
+	/**
+	 * Gets the edits the quiz btn.
+	 *
+	 * @return the edits the quiz btn
+	 */
 	public JButton getEditQuizBtn() {
 		return editQuizBtn;
 	}
 
+	/**
+	 * Gets the creates the new course btn.
+	 *
+	 * @return the creates the new course btn
+	 */
 	public JButton getCreateNewCourseBtn() {
 		return createNewCourseBtn;
 	}
 
+	/**
+	 * Gets the removes the course btn.
+	 *
+	 * @return the removes the course btn
+	 */
 	public JButton getRemoveCourseBtn() {
 		return removeCourseBtn;
 	}
 
+	/**
+	 * Gets the register student btn.
+	 *
+	 * @return the register student btn
+	 */
 	public JButton getRegisterStudentBtn() {
 		return registerStudentBtn;
 	}
 
+	/**
+	 * Gets the chosen remove student name lbl.
+	 *
+	 * @return the chosen remove student name lbl
+	 */
 	public JLabel getChosenRemoveStudentNameLbl() {
 		return chosenRemoveStudentNameLbl;
 	}
 
+	/**
+	 * Gets the removes the student btn.
+	 *
+	 * @return the removes the student btn
+	 */
 	public JButton getRemoveStudentBtn() {
 		return removeStudentBtn;
 	}
 
+	/**
+	 * Gets the grade btn.
+	 *
+	 * @return the grade btn
+	 */
 	public JButton getGradeBtn() {
 		return gradeBtn;
 	}
 
+	/**
+	 * Load quizzes to edit cb.
+	 *
+	 * @param coursesFiles the courses files
+	 */
 	public void loadQuizzesToEditCB(File[] coursesFiles) {
 
 		quizzes.removeAllItems();
@@ -735,6 +1112,11 @@ public class InitialWindowView extends ViewPanel {
 		editQuizDialogPanel.revalidate();
 	}
 
+	/**
+	 * Load quizzes to grade cb.
+	 *
+	 * @param coursesFiles the courses files
+	 */
 	public void loadQuizzesToGradeCB(File[] coursesFiles) {
 
 		quizzesToGrade.removeAllItems();

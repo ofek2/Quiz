@@ -18,9 +18,9 @@ import Views.StudentGradingPanel;
 import Views.ViewPanel;
 
 /**
- * The Class GradingWindowController. This class controls the
- * {@link GradingWindowView} events. Meant for grading the students' quizzes and
- * sending final grades via Email.
+ * The Class GradingWindowController. 
+ * This class controls the {@link GradingWindowView} events. 
+ * This class is used for grading the students' quizzes and sending final grades via Email.
  */
 public class GradingWindowController {
 

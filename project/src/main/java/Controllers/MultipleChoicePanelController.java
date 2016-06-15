@@ -8,6 +8,8 @@ import Views.checkBoxFieldPanel;
 /**
  * The Class MultipleChoicePanelController.
  * This class controls the {@MultupleChoicePanel} events.
+ * This class is used for controlling multiple choices answer panels in the quiz creation
+ * process. 
  */
 public class MultipleChoicePanelController implements Serializable{
 	

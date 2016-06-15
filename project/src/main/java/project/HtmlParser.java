@@ -15,11 +15,23 @@ import javax.xml.transform.stream.StreamResult;
 import org.w3c.dom.Document;
 import org.w3c.dom.NodeList;
 
+/**
+ * The Class HtmlParser. 
+ * This class is used for parsing an xml/html file
+ */
 public class HtmlParser {
 	
+	/** The document. */
 	public Document document;
+	
+	/** The node list. */
 	protected NodeList nList;
 
+	/**
+	 * Instantiates a new html parser.
+	 *
+	 * @param xmlFile the xml file
+	 */
 	public HtmlParser(InputStream xmlFile) {
 		try {
 			DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
@@ -33,6 +45,12 @@ public class HtmlParser {
 	}
 
 
+	/**
+	 * Write html.
+	 *
+	 * @param path the path
+	 * @throws TransformerException the transformer exception
+	 */
 	/*public NodeList getTagChildren(String tag){
 		nList = document.getElementsByTagName(tag);
 		return nList;

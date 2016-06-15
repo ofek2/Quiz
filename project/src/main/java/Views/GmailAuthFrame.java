@@ -25,23 +25,48 @@ import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
 import project.GoogleMail;
 
+/**
+ * The Class GmailAuthFrame.
+ * This class presents the Gmail authorization screen.
+ */
 public class GmailAuthFrame extends JFrame{
-	/**
-	 * 
-	 */
+	
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 1L;
+	
+	/** The jfx panel. */
 	private final JFXPanel jfxPanel = new JFXPanel();
+	
+	/** The engine. */
 	private WebEngine engine;
+	
+	/** The card panel. */
 	private JPanel cardPanel;
+	
+	/** The layout. */
 	private CardLayout layout;
+	
+	/** The send mail panel. */
 	private JPanel sendMailPanel;
+	
+	/** The send button. */
 	private JButton sendBtn;
+	
+	/** The authorization code. */
 	private String authorizationCode;
+	
+	/**
+	 * Instantiates a new gmail auth frame.
+	 */
 	public GmailAuthFrame()
 	{
 		initComponents();
 
 	}
+	
+	/**
+	 * Inits the components.
+	 */
 	private void initComponents() {
 		createScene();
 		JPanel gmailPanel = new JPanel(new BorderLayout());
@@ -87,6 +112,10 @@ public class GmailAuthFrame extends JFrame{
 		setLocationRelativeTo(null);
 		setVisible(true);
 	}
+	
+	/**
+	 * Creates the scene.
+	 */
 	private void createScene() {
 
 		Platform.runLater(new Runnable() {
@@ -127,6 +156,11 @@ public class GmailAuthFrame extends JFrame{
 		});
 	}
 
+	/**
+	 * Load url.
+	 *
+	 * @param url the url
+	 */
 	public void loadURL(final String url) {
 		Platform.runLater(new Runnable() {
 			@Override
@@ -143,6 +177,12 @@ public class GmailAuthFrame extends JFrame{
 		});
 	}
 
+	/**
+	 * To url.
+	 *
+	 * @param str the str
+	 * @return the string
+	 */
 	private static String toURL(String str) {
 		try {
 			return new URL(str).toExternalForm();
@@ -150,45 +190,127 @@ public class GmailAuthFrame extends JFrame{
 			return null;
 		}
 	}
+	
+	/**
+	 * Gets the engine.
+	 *
+	 * @return the engine
+	 */
 	public WebEngine getEngine() {
 		return engine;
 	}
+	
+	/**
+	 * Sets the engine.
+	 *
+	 * @param engine the new engine
+	 */
 	public void setEngine(WebEngine engine) {
 		this.engine = engine;
 	}
+	
+	/**
+	 * Gets the card panel.
+	 *
+	 * @return the card panel
+	 */
 	public JPanel getCardPanel() {
 		return cardPanel;
 	}
+	
+	/**
+	 * Sets the card panel.
+	 *
+	 * @param cardPanel the new card panel
+	 */
 	public void setCardPanel(JPanel cardPanel) {
 		this.cardPanel = cardPanel;
 	}
+	
+	/* (non-Javadoc)
+	 * @see java.awt.Container#getLayout()
+	 */
 	public CardLayout getLayout() {
 		return layout;
 	}
+	
+	/**
+	 * Sets the layout.
+	 *
+	 * @param layout the new layout
+	 */
 	public void setLayout(CardLayout layout) {
 		this.layout = layout;
 	}
+	
+	/**
+	 * Gets the send mail panel.
+	 *
+	 * @return the send mail panel
+	 */
 	public JPanel getSendMailPanel() {
 		return sendMailPanel;
 	}
+	
+	/**
+	 * Sets the send mail panel.
+	 *
+	 * @param sendMailPanel the new send mail panel
+	 */
 	public void setSendMailPanel(JPanel sendMailPanel) {
 		this.sendMailPanel = sendMailPanel;
 	}
+	
+	/**
+	 * Gets the send button.
+	 *
+	 * @return the send button
+	 */
 	public JButton getSendBtn() {
 		return sendBtn;
 	}
+	
+	/**
+	 * Sets the send button.
+	 *
+	 * @param sendBtn the new send button
+	 */
 	public void setSendBtn(JButton sendBtn) {
 		this.sendBtn = sendBtn;
 	}
+	
+	/**
+	 * Gets the jfx panel.
+	 *
+	 * @return the jfx panel
+	 */
 	public JFXPanel getJfxPanel() {
 		return jfxPanel;
 	}
+	
+	/**
+	 * Gets the authorization code.
+	 *
+	 * @return the authorization code
+	 */
 	public String getAuthorizationCode() {
 		return authorizationCode;
 	}
+	
+	/**
+	 * Sets the authorization code.
+	 *
+	 * @param authorizationCode the new authorization code
+	 */
 	public void setAuthorizationCode(String authorizationCode) {
 		this.authorizationCode = authorizationCode;
 	}
+	
+	/**
+	 * Send button add listener.
+	 *
+	 * @param listener the listener
+	 */
 	public void sendBtnAddListener(ActionListener listener)
 	{
 		sendBtn.addActionListener(listener);

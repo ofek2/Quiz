@@ -7,7 +7,8 @@ import Views.HelpFrame;
 
 /**
  * The Class helpFrameController.
- * This class controls the {@link HelpFrame} events
+ * This class controls the {@link HelpFrame} events.
+ * This class is used for previewing and controlling the help frames.
  */
 public class helpFrameController {
 	

@@ -18,19 +18,34 @@ import java.awt.*;
 import java.net.MalformedURLException;
 import java.net.URL;
 
+/**
+ * The Class DropboxAuthentication.
+ * This class is used for the Dropbox login sequence.
+ */
 public class DropboxAuthentication extends JFrame {
 
-	/**
-	 * 
-	 */
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 1L;
+	
+	/** The dbx. */
 	public static DropBoxSimple dbx;
+	
+	/** The jfx panel. */
 	// public static String userEmail;
 	private final JFXPanel jfxPanel = new JFXPanel();
+	
+	/** The engine. */
 	private WebEngine engine;
+	
+	/** The authorized. */
 	private boolean authorized = false;
+	
+	/** The panel. */
 	private final JPanel panel = new JPanel(new BorderLayout());
 
+	/**
+	 * Instantiates a new dropbox authentication.
+	 */
 	public DropboxAuthentication() {
 		super();
 		setTitle("Online Quiz Checker");
@@ -45,6 +60,9 @@ public class DropboxAuthentication extends JFrame {
 	
 	}
 
+	/**
+	 * Inits the components.
+	 */
 	private void initComponents() {
 		createScene();
 		// org.apache.log4j.BasicConfigurator.configure();
@@ -59,6 +77,9 @@ public class DropboxAuthentication extends JFrame {
 		setVisible(true);
 	}
 
+	/**
+	 * Creates the scene.
+	 */
 	private void createScene() {
 
 		Platform.runLater(new Runnable() {
@@ -97,6 +118,11 @@ public class DropboxAuthentication extends JFrame {
 		});
 	}
 
+	/**
+	 * Load url.
+	 *
+	 * @param url the url
+	 */
 	public void loadURL(final String url) {
 		Platform.runLater(new Runnable() {
 			@Override
@@ -112,6 +138,12 @@ public class DropboxAuthentication extends JFrame {
 		});
 	}
 
+	/**
+	 * To url.
+	 *
+	 * @param str the str
+	 * @return the string
+	 */
 	private static String toURL(String str) {
 		try {
 			return new URL(str).toExternalForm();

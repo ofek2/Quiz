@@ -121,14 +121,40 @@ public class HtmlBuilder {
 	}
 
 	/**
-	 * Adds the question.
+	 * Adds a new question to the quiz.
+	 * a question is built in the following structure:
+	 * <Q1>
+	 * 	<div>(Primary section)
+	 * 
+	 * 		<div>(Question Head)
+	 * 			includes the question number and the score(Score textField,total score for the question)
+	 * 		</div>
+	 * 
+	 * 		<div>(Question Body)
+	 * 			<qText>
+	 * 				the question text
+	 * 			</qText>		
+	 * 			<qImage>
+	 * 				holds a picture for the question(optional)
+	 * 			</qImage>
+	 * 			<qAnswer>
+	 * 				answer part, will be updated when a student answer the question.
+	 * 			</qAnswer>
+	 * 		</div>
+	 * 
+	 * 		<div>(Question Footer)
+	 * 			holds "Listen" button for listening questions(optional)
+	 * 		</div>
+	 * 
+	 * 	</div>
+	 * </Q1>
 	 *
 	 * @param qNumber
-	 *            the q number
+	 *            the question number
 	 * @param type
-	 *            the type
+	 *            the question type
 	 * @param score
-	 *            the score
+	 *            the question total score
 	 */
 	public void addQuestion(int qNumber, String type, String score) {
 		
@@ -173,7 +199,8 @@ public class HtmlBuilder {
 	}
 
 	/**
-	 * Adds the question data.
+	 * Adds the question data(the question text and the question image(if there is one).
+	 * 
 	 *
 	 * @param questionNumber
 	 *            the question number
@@ -187,6 +214,7 @@ public class HtmlBuilder {
 		this.questionText = questionText;
 		Element divBody = document.createElement("div");
 		divBody.setAttribute("class", "panel-body");
+		//------------------Add question text-------------------
 		Element qText = document.createElement("qText");
 		Element questionTextPara = document.createElement("pre");
 		qText.appendChild(questionTextPara);
@@ -196,6 +224,7 @@ public class HtmlBuilder {
 			questionTextPara.appendChild(document.createTextNode(" "));
 		divBody.appendChild(qText);
 		if (!questionImageName.equals("")) {
+			//------------------Add question image-------------------
 			Element qImage = document.createElement("qImage");
 			Element img = document.createElement("img");
 			img.setAttribute("src", questionImageName);
@@ -207,8 +236,8 @@ public class HtmlBuilder {
 	}
 
 	/**
-	 * Adds the answers data.
-	 *
+	 * Adds the answers data(adds the answer section to the question depending on the question's type).
+	 * This function is meant for choices questions(Single or multiple)
 	 * @param questionNumber
 	 *            the question number
 	 * @param type
@@ -240,6 +269,7 @@ public class HtmlBuilder {
 			Element label = document.createElement("label");
 
 			Element choice = document.createElement("input");
+			// Adding the next possible answer depending on the choices type
 			if (type.equals("Multiple Choice")) {
 				divListItem.setAttribute("class", "list-group-item checkbox");
 				choice.setAttribute("type", "checkbox");
@@ -278,8 +308,8 @@ public class HtmlBuilder {
 	}
 
 	/**
-	 * Adds the answers data.
-	 *
+	 * Adds the answers data(adds the answer section to the question depending on the question's type).
+	 * This function is meant for questions with the type of free text or free draw.
 	 * @param questionNumber
 	 *            the question number
 	 * @param type
@@ -297,6 +327,7 @@ public class HtmlBuilder {
 		form.setAttribute("name", "Q" + questionNumber);
 		form.setAttribute("type", type);
 		qAnswers.appendChild(form);
+		// Adds a text field for entering an answer for an open question.
 		if (type.equals("Free Text")) {
 			Element textarea = document.createElement("textarea");
 			textarea.setAttribute("class", "form-control");
@@ -306,6 +337,7 @@ public class HtmlBuilder {
 			textarea.appendChild(document.createTextNode(" "));
 			form.appendChild(textarea);
 		}
+		// Adds a button for free drawing an answer to the question.
 		if (type.equals("Free Draw")) {
 			Element studentDrawing = document.createElement("studentdrawingQ" + questionNumber);
 			studentDrawing.appendChild(document.createTextNode(" "));
@@ -329,12 +361,12 @@ public class HtmlBuilder {
 	}
 
 	/**
-	 * Adds the lecturer answers.
-	 *
+	 * Adds the lecturer answers(will be shown only in the graded quiz file and when previewing a quiz in the creation phase).
+	 * This function is meant for choices questions(Single or multiple)
 	 * @param questionNumber
 	 *            the question number
 	 * @param type
-	 *            the type
+	 *            the question type
 	 * @param choices
 	 *            the choices
 	 * @param answer
@@ -404,12 +436,12 @@ public class HtmlBuilder {
 	}
 
 	/**
-	 * Adds the lecturer answers.
-	 *
+	 * Adds the lecturer answers(will be shown only in the graded quiz file and when previewing a quiz in the creation phase).
+	 * This function is meant for questions with the type of free text or free draw.
 	 * @param questionNumber
 	 *            the question number
 	 * @param type
-	 *            the type
+	 *            the question type
 	 * @param answer
 	 *            the answer
 	 */
@@ -577,7 +609,7 @@ public class HtmlBuilder {
 	}
 
 	/**
-	 * Write html.
+	 * Write html file to a specific path.
 	 *
 	 * @param path
 	 *            the path
@@ -605,7 +637,7 @@ public class HtmlBuilder {
 	}
 
 	/**
-	 * Adds the speaker btn.
+	 * Adds the speaker button.
 	 *
 	 * @param qNumber
 	 *            the q number

@@ -18,15 +18,28 @@ import javax.swing.SwingConstants;
 import javax.swing.border.EtchedBorder;
 import javax.swing.border.LineBorder;
 
+/**
+ * The Class GradingWindowView.
+ * This class is used for grading the students.
+ */
 public class GradingWindowView extends ViewPanel {
-	/**
-	 * 
-	 */
+	
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 1L;
+	
+	/** The mn file. */
 	private JMenu mnFile;
+	
+	/** The table. */
 	public static JTable table;
+	
+	/** The scroll pane. */
 	public static JScrollPane scrollPane;
+	
+	/** The table panel. */
 	public JPanel tablePanel;
+	
+	/** The mn help menu. */
 	private JMenu mnHelpMenu;
 	/**
 	 * Create the panel.
@@ -105,25 +118,61 @@ public class GradingWindowView extends ViewPanel {
 		scrollPane.setViewportView(tablePanel);
 
 	}
+	
+	/**
+	 * Adds the file listeners.
+	 *
+	 * @param listener the listener
+	 */
 	public void addFileListeners(ActionListener[] listener)
 	{
 		for (int i = 0; i < listener.length; i++) {
 			mnFile.getItem(i).addActionListener(listener[i]);
 		}
 	}
+	
+	/**
+	 * Gets the mn file.
+	 *
+	 * @return the mn file
+	 */
 	public JMenu getMnFile() {
 		return mnFile;
 	}
+	
+	/**
+	 * Sets the mn file.
+	 *
+	 * @param mnFile the new mn file
+	 */
 	public void setMnFile(JMenu mnFile) {
 		this.mnFile = mnFile;
 	}
+	
+	/**
+	 * Gets the table.
+	 *
+	 * @return the table
+	 */
 	public JTable getTable() {
 		return table;
 	}
+	
+	/**
+	 * Sets the table.
+	 *
+	 * @param customTable the new table
+	 */
 	public static void setTable(JTable customTable) {
 		table = customTable;
 		scrollPane.setViewportView(table);
 	}
+	
+	/**
+	 * Adds the help action listener.
+	 *
+	 * @param listener the listener
+	 */
 	public void addHelpActionListener(ActionListener listener)
 	{
 		mnHelpMenu.getItem(0).addActionListener(listener);

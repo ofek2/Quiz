@@ -16,18 +16,37 @@ import javax.swing.JLabel;
 import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
 
+/**
+ * The Class checkBoxFieldPanel.
+ * This class consists of a JCheckBox ,JTextField and "+","-" buttons.
+ * Used for adding choices when creating a multiple choices question.
+ */
 public class checkBoxFieldPanel extends JPanel implements Serializable{
-	/**
-	 * 
-	 */
+	
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 1L;
+	
+	/** The answer check box. */
 	private JCheckBox answerCheckBox;
+	
+	/** The answer text option. */
 	private JTextField answerTextOption;
+	
+	/** The plus button. */
 	private JButton plusBtn;
+	
+	/** The minus button. */
 	private JButton minusBtn;
+	
+	/** The answer number. */
 	private int answerNumber;
+	
+	/** The a number label. */
 	private JLabel aNumberLbl;
 	
+	/**
+	 * Instantiates a new check box field panel.
+	 */
 	public checkBoxFieldPanel() {
 		super();
 		int width=MainFrameController.view.getWidth()-20;
@@ -92,58 +111,160 @@ public class checkBoxFieldPanel extends JPanel implements Serializable{
 		setOpaque(false);
 		
 	}
+	
+	/**
+	 * Gets the answer check box.
+	 *
+	 * @return the answer check box
+	 */
 	public JCheckBox getAnswerCheckBox() {
 		return answerCheckBox;
 	}
+	
+	/**
+	 * Sets the answer check box.
+	 *
+	 * @param checkBox the new answer check box
+	 */
 	public void setAnswerCheckBox(JCheckBox checkBox) {
 		this.answerCheckBox = checkBox;
 	}
+	
+	/**
+	 * Gets the answer text option.
+	 *
+	 * @return the answer text option
+	 */
 	public JTextField getAnswerTextOption() {
 		return answerTextOption;
 	}
+	
+	/**
+	 * Sets the answer text option.
+	 *
+	 * @param textField the new answer text option
+	 */
 	public void setAnswerTextOption(JTextField textField) {
 		this.answerTextOption = textField;
 	}
+	
+	/**
+	 * Sets the plus button.
+	 *
+	 * @param plusBtn the new plus button
+	 */
 	public void setPlusBtn(JButton plusBtn) {
 		this.plusBtn = plusBtn;
 	}
+	
+	/**
+	 * Sets the minus button.
+	 *
+	 * @param minusBtn the new minus button
+	 */
 	public void setMinusBtn(JButton minusBtn) {
 		this.minusBtn = minusBtn;
 	}
+	
+	/**
+	 * Sets the a number label.
+	 *
+	 * @param aNumberLbl the new a number label
+	 */
 	public void setaNumberLbl(JLabel aNumberLbl) {
 		this.aNumberLbl = aNumberLbl;
 	}
+	
+	/**
+	 * Gets the a number label.
+	 *
+	 * @return the a number label
+	 */
 	public JLabel getaNumberLbl() {
 		return aNumberLbl;
 	}
+	
+	/**
+	 * Sets the a number label.
+	 *
+	 * @param string the new a number label
+	 */
 	public void setaNumberLbl(String string) {
 		this.aNumberLbl.setText(string);
 	}
+	
+	/**
+	 * Plus button add listener.
+	 *
+	 * @param listener the listener
+	 */
 	public void plusBtnAddListener(ActionListener listener)
 	{
 		plusBtn.addActionListener(listener);
 	}
+	
+	/**
+	 * Minus button add listener.
+	 *
+	 * @param listener the listener
+	 */
 	public void minusBtnAddListener(ActionListener listener)
 	{
 		minusBtn.addActionListener(listener);
 	}
+	
+	/**
+	 * Adds the answer text option key listener.
+	 *
+	 * @param listener the listener
+	 */
 	public void addAnswerTextOptionKeyListener(KeyListener listener)
 	{
 		answerTextOption.addKeyListener(listener);
 	}
-	public void addChckbxNewCheckBox(ActionListener listener)
+	
+	/**
+	 * Adds the checkbox new check box.
+	 *
+	 * @param listener the listener
+	 */
+	public void addAnswerCheckBoxListener(ActionListener listener)
 	{
 		answerCheckBox.addActionListener(listener);
 	}
+	
+	/**
+	 * Gets the plus button.
+	 *
+	 * @return the plus button
+	 */
 	public JButton getPlusBtn() {
 		return plusBtn;
 	}
+	
+	/**
+	 * Gets the minus button.
+	 *
+	 * @return the minus button
+	 */
 	public JButton getMinusBtn() {
 		return minusBtn;
 	}
+	
+	/**
+	 * Gets the answer number.
+	 *
+	 * @return the answer number
+	 */
 	public int getAnswerNumber() {
 		return answerNumber;
 	}
+	
+	/**
+	 * Sets the answer number.
+	 *
+	 * @param answerNumber the new answer number
+	 */
 	public void setAnswerNumber(int answerNumber) {
 		this.answerNumber = answerNumber;
 	}

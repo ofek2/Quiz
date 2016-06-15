@@ -10,6 +10,7 @@ import java.awt.Color;
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
 
+import Controllers.IntroFrameController;
 import Entities.Constants;
 import javafx.scene.image.Image;
 
@@ -21,9 +22,21 @@ import java.awt.event.ActionListener;
 import java.awt.Dimension;
 import javax.swing.JButton;
 
+/**
+ * The Class IntroFrame.
+ * This class is a boundary controlled by {@link IntroFrameController}.
+ */
 public class IntroFrame extends JFrame{
+	
+	/** The login button. */
 	private JButton loginBtn;
+	
+	/** The help button. */
 	private JButton helpBtn;
+	
+	/**
+	 * Instantiates a new intro frame.
+	 */
 	public IntroFrame()
 	{
 		setTitle("Online Quiz Checker");
@@ -79,10 +92,22 @@ public class IntroFrame extends JFrame{
 		loginBtnPanel.add(loginBtn);
 		setVisible(true);
 	}
+	
+	/**
+	 * Adds the login btn listener.
+	 *
+	 * @param actionListener the action listener
+	 */
 	public void addLoginBtnListener(ActionListener actionListener)
 	{
 		loginBtn.addActionListener(actionListener);
 	}
+	
+	/**
+	 * Adds the help btn listener.
+	 *
+	 * @param actionListener the action listener
+	 */
 	public void addHelpBtnListener(ActionListener actionListener)
 	{
 		helpBtn.addActionListener(actionListener);

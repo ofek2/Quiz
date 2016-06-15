@@ -39,6 +39,7 @@ import project.ObjectFileManager;
 /**
  * The Class QuizCreationController.
  * This class controls {@link QuizCreationView} events.
+ * This class is used for creating quizzes.
  */
 public class QuizCreationController implements Serializable {
 
@@ -349,7 +350,7 @@ public class QuizCreationController implements Serializable {
 				htmlBuilder.removeLecturerAnswers(questionsToHide);
 				htmlBuilder.writeHtml(entity.getQuizFormFolder().getCanonicalPath() + "/" + entity.getName() + ".html");
 				initialWindowView.setTree(new JTree(InitialWindowView
-						.filesTree(new File(new File(".").getCanonicalPath() + "/OnlineQuizChecker"))));
+						.filesTree(new File(new File(".").getCanonicalPath() + "/"+Constants.APP_NAME))));
 				QuizObjectEntity quizObjectEntity = new QuizObjectEntity(entity, qPanels);
 				String path = entity.getQuizFormFolder().getCanonicalPath() + "/" + entity.getName() + ".ser";
 				ObjectFileManager.saveObject(quizObjectEntity, path);

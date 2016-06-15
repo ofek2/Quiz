@@ -8,12 +8,27 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 
+/**
+ * The Class ObjectFileManager.
+ * This class is used for saving and reading objects files.
+ */
 public class ObjectFileManager {
+	
+	/**
+	 * Instantiates a new object file manager.
+	 */
 	//private String path;
 	public ObjectFileManager()
 	{
-		//this.path=path;
 	}
+	
+	/**
+	 * Save object.
+	 *
+	 * @param obj the object to be saved
+	 * @param path the path
+	 * @return true, if successful
+	 */
 	public static boolean saveObject(Object obj,String path)
 	{
 		FileOutputStream fos;
@@ -31,6 +46,13 @@ public class ObjectFileManager {
 		}
 		return true;
 	}
+	
+	/**
+	 * Load object.
+	 *
+	 * @param path the path
+	 * @return the object
+	 */
 	public static Object loadObject(String path)
 	{
 		FileInputStream fis;
@@ -53,6 +75,13 @@ public class ObjectFileManager {
 			return null;
 		
 	}
+	
+	/**
+	 * Folder size.
+	 *
+	 * @param directory the directory
+	 * @return the long
+	 */
 	public static long folderSize(File directory) {
 	    long length = 0;
 	    for (File file : directory.listFiles()) {

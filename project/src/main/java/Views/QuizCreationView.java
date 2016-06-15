@@ -22,6 +22,7 @@ import javax.swing.ScrollPaneConstants;
 import javax.swing.border.EtchedBorder;
 import javax.swing.border.TitledBorder;
 
+import Controllers.QuizCreationController;
 import javafx.scene.shape.Box;
 
 import java.awt.Color;
@@ -30,20 +31,43 @@ import java.awt.GridLayout;
 import java.awt.Insets;
 import java.awt.Cursor;
 
+/**
+ * The Class QuizCreationView.
+ * This class is used for creating a quiz.
+ * This class is a boundary controlled by {@link QuizCreationController}.
+ */
 public class QuizCreationView extends ViewPanel {
-	/**
-	 * 
-	 */
+	
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 1L;
+	
+	/** The add button. */
 	public JButton addBtn;
+	
+	/** The panel. */
 	public JPanel panel;
+	
+	/** The head panel. */
 	private JPanel headPanel;
+	
+	/** The quiz name. */
 	private JLabel quizName;
+	
+	/** The course name. */
 	private JLabel courseName;
+	
+	/** The menu bar. */
 	private JMenuBar menuBar;
+	
+	/** The file menu. */
 	private JMenu fileMenu;
+	
+	/** The help menu. */
 	private JMenu mnHelpMenu;
 
+	/**
+	 * Instantiates a new quiz creation view.
+	 */
 	// private JSpinner percentageFromFgrade;
 	public QuizCreationView() {
 		super();
@@ -147,24 +171,50 @@ public class QuizCreationView extends ViewPanel {
 	}
 
 	
+	/**
+	 * Adds the btn add listener.
+	 *
+	 * @param listener the listener
+	 */
 	public void addBtnAddListener(ActionListener listener) {
 		addBtn.addActionListener(listener);
 	}
 
 
+	/**
+	 * Adds the file menu listeners.
+	 *
+	 * @param listener the listener
+	 */
 	public void addFileMenuListeners(ActionListener[] listener) {
 		for (int i = 0; i < listener.length; i++) {
 			fileMenu.getItem(i).addActionListener(listener[i]);
 		}
 	}
 
+	/**
+	 * Gets the quiz name.
+	 *
+	 * @return the quiz name
+	 */
 	public JLabel getQuizName() {
 		return quizName;
 	}
 
+	/**
+	 * Gets the course name.
+	 *
+	 * @return the course name
+	 */
 	public JLabel getCourseName() {
 		return courseName;
 	}
+	
+	/**
+	 * Adds the help action listener.
+	 *
+	 * @param listener the listener
+	 */
 	public void addHelpActionListener(ActionListener listener)
 	{
 		mnHelpMenu.getItem(0).addActionListener(listener);

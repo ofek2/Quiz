@@ -23,6 +23,8 @@ import com.dropbox.client2.session.RequestTokenPair;
 import com.dropbox.client2.session.Session;
 import com.dropbox.client2.session.WebAuthSession;
 import com.dropbox.client2.session.WebAuthSession.WebAuthInfo;
+
+import Entities.Constants;
 import project.progListener;
 
 /**
@@ -42,7 +44,7 @@ public class DropBoxSimple {
 	
 	static {
 		try {
-			rootPath = new File(".").getCanonicalPath() + "\\OnlineQuizChecker";
+			rootPath = new File(".").getCanonicalPath() + "\\"+Constants.APP_NAME;
 
 		} catch (IOException e) {
 			// TODO Auto-generated catch block

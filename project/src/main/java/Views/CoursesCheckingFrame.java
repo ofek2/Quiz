@@ -18,20 +18,51 @@ import javax.swing.JScrollPane;
 import javax.swing.ScrollPaneConstants;
 import javax.swing.SwingConstants;
 
+import Controllers.InitialWindowController;
 import Entities.Constants;
 import Entities.CourseEntity;
 
+/**
+ * The Class CoursesCheckingFrame.
+ * This class is a boundary controlled by {@link InitialWindowController}
+ * This frame shows what is missing to create an appropriate course.
+ * Appropriate course is build from at least:
+ * One quiz.
+ * One student.
+ */
 public class CoursesCheckingFrame{
+	
+	/** The Constant linesSpace. */
 	private static final int linesSpace = 10;
+	
+	/** The courses files. */
 	private ArrayList<CourseEntity> coursesFiles;
+	
+	/** The to fix array. */
 	private ArrayList<String> toFixArray;
+	
+	/** The frame. */
 	private JFrame frame;
+	
+	/** The panel. */
 	private JPanel panel;
+	
+	/**
+	 * Instantiates a new courses checking frame.
+	 *
+	 * @param coursesFiles the courses files
+	 */
 	public CoursesCheckingFrame(ArrayList<CourseEntity> coursesFiles){
 		this.coursesFiles = coursesFiles;
 		toFixArray = new ArrayList<String>();
 		
 	}
+	
+	/**
+	 * Check.
+	 *
+	 * @return true, if successful
+	 */
 	public boolean check() {
 		// TODO Auto-generated method stub
 		initFrame();
@@ -72,6 +103,9 @@ public class CoursesCheckingFrame{
 		return true;
 	}
 	
+	/**
+	 * Inits the frame.
+	 */
 	private void initFrame() {
 		
 		frame=new JFrame("Warning!");
@@ -94,6 +128,10 @@ public class CoursesCheckingFrame{
 		frame.setContentPane(backPanel);
 		
 	}
+	
+	/**
+	 * Builds the frame.
+	 */
 	private void buildFrame() {
 		
 		Component titleSpace = Box.createVerticalStrut(linesSpace);
@@ -120,6 +158,10 @@ public class CoursesCheckingFrame{
 		}
 		frame.setVisible(true);
 	}
+	
+	/**
+	 * Handle no courses.
+	 */
 	private void handleNoCourses() {
 
 		JLabel line1 = new JLabel("Please add at least one course containing :");

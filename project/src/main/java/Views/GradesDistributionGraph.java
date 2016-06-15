@@ -18,25 +18,64 @@ import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
 import javafx.scene.paint.Color;
 
+/**
+ * The Class GradesDistributionGraph.
+ * This class is used for creating grades distribution graphs in the {@link ReportsView}.
+ */
 public class GradesDistributionGraph extends ViewPanel implements Runnable{
-	/**
-	 * 
-	 */
+	
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 1L;
+	
+	/** The fx panel. */
 	private JFXPanel fxPanel;
+	
+	/** The quiz scores. */
 	private ArrayList<String> quizScores;
+	
+	/** The title. */
 	private String title;
+	
+	/** The graph menu. */
 	private JMenu graphMenu;
+	
+	/** The previous view. */
 	private Container previousView;
+	
+	/** The thread. */
 	private Thread thread;
+    
+    /** The Constant first. */
     final static String first = "0-54.9";
+    
+    /** The Constant second. */
     final static String second = "55-64";
+    
+    /** The Constant third. */
     final static String third = "65-69";
+    
+    /** The Constant fourth. */
     final static String fourth = "70-80";
+    
+    /** The Constant fifth. */
     final static String fifth = "81-90";
+    
+    /** The Constant last. */
     final static String last = "91-100";
+    
+    /** The Constant partition. */
     final static double[] partition={55,65,70,81,91,100};
+    
+    /** The partitions percentages. */
     private double[] partitionsPercentages = {0,0,0,0,0,0};
+	
+	/**
+	 * Instantiates a new grades distribution graph.
+	 *
+	 * @param quizScores the quiz scores
+	 * @param title the title
+	 * @param previousView the previous view
+	 */
 	public GradesDistributionGraph(ArrayList<String> quizScores,String title,
 			Container previousView) {
 		this.quizScores = quizScores;
@@ -66,11 +105,20 @@ public class GradesDistributionGraph extends ViewPanel implements Runnable{
 
 
 	
+	/* (non-Javadoc)
+	 * @see java.lang.Runnable#run()
+	 */
 	@Override
 	public void run() {
 		// TODO Auto-generated method stub
 		initFX(fxPanel);
 	}
+	
+	/**
+	 * Inits the fx.
+	 *
+	 * @param fxPanel the fx panel
+	 */
 	protected void initFX(JFXPanel fxPanel) {
 		// TODO Auto-generated method stub
         final CategoryAxis xAxis = new CategoryAxis();
@@ -118,8 +166,23 @@ public class GradesDistributionGraph extends ViewPanel implements Runnable{
 		
 	}
 	
+	/**
+	 * The listener interface for receiving exit events.
+	 * The class that is interested in processing a exit
+	 * event implements this interface, and the object created
+	 * with that class is registered with a component using the
+	 * component's <code>addExitListener<code> method. When
+	 * the exit event occurs, that object's appropriate
+	 * method is invoked.
+	 *
+	 * @see ExitEvent
+	 */
 	class ExitListener implements ActionListener
 	{
+		
+		/* (non-Javadoc)
+		 * @see java.awt.event.ActionListener#actionPerformed(java.awt.event.ActionEvent)
+		 */
 		public void actionPerformed(ActionEvent e) {
 			// TODO Auto-generated method stub
 			MainFrameController.view.changeContentPane((ViewPanel)previousView);
