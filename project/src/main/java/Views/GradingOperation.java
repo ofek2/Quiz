@@ -39,23 +39,59 @@ import javax.swing.Box;
 import javax.swing.BoxLayout;
 import java.awt.Font;
 
+/**
+ * The Class GradingOperation.
+ * This class controls the grading operation of a specific 
+ */
 public class GradingOperation extends ViewPanel {
 
-	/**
-	 * 
-	 */
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 1L;
 
+	/** The engine. */
 	private WebEngine engine;
 
+	/** The fx panel. */
 	private JFXPanel fxPanel;
+	
+	/** The student grading panel. */
 	private StudentGradingPanel studentGradingPanel;
+	
+	/** The student quiz path. */
 	private String studentQuizPath;
+	
+	/** The grading menu. */
 	private JMenu gradingMenu;
+	
+	/** The previous view. */
 	private Container previousView;
-
+	
+	/** The in. */
+	private InputStream in;
+	
+	/** The student quiz. */
+	private HtmlParser studentQuiz;
+	
+	/** The student quiz file. */
+	private File studentQuizFile;
+	/**
+	 * Instantiates a new grading operation.
+	 *
+	 * @param studentGradingPanel the student grading panel
+	 * @param studentQuizPath the student quiz path
+	 * @param previousView the previous view
+	 */
 	@SuppressWarnings("deprecation")
 	public GradingOperation(StudentGradingPanel studentGradingPanel, String studentQuizPath, Container previousView) {
+		studentQuizFile = new File(studentQuizPath);
+		try {
+			in = new FileInputStream(studentQuizFile);
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		studentQuiz = new HtmlParser(in);
+		
 		setBackground(Color.white);
 		this.studentGradingPanel = studentGradingPanel;
 		this.studentQuizPath = studentQuizPath;
@@ -99,8 +135,23 @@ public class GradingOperation extends ViewPanel {
 		mntmExit.addActionListener(new ExitListener());
 
 	}
+	
+	/**
+	 * The listener interface for receiving exit events.
+	 * The class that is interested in processing a exit
+	 * event implements this interface, and the object created
+	 * with that class is registered with a component using the
+	 * component's <code>addExitListener<code> method. When
+	 * the exit event occurs, that object's appropriate
+	 * method is invoked.
+	 *
+	 * @see ExitEvent
+	 */
 	class ExitListener implements ActionListener {
 
+		/* (non-Javadoc)
+		 * @see java.awt.event.ActionListener#actionPerformed(java.awt.event.ActionEvent)
+		 */
 		public void actionPerformed(ActionEvent e) {
 			// TODO Auto-generated method stub
 			if (studentGradingPanel.getGradeBtn().getText().equals("Grade"))
@@ -112,6 +163,9 @@ public class GradingOperation extends ViewPanel {
 
 	}
 
+	/**
+	 * Creates the scene.
+	 */
 	private void createScene() {
 
 		Platform.runLater(new Runnable() {
@@ -143,9 +197,19 @@ public class GradingOperation extends ViewPanel {
     
 
 
+	/**
+	 * The Class Desktop.
+	 */
 	public class Desktop {
-		InputStream in;
+		
+	
 
+		/**
+		 * Receive input.
+		 *
+		 * @param score the score
+		 * @param questionNumber the question number
+		 */
 		public void receiveInput(String score, String questionNumber) {
 			// Platform.exit();
 			// System.out.print(score+","+questionNumber);
@@ -154,13 +218,19 @@ public class GradingOperation extends ViewPanel {
 		
 			studentGradingPanel.getLblGrade().setText(score);
 		}
+		
+		/**
+		 * Insert score to html.
+		 *
+		 * @param studentQuizPath the student quiz path
+		 * @param score the score
+		 * @param questionNumber the question number
+		 */
 		private void insertScoreToHTML(String studentQuizPath, String score, String questionNumber) {
 
 			try {
 				// System.out.println("-"+questionNumber+"-");
-				File studentQuizFile = new File(studentQuizPath);
-				in = new FileInputStream(studentQuizFile);
-				HtmlParser studentQuiz = new HtmlParser(in);
+				
 				if (!questionNumber.equals("0")) {
 					NodeList questionElement = studentQuiz.document.getElementsByTagName("Q" + questionNumber);
 					Element question = (Element) questionElement.item(0);
@@ -204,9 +274,6 @@ public class GradingOperation extends ViewPanel {
 			//	studentQuiz.document.removeChild(studentQuiz.document.getElementById("scoreScript"));
 				studentQuiz.writeHtml(studentQuizPath);
 //				engine.load("file:///" + studentQuizPath);
-			} catch (FileNotFoundException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
 			} catch (TransformerException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
