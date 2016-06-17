@@ -19,14 +19,11 @@ import javax.swing.JFileChooser;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
-import javax.swing.JSeparator;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
-import javax.swing.border.EtchedBorder;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
-import Controllers.MainFrameController;
 import Controllers.MultipleChoicePanelController;
 import Controllers.qPanelController;
 import Entities.Constants;
@@ -34,19 +31,14 @@ import Entities.Constants;
 import javax.swing.BoxLayout;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
-import java.awt.BorderLayout;
-import java.awt.event.ActionEvent;
-import java.awt.ComponentOrientation;
 import java.awt.Component;
 import javax.swing.border.LineBorder;
 import java.awt.Color;
 import javax.swing.border.MatteBorder;
-import javax.swing.border.BevelBorder;
 import javax.swing.border.TitledBorder;
 import javax.swing.ScrollPaneConstants;
 import javax.swing.UIManager;
 import java.awt.SystemColor;
-import javax.swing.border.EmptyBorder;
 import javax.swing.Box;
 
 /**
@@ -60,7 +52,6 @@ public class qPanel extends JPanel implements Serializable{
 	private static final long serialVersionUID = 1L;
 	
 	/** The question number. */
-	//title
 	private int questionNumber;
 	
 	/** The question label. */
@@ -91,7 +82,6 @@ public class qPanel extends JPanel implements Serializable{
 	private JCheckBox chckbxHideQuestion;
 	
 	/** The answer type combobox. */
-	//answer side
 	private JComboBox<String> answerTypeCb;
 	
 	/** The answer file chooser. */
@@ -114,9 +104,8 @@ public class qPanel extends JPanel implements Serializable{
 	
 	/** The Constant width. */
 	private final static int width=Constants.FRAME_WIDTH-80;
-//	private final static int height=(int) (MainFrameController.view.getContentPane().getHeight()/3);
-/** The Constant height. */
-//	private final static int width=1900;
+
+	/** The Constant height. */
 	private final static int height=600;
 	
 	/** The Constant qPanelsGap. */

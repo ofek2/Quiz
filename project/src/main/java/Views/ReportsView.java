@@ -11,29 +11,23 @@ import java.awt.GridLayout;
 import java.awt.event.ActionListener;
 import java.util.Vector;
 
-import javax.swing.JInternalFrame;
-import java.awt.BorderLayout;
 import javax.swing.JLabel;
 import javax.swing.JComboBox;
-import javax.swing.JDesktopPane;
 import javax.swing.JButton;
 import javax.swing.JSeparator;
 import javax.swing.ScrollPaneConstants;
 import javax.swing.border.TitledBorder;
 
 import Controllers.InitialWindowController;
-import Controllers.MainFrameController;
 import Controllers.ReportsController;
 
 import java.awt.Color;
 import java.awt.Font;
-import javax.swing.SwingConstants;
 import javax.swing.JScrollPane;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.EtchedBorder;
 import javax.swing.JMenuItem;
 import javax.swing.border.CompoundBorder;
-import javax.swing.border.LineBorder;
 import javax.swing.UIManager;
 
 /**
@@ -43,6 +37,11 @@ import javax.swing.UIManager;
  */
 public class ReportsView extends ViewPanel{
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	/** The reports students ids. */
 	private JComboBox<String>reportsStudentsIds;
 	
@@ -213,7 +212,7 @@ public class ReportsView extends ViewPanel{
 		lblReportsStudentId = new JLabel("Student ID:");
 		produceStudRepPanel.add(lblReportsStudentId);
 		
-		reportsStudentsIds = new JComboBox();
+		reportsStudentsIds = new JComboBox<String>();
 		reportsStudentsIds.setPreferredSize(new Dimension(200, 20));
 		produceStudRepPanel.add(reportsStudentsIds);
 		
@@ -239,11 +238,6 @@ public class ReportsView extends ViewPanel{
 		btnExportExcelFile = new JButton("Export excel file");
 		xcelExportPanel.add(btnExportExcelFile);
 	}
-//	public JPanel getReportsInfoPanel() {
-//		return reportsInfoPanel;
-//	}
-//	public void setReportsInfoPanel(JPanel reportsInfoPanel) {
-//		this.reportsInfoPanel = reportsInfoPanel;
 /**
  * Gets the reports courses.
  *
@@ -290,28 +284,6 @@ public class ReportsView extends ViewPanel{
 		return titleButtons;
 	}
 
-//	public void setTitleButtons(int size,ArrayList<String> quizzesNames) {
-//		titleButtons = new JButton[size];
-//		for (int i = 0; i < titleButtons.length; i++) {
-//			titleButtons[i] = new JButton(quizzesNames.get(i));
-//		}
-////		if (table!=null) {
-////			System.out.println("12");
-////			table.removeAllItems();
-////			scrollPane.setViewportView(table);
-//////			revalidate();
-////		}
-////		else{
-//		CTable table = new CTable(titleButtons);
-//		ArrayList<Object> labels = new ArrayList<>();
-////		for(int i =0;i<5;i++)
-//		for(int i =0;i<size+1;i++)
-//		labels.add(new JLabel("shit"));
-//		table.add(new RepRow(labels, 1));
-//		scrollPane.setViewportView(table);
-////		revalidate();
-////		}
-//	}
 
 	/**
  * Sets the title buttons.
@@ -339,14 +311,7 @@ public void setTitleButtons(JButton[] titleButtons) {
 	public void setTable(CTable table) {
 		this.table = table;
 	}
-//	public void removeAllItems()
-//	{
-//		for (int i = 0; i < table.getRows().size(); i++) {
-//			table.remove((Component)table.getRows().get(0));
-//		}
-//		
-//	}
-	
+
 	/**
  * Gets the course label.
  *

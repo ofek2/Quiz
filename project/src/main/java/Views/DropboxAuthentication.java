@@ -29,7 +29,6 @@ public class DropboxAuthentication extends JFrame {
 	public static DropBoxSimple dbx;
 	
 	/** The jfx panel. */
-	// public static String userEmail;
 	private final JFXPanel jfxPanel = new JFXPanel();
 	
 	/** The engine. */
@@ -63,7 +62,6 @@ public class DropboxAuthentication extends JFrame {
 	 */
 	private void initComponents() {
 		createScene();
-		// org.apache.log4j.BasicConfigurator.configure();
 		panel.add(jfxPanel, BorderLayout.CENTER);
 		getContentPane().add(panel);
 

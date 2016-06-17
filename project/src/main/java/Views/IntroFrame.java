@@ -2,20 +2,13 @@ package Views;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
-import java.awt.BorderLayout;
 import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
 
 import java.awt.Color;
 import javax.swing.JLabel;
-import javax.swing.SwingConstants;
-
 import Controllers.IntroFrameController;
-import Entities.Constants;
-import javafx.scene.image.Image;
-
 import java.awt.FlowLayout;
-import java.io.InputStream;
 import java.net.URL;
 import java.awt.Font;
 import java.awt.event.ActionListener;
@@ -28,6 +21,11 @@ import javax.swing.JButton;
  */
 public class IntroFrame extends JFrame{
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	/** The login button. */
 	private JButton loginBtn;
 	

@@ -143,7 +143,6 @@ public class GmailAuthFrame extends JFrame{
 											pack();						
 											setLocationRelativeTo(null);
 										} catch (IOException e) {
-											// TODO Auto-generated catch block
 											e.printStackTrace();
 										}
 	                               }

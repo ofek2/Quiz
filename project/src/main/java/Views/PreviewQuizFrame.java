@@ -11,19 +11,8 @@ import java.net.URL;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
-import javax.swing.SwingWorker;
-
-import org.w3c.dom.Document;
-import org.w3c.dom.NodeList;
-
-import Controllers.MainFrameController;
 import Controllers.QuizCreationController;
-import Controllers.removeFromDropbox;
-import Entities.Constants;
 import javafx.application.Platform;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
-import javafx.concurrent.Worker;
 import javafx.embed.swing.JFXPanel;
 import javafx.scene.Scene;
 import javafx.scene.web.WebEngine;
@@ -31,10 +20,15 @@ import javafx.scene.web.WebView;
 
 /**
  * The Class PreviewQuizFrame.
- * This class is used for previewing a quiz in the creation proccess.
+ * This class is used for previewing a quiz in the creation process.
  */
 public class PreviewQuizFrame extends JFrame{
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	/** The jfx panel. */
 	private  JFXPanel jfxPanel;
 	
@@ -50,9 +44,6 @@ public class PreviewQuizFrame extends JFrame{
 	/** The temp folder to delete. */
 	private String tempFolderToDelete;
 	
-	/** The controller. */
-	private QuizCreationController controller;
-	
 	/**
 	 * Instantiates a new preview quiz frame.
 	 *
@@ -61,11 +52,9 @@ public class PreviewQuizFrame extends JFrame{
 	 */
 	public PreviewQuizFrame(String tempFolderToDelete,QuizCreationController controller){
 		super();
-		this.controller = controller;
 		jfxPanel = new JFXPanel();
 		this.tempFolderToDelete = tempFolderToDelete;
 		windowListener = new windowListener();
-	//	removeWindowListener(MainFrameController.view.windowListener);
 		setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 		addWindowListener(windowListener);
 		initComponents();
@@ -160,10 +149,10 @@ public class PreviewQuizFrame extends JFrame{
 		 */
 		public void windowClosing(WindowEvent e) {
 			File tmp = new File(tempFolderToDelete);
-			for(int i = 0;i<controller.qPanels.size();i++)
+			for(int i = 0;i<QuizCreationController.qPanels.size();i++)
 			{
-				controller.qPanels.get(i).settempaImgFile(controller.qPanels.get(i).getaImgFile());
-				controller.qPanels.get(i).settempqImgFile(controller.qPanels.get(i).getqImgFile());
+				QuizCreationController.qPanels.get(i).settempaImgFile(QuizCreationController.qPanels.get(i).getaImgFile());
+				QuizCreationController.qPanels.get(i).settempqImgFile(QuizCreationController.qPanels.get(i).getqImgFile());
 			}
 			recursiveDelete(tmp);
 			dispose();

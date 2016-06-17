@@ -110,7 +110,6 @@ public class GradesDistributionGraph extends ViewPanel implements Runnable{
 	 */
 	@Override
 	public void run() {
-		// TODO Auto-generated method stub
 		initFX(fxPanel);
 	}
 	
@@ -121,7 +120,6 @@ public class GradesDistributionGraph extends ViewPanel implements Runnable{
 	 */
 	@SuppressWarnings({ "rawtypes", "unchecked" })
 	protected void initFX(JFXPanel fxPanel) {
-		// TODO Auto-generated method stub
         final CategoryAxis xAxis = new CategoryAxis();
         final NumberAxis yAxis = new NumberAxis();
         final BarChart<String,Number> bc = 
@@ -185,7 +183,6 @@ public class GradesDistributionGraph extends ViewPanel implements Runnable{
 		 * @see java.awt.event.ActionListener#actionPerformed(java.awt.event.ActionEvent)
 		 */
 		public void actionPerformed(ActionEvent e) {
-			// TODO Auto-generated method stub
 			MainFrameController.view.changeContentPane((ViewPanel)previousView);
 
 		}

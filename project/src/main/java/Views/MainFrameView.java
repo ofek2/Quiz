@@ -1,15 +1,9 @@
 package Views;
 
-import java.awt.GraphicsEnvironment;
-import java.awt.Rectangle;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-import java.awt.event.WindowListener;
 import java.io.Serializable;
 import javax.swing.JFrame;
-import javax.swing.UIManager;
-import javax.swing.UnsupportedLookAndFeelException;
-
 import Controllers.MainFrameController;
 
 
@@ -35,8 +29,6 @@ public class MainFrameView extends JFrame implements Serializable{
 		
 		windowListener = new windowListener();
 		addWindowListener(windowListener);
-		GraphicsEnvironment env = GraphicsEnvironment.getLocalGraphicsEnvironment();
-		Rectangle bounds = env.getMaximumWindowBounds();
 		setSize(1000,700);
 		setLocationRelativeTo(null);
 		setResizable(false);

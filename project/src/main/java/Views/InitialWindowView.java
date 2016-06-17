@@ -8,11 +8,8 @@ import java.awt.Color;
 import javax.swing.JMenuItem;
 import javax.swing.border.EtchedBorder;
 import javax.swing.tree.DefaultMutableTreeNode;
-import javax.swing.tree.TreeModel;
 import javax.swing.JTree;
 import javax.swing.ScrollPaneConstants;
-import javax.swing.UIManager;
-
 import java.awt.Component;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemListener;
@@ -20,7 +17,6 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseListener;
 import javax.swing.JSeparator;
 import java.awt.Dimension;
-import java.awt.Font;
 import java.awt.Cursor;
 import javax.swing.JTextField;
 import java.awt.Label;
@@ -35,7 +31,6 @@ import javax.swing.JButton;
 import project.MyTree;
 import project.ObjectFileManager;
 import Controllers.InitialWindowController;
-import Controllers.MainFrameController;
 import Entities.StudentEntity;
 
 /**
@@ -305,7 +300,6 @@ public class InitialWindowView extends ViewPanel {
 		editQuizDialogPanel = new JPanel();
 		editQuizDialogPanel.setLayout(null);
 		editQuizDialogPanel.setSize(300, 220);
-		//editQuizDialogPanel.setBackground(Color.RED);
 	
 		Label label2 = new Label("Course Id:");
 		label2.setBounds(13, 28, 80, 19);
@@ -344,10 +338,8 @@ public class InitialWindowView extends ViewPanel {
 	 * New course dialog init.
 	 */
 	private void newCourseDialogInit() {
-		// TODO Auto-generated method stub
 		newCourseDialogPanel = new JPanel();
 		newCourseDialogPanel.setLayout(null);
-		//newCourseDialogPanel.setBackground(Color.CYAN);
 		newCourseDialogPanel.setSize(300, 220);
 
 		JLabel lblCourseId = new JLabel("Course Id:");
@@ -382,10 +374,8 @@ public class InitialWindowView extends ViewPanel {
 	 * @param vec the vec
 	 */
 	private void removeCourseDialogInit(Vector<String> vec) {
-		// TODO Auto-generated method stub
 		removeCourseDialogPanel = new JPanel();
 		removeCourseDialogPanel.setLayout(null);
-		//removeCourseDialogPanel.setBackground(Color.lightGray);
 		removeCourseDialogPanel.setSize(300, 150);
 
 		JLabel lblCourse = new JLabel("Course Id:");
@@ -414,10 +404,8 @@ public class InitialWindowView extends ViewPanel {
 	 * @param vec the vec
 	 */
 	private void registerStudentDialogInit(Vector<String> vec) {
-		// TODO Auto-generated method stub
 		registerStudentDialogPanel = new JPanel();
 		registerStudentDialogPanel.setLayout(null);
-		//registerStudentDialogPanel.setBackground(Color.lightGray);
 		registerStudentDialogPanel.setSize(270, 300);
 
 		JLabel lblCourse1 = new JLabel("Course Id:");
@@ -472,10 +460,8 @@ public class InitialWindowView extends ViewPanel {
 	 * @param vec the vec
 	 */
 	private void removeStudentDialogInit(Vector<String> vec) {
-		// TODO Auto-generated method stub
 		removeStudentDialogPanel = new JPanel();
 		removeStudentDialogPanel.setLayout(null);
-		//removeStudentDialogPanel.setBackground(Color.lightGray);
 		removeStudentDialogPanel.setSize(270, 300);
 
 		JLabel lblRemoveStudentCourse = new JLabel("Course Id:");
@@ -524,10 +510,8 @@ public class InitialWindowView extends ViewPanel {
 	 * @param vec the vec
 	 */
 	private void gradeQuizDialogInit(Vector<String> vec) {
-		// TODO Auto-generated method stub
 		gradeQuizDialogPanel = new JPanel();
 		gradeQuizDialogPanel.setLayout(null);
-		//gradeQuizDialogPanel.setBackground(Color.ORANGE);
 		gradeQuizDialogPanel.setSize(300, 220);
 
 		JLabel coursesIdsGradeLbl = new JLabel("Course Id:");
@@ -577,14 +561,11 @@ public class InitialWindowView extends ViewPanel {
 				removeStudentsIds.addItem((String) child.getName().subSequence(0, child.getName().length() - 4));
 			if (studentsFolder.listFiles().length > 0)
 				loadStudentNameToRemoveLbl(studentsFolder.listFiles()[0].getPath());
-			// chosenRemoveStudentNameLbl.setText(loadStudentNameToRemoveLbl
-			// (studentsFolder.listFiles()[0].getPath()));
 			else {
 				removeStudentsIds.addItem("");
 				chosenRemoveStudentNameLbl.setText("");
 			}
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}

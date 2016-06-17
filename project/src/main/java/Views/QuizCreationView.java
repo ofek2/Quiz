@@ -23,12 +23,9 @@ import javax.swing.border.EtchedBorder;
 import javax.swing.border.TitledBorder;
 
 import Controllers.QuizCreationController;
-import javafx.scene.shape.Box;
-
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.GridLayout;
-import java.awt.Insets;
 import java.awt.Cursor;
 
 /**
@@ -68,7 +65,6 @@ public class QuizCreationView extends ViewPanel {
 	/**
 	 * Instantiates a new quiz creation view.
 	 */
-	// private JSpinner percentageFromFgrade;
 	public QuizCreationView() {
 		super();
 		setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
@@ -141,26 +137,6 @@ public class QuizCreationView extends ViewPanel {
 		quizName.setFont(new Font("Arial", Font.PLAIN, 17));
 		quizName.setHorizontalAlignment(JLabel.LEFT);
 		headPanel.add(quizName);
-		// headPanel.add(percentage);
-		// percentageFromFgrade = new JSpinner(new
-		// SpinnerNumberModel(0.25,0,1,.01));
-		// JSpinner.NumberEditor editor = new
-		// JSpinner.NumberEditor(percentageFromFgrade,"0%");
-		// percentageFromFgrade.setEditor(editor);
-		//
-		// headPanel.add(percentageFromFgrade);
-
-		// JLabel percentage = new JLabel("Quiz Weight: ");
-		// percentage.setFont(new Font("Arial", Font.BOLD, 17));
-		// percentage.setHorizontalAlignment(JLabel.CENTER);
-		// headPanel.add(percentage);
-		// percentageFromFgrade = new JSpinner(new
-		// SpinnerNumberModel(0.25,0,1,.01));
-		// JSpinner.NumberEditor editor = new
-		// JSpinner.NumberEditor(percentageFromFgrade,"0%");
-		// percentageFromFgrade.setEditor(editor);
-		//
-		// headPanel.add(percentageFromFgrade);
 		panel.add(headPanel);
 
 		addBtn = new JButton("Add question");

@@ -85,7 +85,6 @@ public class GradingOperation extends ViewPanel {
 		try {
 			in = new FileInputStream(studentQuizFile);
 		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		studentQuiz = new HtmlParser(in);
@@ -151,7 +150,6 @@ public class GradingOperation extends ViewPanel {
 		 * @see java.awt.event.ActionListener#actionPerformed(java.awt.event.ActionEvent)
 		 */
 		public void actionPerformed(ActionEvent e) {
-			// TODO Auto-generated method stub
 			if (studentGradingPanel.getGradeBtn().getText().equals("Grade"))
 				studentGradingPanel.getGradeBtn().setText("Edit");
 	
@@ -209,8 +207,6 @@ public class GradingOperation extends ViewPanel {
 		 * @param questionNumber the question number
 		 */
 		public void receiveInput(String score, String questionNumber) {
-			// Platform.exit();
-			// System.out.print(score+","+questionNumber);
 			
 			insertScoreToHTML(studentQuizPath, score, questionNumber);
 		
@@ -227,7 +223,6 @@ public class GradingOperation extends ViewPanel {
 		private void insertScoreToHTML(String studentQuizPath, String score, String questionNumber) {
 
 			try {
-				// System.out.println("-"+questionNumber+"-");
 				
 				if (!questionNumber.equals("0")) {
 					NodeList questionElement = studentQuiz.document.getElementsByTagName("Q" + questionNumber);
@@ -243,7 +238,6 @@ public class GradingOperation extends ViewPanel {
 					Element finalScore = (Element) studentQuiz.document.getElementsByTagName("u").item(0);
 					finalScore.removeChild(finalScore.getFirstChild());
 					finalScore.appendChild(studentQuiz.document.createTextNode(score));
-					// finalScore.setPrefix(score);
 					try {
 						String quizName;
 						String studentId;
@@ -262,7 +256,6 @@ public class GradingOperation extends ViewPanel {
 						oos.close();
 						studentGradingPanel.getLblGrade().setText(score);
 					} catch (IOException e) {
-						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
 
