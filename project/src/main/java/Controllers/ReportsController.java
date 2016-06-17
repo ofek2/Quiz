@@ -11,7 +11,6 @@ import java.util.ArrayList;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
-
 import Entities.Constants;
 import Entities.CourseEntity;
 import Entities.StudentEntity;
@@ -68,7 +67,6 @@ public class ReportsController {
 		ReportsController.view.mntmExitAddListener(new ExitListener());
 		ReportsController.view.btnExportExcelFileAddListener(new ExportExcelFileListener());
 		ReportsController.view.addHelpActionListener(new HelpListener());
-		// view.table = new CustomTable(view);
 	}
 
 	/**
@@ -293,11 +291,8 @@ public class ReportsController {
 			}
 			avg = avg / (i);
 			quizzesScores.add(new JLabel(String.format("%.2f", avg)));
-			// System.out.println(tableRowToWrite);
 			table.add(new RepRow(quizzesScores, tableRowToWrite));
 			view.table.revalidate();
-			// view.setViewPortForScrollPane(table);
-
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
