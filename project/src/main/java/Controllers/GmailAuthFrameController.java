@@ -5,7 +5,6 @@ import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
-
 import Views.CustomDialog;
 import Views.GmailAuthFrame;
 import project.GoogleMail;
@@ -38,7 +37,6 @@ public class GmailAuthFrameController {
 		this.studentGradingControllers = studentGradingControllers;
 		this.studentsQuizzesPaths = studentsQuizzesPaths;
 		authorizeGmailAccount();
-
 		this.view.sendBtnAddListener(new sendBtnListener());
 
 	}
@@ -51,7 +49,6 @@ public class GmailAuthFrameController {
 		try {
 			String url = GoogleMail.startAuthorize();
 			view.loadURL(url);
-
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -85,11 +82,6 @@ public class GmailAuthFrameController {
 				CustomDialog dialog = new CustomDialog();
 				dialog.setVisible(true);
 				new sendMails(studentGradingControllers, studentsQuizzesPaths, quizName,dialog).execute();
-//					dialog.setLabelText("Total mails sent successfully: "+i+"/"+studentGradingControllers.size());
-//				dialog.dispose();
-//				JOptionPane.showMessageDialog(null,
-//						"The graded quizzes were sent successfully to your students' emails.",
-//						"Emails Delivered Successfully", JOptionPane.INFORMATION_MESSAGE);
 			}
 		}
 	}

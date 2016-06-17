@@ -20,7 +20,6 @@ import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.TransformerException;
-
 import Entities.Constants;
 import Entities.QuizEntity;
 import Entities.QuizObjectEntity;
@@ -331,7 +330,6 @@ public class QuizCreationController implements Serializable {
 			if (!entity.getQuizFolder().exists()) {
 				entity.getQuizFolder().mkdir();
 				entity.getQuizFormFolder().mkdir();
-				// entity.getStudentsAnswersFolder().mkdir();
 			}
 			for (int i = 0; i < qPanels.size(); i++)
 				qPanels.get(i).saveImages();

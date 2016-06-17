@@ -15,7 +15,6 @@ import java.io.IOException;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.util.ArrayList;
-
 import javax.imageio.ImageIO;
 import javax.swing.JComboBox;
 import javax.swing.JDialog;
@@ -27,9 +26,7 @@ import javax.swing.JTree;
 import javax.swing.SwingWorker;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.TreePath;
-
 import com.google.common.io.Files;
-
 import Entities.Constants;
 import Entities.CourseEntity;
 import Entities.QuizEntity;
@@ -488,7 +485,6 @@ public class InitialWindowController {
 				view.loadStudents(view.getRemoveStudentCourseCB().getSelectedIndex());
 				view.getRemoveStudentsIds().addItemListener(removeStudentsIdsItemListener);
 				}
-				// view.loadStudents(view.getRemoveStudentCourseCB().getSelectedIndex());
 			}
 
 		}
@@ -827,12 +823,6 @@ public class InitialWindowController {
 					{
 						path = courseFolder + "/Quizzes/" + quizName + "/Form/" + quizFile;
 						QuizObjectEntity result = (QuizObjectEntity) ObjectFileManager.loadObject(path);
-						/*
-						 * FileInputStream fis; fis = new FileInputStream(path);
-						 * ObjectInputStream ois = new ObjectInputStream(fis);
-						 * QuizObjectEntity result = (QuizObjectEntity)
-						 * ois.readObject(); ois.close();
-						 */
 						QuizCreationView quizCreationView = new QuizCreationView();
 						new QuizCreationController(quizCreationView,
 								result, view);
@@ -1195,12 +1185,7 @@ public class InitialWindowController {
 					removeQuiz.addActionListener(new ActionListener() {
 
 						public void actionPerformed(ActionEvent e) {
-							new QuizEntity(quizName, quizCourseName);
-							
-//							**************** check this!!!!   *********************
-//							File temp = quizEntity.getStudentsAnswersFolder();
-//							if(!temp.exists())
-//							{
+							new QuizEntity(quizName, quizCourseName);					
 							if(JOptionPane.showConfirmDialog(MainFrameController.view, "Are you sure you want to delete this quiz?")== JOptionPane.YES_OPTION)
 							{
 								try {
@@ -1214,10 +1199,6 @@ public class InitialWindowController {
 								e1.printStackTrace();
 							}
 							}
-//							}
-//							else
-//								JOptionPane.showMessageDialog(null, "You can't remove a quiz that was already been taken by your students.", "Quiz performed",
-//										JOptionPane.WARNING_MESSAGE);
 						}
 					});
 					quizPopupMenu.add(editQuiz);

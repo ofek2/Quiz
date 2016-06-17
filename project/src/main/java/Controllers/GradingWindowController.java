@@ -5,7 +5,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
-
 import Entities.Constants;
 import Views.GmailAuthFrame;
 import Views.GradingWindowView;
@@ -46,7 +45,6 @@ public class GradingWindowController {
 	 */
 	public GradingWindowController(GradingWindowView view) {
 		this.view = view;
-
 		addListeners();
 	}
 
@@ -99,7 +97,6 @@ public class GradingWindowController {
 			studentGradingPanels.add(sview);
 			studentGradingControllers
 					.add(new StudentGradingController(sview, studentsQuizzesPaths.get(i), originalQuizFormPath, view));
-
 			view.tablePanel.add(sview);
 
 		}
