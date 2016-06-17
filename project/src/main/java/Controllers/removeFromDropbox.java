@@ -5,9 +5,9 @@ import java.io.IOException;
 import javax.swing.SwingWorker;
 
 import Entities.Constants;
+import Utilities.ObjectFileManager;
+import Utilities.zipFileManager;
 import Views.CustomDialog;
-import project.ObjectFileManager;
-import project.zipFileManager;
 
 /**
  * The Class removeFromDropbox. This class is responsible for removing files

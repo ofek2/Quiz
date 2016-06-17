@@ -5,9 +5,9 @@ import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
+import Utilities.GoogleMail;
 import Views.CustomDialog;
 import Views.GmailAuthFrame;
-import project.GoogleMail;
 
 /**
  * The Class GmailAuthFrameController.

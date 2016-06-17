@@ -28,10 +28,10 @@ import javax.swing.JLabel;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 
-import project.MyTree;
-import project.ObjectFileManager;
 import Controllers.InitialWindowController;
 import Entities.StudentEntity;
+import Utilities.MyTree;
+import Utilities.ObjectFileManager;
 
 /**
  * The Class InitialWindowView.

@@ -32,6 +32,7 @@ import Entities.CourseEntity;
 import Entities.QuizEntity;
 import Entities.QuizObjectEntity;
 import Entities.StudentEntity;
+import Utilities.ObjectFileManager;
 import Views.CoursesCheckingFrame;
 import Views.CustomDialog;
 import Views.GradingWindowView;
@@ -40,7 +41,6 @@ import Views.InitialWindowView;
 import Views.MainFrameView;
 import Views.QuizCreationView;
 import Views.ReportsView;
-import project.ObjectFileManager;
 
 /**
  * The Class InitialWindowController.

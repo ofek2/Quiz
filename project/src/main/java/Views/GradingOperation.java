@@ -30,9 +30,9 @@ import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 import Controllers.MainFrameController;
 import Entities.StudentEntity;
+import Utilities.HtmlParser;
+import Utilities.ObjectFileManager;
 import netscape.javascript.JSObject;
-import project.HtmlParser;
-import project.ObjectFileManager;
 
 import javax.swing.Box;
 import javax.swing.BoxLayout;

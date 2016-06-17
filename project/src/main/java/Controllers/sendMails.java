@@ -6,9 +6,9 @@ import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import javax.swing.SwingWorker;
 
+import Utilities.GoogleMail;
+import Utilities.zipFileManager;
 import Views.CustomDialog;
-import project.GoogleMail;
-import project.zipFileManager;
 
 /**
  * The Class sendMails.This class handles mails sending.

@@ -6,9 +6,9 @@ import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import Views.InitialWindowView;
 import Views.MainFrameView;
-import project.zipFileManager;
 import Entities.Constants;
 import Entities.CourseEntity;
+import Utilities.zipFileManager;
 
 /**
  * The Class MainFrameController.

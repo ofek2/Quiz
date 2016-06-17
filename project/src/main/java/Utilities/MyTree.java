@@ -1,4 +1,4 @@
-package project;
+package Utilities;
 
 import java.awt.*;
 import java.awt.geom.*;

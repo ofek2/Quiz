@@ -23,13 +23,13 @@ import javax.xml.transform.TransformerException;
 import Entities.Constants;
 import Entities.QuizEntity;
 import Entities.QuizObjectEntity;
+import Utilities.HtmlBuilder;
+import Utilities.ObjectFileManager;
 import Views.HelpFrame;
 import Views.InitialWindowView;
 import Views.PreviewQuizFrame;
 import Views.QuizCreationView;
 import Views.qPanel;
-import project.HtmlBuilder;
-import project.ObjectFileManager;
 
 /**
  * The Class QuizCreationController.

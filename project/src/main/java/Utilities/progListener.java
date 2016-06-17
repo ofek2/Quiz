@@ -1,4 +1,4 @@
-package project;
+package Utilities;
 
 import com.dropbox.client2.ProgressListener;
 import Views.CustomDialog;
