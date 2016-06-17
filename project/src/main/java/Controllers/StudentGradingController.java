@@ -79,7 +79,6 @@ public class StudentGradingController {
 			quizScore = result.getScore(quizName);
 			updateQuizScoreInView();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
@@ -115,7 +114,6 @@ public class StudentGradingController {
 		 * ActionEvent)
 		 */
 		public void actionPerformed(ActionEvent e) {
-			// TODO Auto-generated method stub
 			String studentQuizPath = studentQuizFolderPath + "/" + studentId + ".html";
 			try {
 				if (view.getGradeBtn().getText().equals("Grade")) {
@@ -126,13 +124,10 @@ public class StudentGradingController {
 				GradingOperation gradingOperation = new GradingOperation(view, studentQuizPath, previousView);
 				MainFrameController.view.changeContentPane(gradingOperation);
 			} catch (FileNotFoundException e1) {
-				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			} catch (ParserConfigurationException e1) {
-				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			} catch (@SuppressWarnings("hiding") IOException e1) {
-				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}
 

@@ -23,7 +23,6 @@ public class uploadToDropbox extends SwingWorker<Void, Void>{
 	 * @param source the source
 	 */
 	public uploadToDropbox(String source) {
-		// TODO Auto-generated constructor stub
 		super();
 		this.source=source;
 	}
@@ -33,7 +32,6 @@ public class uploadToDropbox extends SwingWorker<Void, Void>{
 	 */
 	@Override
 	protected Void doInBackground() throws Exception {
-		// TODO Auto-generated method stub
 		DropBoxSimple.uploadFolder(new File((new File(".")).getCanonicalPath()+"/"+Constants.APP_NAME+".zip"), "/");
 		return null;
 	}
@@ -43,7 +41,6 @@ public class uploadToDropbox extends SwingWorker<Void, Void>{
 	 */
 	@Override
 	protected void done() {
-		// TODO Auto-generated method stub
 		super.done();
 		DropBoxSimple.progressListener.dialog.setVisible(false);
 		JOptionPane.showMessageDialog(null, "Files Uploaded Successfully To Your Dropbox Account");

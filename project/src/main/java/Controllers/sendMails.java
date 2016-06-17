@@ -67,7 +67,6 @@ public class sendMails extends SwingWorker<Void, Void>{
 	 */
 	@Override
 	protected void done() {
-		// TODO Auto-generated method stub
 		super.done();
 		dialog.dispose();
 		JOptionPane.showMessageDialog(null,
