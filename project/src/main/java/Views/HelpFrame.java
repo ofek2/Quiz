@@ -1,24 +1,16 @@
 package Views;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.IOException;
-import java.io.InputStream;
 import java.net.URL;
 
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import java.awt.BorderLayout;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import java.awt.Dimension;
-import javax.swing.SwingConstants;
-import java.awt.FlowLayout;
 import java.awt.event.ActionListener;
 
-import javax.swing.border.EtchedBorder;
 import java.awt.Color;
 import javax.swing.border.LineBorder;
 
@@ -28,6 +20,11 @@ import javax.swing.border.LineBorder;
  */
 public class HelpFrame extends JFrame{
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	/** The pic path. */
 	private String picPath;
 	
@@ -37,13 +34,13 @@ public class HelpFrame extends JFrame{
 	/** The help image. */
 	private JLabel helpImage;
 	
-	/** The Prev btn. */
+	/** The Previous button. */
 	private JButton PrevBtn;
 	
-	/** The btn next. */
+	/** The button next. */
 	private JButton btnNext;
 	
-	/** The images arr. */
+	/** The images array. */
 	private URL[] imagesArr;
 	
 	/**

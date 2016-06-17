@@ -2,7 +2,6 @@ package Views;
 
 import java.awt.Color;
 import java.awt.Component;
-import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.io.File;
@@ -16,10 +15,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.ScrollPaneConstants;
-import javax.swing.SwingConstants;
-
 import Controllers.InitialWindowController;
-import Entities.Constants;
 import Entities.CourseEntity;
 
 /**
@@ -64,7 +60,6 @@ public class CoursesCheckingFrame{
 	 * @return true, if successful
 	 */
 	public boolean check() {
-		// TODO Auto-generated method stub
 		initFrame();
 		if(coursesFiles == null || coursesFiles.isEmpty())
 		{
@@ -88,7 +83,7 @@ public class CoursesCheckingFrame{
 					}
 						
 				} catch (IOException e) {
-					// TODO Auto-generated catch block
+				
 					e.printStackTrace();
 				}
 			}

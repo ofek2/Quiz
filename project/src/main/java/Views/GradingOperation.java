@@ -1,6 +1,5 @@
 package Views;
 
-import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Container;
@@ -81,7 +80,6 @@ public class GradingOperation extends ViewPanel {
 	 * @param studentQuizPath the student quiz path
 	 * @param previousView the previous view
 	 */
-	@SuppressWarnings("deprecation")
 	public GradingOperation(StudentGradingPanel studentGradingPanel, String studentQuizPath, Container previousView) {
 		studentQuizFile = new File(studentQuizPath);
 		try {
@@ -263,19 +261,14 @@ public class GradingOperation extends ViewPanel {
 						oos.writeObject(result);
 						oos.close();
 						studentGradingPanel.getLblGrade().setText(score);
-//						if (studentGradingPanel.getGradeBtn().getText().equals("Grade"))
-//							studentGradingPanel.getGradeBtn().setText("Edit");
 					} catch (IOException e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
 
 				}
-			//	studentQuiz.document.removeChild(studentQuiz.document.getElementById("scoreScript"));
 				studentQuiz.writeHtml(studentQuizPath);
-//				engine.load("file:///" + studentQuizPath);
 			} catch (TransformerException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 

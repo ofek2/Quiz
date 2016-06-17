@@ -17,7 +17,6 @@ public class ObjectFileManager {
 	/**
 	 * Instantiates a new object file manager.
 	 */
-	//private String path;
 	public ObjectFileManager()
 	{
 	}
@@ -38,10 +37,8 @@ public class ObjectFileManager {
 			oos.writeObject(obj);
 			oos.close();
 		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return true;
@@ -63,13 +60,10 @@ public class ObjectFileManager {
 			ois.close();	
 			return result;
 		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (ClassNotFoundException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 			return null;

@@ -200,9 +200,6 @@ public class qPanelController implements Serializable{
 		/** The Constant serialVersionUID. */
 		private static final long serialVersionUID = 1L;
 		
-		/** The buffered image. */
-		private transient BufferedImage bufferedImage;
-		
 		/* (non-Javadoc)
 		 * @see java.awt.event.ActionListener#actionPerformed(java.awt.event.ActionEvent)
 		 */
@@ -332,7 +329,7 @@ public class qPanelController implements Serializable{
 		public void actionPerformed(ActionEvent e) {
 			// TODO Auto-generated method stub
 			returnVal=qFileChooser.showSaveDialog(view.getImageButtonsPanel());
-			if(returnVal==qFileChooser.APPROVE_OPTION)
+			if(returnVal==JFileChooser.APPROVE_OPTION)
 			{
 				qImgFile = qFileChooser.getSelectedFile();		
 				tempPicturesFolder = new File(new File(".")+"/tempPictures");
@@ -390,7 +387,7 @@ public class qPanelController implements Serializable{
 		public void actionPerformed(ActionEvent e) {
 			// TODO Auto-generated method stub
 			returnVal=aFileChooser.showSaveDialog(view.getAnswerPanel());
-			if(returnVal==aFileChooser.APPROVE_OPTION)
+			if(returnVal==JFileChooser.APPROVE_OPTION)
 			{
 				aImgFile = aFileChooser.getSelectedFile();			
 				tempPicturesFolder = new File(new File(".")+"/tempPictures");
@@ -814,7 +811,7 @@ public class qPanelController implements Serializable{
 	 * @param quizPath the new quiz path
 	 */
 	public void setQuizPath(String quizPath) {
-		this.quizPath = quizPath;
+		qPanelController.quizPath = quizPath;
 	}
 	
 	/**
@@ -905,7 +902,7 @@ public class qPanelController implements Serializable{
 	 * @param fileExtension the new file extension
 	 */
 	public void setFileExtension(String fileExtension) {
-		this.fileExtension = fileExtension;
+		qPanelController.fileExtension = fileExtension;
 	}
 	
 	/**

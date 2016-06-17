@@ -10,7 +10,6 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.awt.image.BufferedImage;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
@@ -41,6 +40,7 @@ import Views.CustomDialog;
 import Views.GradingWindowView;
 import Views.HelpFrame;
 import Views.InitialWindowView;
+import Views.MainFrameView;
 import Views.QuizCreationView;
 import Views.ReportsView;
 import project.ObjectFileManager;
@@ -95,7 +95,7 @@ public class InitialWindowController {
 		this.view = view;
 		menuController = new MenuController();
 		windowListener = new windowListener();
-		MainFrameController.view.removeWindowListener(MainFrameController.view.windowListener);
+		MainFrameController.view.removeWindowListener(MainFrameView.windowListener);
 		MainFrameController.view.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 		MainFrameController.view.addWindowListener(windowListener);
 		addListeners();
@@ -289,7 +289,6 @@ public class InitialWindowController {
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
 				ReportsView reportsView = new ReportsView();
-				ReportsController reportsController = new ReportsController(reportsView, view);
 				MainFrameController.view.changeContentPane(reportsView);
 			}
 
@@ -535,9 +534,6 @@ public class InitialWindowController {
 				
 				/** The student file. */
 				private File studentFile;
-				
-				/** The student answer. */
-				private File studentAnswer;
 				
 				/**
 				 * Instantiates a new removes the student btn listener.
@@ -838,7 +834,7 @@ public class InitialWindowController {
 						 * ois.readObject(); ois.close();
 						 */
 						QuizCreationView quizCreationView = new QuizCreationView();
-						QuizCreationController quizCreationController = new QuizCreationController(quizCreationView,
+						new QuizCreationController(quizCreationView,
 								result, view);
 						quizCreationView.getQuizName().setText(quizName);
 						quizCreationView.getCourseName().setText(courseName);
@@ -1140,8 +1136,7 @@ public class InitialWindowController {
 				 * @return the mouse adapter
 				 */
 				public MouseAdapter treeMouseListener() {
-					MouseAdapter adapter;
-					return adapter = new MouseAdapter() {
+					return new MouseAdapter() {
 						public void mousePressed(MouseEvent e) {
 							String rootName = "Courses";
 							if (e.getButton() == MouseEvent.BUTTON3) {
@@ -1200,8 +1195,7 @@ public class InitialWindowController {
 					removeQuiz.addActionListener(new ActionListener() {
 
 						public void actionPerformed(ActionEvent e) {
-							// TODO Auto-generated method stub
-							QuizEntity quizEntity = new QuizEntity(quizName, quizCourseName);
+							new QuizEntity(quizName, quizCourseName);
 							
 //							**************** check this!!!!   *********************
 //							File temp = quizEntity.getStudentsAnswersFolder();
@@ -1373,7 +1367,7 @@ public class InitialWindowController {
 		 */
 		public void itemStateChanged(ItemEvent e) {
 			// TODO Auto-generated method stub
-			JComboBox temp = (JComboBox) e.getSource();
+			JComboBox<?> temp = (JComboBox<?>) e.getSource();
 			view.getRemoveStudentsIds().removeItemListener(removeStudentsIdsItemListener);
 			view.loadStudents(temp.getSelectedIndex());
 			view.getRemoveStudentsIds().addItemListener(removeStudentsIdsItemListener);
@@ -1392,7 +1386,7 @@ public class InitialWindowController {
 		 */
 		public void itemStateChanged(ItemEvent e) {
 			// TODO Auto-generated method stub
-			JComboBox temp = (JComboBox) e.getSource();
+			JComboBox<?> temp = (JComboBox<?>) e.getSource();
 			try {	
 				view.loadStudentNameToRemoveLbl(
 						coursesFiles.get(view.getRemoveStudentCourseCB().getSelectedIndex()).getCourseFolder()
@@ -1416,7 +1410,7 @@ public class InitialWindowController {
 		 */
 		public void itemStateChanged(ItemEvent e) {
 			// TODO Auto-generated method stub
-			JComboBox temp = (JComboBox) e.getSource();
+			JComboBox<?> temp = (JComboBox<?>) e.getSource();
 
 			view.loadQuizzesToEditCB(getQuizzesFolder(temp.getSelectedIndex()));
 
@@ -1435,7 +1429,7 @@ public class InitialWindowController {
 		 */
 		public void itemStateChanged(ItemEvent e) {
 			// TODO Auto-generated method stub
-			JComboBox temp = (JComboBox) e.getSource();
+			JComboBox<?> temp = (JComboBox<?>) e.getSource();
 			view.getCourseIdGradeCB().removeItemListener(courseIdGradeItemListener);
 			view.loadQuizzesToGradeCB(getQuizzesFolder(temp.getSelectedIndex()));
 			view.getCourseIdGradeCB().addItemListener(courseIdGradeItemListener);

@@ -1,14 +1,12 @@
 package Views;
 
 import java.awt.Component;
-import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
-import javax.swing.JComponent;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
@@ -46,7 +44,6 @@ public class CTable extends JPanel{
 	 * Initiate panel.
 	 */
 	private void initiatePanel() {
-		// TODO Auto-generated method stub
 		setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 		ArrayList<Object> titleRowItems = new ArrayList<Object>();
 		titleRowItems.add(new JLabel("Student Id"));
@@ -109,8 +106,6 @@ public class CTable extends JPanel{
 		 */
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			// TODO Auto-generated method stub
-//			System.out.println("shitty");
 			quizScores = new ArrayList<String>();
 			for (int i = 1; i < rows.size(); i++) {
 				quizScores.add(((JLabel)rows.get(i).getRowItems().get(quizCoulmn)).getText());

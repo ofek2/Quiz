@@ -5,7 +5,6 @@ import java.awt.Dimension;
 import javax.swing.JCheckBox;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
-import Controllers.MainFrameController;
 import javax.swing.JButton;
 import java.awt.Font;
 import java.awt.Insets;
@@ -49,11 +48,8 @@ public class checkBoxFieldPanel extends JPanel implements Serializable{
 	 */
 	public checkBoxFieldPanel() {
 		super();
-		int width=MainFrameController.view.getWidth()-20;
-
 		setPreferredSize(new Dimension(407, 30));
 		setMaximumSize(new Dimension(500, 30));
-		int panelWidth=getPreferredSize().width;
 		GridBagLayout gridBagLayout = new GridBagLayout();
 		gridBagLayout.columnWidths = new int[]{29, 0, 228, 29, 29, 0};
 		gridBagLayout.rowHeights = new int[]{23, 0};

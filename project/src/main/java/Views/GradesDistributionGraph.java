@@ -119,6 +119,7 @@ public class GradesDistributionGraph extends ViewPanel implements Runnable{
 	 *
 	 * @param fxPanel the fx panel
 	 */
+	@SuppressWarnings({ "rawtypes", "unchecked" })
 	protected void initFX(JFXPanel fxPanel) {
 		// TODO Auto-generated method stub
         final CategoryAxis xAxis = new CategoryAxis();

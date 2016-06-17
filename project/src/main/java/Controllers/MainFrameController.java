@@ -22,9 +22,6 @@ public class MainFrameController {
 	/** The app folder. */
 	private File appFolder;
 	
-	/** The initial window controller. */
-	private InitialWindowController initialWindowController;
-	
 	/** The over write. */
 	private int overWrite=JOptionPane.YES_OPTION;
 
@@ -35,20 +32,20 @@ public class MainFrameController {
 	 * @param view the view
 	 */
 	public MainFrameController(MainFrameView view) {
-		this.view=view;
+		MainFrameController.view=view;
 		
 		loadApplicationFolder();
 
-			initialWindowController.coursesFiles=new ArrayList<CourseEntity>();
+			InitialWindowController.coursesFiles=new ArrayList<CourseEntity>();
 			for(File folder:appFolder.listFiles())
 			{
 				String[] splitedName = folder.getName().split(",");
-				initialWindowController.coursesFiles.add(new CourseEntity(folder, splitedName[0], splitedName[1]));
+				InitialWindowController.coursesFiles.add(new CourseEntity(folder, splitedName[0], splitedName[1]));
 			}
 		
 			InitialWindowView initialWindowView = new InitialWindowView();
-			initialWindowController = new InitialWindowController(initialWindowView);
-			this.view.changeContentPane(initialWindowView);
+			new InitialWindowController(initialWindowView);
+			MainFrameController.view.changeContentPane(initialWindowView);
 			
 		
 	}

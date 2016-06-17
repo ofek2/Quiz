@@ -3,7 +3,6 @@ package Controllers;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -14,10 +13,8 @@ import org.apache.commons.io.comparator.PathFileComparator;
 
 import com.dropbox.client2.DropboxAPI;
 import com.dropbox.client2.DropboxAPI.DeltaEntry;
-import com.dropbox.client2.DropboxAPI.DropboxFileInfo;
 import com.dropbox.client2.DropboxAPI.Entry;
 import com.dropbox.client2.exception.DropboxException;
-import com.dropbox.client2.session.AccessTokenPair;
 import com.dropbox.client2.session.AppKeyPair;
 import com.dropbox.client2.session.RequestTokenPair;
 import com.dropbox.client2.session.Session;
@@ -128,8 +125,6 @@ public class DropBoxSimple {
 			}
 
 			if (authenticated) {
-				AccessTokenPair tokens = session.getAccessTokenPair();
-
 				api = new DropboxAPI<WebAuthSession>(session);
 				try {
 					System.out.println(api.accountInfo().displayName +" is logged in");
@@ -203,24 +198,17 @@ public class DropBoxSimple {
 	 * @param dropPath the path in Dropbox
 	 */
 	public static void downloadFolder(String path, String dropPath) {
-		FileOutputStream outputStream = null;
 		try {
 			File file = new File(path);
 
 			Entry existingFile = api.metadata(dropPath, 0, null, true, null);
 			if (existingFile.isDir) {
-				// if(existingFile.contents.isEmpty())
 				file.mkdir();
 				for (Entry entry : existingFile.contents) {
 					downloadFolder(path + "/" + entry.fileName(), dropPath + "/" + entry.fileName());
 				}
 			} else {
-				outputStream = new FileOutputStream(file);
 
-				// downloadProgressD.setVisible(true);
-				
-				DropboxFileInfo info = api.getFile(dropPath, null, outputStream, progressListener);
-				// downloadProgressD.setVisible(false);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();

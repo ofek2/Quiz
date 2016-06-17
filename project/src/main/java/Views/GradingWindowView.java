@@ -76,12 +76,11 @@ public class GradingWindowView extends ViewPanel {
 		
 		scrollPane = new JScrollPane();
 		scrollPane.setBounds(MainFrameController.view.getContentPane().getWidth()/4,70, MainFrameController.view.getContentPane().getWidth()/2, MainFrameController.view.getContentPane().getHeight()-100);
-		//scrollPane.setBounds(50,70,300,250);
 		add(scrollPane);
 		tablePanel = new JPanel();
 		tablePanel.setLayout(new BoxLayout(tablePanel, BoxLayout.Y_AXIS));
 		JPanel titlePanel = new JPanel();
-//		titlePanel.setLayout(new GridLayout(0, 4, 0, 0));
+
 		titlePanel.setLayout(new GridLayout(0, 3, 0, 0));
 		titlePanel.setMaximumSize(new Dimension(10000, 60));
 		titlePanel.setBackground(Color.white);
@@ -90,12 +89,7 @@ public class GradingWindowView extends ViewPanel {
 		lblStudentid.setBorder(new LineBorder(new Color(0, 0, 0)));
 		lblStudentid.setHorizontalAlignment(SwingConstants.CENTER);
 		titlePanel.add(lblStudentid);
-		
-//		JLabel lblStudentname = new JLabel("Student Name");
-//		lblStudentname.setBorder(new LineBorder(new Color(0, 0, 0)));
-//		lblStudentname.setHorizontalAlignment(SwingConstants.CENTER);
-//		titlePanel.add(lblStudentname);
-		
+
 		JLabel lblGrade = new JLabel("Grade");
 		lblGrade.setBorder(new LineBorder(new Color(0, 0, 0)));
 		lblGrade.setHorizontalAlignment(SwingConstants.CENTER);
@@ -106,15 +100,6 @@ public class GradingWindowView extends ViewPanel {
 		lblOptions.setHorizontalAlignment(SwingConstants.CENTER);
 		titlePanel.add(lblOptions);
 		tablePanel.add(titlePanel);
-//		table = new CustomTable();
-//		table.setModel(new DefaultTableModel(
-//			new Object[][] {
-//				{null, null, null, null},
-//			},
-//			new String[] {
-//				"Student Id", "Student Name", "Grade", "Options"
-//			}
-//		));
 		scrollPane.setViewportView(tablePanel);
 
 	}

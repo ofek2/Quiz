@@ -2,18 +2,13 @@ package Controllers;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.FileReader;
 import java.io.IOException;
-import java.io.OutputStream;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 
 import Views.CustomDialog;
 import Views.GmailAuthFrame;
 import project.GoogleMail;
-import project.zipFileManager;
 
 /**
  * The Class GmailAuthFrameController.

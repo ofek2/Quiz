@@ -8,8 +8,6 @@ import javafx.scene.Scene;
 import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
 import javax.swing.*;
-import org.w3c.dom.Document;
-import org.w3c.dom.NodeList;
 import Controllers.DropBoxSimple;
 import Controllers.IntroFrameController;
 import Controllers.MainFrameController;
@@ -97,9 +95,6 @@ public class DropboxAuthentication extends JFrame {
 							if (authorized == false && dbx.startSession()) {
 								engine.getLoadWorker().stateProperty().addListener((obs, oldVal, newVal) -> {
 									if (newVal == Worker.State.SUCCEEDED) {
-										Document doc = engine.getDocument();
-
-										NodeList divs = doc.getElementsByTagName("div");
 										authorized = true;
 										new MainFrameController(new MainFrameView());
 										setVisible(false);

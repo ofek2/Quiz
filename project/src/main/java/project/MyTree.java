@@ -6,7 +6,6 @@ import java.io.File;
 
 import javax.swing.*;
 import javax.swing.plaf.*;
-import javax.swing.plaf.basic.*;
 import javax.swing.tree.*;
 
 import Entities.Constants;
@@ -20,9 +19,6 @@ public class MyTree {
 	
 	/** The d64. */
 	private static Dimension d64 = new Dimension(64, 64);
-	
-	/** The d48. */
-	private static Dimension d48 = new Dimension(48, 48);
 	
 	/** The d32. */
 	private static Dimension d32 = new Dimension(32, 32);
@@ -172,6 +168,11 @@ public class MyTree {
 }
 
 class TestTreeCellRenderer extends DefaultTreeCellRenderer {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	@Override
 	public Component getTreeCellRendererComponent(JTree tree, Object value, boolean selected, boolean expanded,
 			boolean leaf, int row, boolean hasFocus) {
@@ -190,8 +191,6 @@ class TestTreeCellRenderer extends DefaultTreeCellRenderer {
 				while (parent instanceof DefaultMutableTreeNode) {
 					DefaultMutableTreeNode pn = (DefaultMutableTreeNode) parent;
 					if (pn.getUserObject() instanceof TestNode) {
-						TestNode pi = (TestNode) pn.getUserObject();
-						//indent += pi.dim.width / 2;
 					}
 					parent = pn.getParent();
 				}

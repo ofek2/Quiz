@@ -4,7 +4,6 @@ import java.io.Serializable;
 import java.util.ArrayList;
 
 import Controllers.qPanelController;
-import Views.qPanel;
 
 /**
  * The Class QuizObjectEntity.

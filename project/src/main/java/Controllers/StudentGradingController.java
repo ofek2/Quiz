@@ -131,7 +131,7 @@ public class StudentGradingController {
 			} catch (ParserConfigurationException e1) {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
-			} catch (IOException e1) {
+			} catch (@SuppressWarnings("hiding") IOException e1) {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}

@@ -6,7 +6,6 @@ import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import javax.swing.SwingWorker;
 
-import Entities.Constants;
 import Views.CustomDialog;
 import project.GoogleMail;
 import project.zipFileManager;

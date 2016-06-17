@@ -11,15 +11,11 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.util.ArrayList;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JTree;
-import javax.swing.SwingUtilities;
-import javax.swing.UIManager;
-import javax.swing.UnsupportedLookAndFeelException;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 import javax.xml.parsers.ParserConfigurationException;
@@ -598,7 +594,7 @@ public class QuizCreationController implements Serializable {
 						if (entity.getQuizFormFolder().listFiles().length > 0)
 							for (File file : entity.getQuizFormFolder().listFiles()) {
 								if (file.getName().endsWith(".PNG"))
-									qPanelController.renameQandAImagesToOrigin(file);
+									Controllers.qPanelController.renameQandAImagesToOrigin(file);
 							}
 					MainFrameController.view.changeContentPane(initialWindowView);
 					MainFrameController.view.removeWindowListener(windowListener);
@@ -610,10 +606,6 @@ public class QuizCreationController implements Serializable {
 				MainFrameController.view.changeContentPane(initialWindowView);
 				MainFrameController.view.removeWindowListener(windowListener);
 				MainFrameController.view.addWindowListener(InitialWindowController.windowListener);
-				// } catch (IOException e1) {
-				// // TODO Auto-generated catch block
-				// e1.printStackTrace();
-				// }
 			
 			}
 			File tempPicturesFolder = new File(new File(".")+"/tempPicturesFolder");
@@ -656,7 +648,7 @@ public class QuizCreationController implements Serializable {
 						if (entity.getQuizFormFolder().listFiles().length > 0)
 							for (File file : entity.getQuizFormFolder().listFiles()) {
 								if (file.getName().endsWith(".PNG"))
-									qPanelController.renameQandAImagesToOrigin(file);
+									Controllers.qPanelController.renameQandAImagesToOrigin(file);
 							}
 					MainFrameController.view.changeContentPane(initialWindowView);
 					MainFrameController.view.removeWindowListener(this);

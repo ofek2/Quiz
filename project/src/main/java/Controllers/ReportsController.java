@@ -42,9 +42,6 @@ public class ReportsController {
 	/** The course path. */
 	private String coursePath;
 
-	/** The search student. */
-	private SearchStudent searchStudent;
-
 	/** The table. */
 	private CTable table;
 
@@ -63,13 +60,13 @@ public class ReportsController {
 	 *            the previous view
 	 */
 	public ReportsController(ReportsView view, Container previousView) {
-		this.view = view;
+		ReportsController.view = view;
 		this.previousView = previousView;
-		this.view.btnReportsShowGradesAddListener(new ProduceReports());
-		this.view.btnSearchStudentAddListener(new SearchStudent());
-		this.view.mntmExitAddListener(new ExitListener());
-		this.view.btnExportExcelFileAddListener(new ExportExcelFileListener());
-		this.view.addHelpActionListener(new HelpListener());
+		ReportsController.view.btnReportsShowGradesAddListener(new ProduceReports());
+		ReportsController.view.btnSearchStudentAddListener(new SearchStudent());
+		ReportsController.view.mntmExitAddListener(new ExitListener());
+		ReportsController.view.btnExportExcelFileAddListener(new ExportExcelFileListener());
+		ReportsController.view.addHelpActionListener(new HelpListener());
 		// view.table = new CustomTable(view);
 	}
 
@@ -236,7 +233,6 @@ public class ReportsController {
 		table = new CTable(titleButtons);
 		view.setTable(table);
 		view.setViewPortForScrollPane(table);
-		ArrayList<Object> labels = new ArrayList<>();
 		File students = new File(coursePath + "/Students");
 
 		int tableRowToWrite = 1;

@@ -36,7 +36,6 @@ public class progListener extends ProgressListener
 		 * @param type the type
 		 */
 		public  progListener(long totalDropboxSize,String type) {
-			// TODO Auto-generated constructor stub
 			init(totalDropboxSize,type);
 			
 		}
@@ -48,7 +47,6 @@ public class progListener extends ProgressListener
 		 * @param type the type
 		 */
 		public void init(long totalDropboxSize,String type) {
-			// TODO Auto-generated method stub
 			currentFileSize = 0f;
 			percent = 0f;
 			lastFileSize=0f;
@@ -70,7 +68,6 @@ public class progListener extends ProgressListener
 		 */
 		@Override
 		public void onProgress(long arg0, long arg1) {
-			// TODO Auto-generated method stub
 			if(lastFileSize>arg0)
 				lastFileSize=0;
 			currentFileSize += arg0-lastFileSize;
@@ -86,7 +83,6 @@ public class progListener extends ProgressListener
 		 */
 		@Override
 		public long progressInterval() {
-			// TODO Auto-generated method stub
 			return 1;
 		}
 		
