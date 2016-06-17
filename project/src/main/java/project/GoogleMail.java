@@ -124,7 +124,6 @@ public class GoogleMail {
 		GoogleTokenResponse tokenResponse = tokenRequest.execute();
 		System.out.println(tokenRequest.toString());
 		System.out.println(tokenResponse.getAccessToken());
-		// Credential credential = null;
 		// Create the OAuth2 credential.
 		GoogleCredential credential = new GoogleCredential.Builder().setTransport(new NetHttpTransport())
 				.setJsonFactory(new JacksonFactory()).setClientSecrets(clientSecrets).build();
@@ -138,17 +137,7 @@ public class GoogleMail {
 				.build();
 
 	}
-	// /**
-	// * Build and return an authorized Gmail client service.
-	// *
-	// * @return an authorized Gmail client service
-	// * @throws IOException
-	// */
-	// public static Gmail getGmailService() throws IOException {
-	// Credential credential = startAuthorize();
-	// return new Gmail.Builder(HTTP_TRANSPORT, JSON_FACTORY,
-	// credential).setApplicationName(APPLICATION_NAME).build();
-	// }
+	
 
 	/**
 	 * Send mail.
@@ -171,7 +160,6 @@ public class GoogleMail {
 			Message message = createMessageWithEmail(email);
 			message = service.users().messages().send("me", message).execute();
 		} catch (MessagingException | IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 

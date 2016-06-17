@@ -349,9 +349,6 @@ public class HtmlBuilder {
 			input.setAttribute("value", "Draw An Answer");
 			input.appendChild(document.createTextNode(" "));
 			form.appendChild(input);
-			// Element canvas = document.createElement("canvas");
-			// canvas.setAttribute("id", "sketchpad");
-			// form.appendChild(canvas);
 
 		}
 		if (enableListening) {
@@ -409,7 +406,6 @@ public class HtmlBuilder {
 			Element divListItem = document.createElement("div");
 			divListItem.setAttribute("class", "list-group-item ");
 			divListItem.setAttribute("name", "answerInput");
-			// divListItem.setAttribute("value", value);
 			// check if this is a correct answer
 			for (int j = 0; j < splited.length; j++) {
 				if (splited[j].equals(String.valueOf(i + 1))) {
@@ -516,7 +512,6 @@ public class HtmlBuilder {
 	 *            the questions to hide
 	 */
 	private void hideSelectedQuestions(ArrayList<Boolean> questionsToHide) {
-		// TODO Auto-generated method stub
 		NodeList qTexts = document.getElementsByTagName("qText");
 		for (int i = 0; i < qTexts.getLength(); i++) {
 			Element questionTextPara = (Element) ((Element) qTexts.item(i)).getElementsByTagName("pre").item(0);
@@ -555,8 +550,7 @@ public class HtmlBuilder {
 				if (questionTextPara != null)
 					questionTextPara.removeAttribute("hidden");
 			}
-			// ----------Copy Lecturer Answers To The Quiz and Auto check
-			// multiple choice questions----------//
+			// ----------Copy Lecturer Answers To The Quiz and Auto check multiple choice questions----------//
 
 			NodeList answerElements = original.document.getElementsByTagName("answer");
 			for (int i = 0; i < answerElements.getLength(); i++) {
@@ -574,8 +568,7 @@ public class HtmlBuilder {
 					prepared.document.getElementsByTagName("body").item(0).appendChild(script);
 				}
 
-			// ----------Disable All Inputs, Delete drawing buttons and Reveal Score Text
-			// Boxes--------------------------------//
+			// ----------Disable All Inputs, Delete drawing buttons and Reveal Score Text Boxes--------------------------------//
 			NodeList inputs = prepared.document.getElementsByTagName("input");
 			for (int i = 0; i < inputs.getLength(); i++) {
 				Element input = (Element) inputs.item(i);
@@ -602,7 +595,6 @@ public class HtmlBuilder {
 			prepared.writeHtml(studentQuizPath);
 
 		} catch (FileNotFoundException | TransformerException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
@@ -632,8 +624,6 @@ public class HtmlBuilder {
 		// StreamResult result = new StreamResult(System.out);
 
 		transformer.transform(source, result);
-
-		// System.out.println("File saved!");
 	}
 
 	/**

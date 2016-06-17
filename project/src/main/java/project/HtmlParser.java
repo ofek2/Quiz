@@ -51,10 +51,6 @@ public class HtmlParser {
 	 * @param path the path
 	 * @throws TransformerException the transformer exception
 	 */
-	/*public NodeList getTagChildren(String tag){
-		nList = document.getElementsByTagName(tag);
-		return nList;
-	}*/
 	public void writeHtml(String path) throws TransformerException{
 		// write the content into HTML file
 		TransformerFactory transformerFactory = TransformerFactory.newInstance();
@@ -68,11 +64,9 @@ public class HtmlParser {
 		StreamResult result = new StreamResult(new File(path));
 	
 		// Output to console for testing
-		// StreamResult result = new StreamResult(System.out);
 
 		transformer.transform(source, result);
 
-		//System.out.println("File saved!");
 	}
 	
 	
