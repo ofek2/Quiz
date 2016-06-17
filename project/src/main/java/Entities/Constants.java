@@ -16,7 +16,6 @@ public class Constants {
 		try {
 			ROOTPATH = new File(".").getCanonicalPath() + "/OnlineQuizChecker/";
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
