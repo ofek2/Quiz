@@ -286,7 +286,9 @@ public class InitialWindowController {
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
 				ReportsView reportsView = new ReportsView();
+				new ReportsController(reportsView, view);
 				MainFrameController.view.changeContentPane(reportsView);
+				
 			}
 
 		}

@@ -11,10 +11,10 @@ import java.util.ArrayList;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import Utilities.ObjectFileManager;
 import Entities.Constants;
 import Entities.CourseEntity;
 import Entities.StudentEntity;
-import Utilities.ObjectFileManager;
 import Views.CTable;
 import Views.HelpFrame;
 import Views.RepRow;
@@ -23,7 +23,7 @@ import Views.ViewPanel;
 
 /**
  * The Class ReportsController. This class controls the {@link ReportsView}
- * events. This class is used for producing reports.
+ * events.
  */
 public class ReportsController {
 
@@ -42,6 +42,9 @@ public class ReportsController {
 	/** The course path. */
 	private String coursePath;
 
+	/** The search student. */
+	private SearchStudent searchStudent;
+
 	/** The table. */
 	private CTable table;
 
@@ -59,14 +62,16 @@ public class ReportsController {
 	 * @param previousView
 	 *            the previous view
 	 */
+	@SuppressWarnings("static-access")
 	public ReportsController(ReportsView view, Container previousView) {
-		ReportsController.view = view;
+		this.view = view;
 		this.previousView = previousView;
-		ReportsController.view.btnReportsShowGradesAddListener(new ProduceReports());
-		ReportsController.view.btnSearchStudentAddListener(new SearchStudent());
-		ReportsController.view.mntmExitAddListener(new ExitListener());
-		ReportsController.view.btnExportExcelFileAddListener(new ExportExcelFileListener());
-		ReportsController.view.addHelpActionListener(new HelpListener());
+		this.view.btnReportsShowGradesAddListener(new ProduceReports());
+		this.view.btnSearchStudentAddListener(new SearchStudent());
+		this.view.mntmExitAddListener(new ExitListener());
+		this.view.btnExportExcelFileAddListener(new ExportExcelFileListener());
+		this.view.addHelpActionListener(new HelpListener());
+		// view.table = new CustomTable(view);
 	}
 
 	/**
@@ -232,6 +237,7 @@ public class ReportsController {
 		table = new CTable(titleButtons);
 		view.setTable(table);
 		view.setViewPortForScrollPane(table);
+		ArrayList<Object> labels = new ArrayList<>();
 		File students = new File(coursePath + "/Students");
 
 		int tableRowToWrite = 1;
@@ -291,8 +297,11 @@ public class ReportsController {
 			}
 			avg = avg / (i);
 			quizzesScores.add(new JLabel(String.format("%.2f", avg)));
+			// System.out.println(tableRowToWrite);
 			table.add(new RepRow(quizzesScores, tableRowToWrite));
 			view.table.revalidate();
+			// view.setViewPortForScrollPane(table);
+
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

@@ -72,8 +72,7 @@ public class MainFrameController {
 				recursiveDelete(appFolder);
 				try {
 					long dropboxtotalsize = DropBoxSimple.getDropboxTotalSize();
-					DropBoxSimple.progressListener.init(dropboxtotalsize,
-							"downloaded");
+					DropBoxSimple.progressListener.init(dropboxtotalsize,"downloaded");
 					DropBoxSimple.progressListener.dialog.setVisible(true);
 				
 					DropBoxSimple.downloadFolder(new File(".").getCanonicalPath(),"/");
